@@ -1,0 +1,73 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/emplever.css" rel="stylesheet">	
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<table align="center" class="table table-striped">
+		<tr>
+			<td>ID: </td>
+			<td><input type="text" id="codigo" name="codigo" value="{{ emple.codigo }}" readonly></td>
+		</tr>	
+		<tr>
+			<td>Nombre:</td>
+			<td><input type="text" id="nombre" name="nombre" value="{{ emple.nombre }}" readonly></td>
+		</tr>
+		<tr>
+			<td>Fecha de Alta:</td>
+			<td><input type="text" id="falta" name="falta" value="{{ emple.falta|date('d/m/Y') }}" readonly></td>
+		</tr>
+		<tr>
+			<td>Fecha de Baja:</td>
+			<td><input type="text" id="fbaja" name="fbaja" value="{{ emple.fbaja|date('d/m/Y') }}" readonly></td>
+		</tr>	
+		<tr>
+			<td>Cargo:</td>
+			<td><input type="text" id="cargo" name="cargo" value="{{ emple.cargo_descripcion }}" readonly></td>
+		</tr>
+		<tr>
+			<td>Legajo:</td>
+			<td><input type="text" id="legajo" name="legajo" value="{{ emple.legajo }}" readonly></td>
+		</tr>
+		<tr>
+			<td>CUIL:</td>
+			<td><input type="text" id="cuil" name="cuil" value="{{ emple.cuil }}" readonly></td>
+		</tr>
+		<tr>
+			<td>Fecha de Nacimiento:</td>
+			<td><input type="text" id="fnac" name="fnac" value="{{ emple.fecha_nac|date('d/m/Y') }}" readonly></td>
+		</tr>
+		<tr>
+			<td>Domicilio: </td>
+			<td><input type="text" id="domicilio" name="domicilio" value="{{ emple.domicilio }}" readonly></td>
+		</tr>
+		<tr>	
+			<td>Codigo Postal:</td>
+			<td><input type="text" id="cp" name="cp" value="{{ emple.cp }}" readonly></td>
+		</tr>
+		<tr>
+			<td>Telefono:</td>
+			<td><input type="text" id="telefono" name="telefono" value="{{ emple.tel }}" readonly></td>
+		</tr>
+		<tr>
+			<td>Activo:</td>
+			{% if emple.activa== 1 %}
+				<td>Si</td>
+			{% else %}
+				<td>No</td>
+			{% endif %}	
+		</tr>
+		<tr>
+			<td><input type="button" value="Atras" onclick="history.back()"></td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+	<script src="/js/jquery.min.js"></script>
+	<script type="text/javascript">
+	</script>
+{% endblock %}

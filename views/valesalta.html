@@ -1,0 +1,178 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<!-- <link href="/css/valesalta.css" rel="stylesheet"> -->
+<img src="/uploads/valesdepanol.png">
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<table>
+			<tr>
+				<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
+			</tr>
+		</table>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        <h4 class="modal-title" id="myModalLabel">{{ ayuda.titulo }}</h4>
+		      </div>
+		      <div class="modal-body">
+		        {{ ayuda.texto }}
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div> <!-- Cierre de div class="panel panel-heading"-->	
+	<form method="post" id="formalta" action="/valesalta">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>Tipo de Vale:</td>
+				<td>
+					<select name="tipovale" id="tipovale" class="form-control">
+						{% for tipo in tipos %}
+							<option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Fecha:</td>
+				<td><input type="text" class="datepicker" id="fecha" name="fecha" required readonly></td>
+			</tr>
+			<tr>
+				<td>Articulo:</td>
+				<td>
+					<select id="articulo" name="articulo" class="form-control">
+						{% for art in arts %}
+							<option value="{{ art.id }}">{{ art.Nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Cantidad:</td>
+				<td><input type="text" id="cantidad" name="cantidad" required onkeypress="return NumCheck(event, this)"></td>
+			</tr>
+			<tr>
+				<td>Deposito Origen:</td>
+				<td>
+					<select name="depor" id="depor" class="form-control">
+						<option value="0">Sin Deposito</option>
+						<option value="1">Deposito 1</option>
+						<option value="2">Deposito 2</option>
+						<option value="3">Deposito 3</option>
+						<option value="4">Deposito 4</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Deposito Destino:</td>
+				<td>
+					<select name="depdes" id="depdes" class="form-control">
+						<option value="0">Sin Deposito</option>
+						<option value="1">Deposito 1</option>
+						<option value="2">Deposito 2</option>
+						<option value="3">Deposito 3</option>
+						<option value="4">Deposito 4</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Sector Origen:</td>
+				<td>
+					<select name="secor" id="secor" class="form-control">
+						{% for sector in sectores %}
+							<option value="{{ sector.id }}">{{ sector.nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Sector Destino:</td>
+				<td>
+					<select name="secdes" id="secdes" class="form-control">
+					{% for sector in sectores %}
+							<option value="{{ sector.id }}">{{ sector.nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Costo Unitario:</td>
+				<td><input type="text" id="costou" name="costou" onkeypress="return NumCheck(event, this)"></td>
+			</tr>
+			<tr>
+				<td>Costo Total:</td>
+				<td><input type="text" id="costot" name="costot" readonly></td>
+			</tr>	
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Guardar"></td>
+			</tr>
+		</table>
+	</form>
+</div> <!-- Cierre de div class="panel panel-default"-->	
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+	//$("#formalta").validate();
+	$(".datepicker").datepicker({
+		format: 'dd/mm/yyyy',
+		autoclose: true,
+		language: 'es'
+	});
+
+	$('#articulo').on('change', function() {
+		traerCostou($('#articulo').val())
+	});
+
+	$('#cantidad').on('change', function() {
+		calcularTotal();
+	});
+
+	function NumCheck(e, field) {
+	  key = e.keyCode ? e.keyCode : e.which
+	  // backspace
+	  if (key == 8) return true
+	  // 0-9
+	  if (key > 47 && key < 58) {
+	    if (field.value == "") return true
+	    regexp = /.[0-9]{2}$/
+	    return !(regexp.test(field.value))
+	  }
+	  // .
+	  if (key == 46) {
+	    if (field.value == "") return false
+	    regexp = /^[0-9]+$/
+	    return regexp.test(field.value)
+	  }
+	  // other key
+	  return false
+	}
+	
+	function traerCostou(value){
+		$.getJSON('/'+value+'/costou', function (data){
+			$('#costou').val(data.Costo);
+		});
+	}
+
+	function calcularTotal(){
+		total = $('#costou').val() * $('#cantidad').val();
+		$('#costot').val(total);
+	}
+
+	$(function(){
+		traerCostou($('#articulo').val());
+		calcularTotal();
+	});
+</script>
+{% endblock %}
