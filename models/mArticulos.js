@@ -25,16 +25,16 @@ function getAllActivos(cb){
 	conn("SELECT * from articu where activa = 1 order by Nombre", cb);
 }
 
-function insert(cdfabrica, cdinterno, nombre, descripcion, familia, tipo, umed, costo, iva, muevest, stock1, stock2, stock3, stock4, minimo, maximo, cb){
-	conn("insert into articu(cdfabrica, cdinterno, nombre, descrip, idfamilia, idtipo, idumed, costo, iva, muevest, stock1, stock2, stock3, stock4, minimo, maximo, activa) values('"+cdfabrica+"', "+cdinterno+", '"+nombre+"', '"+descripcion+"', "+familia+", "+tipo+", "+umed+", "+costo+", "+iva+", "+muevest+", "+stock1+", "+stock2+", "+stock3+", "+stock4+", "+minimo+", "+maximo+", 1)", cb);
+function insert(cdfabrica, cdinterno, nombre, descripcion, familia, tipo, umed, costo, iva, muevest, stock1, minimo, maximo, cb){
+	conn("insert into articu(cdfabrica, cdinterno, nombre, descrip, idfamilia, idtipo, idumed, costo, iva, muevest, stock1, minimo, maximo, activa) values('"+cdfabrica+"', "+cdinterno+", '"+nombre+"', '"+descripcion+"', "+familia+", "+tipo+", "+umed+", "+costo+", "+iva+", "+muevest+", "+stock1+", "+minimo+", "+maximo+", 1)", cb);
 }
 
 function getArticuloPorId(id, cb){
 	conn("select * from articu where id ="+id, cb);
 }
 
-function update(id, cdfabrica, cdinterno, nombre, descripcion, idfamilia, idtipo, idumed, costo, iva, muevestock, stock1, stock2, stock3, stock4, minimo, maximo, activa, cb){
-	conn("UPDATE articu SET cdfabrica= '"+cdfabrica+"', cdinterno="+cdinterno+", nombre='"+nombre+"', descrip='"+descripcion+"', idfamilia="+idfamilia+", idtipo="+idtipo+", idumed="+idumed+", costo="+costo+", iva="+iva+", muevest="+muevestock+", stock1="+stock1+", stock2="+stock2+", stock3="+stock3+", stock4="+stock4+", minimo="+minimo+", maximo="+maximo+", activa="+activa+" where id="+id, cb);
+function update(id, cdfabrica, cdinterno, nombre, descripcion, idfamilia, idtipo, idumed, costo, iva, muevestock, stock1, minimo, maximo, activa, cb){
+	conn("UPDATE articu SET cdfabrica= '"+cdfabrica+"', cdinterno="+cdinterno+", nombre='"+nombre+"', descrip='"+descripcion+"', idfamilia="+idfamilia+", idtipo="+idtipo+", idumed="+idumed+", costo="+costo+", iva="+iva+", muevest="+muevestock+", stock1="+stock1+", minimo="+minimo+", maximo="+maximo+", activa="+activa+" where id="+id, cb);
 }
 
 function del(id, cb){
@@ -51,7 +51,7 @@ function traerStockActual(idart, stockid, cb){
 
 function updateStockResta(idart, depor, cantidad, cb){
 	stockid2 = "stock" + depor;
-	traerStockActual(idart, stockid2, function(stockactual){
+	traerStockActual(idart, stockid2, function (stockactual){
 		switch(depor){
 			case "1":
 				stockactualizado = parseFloat(stockactual[0].stock1) - cantidad;
@@ -75,7 +75,7 @@ function updateStockResta(idart, depor, cantidad, cb){
 
 function updateStockSuma(idart, depdes, cantidad, cb){
 	stockid = "stock"+depdes;
-	traerStockActual(idart, stockid, function(stockactual){
+	traerStockActual(idart, stockid, function (stockactual){
 		switch(depdes){
 			case "1":
 				stockactualizado = parseFloat(stockactual[0].stock1) + parseFloat(cantidad);

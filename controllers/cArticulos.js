@@ -20,7 +20,7 @@ module.exports = {
 
 function getConsulta(req, res) {
 	req.session.nromenu = 9;
-	mAyuda.getAyudaTexto(req.session.nromenu, function(ayuda){
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 		res.render('articulosconsulta', {
 			pagename: 'Consulta de Articulos',
 			ayuda: ayuda[0]
@@ -30,10 +30,10 @@ function getConsulta(req, res) {
 
 function getAlta(req, res){
 	req.session.nromenu = 8;
-	mAyuda.getAyudaTexto(req.session.nromenu, function(ayuda){
-		mFamilia.getAllActivas(function(familias){
-			mTipo.getAll(function(tipos){
-				mUmed.getAllActivas(function(umeds){
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
+		mFamilia.getAllActivas(function (familias){
+			mTipo.getAll(function (tipos){
+				mUmed.getAllActivas(function (umeds){
 					res.render('articulosalta', {
 						pagename: 'Alta de Articulos',
 						familias: familias,
@@ -61,9 +61,9 @@ function postAlta(req, res){
 	iva = params.iva;
 	muevestock = params.muevest;
 	stock1 = params.stock1;
-	stock2 = params.stock2;
-	stock3 = params.stock3;
-	stock4 = params.stock4;
+	//stock2 = params.stock2;
+	//stock3 = params.stock3;
+	//stock4 = params.stock4;
 	minimo = params.minimo;
 	maximo = params.maximo;
 
@@ -71,12 +71,12 @@ function postAlta(req, res){
 		muevestock = 1;
 	else
 		muevestock = 0;
-	mArt.getArtporCdFabrica(cdfabrica, function(art){
-		console.log(art[0].asd)
+	mArt.getArtporCdFabrica(cdfabrica, function (art){
+		//console.log(art[0].asd)
 		if (art[0].asd == 0){
-			mArt.getArtporCdInterno(cdinterno, function(art){
+			mArt.getArtporCdInterno(cdinterno, function (art){
 				if (art[0].asd == 0){
-					mArt.insert(cdfabrica, cdinterno, nombre, descripcion, familia, tipo, umed, costo, iva, muevestock, stock1, stock2, stock3, stock4, minimo, maximo, function(){
+					mArt.insert(cdfabrica, cdinterno, nombre, descripcion, familia, tipo, umed, costo, iva, muevestock, stock1, minimo, maximo, function(){
 						res.redirect('articulosalta');
 					});
 				}else{
@@ -96,10 +96,10 @@ function postAlta(req, res){
 function getModificar(req, res){
 	params = req.params;
 	id = params.id;
-	mFamilia.getAllActivas(function(familias){
-		mTipo.getAll(function(tipos){
-			mUmed.getAllActivas(function(umeds){
-				mArt.getArticuloPorId(id, function(docs){
+	mFamilia.getAllActivas(function (familias){
+		mTipo.getAll(function (tipos){
+			mUmed.getAllActivas(function (umeds){
+				mArt.getArticuloPorId(id, function (docs){
 					//console.log(docs[0])
 					res.render('articulosmodificar',{
 						pagename: 'Modificar Articulo',
@@ -132,9 +132,9 @@ function postModificar(req, res){
 	else
 		muevestock = 0;
 	stock1 = params.stock1;
-	stock2 = params.stock2;
-	stock3 = params.stock3;
-	stock4 = params.stock4;
+	//stock2 = params.stock2;
+	//stock3 = params.stock3;
+	//stock4 = params.stock4;
 	minimo = params.minimo;
 	maximo = params.maximo;
 	activa = params.activa;
@@ -143,7 +143,7 @@ function postModificar(req, res){
 	else
 		activa = 0;
 
-	mArt.update(id, cdfabrica, cdinterno, nombre, descripcion, idfamilia, idtipo, idumed, costo, iva, muevestock, stock1, stock2, stock3, stock4, minimo, maximo, activa, function(){
+	mArt.update(id, cdfabrica, cdinterno, nombre, descripcion, idfamilia, idtipo, idumed, costo, iva, muevestock, stock1, minimo, maximo, activa, function(){
 		res.redirect('/articulosconsulta');
 	});
 }
@@ -165,7 +165,7 @@ function getDel(req, res){
 function getCostou(req, res){
 	params = req.params;
 	id = params.idart;
-	mArt.getCostouporIDart(id, function(art){
+	mArt.getCostouporIDart(id, function (art){
 		res.send(art[0]);
 	});
 }
@@ -174,7 +174,7 @@ function getBuscar(req, res){
 	params = req.params;
 	filtro = params.busqueda;
 	columna = params.columna;
-	mArt.getConsulta(columna, filtro, function(consulta){
+	mArt.getConsulta(columna, filtro, function (consulta){
 		res.send(consulta);
 	});
 }
@@ -183,7 +183,7 @@ function getBuscarPorNombre(req, res){
 	params = req.params;
 	filtro = params.busqueda;
 	columna = params.columna;
-	mArt.getConsultaPorNombre(columna, filtro, function(consulta){
+	mArt.getConsultaPorNombre(columna, filtro, function (consulta){
 		res.send(consulta);
 	});
 }
@@ -191,7 +191,7 @@ function getBuscarPorNombre(req, res){
 function getVerArt(req, res){
 	params = req.params;
 	id = params.id;
-	mArt.getArticuloPorIdconJoin(id, function(docs){
+	mArt.getArticuloPorIdconJoin(id, function (docs){
 		//console.log("docs[0]")
 		res.render('articulosver',{
 			pagename: 'Ver Articulo',
