@@ -1,5 +1,4 @@
 var conn = require('../config/db').conn;
-var moment = require('moment');
 
 module.exports = {
 	getAll: getAll,
