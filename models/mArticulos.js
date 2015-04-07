@@ -98,7 +98,12 @@ function updateStockSuma(idart, depdes, cantidad, cb){
 }
 
 function getConsulta(columna, filtro, cb){
-	conn("select articu.*, familia.nombre as fnombre from articu  left join familia on familia.id = articu.IdFamilia where "+ columna +" = '"+filtro+"' order by articu.nombre ", cb);
+	if (columna == "familia.nombre"){
+		conn("select articu.*, familia.nombre as fnombre from articu left join familia on familia.id = articu.IdFamilia where "+ columna +" like '%"+filtro+"%' order by articu.nombre ", cb);	
+	}else{
+		conn("select articu.*, familia.nombre as fnombre from articu left join familia on familia.id = articu.IdFamilia where "+ columna +" = '"+filtro+"' order by articu.nombre ", cb);
+	}
+	
 }
 
 function getArtporCdFabrica(cdfabrica, cb){
