@@ -132,6 +132,35 @@
 		calcularTotal();
 	});
 
+	$('#tipovale').on('change', function() {
+		tipovale = $('#tipovale').val();
+		//alert(tipovale)
+		switch(tipovale) {
+		    case '1':
+		    	//compra/reposicion
+		        $('#depor').val(0)
+		        $('#depdes').val(1);
+		        break;
+		    case '2':
+		    	//movimiento +
+		        $('#depor').val(0);
+		        $('#depdes').val(1);
+		        break;
+		    case '3':
+		    	//baja
+		        $('#depor').val(1);
+		        $('#depdes').val(0);
+		        break;
+		    case '4':
+		    	//movimiento -
+		        $('#depor').val(1);
+		        $('#depdes').val(0);
+		        break;
+		    default:
+		        
+		}
+	});
+
 	var myDate = new Date(); 
 	
 	day = myDate.getDate();
@@ -178,6 +207,8 @@
 	$(function(){
 		traerCostou($('#articulo').val());
 		calcularTotal();
+		$('#depor').val(0)
+		$('#depdes').val(1);
 	});
 </script>
 {% endblock %}
