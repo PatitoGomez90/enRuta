@@ -60,7 +60,7 @@
 			</tr>
 			<tr>
 				<td>Cantidad:</td>
-				<td><input type="text" id="cantidad" name="cantidad" required onkeypress="return NumCheck(event, this)"></td>
+				<td><input type="text" id="cantidad" name="cantidad" required onkeypress="return Numy1Punto(event, this)"></td>
 			</tr>
 			<tr>
 				<td>Deposito Origen:</td>
@@ -108,7 +108,7 @@
 			</tr>
 			<tr>
 				<td>Costo Unitario:</td>
-				<td><input type="text" id="costou" name="costou" onkeypress="return NumCheck(event, this)"></td>
+				<td><input type="text" id="costou" name="costou" onkeypress="return Numy1Punto(event, this)"></td>
 			</tr>
 			<tr>
 				<td>Costo Total:</td>
@@ -124,7 +124,6 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
-	//$("#formalta").validate();
 	$(".datepicker").datepicker({
 		format: 'dd/mm/yyyy',
 		autoclose: true,
@@ -139,7 +138,18 @@
 		calcularTotal();
 	});
 
-	function NumCheck(e, field) {
+	var myDate = new Date(); 
+	
+	day = myDate.getDate();
+	if (day<10)
+		day = "0"+day;
+	month = myDate.getMonth() +1;
+	if (month<10)
+		month = "0"+month
+	myDate = day + "/" + month + "/" + myDate.getFullYear();
+	$("#fecha").val(myDate)
+
+	function Numy1Punto(e, field) {
 	  key = e.keyCode ? e.keyCode : e.which
 	  // backspace
 	  if (key == 8) return true
@@ -158,6 +168,7 @@
 	  // other key
 	  return false
 	}
+	//onkeypress="return Numy1Punto(event, this)"
 	
 	function traerCostou(value){
 		$.getJSON('/'+value+'/costou', function (data){
