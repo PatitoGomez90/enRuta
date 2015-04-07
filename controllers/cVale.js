@@ -24,17 +24,20 @@ function changeDate(date){
 
 function getConsulta(req, res) {
 	req.session.nromenu = 11;
-	mAyuda.getAyudaTexto(req.session.nromenu, function(ayuda){
-		res.render('valesconsulta', {
-			pagename: 'Consulta de Vales',
-			ayuda: ayuda[0]
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
+		mSector.getAllActivos(function (sectores){
+			res.render('valesconsulta', {
+				pagename: 'Consulta de Vales',
+				ayuda: ayuda[0],
+				sectores: sectores
+			});
 		});
 	});	
 }
 
 function getAlta(req, res){
 	req.session.nromenu = 10;
-	mAyuda.getAyudaTexto(req.session.nromenu, function(ayuda){
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 		mArt.getAllActivos(function (arts){
 			mTipoVale.getAll(function (tipos){			
 				mSector.getAllActivos(function (sectores){
@@ -122,11 +125,19 @@ function getVales(req, res){
 	ffin = params.ffin;
 	finicio = changeDate(finicio);
 	ffin = changeDate(ffin);
+	sector = params.sector;
 
-	mVale.getValesEntreFechas(finicio, ffin, function (vales){
-		//console.log(vales)
-		res.send(vales);
-	});
+	if (sector == 0){
+		mVale.getValesEntreFechas(finicio, ffin, function (vales){
+			//console.log(vales)
+			res.send(vales);
+		});
+	}else{
+		mVale.getValesEntreFechasYSector(finicio, ffin, sector, function (vales){
+			//console.log(vales)
+			res.send(vales);
+		});
+	}
 }
 
 function getVerVales(req, res){

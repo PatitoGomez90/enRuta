@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+<link href="/css/valesconsulta.css" rel="stylesheet">
 <img src="/uploads/vale.png">
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
@@ -16,9 +17,17 @@
 			<td><a href="/inicio"> <button type="button" class="btn btn-primary">Atras</button></a></td>
 			<td><a href="/valesalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
 			<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
-			<ul class="nav navbar-nav navbar-right">
-        		<li>BUSCAR por fecha de vale: <input type="textbox" id="fechainicio" name="fechainicio" class="datepicker" placeholder="Formato dd/mm/aaaa" readonly> al <input type="textbox" id="fechafin" name="fechafin" class="datepicker" placeholder="Formato dd/mm/aaaa" readonly> <button class="btn btn-default" name="ok" ID="ok">OK</button> </li>
-      		</ul>
+			<td align="right">
+        		<select id="sector" name="sector" class="form-control">
+        			<option value="0">Sin Sector</option>
+					{% for s in sectores %}
+						<option value="{{ s.id }}">{{ s.nombre }}</option>
+					{% endfor %}
+				</select> 
+			</td>
+			<td >
+				BUSCAR por fecha de vale: <input type="textbox" id="fechainicio" name="fechainicio" class="datepicker" placeholder="dd/mm/aaaa" readonly> al <input type="textbox" id="fechafin" name="fechafin" class="datepicker" placeholder="dd/mm/aaaa" readonly> <button class="btn btn-default" name="ok" ID="ok">OK</button>
+      		</td>
 		</tr>	
 		</table>
 		<!-- Modal -->
@@ -135,8 +144,8 @@
 		fechar =  day+ '/' + month + '/' +  date.getFullYear()
 
 		var fechaF = encodeURIComponent(fechar)
-
-		$.getJSON('/buscarvales/'+ fechaI + '/' + fechaF , function (data){
+		sector = $('#sector').val();
+		$.getJSON('/buscarvales/'+ fechaI + '/' + fechaF + '/' + sector, function (data){
 			$('#tbodyvalelisto > tr').remove();
 			var template= $('#tablavales').html();
 			Mustache.tags=['[[',']]'];
@@ -155,7 +164,8 @@
 	$("#ok").on("click", function() {
 		var fechaI  = encodeURIComponent(document.getElementById('fechainicio').value);
 		var fechaF = encodeURIComponent(document.getElementById('fechafin').value)
-		$.getJSON('/buscarvales/'+ fechaI + '/' + fechaF , function (data){
+		sector = $('#sector').val();
+		$.getJSON('/buscarvales/'+ fechaI + '/' + fechaF + '/' + sector, function (data){
 			$('#tbodyvalelisto > tr').remove();
 			var template= $('#tablavales').html();
 			Mustache.tags=['[[',']]'];

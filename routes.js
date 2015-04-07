@@ -119,7 +119,7 @@ module.exports = function(app) {
 	app.get('/valesalta', auth, valesController.getAlta);
 	app.post('/valesalta', auth, valesController.postAlta);
 	app.get('/valesconsulta', auth, valesController.getConsulta);
-	app.get('/buscarvales/:finicio/:ffin', auth, valesController.getVales);
+	app.get('/buscarvales/:finicio/:ffin/:sector', auth, valesController.getVales);
 	app.get('/valesver/:id', auth, valesController.getVerVales);
 	app.get('/valesborrar/:id', auth, valesController.getDel);
 }; 

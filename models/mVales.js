@@ -4,6 +4,7 @@ module.exports = {
 	getAll: getAll,
 	insert: insert,
 	getValesEntreFechas: getValesEntreFechas,
+	getValesEntreFechasYSector: getValesEntreFechasYSector,
 	getVale: getVale,
 	del: del
 	}
@@ -18,6 +19,10 @@ function insert(idtipovale, fecha, nmovi, articulo, cantidad, depor, depdes, sec
 
 function getValesEntreFechas(finicio, ffin, cb){
 	conn("SELECT vales.*, DATE_FORMAT(vales.fecha, '%d/%m/%Y') as fechaf, articu.nombre as nombrearticulo, (select sectores.nombre from sectores where sectores.id = vales.IdsectorDe) as sectorDe, (select sectores.nombre from sectores where sectores.id = vales.IdsectorOr) as sectorOr, tipvales.nombre as tipovale FROM vales LEFT JOIN tipvales ON vales.Tipoid = tipvales.id LEFT JOIN articu ON vales.Idarticulo = articu.id WHERE fecha >= '"+finicio+"' AND fecha <= '"+ffin+"'", cb);
+}
+
+function getValesEntreFechasYSector(finicio, ffin, sector, cb){
+	conn("SELECT vales.*, DATE_FORMAT(vales.fecha, '%d/%m/%Y') as fechaf, articu.nombre as nombrearticulo, (select sectores.nombre from sectores where sectores.id = vales.IdsectorDe) as sectorDe, (select sectores.nombre from sectores where sectores.id = vales.IdsectorOr) as sectorOr, tipvales.nombre as tipovale FROM vales LEFT JOIN tipvales ON vales.Tipoid = tipvales.id LEFT JOIN articu ON vales.Idarticulo = articu.id WHERE fecha >= '"+finicio+"' AND fecha <= '"+ffin+"' AND (IdsectorOr ="+sector+" OR IdsectorDe ="+sector+")", cb);
 }
 
 function getVale(id, cb){
