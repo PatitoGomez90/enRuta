@@ -11,7 +11,6 @@ var familiaController = require('./controllers/cFamilia');
 var artController = require('./controllers/cArticulos');
 var valesController = require('./controllers/cVale');
 
-var moment = require("moment");
 var mEventos = require('./models/mEventos');
 
 function logout (req, res) {
