@@ -2,7 +2,6 @@
 var mUsuarios = require('../models/mUsuarios');
 var mBorro = require('../models/mBorro');
 var validator = require("validator");
-var moment = require('moment');
 var mVerificacion = require('../models/mVerificacion');
 var mAyuda = require('../models/mAyuda');
 
