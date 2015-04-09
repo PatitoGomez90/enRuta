@@ -66,11 +66,11 @@
 				<td>Deposito Origen:</td>
 				<td>
 					<select name="depor" id="depor" class="form-control">
-						<option value="0">Sin Deposito</option>
-						<option value="1">Deposito 1</option>
-						<option value="2">Deposito 2</option>
-						<option value="3">Deposito 3</option>
-						<option value="4">Deposito 4</option>
+						<option value="Sin Deposito">Sin Deposito</option>
+						<option value="Deposito 1">Deposito 1</option>
+						<option value="Deposito 2">Deposito 2</option>
+						<option value="Deposito 3">Deposito 3</option>
+						<option value="Deposito 4">Deposito 4</option>
 					</select>
 				</td>
 			</tr>
@@ -78,11 +78,11 @@
 				<td>Deposito Destino:</td>
 				<td>
 					<select name="depdes" id="depdes" class="form-control">
-						<option value="0">Sin Deposito</option>
-						<option value="1">Deposito 1</option>
-						<option value="2">Deposito 2</option>
-						<option value="3">Deposito 3</option>
-						<option value="4">Deposito 4</option>
+						<option value="Sin Deposito">Sin Deposito</option>
+						<option value="Deposito 1">Deposito 1</option>
+						<option value="Deposito 2">Deposito 2</option>
+						<option value="Deposito 3">Deposito 3</option>
+						<option value="Deposito 4">Deposito 4</option>
 					</select>
 				</td>
 			</tr>
@@ -138,23 +138,23 @@
 		switch(tipovale) {
 		    case '1':
 		    	//compra/reposicion
-		        $('#depor').val(0)
-		        $('#depdes').val(1);
+		        $('#depor').val("Sin Deposito")
+		        $('#depdes').val("Deposito 1");
 		        break;
 		    case '2':
 		    	//movimiento +
-		        $('#depor').val(0);
-		        $('#depdes').val(1);
+		        $('#depor').val("Sin Deposito");
+		        $('#depdes').val("Deposito 1");
 		        break;
 		    case '3':
 		    	//baja
-		        $('#depor').val(1);
-		        $('#depdes').val(0);
+		        $('#depor').val("Deposito 1");
+		        $('#depdes').val("Sin Deposito");
 		        break;
 		    case '4':
 		    	//movimiento -
-		        $('#depor').val(1);
-		        $('#depdes').val(0);
+		        $('#depor').val("Deposito 1");
+		        $('#depdes').val("Sin Deposito");
 		        break;
 		    default:
 		        
@@ -207,8 +207,8 @@
 	$(function(){
 		traerCostou($('#articulo').val());
 		calcularTotal();
-		$('#depor').val(0)
-		$('#depdes').val(1);
+		$('#depor').val("Sin Deposito")
+		$('#depdes').val("Deposito 1");
 	});
 </script>
 {% endblock %}
