@@ -15,7 +15,7 @@ function getAll(cb){
 }
 
 function getAllActivos(cb){
-	conn("select * from sectores where activa = 1", cb);
+	conn("select * from sectores where activa = 1 order by nombre", cb);
 }
 
 function insert(codigo, nombre, cb){
