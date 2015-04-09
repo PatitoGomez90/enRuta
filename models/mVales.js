@@ -14,7 +14,7 @@ function getAll(cb){
 }
 
 function insert(idtipovale, fecha, nmovi, articulo, cantidad, depor, depdes, secor, secdes, costou, costot, cb){
-	conn("insert into vales( Tipoid, fecha, idmovi, idarticulo, cantidad, dorigen, ddestino, IdsectorOr, IdsectorDe, costou, costot) values('"+idtipovale+"','"+fecha+"', "+nmovi+", "+articulo+", "+cantidad+", "+depor+", "+depdes+", "+secor+", "+secdes+", "+costou+", "+costot+")", cb);
+	conn("insert into vales( Tipoid, fecha, idmovi, idarticulo, cantidad, dorigen, ddestino, IdsectorOr, IdsectorDe, costou, costot) values('"+idtipovale+"','"+fecha+"', "+nmovi+", "+articulo+", "+cantidad+", '"+depor+"', '"+depdes+"', "+secor+", "+secdes+", "+costou+", "+costot+")", cb);
 }
 
 function getValesEntreFechas(finicio, ffin, cb){

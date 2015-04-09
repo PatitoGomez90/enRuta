@@ -50,22 +50,41 @@ function traerStockActual(idart, stockid, cb){
 }
 
 function updateStockResta(idart, depor, cantidad, cb){
-	stockid2 = "stock" + depor;
+	var stockid2 = "stock1";
+	
+	switch(depor){
+		case "Sin Deposito":
+			break;
+		case "Deposito 1":
+			stockid2 = "stock1";
+			break;
+		case "Deposito 2":
+			stockid2 = "stock2";
+			break;
+		case "Deposito 3":
+			stockid2 = "stock3";
+			break;
+		case "Deposito 4":
+			stockid2 = "stock4";
+			break;
+	}
+	//stockid2 = "stock" + depor;
+
 	traerStockActual(idart, stockid2, function (stockactual){
 		switch(depor){
-			case "1":
+			case "Deposito 1":
 				stockactualizado = parseFloat(stockactual[0].stock1) - cantidad;
 				conn("update articu set "+stockid2+" = "+stockactualizado+" where id="+idart, cb);
 				break;
-			case "2":
+			case "Deposito 2":
 				stockactualizado = parseFloat(stockactual[0].stock2) - cantidad;
 				conn("update articu set "+stockid2+" = "+stockactualizado+" where id="+idart, cb);
 				break;
-			case "3":
+			case "Deposito 3":
 				stockactualizado = parseFloat(stockactual[0].stock3) - cantidad;
 				conn("update articu set "+stockid2+" = "+stockactualizado+" where id="+idart, cb);
 				break;
-			case "4":
+			case "Deposito 4":
 				stockactualizado = parseFloat(stockactual[0].stock4) - cantidad;
 				conn("update articu set "+stockid2+" = "+stockactualizado+" where id="+idart, cb);
 				break;
@@ -74,22 +93,40 @@ function updateStockResta(idart, depor, cantidad, cb){
 }
 
 function updateStockSuma(idart, depdes, cantidad, cb){
-	stockid = "stock"+depdes;
+	var stockid = "stock1";
+
+	switch(depdes){
+		case "Sin Deposito":
+			break;
+		case "Deposito 1":
+			stockid = "stock1";
+			break;
+		case "Deposito 2":
+			stockid = "stock2";
+			break;
+		case "Deposito 3":
+			stockid = "stock3";
+			break;
+		case "Deposito 4":
+			stockid = "stock4";
+			break;
+	}
+	//stockid = "stock"+depdes;
 	traerStockActual(idart, stockid, function (stockactual){
 		switch(depdes){
-			case "1":
+			case "Deposito 1":
 				stockactualizado = parseFloat(stockactual[0].stock1) + parseFloat(cantidad);
 				conn("update articu set "+stockid+" = "+stockactualizado+" where id="+idart, cb);
 				break;
-			case "2":
+			case "Deposito 2":
 				stockactualizado = parseFloat(stockactual[0].stock2) + parseFloat(cantidad);
 				conn("update articu set "+stockid+" = "+stockactualizado+" where id="+idart, cb);
 				break;
-			case "3":
+			case "Deposito 3":
 				stockactualizado = parseFloat(stockactual[0].stock3) + parseFloat(cantidad);
 				conn("update articu set "+stockid+" = "+stockactualizado+" where id="+idart, cb);
 				break;
-			case "4":
+			case "Deposito 4":
 				stockactualizado = parseFloat(stockactual[0].stock4) + parseFloat(cantidad);
 				conn("update articu set "+stockid+" = "+stockactualizado+" where id="+idart, cb);
 				break;

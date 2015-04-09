@@ -152,7 +152,7 @@ function getDel(req, res){
   	var params = req.params;
   	var id = params.id;
 
-  	mArt.getArticuloPorId(id, function(docs){
+  	mArt.getArticuloPorId(id, function (docs){
   		art = docs[0];
 		mBorro.add(req.session.user.usuario,"Articulos", "Borra nombre: "+ art.nombre + ", id: " + id , function(){
 			mArt.del(id, function(){
