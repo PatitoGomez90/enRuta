@@ -68,55 +68,62 @@ function postAlta(req, res){
 	costou = params.costou;
 	costot = params.costot;
 	
-	if (depor != depdes){
-		if (cantidad != 0){
-			error = 1;	
-			switch(depor) {
-				case "0":
-					break;
-				default:
-					mArt.updateStockResta(articulo, depor, cantidad, function(){
-					});
-					break;
-			}
-			switch(depdes){
-				case "0":
-					break;
-				default:
-					mArt.updateStockSuma(articulo, depdes, cantidad, function(){
-					});
-					break;
-			}
-			//aca tengo que insertar el movimiento y obtener el numero para grabarlo en el vale
-			//agregar movimiento
-			fechahoy = new Date();
-			day = fechahoy.getDate();
-			month = fechahoy.getMonth();
-			year = fechahoy.getFullYear();
-			if (day<10)
-				day = "0"+day;
-			if (month<10)
-				month = "0"+month;
-			fechahoy = year + "/" + month + "/" + day;
-			mMovi.add(fechahoy,req.session.user.unica, function(){
-				mMovi.getUltimo(function (docs){
-					nmovi = docs[0].id;
-					mVale.insert(idtipovale, fecha, nmovi, articulo, cantidad, depor, depdes, secor, secdes, costou, costot, function(){
-						res.redirect('/valesalta');
+	if (cantidad < 100000){
+		if (depor != depdes){
+			if (cantidad != 0){
+				error = 1;	
+				switch(depor) {
+					case "0":
+						break;
+					default:
+						mArt.updateStockResta(articulo, depor, cantidad, function(){
+						});
+						break;
+				}
+				switch(depdes){
+					case "0":
+						break;
+					default:
+						mArt.updateStockSuma(articulo, depdes, cantidad, function(){
+						});
+						break;
+				}
+				//aca tengo que insertar el movimiento y obtener el numero para grabarlo en el vale
+				//agregar movimiento
+				fechahoy = new Date();
+				day = fechahoy.getDate();
+				month = fechahoy.getMonth();
+				year = fechahoy.getFullYear();
+				if (day<10)
+					day = "0"+day;
+				if (month<10)
+					month = "0"+month;
+				fechahoy = year + "/" + month + "/" + day;
+				mMovi.add(fechahoy,req.session.user.unica, function(){
+					mMovi.getUltimo(function (docs){
+						nmovi = docs[0].id;
+						mVale.insert(idtipovale, fecha, nmovi, articulo, cantidad, depor, depdes, secor, secdes, costou, costot, function(){
+							res.redirect('/valesalta');
+						});
 					});
 				});
-			});
-		}else{
-			res.render('error', {          
-	          error: "El campo cantidad es obligatorio y tiene que ser mayor que cero."
-	        });	
+			}else{
+				res.render('error', {          
+		          error: "El campo cantidad es obligatorio y tiene que ser mayor que cero."
+		        });	
+			}
 		}
-	}
-	else{
+		else{
+			res.render('error', {          
+	          error: "Los depositos de Origen y de Destino no pueden ser los mismos."
+	        });
+		}
+	}else{
 		res.render('error', {          
-          error: "Los depositos de Origen y de Destino no pueden ser los mismos."
+          	error: "El campo cantidad no puede ser mayor a 100.000."
         });
-	} 
+	}
+	
 }
 
 function getVales(req, res){

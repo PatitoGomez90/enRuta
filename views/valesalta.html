@@ -60,7 +60,7 @@
 			</tr>
 			<tr>
 				<td>Cantidad:</td>
-				<td><input type="text" id="cantidad" name="cantidad" required onkeypress="return Numy1Punto(event, this)"></td>
+				<td><input type="text" id="cantidad" name="cantidad" required onkeyup="checkDec(this);"></td>
 			</tr>
 			<tr>
 				<td>Deposito Origen:</td>
@@ -192,7 +192,12 @@
 	  return false
 	}
 	//onkeypress="return Numy1Punto(event, this)"
-	
+	function checkDec(el){
+		var ex = /^[0-9]+\.?[0-9]*$/;
+		if(ex.test(el.value)==false){
+		   	el.value = el.value.substring(0,el.value.length - 1);
+		}
+	}
 	function traerCostou(value){
 		$.getJSON('/'+value+'/costou', function (data){
 			$('#costou').val(data.Costo);
