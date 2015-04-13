@@ -12,7 +12,8 @@ module.exports = {
 	postAlta: postAlta,
 	getVales: getVales,
 	getVerVales: getVerVales,
-	getDel: getDel
+	getDel: getDel,
+	getAyuda: getAyuda
 };
 
 function changeDate(date){
@@ -219,4 +220,13 @@ function getDel(req, res){
 	        });
 		} 
 	});	
+}
+
+function getAyuda(req, res){
+	params = req.params;
+	id = params.id;
+
+	mAyuda.getAyuda(id, function (ayuda){
+		res.send(ayuda);
+	});
 }

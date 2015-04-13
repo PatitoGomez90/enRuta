@@ -114,6 +114,7 @@ module.exports = function(app) {
 	app.get('/:idart/costou', auth, artController.getCostou);
 	app.get('/buscarart/:columna/:busqueda', auth, artController.getBuscar);
 	app.get('/buscarartpornombre/:columna/:busqueda', auth, artController.getBuscarPorNombre);
+	app.get('/getartporcdfabrica/:cdfabrica', auth, artController.getArtporCdFabrica2);
 	//VALES
 	app.get('/valesalta', auth, valesController.getAlta);
 	app.post('/valesalta', auth, valesController.postAlta);
@@ -121,4 +122,5 @@ module.exports = function(app) {
 	app.get('/buscarvales/:finicio/:ffin/:sector', auth, valesController.getVales);
 	app.get('/valesver/:id', auth, valesController.getVerVales);
 	app.get('/valesborrar/:id', auth, valesController.getDel);
+	app.get('/getayudaporid/:id', auth, valesController.getAyuda);
 }; 

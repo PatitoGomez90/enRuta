@@ -14,7 +14,8 @@ module.exports = {
 	getArtporCdFabrica: getArtporCdFabrica,
 	getArtporCdInterno: getArtporCdInterno,
 	getConsultaPorNombre: getConsultaPorNombre,
-	getArticuloPorIdconJoin: getArticuloPorIdconJoin
+	getArticuloPorIdconJoin: getArticuloPorIdconJoin,
+	getArtporCdFabrica2: getArtporCdFabrica2
 	}
 
 function getAll(cb){
@@ -145,6 +146,10 @@ function getConsulta(columna, filtro, cb){
 
 function getArtporCdFabrica(cdfabrica, cb){
 	conn("SELECT COUNT(cdfabrica) as asd FROM articu where cdfabrica = '"+ cdfabrica+"'" , cb);
+}
+
+function getArtporCdFabrica2(cdfabrica, cb){
+	conn("select * from articu where cdfabrica = '"+cdfabrica+"'", cb);
 }
 
 function getArtporCdInterno(cdinterno, cb){

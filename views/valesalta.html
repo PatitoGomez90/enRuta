@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block content %}
-<!-- <link href="/css/valesalta.css" rel="stylesheet"> -->
+<link href="/css/valesalta.css" rel="stylesheet">
 <img src="/uploads/valesdepanol.png">
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<table>
 			<tr>
-				<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
+				<td><button type="button" name="btnAyuda" id="btnAyuda" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
 			</tr>
 		</table>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -23,7 +23,23 @@
 		        <h4 class="modal-title" id="myModalLabel">{{ ayuda.titulo }}</h4>
 		      </div>
 		      <div class="modal-body">
-		        {{ ayuda.texto }}
+		        <span id="modalbodytext">{{ ayuda.texto }}</span>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<div class="modal fade" id="myErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        <h4 class="modal-title" id="myErrorModalLabel"></h4>
+		      </div>
+		      <div class="modal-body">
+		        <span id="errormodalbodytext"></span>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -46,21 +62,35 @@
 			</tr>
 			<tr>
 				<td>Fecha:</td>
-				<td><input type="text" class="datepicker" id="fecha" name="fecha" required readonly></td>
+				<td><input type="text" class="datepicker form-control" id="fecha" name="fecha" required readonly></td>
 			</tr>
 			<tr>
 				<td>Articulo:</td>
 				<td>
-					<select id="articulo" name="articulo" class="form-control">
-						{% for art in arts %}
-							<option value="{{ art.id }}">{{ art.Nombre }}</option>
-						{% endfor %}
-					</select>
+					<table style="width:100%;">
+						<tr>
+							<td>
+								<input type="text" class="form-control" name="artid" id="artid" readonly>
+							</td>
+							
+							<td>
+								<select id="articulo" name="articulo" class="form-control">
+									{% for art in arts %}
+										<option value="{{ art.id }}">{{ art.Nombre }}</option>
+									{% endfor %}
+								</select>
+							</td>
+						</tr>
+					</table>
 				</td>
 			</tr>
 			<tr>
+				<td>Codigo de Fabrica:</td>
+				<td><input type="text" class="form-control" id="codart" name="codart" placeholder="Puede usar lector..."></td>
+			</tr>
+			<tr>
 				<td>Cantidad:</td>
-				<td><input type="text" id="cantidad" name="cantidad" required onkeyup="checkDec(this);"></td>
+				<td><input type="text" id="cantidad" name="cantidad" class="form-control" required onkeyup="checkDec(this);"></td>
 			</tr>
 			<tr>
 				<td>Deposito Origen:</td>
@@ -125,7 +155,8 @@
 	});
 
 	$('#articulo').on('change', function() {
-		traerCostou($('#articulo').val())
+		traerCostou($('#articulo').val());
+		$("#artid").val(this.value);
 	});
 
 	$('#cantidad').on('change', function() {
@@ -193,12 +224,14 @@
 	  return false
 	}
 	//onkeypress="return Numy1Punto(event, this)"
+
 	function checkDec(el){
 		var ex = /^[0-9]+\.?[0-9]*$/;
 		if(ex.test(el.value)==false){
 		   	el.value = el.value.substring(0,el.value.length - 1);
 		}
 	}
+
 	function traerCostou(value){
 		$.getJSON('/'+value+'/costou', function (data){
 			$('#costou').val(data.Costo);
@@ -210,11 +243,41 @@
 		$('#costot').val(total);
 	}
 
+	$("#codart").focusout(function() {
+		txtCodArt = $('#codart').val();
+		if( txtCodArt.length > 0 ){
+		//buscar art por cd fabrica
+			$.getJSON('/getartporcdfabrica/'+txtCodArt, function (art){
+			if (art[0] != null){
+				//muestro id art en txtArtId
+					$('#artid').val(art[0].id);
+				//selecciono art en cmbArticulo
+					$('#articulo').val(art[0].id);				
+			}else{
+				//msj: cd fabrica no existe
+				$('#myErrorModal').modal('toggle');
+				$("#myErrorModalLabel").text("Error");
+				cdfabrica = $('#codart').val();
+				$('#errormodalbodytext').text("El Codigo de Fabrica '"+cdfabrica+"' no existe en la base de datos.");
+				$("#codart").val("");
+			}
+			});
+		}
+  	});
+
 	$(function(){
 		traerCostou($('#articulo').val());
 		calcularTotal();
 		$('#depor').val("Sin Deposito")
 		$('#depdes').val("Deposito 1");
+		$("#artid").val($('#articulo').val());
 	});
+
+	// $("#btnAyuda").on("click", function(){
+	// 	$.getJSON('/getayudaporid/11', function (ayuda){
+	// 		$("#myModalLabel").text(ayuda.titulo);
+	// 		$('#modalbodytext').text(ayuda.texto);
+	// 	});
+	// });
 </script>
 {% endblock %}

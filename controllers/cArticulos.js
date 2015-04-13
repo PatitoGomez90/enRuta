@@ -15,7 +15,8 @@ module.exports = {
 	getCostou: getCostou,
 	getBuscar: getBuscar,
 	getBuscarPorNombre: getBuscarPorNombre,
-	getVerArt: getVerArt
+	getVerArt: getVerArt,
+	getArtporCdFabrica2: getArtporCdFabrica2
 };
 
 function getConsulta(req, res) {
@@ -197,5 +198,13 @@ function getVerArt(req, res){
 			pagename: 'Ver Articulo',
 			art: docs[0],
 		});
+	});
+}
+
+function getArtporCdFabrica2(req, res){
+	params = req.params;
+	cdfabrica = params.cdfabrica;
+	mArt.getArtporCdFabrica2(cdfabrica, function(art){
+		res.send(art);
 	});
 }
