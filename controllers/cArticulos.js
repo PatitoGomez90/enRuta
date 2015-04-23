@@ -4,8 +4,6 @@ var mFamilia = require('../models/mFamilia');
 var mTipo = require('../models/mTipo');
 var mUmed = require('../models/mUmed');
 var mAyuda = require('../models/mAyuda');
-var barcode = require('barcode');
-var bwipjs = require('bwip-js');
 
 module.exports = {
 	getConsulta: getConsulta,
