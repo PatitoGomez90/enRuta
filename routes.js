@@ -10,6 +10,7 @@ var maqController = require('./controllers/cMaquinarias');
 var familiaController = require('./controllers/cFamilia');
 var artController = require('./controllers/cArticulos');
 var valesController = require('./controllers/cVale');
+var test = require('./controllers/cTest');
 
 var mEventos = require('./models/mEventos');
 
@@ -115,6 +116,7 @@ module.exports = function(app) {
 	app.get('/buscarart/:columna/:busqueda', auth, artController.getBuscar);
 	app.get('/buscarartpornombre/:columna/:busqueda', auth, artController.getBuscarPorNombre);
 	app.get('/getartporcdfabrica/:cdfabrica', auth, artController.getArtporCdFabrica2);
+	app.get('/articulosimprimir/:id', auth, artController.printTicket);
 	//VALES
 	app.get('/valesalta', auth, valesController.getAlta);
 	app.post('/valesalta', auth, valesController.postAlta);
@@ -123,4 +125,6 @@ module.exports = function(app) {
 	app.get('/valesver/:id', auth, valesController.getVerVales);
 	app.get('/valesborrar/:id', auth, valesController.getDel);
 	app.get('/getayudaporid/:id', auth, valesController.getAyuda);
+	//prueba xls to json
+	app.get('/test', auth, test.getTest);
 }; 

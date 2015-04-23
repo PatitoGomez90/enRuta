@@ -1,0 +1,90 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'node-xls-json' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'node-xls-json', null ]
+7 verbose cache add name=undefined spec="node-xls-json" args=["node-xls-json",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'node-xls-json',
+8 verbose parsed url   path: 'node-xls-json',
+8 verbose parsed url   href: 'node-xls-json' }
+9 silly lockFile 63a9631a-node-xls-json node-xls-json
+10 verbose lock node-xls-json C:\Users\Administrador\AppData\Roaming\npm-cache\63a9631a-node-xls-json.lock
+11 silly lockFile 63a9631a-node-xls-json node-xls-json
+12 silly lockFile 63a9631a-node-xls-json node-xls-json
+13 verbose addNamed [ 'node-xls-json', '' ]
+14 verbose addNamed [ null, '*' ]
+15 silly lockFile 7ae5166e-node-xls-json node-xls-json@
+16 verbose lock node-xls-json@ C:\Users\Administrador\AppData\Roaming\npm-cache\7ae5166e-node-xls-json.lock
+17 silly addNameRange { name: 'node-xls-json', range: '*', hasData: false }
+18 verbose request where is /node-xls-json
+19 verbose request registry https://registry.npmjs.org/
+20 verbose request id 3ef6080947ece12d
+21 verbose url raw /node-xls-json
+22 verbose url resolving [ 'https://registry.npmjs.org/', './node-xls-json' ]
+23 verbose url resolved https://registry.npmjs.org/node-xls-json
+24 verbose request where is https://registry.npmjs.org/node-xls-json
+25 info trying registry request attempt 1 at 10:44:22
+26 http GET https://registry.npmjs.org/node-xls-json
+27 http 404 https://registry.npmjs.org/node-xls-json
+28 verbose headers { date: 'Mon, 13 Apr 2015 13:44:23 GMT',
+28 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+28 verbose headers   'content-type': 'application/json',
+28 verbose headers   'cache-control': 'max-age=0',
+28 verbose headers   'content-length': '51',
+28 verbose headers   'accept-ranges': 'bytes',
+28 verbose headers   via: '1.1 varnish',
+28 verbose headers   age: '0',
+28 verbose headers   'x-served-by': 'cache-iad2140-IAD',
+28 verbose headers   'x-cache': 'MISS',
+28 verbose headers   'x-cache-hits': '0',
+28 verbose headers   'x-timer': 'S1428932663.795710,VS0,VE90',
+28 verbose headers   'keep-alive': 'timeout=10, max=50',
+28 verbose headers   connection: 'Keep-Alive' }
+29 silly registry.get cb [ 404,
+29 silly registry.get   { date: 'Mon, 13 Apr 2015 13:44:23 GMT',
+29 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+29 silly registry.get     'content-type': 'application/json',
+29 silly registry.get     'cache-control': 'max-age=0',
+29 silly registry.get     'content-length': '51',
+29 silly registry.get     'accept-ranges': 'bytes',
+29 silly registry.get     via: '1.1 varnish',
+29 silly registry.get     age: '0',
+29 silly registry.get     'x-served-by': 'cache-iad2140-IAD',
+29 silly registry.get     'x-cache': 'MISS',
+29 silly registry.get     'x-cache-hits': '0',
+29 silly registry.get     'x-timer': 'S1428932663.795710,VS0,VE90',
+29 silly registry.get     'keep-alive': 'timeout=10, max=50',
+29 silly registry.get     connection: 'Keep-Alive' } ]
+30 silly lockFile 7ae5166e-node-xls-json node-xls-json@
+31 silly lockFile 7ae5166e-node-xls-json node-xls-json@
+32 error 404 404 Not Found: node-xls-json
+32 error 404
+32 error 404 'node-xls-json' is not in the npm registry.
+32 error 404 You should bug the author to publish it
+32 error 404 It was specified as a dependency of 'Maresa'
+32 error 404
+32 error 404 Maybe try 'npm search xls json'
+32 error 404
+32 error 404 Note that you can also install from a
+32 error 404 tarball, folder, or http url, or git url.
+33 error System Windows_NT 6.1.7601
+34 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "node-xls-json"
+35 error cwd C:\Users\Administrador\Documents\Proyectos\Maresa
+36 error node -v v0.10.32
+37 error npm -v 1.4.28
+38 error code E404
+39 verbose exit [ 1, true ]

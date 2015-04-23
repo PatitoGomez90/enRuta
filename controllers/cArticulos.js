@@ -4,6 +4,8 @@ var mFamilia = require('../models/mFamilia');
 var mTipo = require('../models/mTipo');
 var mUmed = require('../models/mUmed');
 var mAyuda = require('../models/mAyuda');
+var barcode = require('barcode');
+var bwipjs = require('bwip-js');
 
 module.exports = {
 	getConsulta: getConsulta,
@@ -16,7 +18,8 @@ module.exports = {
 	getBuscar: getBuscar,
 	getBuscarPorNombre: getBuscarPorNombre,
 	getVerArt: getVerArt,
-	getArtporCdFabrica2: getArtporCdFabrica2
+	getArtporCdFabrica2: getArtporCdFabrica2,
+	printTicket: printTicket
 };
 
 function getConsulta(req, res) {
@@ -206,5 +209,28 @@ function getArtporCdFabrica2(req, res){
 	cdfabrica = params.cdfabrica;
 	mArt.getArtporCdFabrica2(cdfabrica, function(art){
 		res.send(art);
+	});
+}
+
+function printTicket(req, res){
+	params = req.params;
+	id = params.id;
+	mArt.getArticuloPorId(id, function (art){
+		//console.log(art)
+		if( art[0].Cdfabrica.length <= 12 ){
+			// if( isNaN(art.Cdfabrica) ){
+
+			// }else{
+
+			// }
+			res.render('articuloimprimir',{
+				pagename: 'Imprimir Articulo',
+				art: art[0]
+			});
+		}else{
+			res.render("error", {
+				error: "Maximo 12 digitos para imprimir Codigo de Fabrica."
+			});
+		}
 	});
 }

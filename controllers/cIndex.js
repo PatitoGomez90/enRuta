@@ -13,7 +13,7 @@ module.exports = {
 };
 
 function getInicio(req, res){
-  mNovedades.getLast(function(novedad){
+  mNovedades.getLast(function (novedad){
     res.render('inicio', {
         pagename: 'ProchemBio',
         novedades: novedad[0]
@@ -28,7 +28,7 @@ function getError(req, res) {
 }
 
 function getAyuda(req, res){
-  mAyuda.getAll(function(ayudas){
+  mAyuda.getAll(function (ayudas){
     res.render('ayuda',{
       pagename: 'Ayuda',
       ayudas: ayudas
@@ -39,7 +39,7 @@ function getAyuda(req, res){
 function AyudaVer(req, res){
   params = req.params;
   id = params.id;
-  mAyuda.getAyuda(id, function(ayuda){
+  mAyuda.getAyuda(id, function (ayuda){
     //ayuda = ayuda[0];
     console.log(ayuda[0].texto);
     res.render('ayudaver',{
@@ -50,7 +50,7 @@ function AyudaVer(req, res){
 }
 
 function getNovedades(req, res){
-  mNovedades.getAll(function(novedades){
+  mNovedades.getAll(function (novedades){
     res.render('novedadeslista', {
       pagename: 'Lista de Novedades',
       novedades: novedades
