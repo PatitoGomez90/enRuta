@@ -89,6 +89,17 @@
 				<td><input type="text" class="form-control" id="codart" name="codart" placeholder="Puede usar lector..."></td>
 			</tr>
 			<tr>
+				<td>Retira:</td>
+				<td>
+					<select id="emple" name="emple" class="form-control">
+							<option value="0">-Ningun Empleado</option>
+						{% for emple in emples %}
+							<option value="{{emple.codigo}}">{{emple.nombre}}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td>Cantidad:</td>
 				<td><input type="text" id="cantidad" name="cantidad" class="form-control" required onkeyup="checkDec(this);"></td>
 			</tr>

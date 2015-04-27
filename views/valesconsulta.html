@@ -14,21 +14,32 @@
   	<!-- Table -->
 		<table>
 		<tr>
-			<td><a href="/inicio"> <button type="button" class="btn btn-primary">Atras</button></a></td>
-			<td><a href="/valesalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
-			<td><button type="button" id="btnAyuda" name="btnAyuda" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
-			<td align="right">
-        		<select id="sector" name="sector" class="form-control">
-        			<option value="0">Sin Sector</option>
-					{% for s in sectores %}
-						<option value="{{ s.id }}">{{ s.nombre }}</option>
-					{% endfor %}
-				</select> 
+			<td>
+				<a href="/inicio"> <button type="button" class="btn btn-primary">Atras</button></a>
+				<a href="/valesalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a>
+				<button type="button" id="btnAyuda" name="btnAyuda" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button>
 			</td>
-			<td >
-				BUSCAR por fecha de vale: <input type="textbox" id="fechainicio" name="fechainicio" class="datepicker" placeholder="dd/mm/aaaa" readonly> al <input type="textbox" id="fechafin" name="fechafin" class="datepicker" placeholder="dd/mm/aaaa" readonly> <button class="btn btn-default" name="ok" ID="ok">OK</button>
+			<td>
+				<button type="button" id="print" name="print" class="btn btn-primary">Print Selection</button>
+			</td>
+			<td>
+				<table>
+					<tr>
+						<td>
+				    		<select id="sector" name="sector" class="form-control">
+				    			<!-- <option value="0">Sin Sector</option> -->
+								{% for s in sectores %}
+									<option value="{{ s.id }}">{{ s.nombre }}</option>
+								{% endfor %}
+							</select> 
+						</td>
+						<td>
+							BUSCAR por fecha de vale: <input type="textbox" id="fechainicio" name="fechainicio" class="datepicker" placeholder="dd/mm/aaaa" readonly> al <input type="textbox" id="fechafin" name="fechafin" class="datepicker" placeholder="dd/mm/aaaa" readonly> <button class="btn btn-default" name="ok" ID="ok">OK</button>
+				  		</td>
+			  		</tr>
+	      		</table>
       		</td>
-		</tr>	
+		</tr>
 		</table>
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -55,12 +66,12 @@
 				<table id="tabla" class="table table-striped">
 			  		<thead>
 			  			<tr> 
-			  				<th colspan="2">Opciones</th>
+			  				<th colspan="3">Opciones</th>
 							<th>ID</th>
 							<th>Tipo</th>
-							<th><div style="width: 100px">Fecha Rto.</div></th>
+							<th><div style="width: 80px">Fecha Rto.</div></th>
 							<th><div style="width: 150px">Articulo</div></th>
-							<th><div style="width: 100px">Cantidad</div></th>
+							<th><div style="width: 70px">Cantidad</div></th>
 							<th><div style="width: 100px">Dep. Origen</div></th>
 							<th><div style="width: 100px">Dep. Destino</div></th>
 							<th><div style="width: 100px">Sect. Origen</div></th>
@@ -78,6 +89,9 @@
 		  					</td>
 		  					<td>
 		  						<a href="valesborrar/[[Nroid]]" class="btn btn-danger" onclick="if (!confirm('¿Seguro desea eliminar?')) return false;">Borrar</a>
+		  					</td>
+		  					<td>
+		  						<input type="checkbox" name="check[[Nroid]]" value="[[Nroid]]" class="check">
 		  					</td>
 		  					<td>
 		  						[[Nroid]]
@@ -173,6 +187,38 @@
 			//console.log(html);
 			$('#tbodyvalelisto').html(html);
 		});
+	});
+
+	$("#print").on("click", function() {
+		var checkedValues = new Array();// $('input:checkbox:checked').map(function() {
+		//     return this.value;
+		// }).get();
+		$("input:checkbox:checked").each(function()
+		{
+		    // add $(this).val() to your array
+		    checkedValues.push($(this).val())
+		});
+		console.log(checkedValues)
+		console.log("length bk: "+checkedValues.length)
+		x = JSON.stringify(checkedValues)
+		console.log("x length bk: "+x.length)
+		//window.location.href = "/printselection/"+checkedValues;
+		// $.ajax({
+  //          url: '/printselection/',
+  //          data: {ids: checkedValues},
+  //          type: 'GET',
+  //          success: function(data){
+  //                  if (data.result == 'success') {
+  //                          alert('ok')
+  //                  } else {
+  //                          alert('error');
+  //                  }                                        
+  //          },
+  //          error: function (e) {
+  //                  return 'error';
+
+  //          }
+  //      	});
 	});
 </script>
 {% endblock %}

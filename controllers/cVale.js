@@ -5,6 +5,7 @@ var mSector = require('../models/mSectores');
 var mVale = require('../models/mVales');
 var mMovi = require('../models/mMovi');
 var mAyuda = require('../models/mAyuda');
+var mEmple = require('../models/mEmple');
 
 module.exports = {
 	getConsulta: getConsulta,
@@ -13,7 +14,8 @@ module.exports = {
 	getVales: getVales,
 	getVerVales: getVerVales,
 	getDel: getDel,
-	getAyuda: getAyuda
+	getAyuda: getAyuda,
+	getPrintSelection: getPrintSelection
 };
 
 function changeDate(date){
@@ -42,13 +44,16 @@ function getAlta(req, res){
 		mArt.getAllActivos(function (arts){
 			mTipoVale.getAll(function (tipos){			
 				mSector.getAllActivos(function (sectores){
-					res.render('valesalta', {
-						pagename: 'Alta de Vales',
-						arts: arts,
-						tipos: tipos,
-						sectores: sectores,
-						ayuda: ayuda[0]
-					});
+					mEmple.getAllActivos(function (emples){
+						res.render('valesalta', {
+							pagename: 'Alta de Vales',
+							arts: arts,
+							tipos: tipos,
+							sectores: sectores,
+							ayuda: ayuda[0],
+							emples: emples
+						});
+					});					
 				});
 			});
 		});
@@ -68,7 +73,8 @@ function postAlta(req, res){
 	secdes = params.secdes;
 	costou = params.costou;
 	costot = params.costot;
-	
+	emple = params.emple;
+
 	if (cantidad < 100000){
 		if (depor != depdes){
 			if (cantidad != 0){
@@ -103,7 +109,7 @@ function postAlta(req, res){
 				mMovi.add(fechahoy,req.session.user.unica, function(){
 					mMovi.getUltimo(function (docs){
 						nmovi = docs[0].id;
-						mVale.insert(idtipovale, fecha, nmovi, articulo, cantidad, depor, depdes, secor, secdes, costou, costot, function(){
+						mVale.insert(idtipovale, fecha, nmovi, articulo, cantidad, depor, depdes, secor, secdes, costou, costot, emple, function(){
 							res.redirect('/valesalta');
 						});
 					});
@@ -135,7 +141,7 @@ function getVales(req, res){
 	ffin = changeDate(ffin);
 	sector = params.sector;
 
-	if (sector == 0){
+	if (sector == 7){
 		mVale.getValesEntreFechas(finicio, ffin, function (vales){
 			//console.log(vales)
 			res.send(vales);
@@ -153,6 +159,7 @@ function getVerVales(req, res){
 	id = params.id;
 
 	mVale.getVale(id, function (vale){
+		//console.log(vale)
 		res.render('valesver',{
 			pagename: 'Ver Vale',
 			vale: vale[0]
@@ -229,4 +236,19 @@ function getAyuda(req, res){
 	mAyuda.getAyuda(id, function (ayuda){
 		res.send(ayuda);
 	});
+}
+
+function getPrintSelection(req, res){
+	params = req.params;
+	ids = params.ids;
+	console.log("length: "+ids.length)
+	var vales = new Array;
+	for (var i=0; i<ids.length; i++) {
+    // And stick the checked ones onto an array...
+    	mVale.getVale(ids[i+1], function (vale){
+    		vales.push(vale);
+    	});	
+	}
+	console.log(vales)
+  
 }

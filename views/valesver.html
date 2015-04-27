@@ -31,6 +31,14 @@
 				<td>{{ vale.cantidad }}</td>
 			</tr>
 			<tr>
+				<td>Retiró:</td>
+				{% if vale.retiro == null %}
+					<td>Nadie</td>
+				{% else %}
+					<td>{{ vale.retiro }}</td>
+				{% endif %}
+			</tr>
+			<tr>
 				<td>Deposito Origen:</td>
 				<td>{{ vale.Dorigen }}</td>
 			</tr>
