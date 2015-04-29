@@ -20,7 +20,7 @@
 				<button type="button" id="btnAyuda" name="btnAyuda" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button>
 			</td>
 			<td>
-				<button type="button" id="print" name="print" class="btn btn-primary">Print Selection</button>
+				<button type="button" id="print" name="print" class="btn btn-primary" title="Imprimir Vales Seleccionados"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button>
 			</td>
 			<td>
 				<table>
@@ -91,7 +91,7 @@
 		  						<a href="valesborrar/[[Nroid]]" class="btn btn-danger" onclick="if (!confirm('¿Seguro desea eliminar?')) return false;">Borrar</a>
 		  					</td>
 		  					<td>
-		  						<input type="checkbox" name="check[[Nroid]]" value="[[Nroid]]" class="check">
+		  						<input type="checkbox" name="check[[Nroid]]" value="[[Nroid]]" data-date="[[ fechaf ]]">
 		  					</td>
 		  					<td>
 		  						[[Nroid]]
@@ -127,6 +127,9 @@
 			</div>	  		
 		</div><!--div col xs12 -->
 	</div><!--div row -->
+	<form method="post" id="form" action="/printselection" hidden>
+		<input name="ids" id="ids" hidden>
+	</form>
 </div>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
@@ -190,35 +193,51 @@
 	});
 
 	$("#print").on("click", function() {
-		var checkedValues = new Array();// $('input:checkbox:checked').map(function() {
-		//     return this.value;
-		// }).get();
-		$("input:checkbox:checked").each(function()
-		{
-		    // add $(this).val() to your array
-		    checkedValues.push($(this).val())
+		var bandera = false;
+		var dates = new Array();
+		$("input:checkbox:checked").each(function(){
+			dates.push($(this).data());
 		});
-		console.log(checkedValues)
-		console.log("length bk: "+checkedValues.length)
-		x = JSON.stringify(checkedValues)
-		console.log("x length bk: "+x.length)
-		//window.location.href = "/printselection/"+checkedValues;
-		// $.ajax({
-  //          url: '/printselection/',
-  //          data: {ids: checkedValues},
-  //          type: 'GET',
-  //          success: function(data){
-  //                  if (data.result == 'success') {
-  //                          alert('ok')
-  //                  } else {
-  //                          alert('error');
-  //                  }                                        
-  //          },
-  //          error: function (e) {
-  //                  return 'error';
+		if ( dates.length == 0 ){
+			alert("No ha seleccionado ningun vale para imprimir.")
+		}else{
 
-  //          }
-  //      	});
+
+			if (dates.length == 1){
+				bandera = true;
+			}else{
+				if (dates.length == 2){
+					if(dates[0].date == dates[1].date){
+						bandera = true;
+					}else{
+						bandera = false;
+					}
+				}else{
+					for (var i = 0; i<dates.length -1; i++){
+						if(dates[i].date == dates[i+1].date){
+							bandera = true;
+						}else{
+							bandera = false;
+						}
+					}
+				}
+			}
+		}
+
+		if (bandera == true){
+			var checkedValues = new Array();
+			$("input:checkbox:checked").each(function()
+			{
+			    checkedValues.push($(this).val())
+			});
+
+			$("#ids").val(checkedValues);
+			$( "#form" ).submit();
+
+		}else{
+			alert("Las fechas de los vales a imprimir debe ser la misma.")
+		}
+		
 	});
 </script>
 {% endblock %}

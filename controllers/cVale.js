@@ -239,16 +239,22 @@ function getAyuda(req, res){
 }
 
 function getPrintSelection(req, res){
-	params = req.params;
-	ids = params.ids;
-	console.log("length: "+ids.length)
-	var vales = new Array;
-	for (var i=0; i<ids.length; i++) {
-    // And stick the checked ones onto an array...
-    	mVale.getVale(ids[i+1], function (vale){
-    		vales.push(vale);
-    	});	
-	}
-	console.log(vales)
-  
+   	params = req.body;
+   	ids = params.ids;
+   	var idsa = new Array;
+   	var vales = new Array;
+   	idsa = ids.split(',');
+
+   	idsa.forEach(function (id){
+   		mVale.getVale(id, function (vale){
+	    	vales.push(vale[0]);
+	    	
+	    	if(vales.length == idsa.length) {
+	    		console.log(vales)
+	        	res.render("printselection", {
+	        		vales: vales
+	        	});
+	     	}
+	   	});
+   	});
 }

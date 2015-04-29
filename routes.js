@@ -125,7 +125,7 @@ module.exports = function(app) {
 	app.get('/valesver/:id', auth, valesController.getVerVales);
 	app.get('/valesborrar/:id', auth, valesController.getDel);
 	app.get('/getayudaporid/:id', auth, valesController.getAyuda);
-	app.get('/printselection/:ids', auth, valesController.getPrintSelection);
+	app.post('/printselection', auth, valesController.getPrintSelection);
 	//prueba xls to json
 	app.get('/test', auth, test.getTest);
 }; 
