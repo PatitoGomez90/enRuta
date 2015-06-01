@@ -11,8 +11,12 @@ var familiaController = require('./controllers/cFamilia');
 var artController = require('./controllers/cArticulos');
 var valesController = require('./controllers/cVale');
 var test = require('./controllers/cTest');
-
+var chk1Controller = require('./controllers/cChk1');
+var chk2Controller = require('./controllers/cChk2');
 var mEventos = require('./models/mEventos');
+var otController = require('./controllers/cOt');
+var equipoController = require('./controllers/cEquipos');
+var tipoequipoController = require('./controllers/cTipoEquipo');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -97,6 +101,10 @@ module.exports = function(app) {
 	app.get('/maqmodificar/:id', auth, maqController.getModificar);
 	app.post('/maqmodificar', auth, maqController.postModificar);
 	app.get('/maqborrar/:id', auth, maqController.getDel);
+	//equipos/vehiculos abm
+	app.get('/equipolista', auth, equipoController.getAll);
+	app.get('/equipoalta', auth, equipoController.getAlta);
+	app.post('/equipoalta', auth, equipoController.postAlta);
 	//Familia de articulos
 	app.get('/familialista', auth, familiaController.getAll);
 	app.get('/familiaalta', auth, familiaController.getAlta);
@@ -128,4 +136,27 @@ module.exports = function(app) {
 	app.post('/printselection', auth, valesController.getPrintSelection);
 	//prueba xls to json
 	app.get('/test', auth, test.getTest);
+	//checklist 1
+	app.get('/chk1lista', auth, chk1Controller.getLista);
+	app.get('/chk1alta', auth, chk1Controller.getAlta);
+	app.post('/chk1alta', auth, chk1Controller.postAlta);
+	//checklist 2
+	app.get('/chk2lista', auth, chk2Controller.getLista);
+	app.get('/chk2alta', auth, chk2Controller.getAlta);
+	app.post('/chk2alta', auth, chk2Controller.postAlta);
+	app.get('/chk2modificar/:id', auth, chk2Controller.getModificar);
+	app.post('/chk2modificar', auth, chk2Controller.postModificar);
+	//ot
+	app.get('/otlista', auth, otController.getLista);
+	app.get('/otalta', auth, otController.getAlta);
+	app.post('/otalta', auth, otController.postAlta);
+	app.get('/otmodificar/:id', auth, otController.getModificar);
+	app.post('/otmodificar', auth, otController.postModificar);
+	//tipo equipos
+	app.get('/tipoequipolista', auth, tipoequipoController.getAll);
+	app.get('/tipoequipoalta', auth, tipoequipoController.getAlta);
+	app.post('/tipoequipoalta', auth, tipoequipoController.postAlta);
+	app.get('/tipoequipomodificar/:id', auth, tipoequipoController.getModificar);
+	app.post('/tipoequipomodificar', auth, tipoequipoController.postModificar);
+	app.get('/tipoequipoborrar/:id', auth, tipoequipoController.getDel);
 }; 

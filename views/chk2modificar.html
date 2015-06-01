@@ -1,0 +1,58 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/chk2modificar.css" rel="stylesheet">
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="post" id="formalta" action="/chk2modificar">
+		<table align="center" class="table table-striped">
+			<input hidden id="chk2id" name="chk2id" value="{{chk2.id}}">
+			<tr>
+				<td>Checkbox 1:</td>
+				<td>
+					<select class="form-control" id="chk1" name="chk1">
+					{% for chk1 in chk1s %}
+						{% if chk2.id_chk1_fk == chk1.id %}
+      						<option value="{{ chk1.id }}" selected> {{ chk1.nombre }}</option>
+   						{% else %}
+      						<option value="{{ chk1.id }}">{{ chk1.nombre }}</option>
+      					{% endif %}
+					{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Detalle:</td>
+				<td><input type="text" id="detalle" name="detalle" value="{{ chk2.detalle }}"></td>
+			</tr>
+			<tr>
+				<td>Orden:</td>
+				<td><input type="text" id="orden" name="orden" value="{{ chk2.orden }}"></td>
+			</tr>
+			<tr>
+				<td>Titulo?</td>
+				<td>
+					{% if chk2.titulo == 1 %}
+						<input type="checkbox" id="titulo" name="titulo" checked>
+					{% else %}
+						<input type="checkbox" id="titulo" name="titulo">
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Guardar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+	
+</script>
+
+{% endblock %}

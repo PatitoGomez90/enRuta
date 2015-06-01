@@ -14,7 +14,7 @@
 		<table>
 		<tr>	
 			<td><a href="/inicio"> <button type="button" class="btn btn-primary">Atras</button></a></td>
-			<td><a href="/maqalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
+			<td><a href="/equipoalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
 			<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
 		</tr>	
 		</table>
@@ -44,30 +44,30 @@
 							<th>ID</th>
 							<th>Codigo</th>
 							<th>Nombre</th>
-							<th>N° Serie</th>							
 							<th>Marca</th>
 							<th>Modelo</th>
+							<th>N° Serie</th>
 							<th>Habilitado</th>
 							<th colspan="3">Opciones</th>
 						</tr>
 			  		</thead>
 			  		<tbody>
-			  			{% for maq in maqs %}
+			  			{% for eq in eqs %}
 							<tr>
-								<td>{{ maq.id }}</td>
-								<td>{{ maq.codigo }}</td>
-								<td>{{ maq.nombre }}</td>
-								<td>{{ maq.serie }}</td>
-								<td>{{ maq.marca }}</td>
-								<td>{{ maq.modelo }}</td>
-								{% if maq.activa == 1 %}
+								<td>{{ eq.id }}</td>
+								<td>{{ eq.codigo }}</td>
+								<td>{{ eq.nombre }}</td>
+								<td>{{ eq.marca }}</td>
+								<td>{{ eq.modelo }}</td>
+								<td>{{ eq.serie }}</td>
+								{% if eq.activa == 1 %}
 									<td>Habilitado</td>
 								{% else %}
 									<td>No habilitado</td>
 								{% endif %}
-								<td><a href="/maqver/{{ maq.id }}"><button class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Ver</button></a></td>
-								<td><a href="/maqmodificar/{{ maq.id }}"><button class="btn btn-warning">Modificar</button></a></td>
-								<td><a href='/maqborrar/{{ maq.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
+								<td><a href="/equipover/{{ eq.id }}"><button class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Ver</button></a></td>
+								<td><a href="/equipomodificar/{{ eq.id }}"><button class="btn btn-warning">Modificar</button></a></td>
+								<td><a href='/equipoborrar/{{ eq.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
 							</tr>
 							{% endfor %}
 			  		</tbody>

@@ -40,34 +40,44 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="/emplelista">Empleados [ABM]</a></li>
             <li><a href="/usuarioslista">Usuarios [ABM]</a></li>
-            <li><a href="/umedlista">Unidades de Medida [ABM]</a></li>
             <li class="divider"></li>
             <li><a href="/sectoreslista">Sectores [ABM]</a></li>
-            <li><a href="/maqlista">Maquinas / Equipos / Vehiculos [ABM]</a></li>
-            <li class="divider"></li>
-            <li><a href="/familialista">Familia de Articulos [ABM]</a></li>
-            <li><a href="/articulosalta">Alta de Articulos</a></li>
-            <li><a href="/articulosconsulta">Consulta de Articulos</a></li> 
+            <li><a href="/umedlista">Unidades de Medida [ABM]</a></li> 
+            
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pañol<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
+            <li><a href="/familialista">Familia de Articulos [ABM]</a></li>
+            <li><a href="/articulosalta">Alta de Articulos</a></li>
+            <li><a href="/articulosconsulta">Consulta de Articulos</a></li>
+            <li class="divider"></li>
             <li><a href="/valesalta">Vale de Pañol [Altas]</a></li>
             <li><a href="/valesconsulta">Vale de Pañol [Consultas]</a></li>
           </ul>
         </li><li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Operaciones<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            
+            <li><a href="/maqlista">Maquinas [ABM]</a></li>
+            <li><a href="/equipolista">Equipos / Vehiculos [ABM]</a></li>
+            <li class="divider"></li>
+            <li><a href="/tipoequipolista">Lista de Tipos de Equipos/Vehiculos</li>
+            <li><a href="/tipoequipoalta">Alta de Tipos de Equipos/Vehiculos</a></li>
+            <li class="divider"></li>
+            <li><a href="/chk1lista">Ver Checklist 1</a></li>
+            <li><a href="/chk2lista">Ver Checklist 2</a></li>
+            <li class="divider"></li>
+            <li><a href="/otlista">Ver OTs</a></li>
+            <li><a href="/otalta">Abrir OT</a></li>
           </ul>
         </li>
-        <li class="dropdown">
+        <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             
           </ul>
-        </li>
+        </li> -->
         <li class="dropdown"><a href="/ayuda">Ayuda</a></li>
         <li class="dropdown"><a href="/logout">Logout</a></li>
       </ul>
@@ -84,7 +94,7 @@
 			{% endblock %}
 	
 	    <footer>
-        <p>©2014 <a href="http://www.leandrodapello.com">www.LeandroDapello.com</a></p>
+        <p>©2015 <a href="http://www.leandrodapello.com">www.LeandroDapello.com</a></p>
       </footer>
   </div> <!-- /container -->
 
@@ -96,7 +106,5 @@
     <script src="/js/bootstrap-datepicker.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/js/ie10-viewport-bug-workaround.js"></script>
-
-
 </body>
 </html>

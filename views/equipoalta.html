@@ -8,11 +8,15 @@
 <link href="/css/maqalta.css" rel="stylesheet">
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
-	<form method="post" id="formalta" action="/maqalta">
+	<form method="post" id="formalta" action="/equipoalta">
 		<table align="center" class="table table-striped">
 			<tr>
 				<td>N° Interno:</td>
 				<td><input type="text" id="codigo" name="codigo" required value="{{ ultimocodigo }}" class="form-control"></td>
+			</tr>
+			<tr>
+				<td>Dominio:</td>
+				<td><input type="text" id="dominio" name="dominio" required class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Denominacion:</td>
@@ -31,8 +35,66 @@
 				<td><input type="text" id="serie" name="serie" required class="form-control"><div class="aviso">Quedan <span id="charsLeftSerie"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
+				<td>Nº de Motor (para Vehiculos):</td>
+				<td><input type="text" name="nmotor" id="nmotor" required class="form-control"><div class="aviso">Quedan <span id="charsLeftNmotor"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Tipo:</td>
+				<td>
+					<select name="tipomaq" id="tipomaq" class="form-control" readonly>
+						{% for tipomaq in tipomaqs %}
+							{% if tipomaq.id == 2 or tipomaq.id == 3 %}
+								<option value="{{ tipomaq.id }}">{{ tipomaq.descripcion }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Tipo de Equipo:</td>
+				<td>
+					<select name="tipoeq" id="tipoeq" class="form-control" readonly>
+						{% for tipoeq in tipoeqs %}
+								<option value="{{ tipoeq.id }}">{{ tipoeq.descripcion }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Año:</td>
+				<td><input type="text" id="anio" name="anio" required placeholder="ej: 2011" onKeyPress="return soloNumeros(event)" class="form-control"></td>
+			</tr>
+			<tr>
 				<td>Fecha de compra:</td>
 				<td><input type="text" class="datepicker form-control" readonly name="fcompra" id="fcompra" ></td>
+			</tr>
+			<tr>
+				<td>Control por:</td>
+				<td>
+					<select class="form-control" id="tipocontrol" name="tipocontrol">
+					{% for control in controles %}
+						<option value="{{ control.id }}">{{ control.descripcion }}</option>
+					{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Combustible:</td>
+				<td>
+					<select class="form-control" id="tipocomb" name="tipocomb">
+					{% for comb in combs %}
+						<option value="{{ comb.id }}">{{ comb.descripcion }}</option>
+					{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Km o Hrs Base:</td>
+				<td><input type="text" name="base" id="base" class="form-control"></td>
+			</tr>
+			<tr>
+				<td>Titular:</td>
+				<td><input type="text" id="titular" name="titular" required class="form-control"><div class="aviso">Quedan <span id="charsLeftTitular"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Mas datos:</td>

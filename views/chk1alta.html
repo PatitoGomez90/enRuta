@@ -5,25 +5,29 @@
 {% endblock %}
 
 {% block content %}
-<link href="/css/cargosalta.css" rel="stylesheet">
+<link href="/css/chk1alta.css" rel="stylesheet">
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
-	<form method="post" id="formalta" action="/cargosalta">
+	<form method="post" id="formalta" action="/chk1alta">
 		<table align="center" class="table table-striped">
 			<tr>
-				<td>Descripcion:</td>
-				<td><input type="text" id="descripcion" name="descripcion" required ></td>
+				<td>Nombre:</td>
+				<td><input type="text" id="nombre" name="nombre" required ></td>
+			</tr>
+			<tr>
+				<td>Mas Datos:</td>
+				<td><input type="text" id="masdatos" name="masdatos"> </td>
 			</tr>
 			<tr>
 				<td><input type="button" value="Atras" onclick="history.back()"></td>
-				<td><input type="submit" value="Agregar"></td>
+				<td><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
 	</form>
 </div>
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
-	$("#formalta").validate();
+	
 </script>
 
 {% endblock %}

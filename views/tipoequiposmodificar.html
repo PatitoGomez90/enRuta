@@ -5,18 +5,18 @@
 {% endblock %}
 
 {% block content %}
-<link href="/css/cargosmodificar.css" rel="stylesheet">	
+<link href="/css/tipoequipomodificar.css" rel="stylesheet">	
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
-	<form method="POST" action="/cargosmodificar">
+	<form method="POST" action="/tipoequipomodificar">
 		<table align="center" class="table table-striped">
 			<tr>
 				<td>Codigo: </td>
-				<td><input type="text" id="id" name="id" value="{{ cargo.id }}" readonly="readonly"></td>
+				<td><input type="text" id="id" name="id" value="{{ tipoequipo.id }}" readonly="readonly"></td>
 			</tr>	
 			<tr>
 				<td>Descripcion:</td>
-				<td><input type="text" id="descripcion" name="descripcion" value="{{ cargo.descripcion }}" required></td>
+				<td><input type="text" id="descripcion" name="descripcion" value="{{ tipoequipo.descripcion }}" required></td>
 			</tr>	
 			<tr>
 				<td>Activo:</td>

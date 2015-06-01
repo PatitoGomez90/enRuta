@@ -1,0 +1,63 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  	<div class="panel-heading">
+  	<!-- Table -->
+		<table>
+		<tr>	
+			<td><a href="/"> <button type="button" class="btn btn-primary">Atras</button></a></td>
+			<td><a href="/otalta"><button type="button" class="btn btn-success">Nueva OT</button></a></td>
+		</tr>	
+		</table>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+				<table class="table table-striped">
+			  		<thead>
+			  			<tr> 
+							<th>ID</th>
+							<th>Estado</th>
+							<th>Empleado</th>
+							<th>Equipo</th>
+							<th>Fecha Emision</th>
+							<th>Fecha Cierre</th>
+							<th>Prioridad</th>
+						</tr>
+			  		</thead>
+			  		<tbody>
+			  			{% for ot in ots %}
+							<tr>
+								<td>{{ ot.id }}</td>
+								{% if ot.estado == 1 %}
+									<td>Abierto</td>
+								{% else %}
+									<td>Cerrado</td>
+								{% endif %}
+								<td>{{ ot.emple }}</td>
+								<td>{{ ot.equipo }}</td>
+								<td>{{ ot.fechaemision }}</td>
+								{% if ot.estado == 1 %}
+									<td></td>
+								{% else %}
+									<td>{{ ot.fechacierre }}</td>
+								{% endif %}
+								<td>{{ ot.prioridad }}</td>
+								<td><button class="btn btn-success">Abrir/Cerrar</button></td>
+								<td><a href="/otmodificar/{{ ot.id }}"><button class="btn btn-warning">Modificar</button></a></td>
+								<td><a href='/otborrar/{{ ot.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
+							</tr>
+							{% endfor %}
+			  		</tbody>
+				  </table>				
+		</div><!--div col xs12 -->
+	</div><!--div row -->
+</div>
+{% endblock %}

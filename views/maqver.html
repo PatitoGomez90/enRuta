@@ -12,51 +12,47 @@
 			<input type="hidden" value="maq.id">
 			<tr>
 				<td>N° Interno:</td>
-				<td><input type="text" id="codigo" name="codigo" readonly value="{{ maq.codigo }}"></td>
+				<td><input type="text" id="codigo" name="codigo" readonly value="{{ maq.codigo }}" class="form-control"></td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td>Dominio:</td>
 				<td><input type="text" id="dominio" name="dominio" readonly value="{{ maq.dominio }}"></td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td>Denominacion:</td>
-				<td><input type="text" id="nombre" name="nombre" readonly value="{{ maq.nombre }}"></td>
+				<td><input type="text" id="nombre" name="nombre" readonly value="{{ maq.nombre }}" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Marca:</td>
-				<td><input type="text" id="marca" name="marca" readonly value="{{ maq.marca }}"></td>
+				<td><input type="text" id="marca" name="marca" readonly value="{{ maq.marca }}" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Tipo:</td>
 				<td>
-					{% for maquinaria in maquinarias %}
-						{% if maq.tipo == maquinaria.id %}
-							<input type="text" name="tipomaquinaria" id="tipomaquinaria" readonly value="{{maquinaria.descripcion}}">						
-							{% endif %}
-					{% endfor %}
+					<input type="text" name="tipomaquinaria" id="tipomaquinaria" readonly value="Maquina" class="form-control">
 				</td>
 			</tr>
 			<tr>
 				<td>Modelo:</td>
-				<td><input type="text" id="modelo" name="modelo" readonly value="{{ maq.modelo }}" ></td>
+				<td><input type="text" id="modelo" name="modelo" readonly value="{{ maq.modelo }}" class="form-control"></td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td>Año:</td>
 				<td><input type="text" id="anio" name="anio" readonly value="{{ maq.anio }}"></td>
-			</tr>
+			</tr> -->
 			<tr>
-				<td>Nº Serie o Chasis:</td>
-				<td><input type="text" id="serie" name="serie" readonly value="{{ maq.serie }}"></td>
+				<td>Nº Serie:</td>
+				<td><input type="text" id="serie" name="serie" readonly value="{{ maq.serie }}" class="form-control"></td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td>Nº de Motor:</td>
 				<td><input type="text" name="nmotor" id="nmotor" readonly value="{{ maq.motor }}" ></td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td>Fecha de compra:</td>
-				<td><input type="text"  name="fcompra" readonly value="{{ maq.fcompra|date('d/m/Y') }}"></td>
+				<td><input type="text"  name="fcompra" readonly value="{{ maq.fcompra|date('d/m/Y') }}" class="form-control"></td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td>Control por:</td>
 				<td>
 					{% for control in controles %}
@@ -65,8 +61,8 @@
 						{% endif %}
 					{% endfor %}
 				</td>
-			</tr>
-			<tr>
+			</tr> -->
+			<!-- <tr>
 				<td>Combustible:</td>
 				<td>
 					{% for comb in combs %}
@@ -75,22 +71,22 @@
 						{% endif %}
 					{% endfor %}
 				</td>
-			</tr>
-			<tr>
+			</tr> -->
+			<!-- <tr>
 				<td>Titular:</td>
 				<td><input type="text" id="titular" name="titular" readonly  value="{{ maq.titular }}"></td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td>Fecha de baja:</td>
-				<td><input type="text" readonly name="fbaja"  value="{{ fbaja }}"></td>
+				<td><input type="text" readonly name="fbaja"  value="{{ fbaja }}" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Motivo de baja:</td>
-				<td><input type="text"  name="mbaja" id="mbaja" readonly value="{{ maq.mbaja }}"></td>
+				<td><input type="text"  name="mbaja" id="mbaja" readonly value="{{ maq.mbaja }}" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Mas datos:</td>
-				<td><textarea name="datos" id="datos" rows="10" cols="40" readonly>{{ maq.datos }}</textarea> </td>
+				<td><textarea name="datos" id="datos" rows="10" cols="40" readonly class="form-control">{{ maq.datos }}</textarea> </td>
 			</tr>
 			<tr>
 				<td>Link fabricante:</td>

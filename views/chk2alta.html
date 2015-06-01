@@ -1,0 +1,47 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/chk2alta.css" rel="stylesheet">
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="post" id="formalta" action="/chk2alta">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>Checkbox 1:</td>
+				<td>
+					<select name="chk1" id="chk1" class="form-control">
+						{% for chk1 in chk1s %}
+							<option value="{{ chk1.id }}">{{ chk1.nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Detalle:</td>
+				<td><input type="text" id="detalle" name="detalle"> </td>
+			</tr>
+			<tr>
+				<td>Orden:</td>
+				<td><input type="text" id="orden" name="orden"></td>
+			</tr>
+			<tr>
+				<td>Titulo?</td>
+				<td><input type="checkbox" id="titulo" name="titulo"></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Guardar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+	
+</script>
+
+{% endblock %}
