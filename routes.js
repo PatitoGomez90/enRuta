@@ -105,6 +105,10 @@ module.exports = function(app) {
 	app.get('/equipolista', auth, equipoController.getAll);
 	app.get('/equipoalta', auth, equipoController.getAlta);
 	app.post('/equipoalta', auth, equipoController.postAlta);
+	app.get('/equipomodificar/:id', auth, equipoController.getModificar);
+	app.post('/equipomodificar', auth, equipoController.postModificar);
+	app.get('/equipoborrar/:id', auth, equipoController.getDel);
+	app.get('/equipover/:id', auth, equipoController.getVer);
 	//Familia de articulos
 	app.get('/familialista', auth, familiaController.getAll);
 	app.get('/familiaalta', auth, familiaController.getAlta);
