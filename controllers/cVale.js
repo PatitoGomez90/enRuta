@@ -53,7 +53,7 @@ function getAlta(req, res){
 							ayuda: ayuda[0],
 							emples: emples
 						});
-					});					
+					});		
 				});
 			});
 		});
@@ -109,9 +109,17 @@ function postAlta(req, res){
 				mMovi.add(fechahoy,req.session.user.unica, function(){
 					mMovi.getUltimo(function (docs){
 						nmovi = docs[0].id;
-						mVale.insert(idtipovale, fecha, nmovi, articulo, cantidad, depor, depdes, secor, secdes, costou, costot, emple, function(){
-							res.redirect('/valesalta');
-						});
+						mVale.getLastNroVale(function (vale){
+							ultimonrovale = vale[0].nro_vale;
+							if (ultimonrovale == null || ultimonrovale == 0){
+								proxnrovale = 1;
+							}else{
+								proxnrovale = ultimonrovale +1;
+							}
+							mVale.insert(proxnrovale, idtipovale, fecha, nmovi, articulo, cantidad, depor, depdes, secor, secdes, costou, costot, emple, function(){
+								res.redirect('/valesalta');
+							});
+						})
 					});
 				});
 			}else{

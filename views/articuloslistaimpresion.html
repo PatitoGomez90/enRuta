@@ -1,0 +1,49 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  	<div class="panel-heading">
+  	<!-- Table -->
+		<table>
+		<tr>	
+			<td><a href="/"> <button type="button" class="btn btn-primary">Atras</button></a></td>
+			<td><a href="/articulosimprimirborrartodo" onclick="if (!confirm('¿Seguro desea eliminar TODO?')) return false;"><button type="button" class="btn btn-danger">Borrar todo</button></a></td>
+		</tr>	
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+				<table class="table table-striped">
+			  		<thead>
+			  			<tr>
+			  				<th>Opciones</th>
+							<th>ID</th>
+							<th>ID Articulo 1</th>
+							<th>Nombre Articulo 1</th>
+							<th>ID Articulo 2</th>
+							<th>Nombre Articulo 2</th>
+						</tr>
+			  		</thead>
+			  		<tbody>
+			  			{% for et in etiquetas %}
+							<tr>
+								<td><a href='/articulosimmprimirborrarfila/{{ et.id }}' onclick="if (!confirm('¿Seguro desea eliminar esta fila?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
+								<td>{{ et.id }}</td>
+								<td>{{ et.id1 }}</td>
+								<td>{{ et.nombre1 }}</td>
+								<td>{{ et.id2 }}</td>
+								<td>{{ et.nombre2 }}</td>
+							</tr>
+							{% endfor %}
+			  		</tbody>
+				  </table>				
+		</div><!--div col xs12 -->
+	</div><!--div row -->
+</div>
+{% endblock %}

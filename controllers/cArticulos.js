@@ -214,13 +214,7 @@ function printTicket(req, res){
 	params = req.params;
 	id = params.id;
 	mArt.getArticuloPorId(id, function (art){
-		//console.log(art)
 		if( art[0].Cdfabrica.length <= 12 ){
-			// if( isNaN(art.Cdfabrica) ){
-
-			// }else{
-
-			// }
 			res.render('articuloimprimir',{
 				pagename: 'Imprimir Articulo',
 				art: art[0]

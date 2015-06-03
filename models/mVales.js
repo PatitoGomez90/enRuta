@@ -6,15 +6,16 @@ module.exports = {
 	getValesEntreFechas: getValesEntreFechas,
 	getValesEntreFechasYSector: getValesEntreFechasYSector,
 	getVale: getVale,
-	del: del
+	del: del,
+	getLastNroVale: getLastNroVale
 	}
 
 function getAll(cb){
 	conn('select * from vales order by id', cb);
 }
 
-function insert(idtipovale, fecha, nmovi, articulo, cantidad, depor, depdes, secor, secdes, costou, costot, emple, cb){
-	conn("insert into vales( Tipoid, fecha, idmovi, idarticulo, cantidad, dorigen, ddestino, IdsectorOr, IdsectorDe, costou, costot, id_emple_fk) values('"+idtipovale+"','"+fecha+"', "+nmovi+", "+articulo+", "+cantidad+", '"+depor+"', '"+depdes+"', "+secor+", "+secdes+", "+costou+", "+costot+", "+emple+")", cb);
+function insert(proxnrovale, idtipovale, fecha, nmovi, articulo, cantidad, depor, depdes, secor, secdes, costou, costot, emple, cb){
+	conn("insert into vales(nro_vale, Tipoid, fecha, idmovi, idarticulo, cantidad, dorigen, ddestino, IdsectorOr, IdsectorDe, costou, costot, id_emple_fk) values("+proxnrovale+", '"+idtipovale+"','"+fecha+"', "+nmovi+", "+articulo+", "+cantidad+", '"+depor+"', '"+depdes+"', "+secor+", "+secdes+", "+costou+", "+costot+", "+emple+")", cb);
 }
 
 function getValesEntreFechas(finicio, ffin, cb){
@@ -31,4 +32,8 @@ function getVale(id, cb){
 
 function del(id, cb){
 	conn("DELETE FROM vales where Nroid="+id, cb);
+}
+
+function getLastNroVale(cb){
+	conn("SELECT nro_vale from vales limit 1", cb);
 }

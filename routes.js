@@ -17,6 +17,7 @@ var mEventos = require('./models/mEventos');
 var otController = require('./controllers/cOt');
 var equipoController = require('./controllers/cEquipos');
 var tipoequipoController = require('./controllers/cTipoEquipo');
+var etiquetaController = require('./controllers/cEtiquetas');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -128,7 +129,14 @@ module.exports = function(app) {
 	app.get('/buscarart/:columna/:busqueda', auth, artController.getBuscar);
 	app.get('/buscarartpornombre/:columna/:busqueda', auth, artController.getBuscarPorNombre);
 	app.get('/getartporcdfabrica/:cdfabrica', auth, artController.getArtporCdFabrica2);
-	app.get('/articulosimprimir/:id', auth, artController.printTicket);
+		//etiquetas
+	app.get('/addartaetiquetas/:id', auth, etiquetaController.addArt);
+	app.get('/articulosimprimir', auth, etiquetaController.getImprimir);
+	app.get('/articulosimprimirlimpiar', auth, etiquetaController.getListaImpresion);
+		//get borrar fila
+	app.get('/articulosimmprimirborrarfila/:id', auth, etiquetaController.getBorrarFila);
+		//get borrar todo
+	app.get('/articulosimprimirborrartodo', auth, etiquetaController.getBorrarTodo);
 	//VALES
 	app.get('/valesalta', auth, valesController.getAlta);
 	app.post('/valesalta', auth, valesController.postAlta);
