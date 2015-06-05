@@ -12,8 +12,8 @@
   	<!-- Table -->
 		<table>
 		<tr>	
-			<td><a href="/emplelista"> <button type="button" class="btn btn-primary">Atras</button></a></td>
-			<td><a href="/cargosalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
+			<td><a href="/"> <button type="button" class="btn btn-primary">Atras</button></a></td>
+			<td><a href="/tipotareaalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
 		</tr>	
 		</table>
 	</div>
@@ -29,28 +29,22 @@
 						</tr>
 			  		</thead>
 			  		<tbody>
-			  			{% for cargo in cargos %}
+			  			{% for tipotarea in tipotareas %}
 							<tr>
-								<td>{{ cargo.id }}</td>
-								<td>{{ cargo.descripcion }}</td>
-								{% if cargo.activa == 1 %}
+								<td>{{ tipotarea.id }}</td>
+								<td>{{ tipotarea.descripcion }}</td>
+								{% if tipotarea.activa == 1 %}
 									<td><span>Activo</span></td>
 								{% else %}
 									<td><span>No activo</span></td>
 								{% endif %}
-								<td>
-									<a href="/cargosmodificar/{{ cargo.id }}"><button class="btn btn-warning">Modificar</button></a>
-								</td>
-								<td>
-									<a href='/cargosborrar/{{ cargo.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
-								</td>
+								<td><a href="/tipotareamodificar/{{ tipotarea.id }}"><button class="btn btn-warning">Modificar</button></a></td>
+								<td><a href='/tipotareaborrar/{{ tipotarea.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
 							</tr>
 							{% endfor %}
 			  		</tbody>
 				  </table>				
 		</div><!--div col xs12 -->
 	</div><!--div row -->
-
 </div>
-
 {% endblock %}

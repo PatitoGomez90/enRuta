@@ -1,0 +1,196 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/modelodetallemodificar.css" rel="stylesheet">
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="post" id="formalta" action="/modelodetallemodificar">
+		<input hidden name="idm1" id="idm1" value="{{ m2.id_modelom1_fk }}">
+		<input hidden name="idm2" id="idm2" value="{{ m2.id }}">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>Tipo de Tarea:</td>
+				<td>
+					<select name="tipotarea" id="tipotarea" class="form-control">
+						{% for t in tipotareas %}
+							{% if t.id_tipotarea_fk == t.id %}
+								<option value="{{ t.id }}" selected>{{ t.descripcion }}</option>
+							{% else %}
+								<option value="{{ t.id }}">{{ t.descripcion }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>	
+				</td>
+			</tr>
+			<tr>
+				<td>Descripcion:</td>
+				<td><input type="text" name="descripcion" id="descripcion" class="form-control" value="{{ m2.descripcion }}"></td>
+			</tr>
+			<tr>
+				<td>Cambio o Revision?:</td>
+				<td>
+					<select name="cambiorevision" id="cambiorevision" class="form-control">
+						{% if m2.cambio_revision == 'c' %}
+							<option selected value="c">Cambio</option>
+							<option value="r">Revision</option>
+						{% else %}
+							<option value="c">Cambio</option>
+							<option value="r" selected>Revision</option>
+						{% endif %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><b>Datos Opcionales:</b></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Repuesto 1:</td>
+				<td>
+					<select name="rep1" id="rep1" class="form-control">
+						{% if m2.id_rep1_fk == 0 %}
+							<option value="0" selected>Sin repuesto</option>
+							{% for r in repuestos %}
+								<option value="{{ r.id }}">{{ r.id }} - {{ r.Nombre }}</option>
+							{% endfor %}
+						{% else %}
+							<option value="0">Sin repuesto</option>
+							{% for r in repuestos %}
+								{% if m2.id_rep1_fk == r.id %}
+									<option value="{{ r.id }}" selected>{{ r.id }} - {{ r.Nombre }}</option>
+								{% else %}
+									<option value="{{ r.id }}">{{ r.id }} - {{ r.Nombre }}</option>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Cantidad de Repuesto 1:</td>
+				<td><input type="text" name="cant1" id="cant1" class="form-control" value="{{ m2.cant1 }}" onKeyPress="return soloNumeros(event)"></td>
+			</tr>
+			<tr>
+				<td>Repuesto 2:</td>
+				<td>
+					<select name="rep2" id="rep2" class="form-control">
+						{% if m2.id_rep2_fk == 0 %}
+							<option value="0" selected>Sin repuesto</option>
+							{% for r in repuestos %}
+								<option value="{{ r.id }}">{{ r.id }} - {{ r.Nombre }}</option>
+							{% endfor %}
+						{% else %}
+							<option value="0">Sin repuesto</option>
+							{% for r in repuestos %}
+								{% if m2.id_rep2_fk == r.id %}
+									<option value="{{ r.id }}" selected>{{ r.id }} - {{ r.Nombre }}</option>
+								{% else %}
+									<option value="{{ r.id }}">{{ r.id }} - {{ r.Nombre }}</option>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Cantidad de Repuesto 2:</td>
+				<td><input type="text" name="cant2" id="cant2" class="form-control" value="{{ m2.cant2 }}" onKeyPress="return soloNumeros(event)"></td>
+			</tr>
+			<tr>
+				<td>Repuesto 3:</td>
+				<td>
+					<select name="rep3" id="rep3" class="form-control">
+						{% if m2.id_rep3_fk == 0 %}
+							<option value="0" selected>Sin repuesto</option>
+							{% for r in repuestos %}
+								<option value="{{ r.id }}">{{ r.id }} - {{ r.Nombre }}</option>
+							{% endfor %}
+						{% else %}
+							<option value="0">Sin repuesto</option>
+							{% for r in repuestos %}
+								{% if m2.id_rep3_fk == r.id %}
+									<option value="{{ r.id }}" selected>{{ r.id }} - {{ r.Nombre }}</option>
+								{% else %}
+									<option value="{{ r.id }}">{{ r.id }} - {{ r.Nombre }}</option>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Cantidad de Repuesto 3:</td>
+				<td><input type="text" name="cant3" id="cant3" class="form-control" value="{{ m2.cant3 }}" onKeyPress="return soloNumeros(event)"></td>
+			</tr>
+			<tr>
+				<td>Repuesto 4:</td>
+				<td>
+					<select name="rep4" id="rep4" class="form-control">
+						{% if m2.id_rep4_fk == 0 %}
+							<option value="0" selected>Sin repuesto</option>
+							{% for r in repuestos %}
+								<option value="{{ r.id }}">{{ r.id }} - {{ r.Nombre }}</option>
+							{% endfor %}
+						{% else %}
+							<option value="0">Sin repuesto</option>
+							{% for r in repuestos %}
+								{% if m2.id_rep4_fk == r.id %}
+									<option value="{{ r.id }}" selected>{{ r.id }} - {{ r.Nombre }}</option>
+								{% else %}
+									<option value="{{ r.id }}">{{ r.id }} - {{ r.Nombre }}</option>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Cantidad de Repuesto 4:</td>
+				<td><input type="text" name="cant4" id="cant4" value="{{ m2.cant4 }}" class="form-control" onKeyPress="return soloNumeros(event)"></td>
+			</tr>
+			<tr>
+				<td>Repuesto 5:</td>
+				<td>
+					<select name="rep5" id="rep5" class="form-control">
+						{% if m2.id_rep5_fk == 0 %}
+							<option value="0" selected>Sin repuesto</option>
+							{% for r in repuestos %}
+								<option value="{{ r.id }}">{{ r.id }} - {{ r.Nombre }}</option>
+							{% endfor %}
+						{% else %}
+							<option value="0">Sin repuesto</option>
+							{% for r in repuestos %}
+								{% if m2.id_rep5_fk == r.id %}
+									<option value="{{ r.id }}" selected>{{ r.id }} - {{ r.Nombre }}</option>
+								{% else %}
+									<option value="{{ r.id }}">{{ r.id }} - {{ r.Nombre }}</option>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Cantidad de Repuesto 5:</td>
+				<td><input type="text" name="cant5" id="cant5" class="form-control" value="{{ m2.cant5 }}" onKeyPress="return soloNumeros(event)"></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Agregar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+	function soloNumeros(e){
+		var key = window.Event ? e.which : e.keyCode
+		return (key >= 48 && key <= 57)
+	}
+</script>
+
+{% endblock %}

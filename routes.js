@@ -18,6 +18,9 @@ var otController = require('./controllers/cOt');
 var equipoController = require('./controllers/cEquipos');
 var tipoequipoController = require('./controllers/cTipoEquipo');
 var etiquetaController = require('./controllers/cEtiquetas');
+var tipotareaController = require('./controllers/cTipoTarea');
+var modelom1Controller = require('./controllers/cModeloMantenimiento');
+var modelom2Controller = require('./controllers/cModeloMantenimientoDetalle');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -171,4 +174,26 @@ module.exports = function(app) {
 	app.get('/tipoequipomodificar/:id', auth, tipoequipoController.getModificar);
 	app.post('/tipoequipomodificar', auth, tipoequipoController.postModificar);
 	app.get('/tipoequipoborrar/:id', auth, tipoequipoController.getDel);
+	//tipo tarea
+	app.get('/tipotarealista', auth, tipotareaController.getLista);
+	app.get('/tipotareaalta', auth, tipotareaController.getAlta);
+	app.post('/tipotareaalta', auth, tipotareaController.postAlta);
+	app.get('/tipotareamodificar/:id', auth, tipotareaController.getModificar);
+	app.post('/tipotareamodificar', auth, tipotareaController.postModificar);
+	app.get('/tipotareaborrar/:id', auth, tipotareaController.getDel);
+	//modelo m1
+	app.get('/modelomantenimientolista', auth, modelom1Controller.getLista);
+	app.get('/modelomantenimientoalta', auth, modelom1Controller.getAlta);
+	app.post('/modelomantenimientoalta', auth, modelom1Controller.postAlta);
+	app.get('/modelomantenimientomodificar/:id', auth, modelom1Controller.getModificar);
+	app.post('/modelomantenimientomodificar', auth, modelom1Controller.postModificar);
+	app.get('/modelomantenimientoborrar/:id', auth, modelom1Controller.getDel);
+	//modelo m2
+	app.get('/modelodetallelista/:id', auth, modelom2Controller.getLista);
+	app.get('/modelodetallealta/:id', auth, modelom2Controller.getAlta);
+	app.post('/modelodetallealta', auth, modelom2Controller.postAlta);
+	app.get('/modelodetallemodificar/:id', auth, modelom2Controller.getModificar);
+	app.post('/modelodetallemodificar', auth, modelom2Controller.postModificar);
+	app.get('/modelodetalleborrar/:idm1/:idm2', auth, modelom2Controller.getDel);
+	app.get('/modelodetallerepuestover/:id', auth, modelom2Controller.getVerRepuestos);
 }; 
