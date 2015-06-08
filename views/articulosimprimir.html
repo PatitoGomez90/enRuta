@@ -6,12 +6,12 @@
 	<table>
 	{% for et in etiquetas %}
 		<tr>
-			<td><span style="font-size: 9px">{{ et.nombre1 }}</span></td>
-			<td><span style="font-size: 9px">{{ et.nombre2 }}</span></td>
+			<td style="width: 200px"><span style="font-size: 7px">{{ et.nombre1 }}</span></td>
+			<td><span style="font-size: 7px">{{ et.nombre2 }}</span></td>
 		</tr>
 		<tr>
-			<td><span id="cd" style="font-family:EAN-13; font-size: 45px">{{ et.codigo1 }}</span></td>
-			<td><span id="cd" style="font-family:EAN-13; font-size: 45px">{{ et.codigo2 }}</span></td>
+			<td><span id="cd" style="font-family:'PF Barcode 128'; font-size: 40px">{{ et.codigo1 }}</span></td>
+			<td><span id="cd" style="font-family:'PF Barcode 128'; font-size: 40px">{{ et.codigo2 }}</span></td>
 		</tr>		
 	{% endfor %}
 	</table>

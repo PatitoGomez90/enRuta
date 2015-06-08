@@ -4,6 +4,7 @@ var mFamilia = require('../models/mFamilia');
 var mTipo = require('../models/mTipo');
 var mUmed = require('../models/mUmed');
 var mAyuda = require('../models/mAyuda');
+var mEtiquetas = require('../models/mEtiquetas');
 
 module.exports = {
 	getConsulta: getConsulta,
@@ -73,13 +74,42 @@ function postAlta(req, res){
 		muevestock = 1;
 	else
 		muevestock = 0;
+	print = params.print;
+	if (print == "on")
+		print = 1;
+	else
+		print = 0;
+
 	mArt.getArtporCdFabrica(cdfabrica, function (art){
 		//console.log(art[0].asd)
 		if (art[0].asd == 0){
 			mArt.getArtporCdInterno(cdinterno, function (art){
 				if (art[0].asd == 0){
 					mArt.insert(cdfabrica, cdinterno, nombre, descripcion, familia, tipo, umed, costo, iva, muevestock, stock1, minimo, maximo, function(){
-						res.redirect('articulosalta');
+						console.log("print: "+print)
+						if (print == 1){
+
+							mArt.getUltimoId(function (ultimoid){
+								console.log( ultimoid[0].id)
+								ultimoid = ultimoid[0].id;
+								console.log("ultimo id: "+ultimoid)
+								mArt.getArticuloPorId(ultimoid, function (arti){
+									mEtiquetas.getLast(function (ets){
+										if (ets[0] == null){
+											mEtiquetas.insertArt1(arti[0].id, arti[0].CdInterno, arti[0].Nombre, function (){
+												res.redirect('articulosalta');
+											});
+										}else{
+											mEtiquetas.insertArt2(ets[0].id, arti[0].id, arti[0].CdInterno, arti[0].Nombre, function(){
+												res.redirect('articulosalta');
+											});
+										}
+									});
+								});
+							})
+						}else{
+							res.redirect('articulosalta');
+						}
 					});
 				}else{
 					res.render('error', {

@@ -15,8 +15,9 @@ module.exports = {
 	getArtporCdInterno: getArtporCdInterno,
 	getConsultaPorNombre: getConsultaPorNombre,
 	getArticuloPorIdconJoin: getArticuloPorIdconJoin,
-	getArtporCdFabrica2: getArtporCdFabrica2
-	}
+	getArtporCdFabrica2: getArtporCdFabrica2,
+	getUltimoId: getUltimoId
+}
 
 function getAll(cb){
 	conn('select * from articu', cb);
@@ -162,4 +163,8 @@ function getConsultaPorNombre(columna, filtro, cb){
 
 function getArticuloPorIdconJoin(id, cb){
 	conn("select articu.*, familia.nombre as fnombre, tipoar.descripcion as ardescripcion, umed.nombre as unombre from articu left join familia on familia.id = articu.IdFamilia left join tipoar on tipoar.id = articu.Idtipo left join umed on umed.id = articu.IdUmed where articu.id = "+id, cb);
+}
+
+function getUltimoId(cb){
+	conn("SELECT MAX(id) AS id FROM articu", cb);
 }
