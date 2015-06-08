@@ -12,23 +12,23 @@
 		<table align="center" class="table table-striped">
 			<tr>
 				<td>ID Articulo: </td>
-				<td><input type="text" id="id" name="id" value="{{ art.id }}" readonly="readonly"></td>
-			</tr>	
-			<tr>
-				<td>Codigo de Fabrica:</td>
-				<td><input type="text" id="cdfabrica" name="cdfabrica" value="{{ art.Cdfabrica }}" required></td>
-			</tr>
-			<tr>
-				<td>Codigo Interno:</td>
-				<td><input type="text" id="cdinterno" name="cdinterno" value="{{ art.CdInterno }}" required></td>
+				<td><input type="text" id="id" name="id" value="{{ art.id }}" readonly="readonly" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Nombre:</td>
-				<td><input type="text" id="nombre" name="nombre" value="{{ art.Nombre }}" required></td>
+				<td><input type="text" id="nombre" name="nombre" value="{{ art.Nombre }}" required class="form-control"><div class="aviso">Quedan <span id="charsLeftNombre"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Codigo Interno:<br><small>(El que se imprime)</small></td>
+				<td><input type="text" id="cdinterno" name="cdinterno" value="{{ art.CdInterno }}" required class="form-control"><div class="aviso">Quedan <span id="charsLeftCdinterno"></span> caraceteres.</div></td>
 			</tr>	
 			<tr>
+				<td>Codigo de Fabrica:</td>
+				<td><input type="text" id="cdfabrica" name="cdfabrica" value="{{ art.Cdfabrica }}" required class="form-control"></td>
+			</tr>			
+			<tr>
 				<td>Descripcion: </td>
-				<td><input type="text" id="descripcion" name="descripcion" value="{{ art.Descrip }}" ></td>
+				<td><input type="text" id="descripcion" name="descripcion" value="{{ art.Descrip }}" class="form-control"><div class="aviso">Quedan <span id="charsLeftDescripcion"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Familia:</td>
@@ -74,11 +74,11 @@
 			</tr>
 			<tr>
 				<td>Costo: </td>
-				<td><input type="text" id="costo" name="costo" value="{{ art.Costo }}" ></td>
+				<td><input type="text" id="costo" name="costo" value="{{ art.Costo }}" class="form-control"></td>
 			</tr>
 			<tr>	
 				<td>Iva:</td>
-				<td><input type="text" id="iva" name="iva" value="{{ art.Iva }}" ></td>
+				<td><input type="text" id="iva" name="iva" value="{{ art.Iva }}" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Mueve Stock</td>
@@ -90,27 +90,27 @@
 			</tr>
 			<tr>
 				<td>Stock 1:</td>
-				<td><input type="text" id="stock1" name="stock1" value="{{ art.Stock1 }}" ></td>
+				<td><input type="text" id="stock1" name="stock1" value="{{ art.Stock1 }}" class="form-control"></td>
 			</tr>
 			<!--<tr>
 				<td>Stock 2:</td>
-				<td><input type="text" id="stock2" name="stock2" value="{{ art.Stock2 }}" ></td>
+				<td><input type="text" id="stock2" name="stock2" value="{{ art.Stock2 }}" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Stock 3:</td>
-				<td><input type="text" id="stock3" name="stock3" value="{{ art.Stock3 }}" ></td>
+				<td><input type="text" id="stock3" name="stock3" value="{{ art.Stock3 }}" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Stock 4:</td>
-				<td><input type="text" id="stock4" name="stock4" value="{{ art.Stock4 }}" ></td>
+				<td><input type="text" id="stock4" name="stock4" value="{{ art.Stock4 }}" class="form-control"></td>
 			</tr>-->
 			<tr>
 				<td>Minimo:</td>
-				<td><input type="text" id="minimo" name="minimo" value="{{ art.Minimo }}" ></td>
+				<td><input type="text" id="minimo" name="minimo" value="{{ art.Minimo }}" class="form-control" ></td>
 			</tr>
 			<tr>
 				<td>Maximo:</td>
-				<td><input type="text" id="maximo" name="maximo" value="{{ art.Maximo }}" ></td>
+				<td><input type="text" id="maximo" name="maximo" value="{{ art.Maximo }}" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Activo:</td>
@@ -128,6 +128,10 @@
 	</form>
 </div>
 	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery.limit-1.2.js"></script>
 	<script type="text/javascript">
+		$('#nombre').limit('50','#charsLeftNombre');
+		$('#cdinterno').limit('13','#charsLeftCdinterno');
+		$('#descripcion').limit('400','#charsLeftDescripcion');
 	</script>
 {% endblock %}
