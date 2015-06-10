@@ -38,17 +38,17 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Archivos <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/emplelista">Empleados [ABM]</a></li>
             <li><a href="/usuarioslista">Usuarios [ABM]</a></li>
             <li class="divider"></li>
             <li><a href="/sectoreslista">Sectores [ABM]</a></li>
             <li><a href="/umedlista">Unidades de Medida [ABM]</a></li> 
-            
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pañol<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
+            <li><a href="/maqlista">Herramientas Electricas [ABM]</a></li> <!-- ex-Maquinas, estaba en mant. -->
+            <li class="divider"></li>
             <li><a href="/familialista">Familia de Articulos [ABM]</a></li>
             <li><a href="/articulosalta">Alta de Articulos</a></li>
             <li><a href="/articulosconsulta">Consulta de Articulos</a></li>
@@ -62,11 +62,10 @@
         </li><li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/maqlista">Maquinas [ABM]</a></li>
-            <li><a href="/equipolista">Equipos / Vehiculos [ABM]</a></li>
+            <li><a href="/equipolista">Maquinas / Vehiculos [ABM]</a></li><!--  ex-Equipos / Vehiculos -->
             <li class="divider"></li>
-            <li><a href="/tipoequipolista">Lista de Tipos de Equipos/Vehiculos</li>
-            <li><a href="/tipoequipoalta">Alta de Tipos de Equipos/Vehiculos</a></li>
+            <li><a href="/tipoequipolista">Lista de Familia de Maquinas / Vehiculos</li> <!-- ex- Tipos de equipos/vehiculos -->
+            <li><a href="/tipoequipoalta">Alta de Familia de Maquinas / Vehiculos</a></li><!-- ex- alta de tipos de equipos/vehiculos -->
             <li class="divider"></li>
             <li><a href="/modelomantenimientolista">Modelos de Mantenimiento</a></li>
             <li><a href="/modelomantenimientoalta">Alta de Modelo de Mantenimiento</a></li>
@@ -81,12 +80,18 @@
             <li><a href="/otalta">Abrir OT</a></li>
           </ul>
         </li>
-        <!-- <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<span class="caret"></span></a>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">R.R.H.H.<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/emplelista">Empleados [ABM]</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Varios<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             
           </ul>
-        </li> -->
+        </li>
         <li class="dropdown"><a href="/ayuda">Ayuda</a></li>
         <li class="dropdown"><a href="/logout">Logout</a></li>
       </ul>

@@ -52,14 +52,14 @@ function getAlta(req, res){
 			mCombustible.getAll(function (allcombustible){
 				if (ultimocodigo[0].codigo == null){
 					res.render('maqalta',{
-						pagename: "Alta de Maquinas",
+						pagename: "Alta de Herramientas Electricas",
 						ultimocodigo: 1,
 						controles: allcontrol,
 						combs: allcombustible
 					});
 				}else{
 					res.render('maqalta',{
-						pagename: "Alta de Maquinas",
+						pagename: "Alta de Herramientas Electricas",
 						ultimocodigo: ultimocodigo[0].codigo+1,
 						controles: allcontrol,
 						combs: allcombustible
@@ -111,7 +111,7 @@ function getVer(req, res){
 					}						
 					//console.log("fbaja: "+fbaja)
 					res.render('maqver',{
-						pagename: "Ficha de Maquinas",
+						pagename: "Ficha de Herramientas Electricas",
 						maq: maqporid[0],
 						controles: allcontrol,
 						combs: allcombustible,
@@ -140,7 +140,7 @@ function getModificar(req, res){
 					}						
 					//console.log("fbaja: "+fbaja)
 					res.render('maqmodificar',{
-						pagename: "Modificar Maquinas",
+						pagename: "Modificar Herramienta Electrica",
 						maq: maqporid[0],
 						maquinarias: allmaquinaria,
 						combs: allcombustible,

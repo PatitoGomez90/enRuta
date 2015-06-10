@@ -16,7 +16,7 @@
 			</tr>
 			<tr>
 				<td>Dominio:</td>
-				<td><input type="text" id="dominio" name="dominio" required class="form-control"></td>
+				<td><input type="text" id="dominio" name="dominio" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Denominacion:</td>
@@ -41,7 +41,7 @@
 			<tr>
 				<td>Tipo:</td>
 				<td>
-					<select name="tipomaq" id="tipomaq" class="form-control" readonly>
+					<select name="tipomaq" id="tipomaq" class="form-control">
 						{% for tipomaq in tipomaqs %}
 							{% if tipomaq.id == 2 or tipomaq.id == 3 %}
 								<option value="{{ tipomaq.id }}">{{ tipomaq.descripcion }}</option>
@@ -53,7 +53,7 @@
 			<tr>
 				<td>Tipo de Equipo:</td>
 				<td>
-					<select name="tipoeq" id="tipoeq" class="form-control" readonly>
+					<select name="tipoeq" id="tipoeq" class="form-control">
 						{% for tipoeq in tipoeqs %}
 								<option value="{{ tipoeq.id }}">{{ tipoeq.descripcion }}</option>
 						{% endfor %}

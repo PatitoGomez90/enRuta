@@ -38,7 +38,7 @@ function getAll(req, res) {
 	  		console.log(alleqs)
 	  		mTipoMaquinaria.getAll(function (alltipomaquinaria){
 		  		res.render('equipolista', {
-					pagename: 'Lista de Equipos / Vehiculos',
+					pagename: 'Lista de Maquinas / Vehiculos',
 					eqs: alleqs,
 					tipos: alltipomaquinaria,
 					ayuda: ayuda[0]
@@ -56,7 +56,7 @@ function getAlta(req, res){
 					mTipoEquipo.getAll(function (tipoeqs){
 						if (ultimocodigo[0].codigo == null){
 							res.render('equipoalta',{
-								pagename: "Alta de Equipos / Vehiculos",
+								pagename: "Alta de Maquina / Vehiculo",
 								ultimocodigo: 1,
 								controles: allcontrol,
 								combs: allcombustible,
@@ -65,7 +65,7 @@ function getAlta(req, res){
 							});
 						}else{
 							res.render('equipoalta',{
-								pagename: "Alta de Equipos / Vehiculos",
+								pagename: "Alta de Maquina / Vehiculo",
 								ultimocodigo: ultimocodigo[0].codigo+1,
 								controles: allcontrol,
 								combs: allcombustible,
@@ -120,7 +120,7 @@ function getModificar(req, res){
 				mTipoEquipo.getAll(function (tipoeqs){
 					mEq.getEquipoById(id, function (eq){
 						res.render('equipomodificar',{
-							pagename: "Modificar Equipos / Vehiculos",
+							pagename: "Modificar Maquina / Vehiculo",
 							controles: allcontrol,
 							combs: allcombustible,
 							tipomaqs: tipomaqs,

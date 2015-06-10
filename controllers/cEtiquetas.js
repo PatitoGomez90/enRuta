@@ -20,7 +20,8 @@ function addArt(req, res) {
 					res.send(200);
 				});
 			}else{
-				mEtiquetas.insertArt2(ets[0].id, art[0].id, art[0].CdInterno, art[0].Nombre, function(){
+				id_2 = ets[0].id * 1000;
+				mEtiquetas.insertArt2(ets[0].id, id_2, art[0].id, art[0].CdInterno, art[0].Nombre, function(){
 					res.send(200);
 				});
 			}
@@ -30,8 +31,11 @@ function addArt(req, res) {
 
 function getImprimir(req, res){
 	mEtiquetas.getAll(function (etiquetas){
+		etlength = etiquetas.length;
+		console.log(etlength)
 		res.render('articulosimprimir', {
-			etiquetas: etiquetas
+			etiquetas: etiquetas,
+			etlength: etlength
 		});
 	});
 }

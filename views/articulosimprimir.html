@@ -2,18 +2,64 @@
 <head>
 	<title>Imprimir</title>
 </head>
-<body>
+<body style="margin-left: 0px; margin-top: 0px;">
+	<input hidden id="etlength" value="{{ etlength }}">
 	<table>
-	{% for et in etiquetas %}
-		<tr>
-			<td style="width: 200px"><span style="font-size: 7px">{{ et.nombre1 }}</span></td>
-			<td><span style="font-size: 7px">{{ et.nombre2 }}</span></td>
-		</tr>
-		<tr>
-			<td><span id="cd" style="font-family:'PF Barcode 128'; font-size: 40px">{{ et.codigo1 }}</span></td>
-			<td><span id="cd" style="font-family:'PF Barcode 128'; font-size: 40px">{{ et.codigo2 }}</span></td>
-		</tr>		
-	{% endfor %}
+		 <!-- border="1" -->
+		{% for et in etiquetas %}
+			<tr style="height: 95px">
+				<td style="width: 240px;">
+					<input hidden class="id" id="id{{ et.id }}" value="{{ et.id }}">
+					<input hidden class="cod" id="codigo{{ et.id }}" value="{{ et.codigo1 }}">
+					<img id="barcode{{ et.id }}">
+				</td>
+				<td style="width: 240px; text-align: center;">
+					<input hidden class="id" id="id{{ et.id_2 }}" value="{{ et.id_2 }}">
+					<input hidden class="cod" id="codigo{{ et.id_2 }}" value="{{ et.codigo2 }}">
+					<img id="barcode{{ et.id_2 }}">
+				</td>
+			</tr>
+			<tr>
+				<td style="height: 23px"></td><td></td>
+			</tr>
+		{% endfor %}
 	</table>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/JsBarcode.js"></script>
+	<script src="/js/CODE128.js"></script>
+	<script type="text/javascript">
+		options = {
+		    width:  1.3,
+		    height: 60,
+		    quite: 10,
+		    format: "CODE128",
+		    displayValue: true,
+		    font: "monospace",
+		    textAlign: "center",
+		    fontSize: 15,
+		    backgroundColor: "",
+		    lineColor: "#000"
+		}
+		//ids = $(".id").val();
+		var ids= $(".id").map(function() {
+		   return $(this).val();
+		}).get();
+		// console.log(ids);
+		etlength = $("#etlength").val();
+		// console.log(etlength)
+		for (i = 0; i < ids.length; i += 2) {
+			id_1 = ids[i];
+		 	id_2 = ids[i+1];
+			if (id_2 == 0){
+				cod1 = $("#codigo"+id_1).val();
+				$("#barcode"+id_1).JsBarcode(cod1, options);
+			}else{
+				cod1 = $("#codigo"+id_1).val();
+			 	cod2 = $("#codigo"+id_2).val();
+			 	$("#barcode"+id_1).JsBarcode(cod1, options);
+			 	$("#barcode"+id_2).JsBarcode(cod2, options);
+			 }
+		}
+	</script>
 </body>
 </html>

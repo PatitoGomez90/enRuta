@@ -13,7 +13,7 @@ module.exports = {
 function getAll(req, res) {
   	mTipoEquipo.getAll(function (docs){
   		res.render('tipoequipolista', {
-			pagename: 'Lista de Tipos de Equipos',
+			pagename: 'Lista de Familia de Maquinas / Vehiculos',
 			tipoequipos: docs,
 		});
   	});
@@ -21,7 +21,7 @@ function getAll(req, res) {
 
 function getAlta(req, res){
 	res.render('tipoequipoalta', {
-		pagename: 'Alta de Tipo de Equipo',
+		pagename: 'Alta de Familia de Maquinas / Vehiculos',
 	});
 }
 
@@ -40,7 +40,7 @@ function getModificar(req, res){
 	id = params.id;
 	mTipoEquipo.getTipoEquipoPorId(id, function (docs){
 		res.render('tipoequipomodificar',{
-			pagename: 'Modificar Tipo de Equipo',
+			pagename: 'Modificar Familia de Maquinas / Vehiculos',
 			tipoequipo: docs[0]
 		});
 	});

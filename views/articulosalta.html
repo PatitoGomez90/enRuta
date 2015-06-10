@@ -38,11 +38,11 @@
 	<form method="post" id="formalta" action="/articulosalta">
 		<table align="center" class="table table-striped">
 			<tr>
-				<td>Nombre:</td>
+				<td style="width: 450px">Nombre:</td>
 				<td><input type="text" id="nombre" name="nombre" required class="form-control"><div class="aviso">Quedan <span id="charsLeftNombre"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
-				<td>Codigo Interno:<br><small>(El que se imprime)</small></td>
+				<td>Codigo Interno:<br><small>(Codigo de Barra: Para una lectura más rápida<br>se recomienda usar como máximo 6 dígitos)</small></td>
 				<td><input type="text" id="cdinterno" name="cdinterno" class="form-control" required onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftCdinterno"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
