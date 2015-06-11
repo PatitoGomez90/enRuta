@@ -15,7 +15,7 @@ function getLista(req, res) {
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 		mCodigoHora.getAll(function (codigohoras){
 			res.render('codigohoralista', {
-	        	pagename: 'Lista de Tipos de Hora',
+	        	pagename: 'Lista de Codigos de Hora',
 	        	codigohoras: codigohoras
 	        	//ayuda: ayuda[0]
 	      	}); 
@@ -25,7 +25,7 @@ function getLista(req, res) {
 
 function getAlta(req, res){
 	res.render('codigohoraalta',{
-		pagename: "Alta de Tipos de Hora"
+		pagename: "Alta de Codigos de Hora"
 	});
 }
 
@@ -44,7 +44,7 @@ function getModificar(req, res){
 	id = params.id;
 	mCodigoHora.getCodigoHoraById(id, function (codigohora){
 		res.render('codigohoramodificar',{
-			pagename: "Modificar Tipo de Hora",
+			pagename: "Modificar Codigo de Hora",
 			codigohora: codigohora[0]
 		});
 	});

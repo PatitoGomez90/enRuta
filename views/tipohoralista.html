@@ -6,6 +6,7 @@
 
 {% block content %}
 <h2>{{ pagename }}</h2>
+Ej: Normal, 50%, 100%...
 <div class="panel panel-default">
   <!-- Default panel contents -->
   	<div class="panel-heading">
@@ -27,6 +28,7 @@
 		  		<thead>
 		  			<tr> 
 						<th>ID</th>
+						<th>Codigo</th>
 						<th>Nombre</th>
 						<th colspan="2">Opciones</th>
 					</tr>
@@ -35,6 +37,7 @@
 		  			{% for t in tipohoras %}
 						<tr>
 							<td>{{ t.id }}</td>
+							<td>{{ t.codigo }}</td>
 							<td>{{ t.nombre }}</td>
 							<td>
 								<a href="/tipohoramodificar/{{ t.id }}"><button class="btn btn-warning">Modificar</button></a>

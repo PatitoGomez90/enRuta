@@ -32,8 +32,9 @@ function getAlta(req, res){
 function postAlta(req, res){
 	params = req.body;
 	nombre = params.nombre;
+	codigo = params.codigo;
 
-	mTipoHora.insert(nombre, function(){
+	mTipoHora.insert(nombre, codigo, function(){
 		res.redirect('tipohoralista');
 	});
 }
@@ -53,8 +54,9 @@ function postModificar(req, res){
 	params = req.body;
 	id = params.id;
 	nombre = params.nombre;
+	codigo = params.codigo;
 
-	mTipoHora.update(id, nombre, function(){
+	mTipoHora.update(id, nombre, codigo, function(){
 		res.redirect('tipohoralista');
 	});
 }
