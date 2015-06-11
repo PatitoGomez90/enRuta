@@ -5,11 +5,25 @@
 {% endblock %}
 
 {% block content %}
-<link href="/css/cargosalta.css" rel="stylesheet">
+<link href="/css/relojesalta.css" rel="stylesheet">
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
-	<form method="post" id="formalta" action="/cargosalta">
+	<form method="post" id="formalta" action="/relojesalta">
 		<table align="center" class="table table-striped">
+			<tr>
+				<td>Numero:</td>
+				<td><input type="text" id="numero" name="numero" required class="form-control"></td>
+			</tr>
+			<tr>
+				<td>Sector:</td>
+				<td>	
+					<select name="sector" id="sector" class="form-control">
+						{% for s in sectores %}
+							<option value="{{ s.id }}">{{ s.codigo }} - {{ s.nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
 			<tr>
 				<td>Descripcion:</td>
 				<td><input type="text" id="descripcion" name="descripcion" required class="form-control"></td>

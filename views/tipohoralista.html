@@ -1,0 +1,52 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  	<div class="panel-heading">
+  	<!-- Table -->
+		<table>
+			<tr>	
+				<td>
+					<a href="/"><button type="button" class="btn btn-primary">Atras</button></a>
+				</td>
+				<td>
+					<a href="/tipohoraalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a>
+				</td>
+			</tr>	
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<table class="table table-striped">
+		  		<thead>
+		  			<tr> 
+						<th>ID</th>
+						<th>Nombre</th>
+						<th colspan="2">Opciones</th>
+					</tr>
+		  		</thead>
+		  		<tbody>
+		  			{% for t in tipohoras %}
+						<tr>
+							<td>{{ t.id }}</td>
+							<td>{{ t.nombre }}</td>
+							<td>
+								<a href="/tipohoramodificar/{{ t.id }}"><button class="btn btn-warning">Modificar</button></a>
+							</td>
+							<td>
+								<a href='/tipohoraborrar/{{ t.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
+							</td>
+						</tr>
+					{% endfor %}
+		  		</tbody>
+			</table>				
+		</div><!--div col xs12 -->
+	</div><!--div row -->
+</div>
+{% endblock %}

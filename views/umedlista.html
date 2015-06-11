@@ -45,6 +45,7 @@
 					<th>Codigo</th>
 					<th>Nombre</th>
 					<th>Activa</th>
+					<th colspan="2">Opciones</th>
 				</tr>
 				{% for umed in umeds %}
 				<tr>
@@ -58,6 +59,8 @@
 					{% endif %}
 					<td>
 						<a href="/umedmodificar/{{ umed.id }}"><button class="btn btn-warning">Modificar</button></a>
+					</td>
+					<td>
 						<a href='/umedborrar/{{ umed.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
 					</td>
 				</tr>

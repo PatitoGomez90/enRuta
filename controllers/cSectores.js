@@ -12,8 +12,8 @@ module.exports = {
 
 function getAll(req, res) {
 	req.session.nromenu = 5;
-	mAyuda.getAyudaTexto(req.session.nromenu, function(ayuda){
-		mSectores.getAll(function(allsectores){
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
+		mSectores.getAll(function (allsectores){
 			res.render('sectoreslista', {
 	        	pagename: 'Archivo de Sectores',
 	        	sectores: allsectores,
@@ -24,7 +24,7 @@ function getAll(req, res) {
 };
 
 function getAlta(req, res){
-	mSectores.getUltimoCodigo(function(ultimocodigo){
+	mSectores.getUltimoCodigo(function (ultimocodigo){
 			res.render('sectoresalta',{
 			pagename: "Alta de sectores",
 			ultimocodigo: ultimocodigo[0].codigo+1
@@ -44,7 +44,7 @@ function postAlta(req, res){
 function getModificar(req, res){
 	params = req.params;
 	id = params.id;
-	mSectores.getSectorById(id, function(sectorbyid){
+	mSectores.getSectorById(id, function (sectorbyid){
 		sector = sectorbyid[0];
 		res.render('sectoresmodificar',{
 			pagename: "Modificar Sector",

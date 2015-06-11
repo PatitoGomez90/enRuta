@@ -1,0 +1,35 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/codigohoramodificar.css" rel="stylesheet">	
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="POST" action="/codigohoramodificar">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>ID:</td>
+				<td><input type="text" readonly name="id" id="id" class="form-control" value="{{ codigohora.id }}"></td>
+			</tr>
+			<tr>
+				<td>Numero:</td>
+				<td><input type="text" id="numero" name="numero" value="{{ codigohora.numero }}" class="form-control" required></td>
+			</tr>
+			<tr>
+				<td>Nombre:</td>
+				<td><input type="text" id="nombre" name="nombre" value="{{ codigohora.nombre }}" required class="form-control"></td>
+			</tr>	
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Guardar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+	<script src="/js/jquery.min.js"></script>
+	<script type="text/javascript">
+	</script>
+{% endblock %}

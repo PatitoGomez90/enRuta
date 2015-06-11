@@ -5,22 +5,26 @@
 {% endblock %}
 
 {% block content %}
-<link href="/css/cargosmodificar.css" rel="stylesheet">	
+<link href="/css/itemsmodificar.css" rel="stylesheet">	
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
-	<form method="POST" action="/cargosmodificar">
+	<form method="POST" action="/itemsmodificar">
 		<table align="center" class="table table-striped">
 			<tr>
-				<td>Codigo: </td>
-				<td><input type="text" id="id" name="id" value="{{ cargo.id }}" readonly="readonly" class="form-control"></td>
+				<td>ID:</td>
+				<td><input type="text" readonly name="id" id="id" class="form-control" value="{{ item.id }}"></td>
+			</tr>
+			<tr>
+				<td>Numero: </td>
+				<td><input type="text" id="numero" name="numero" value="{{ item.numero }}" required class="form-control"></td>
 			</tr>	
 			<tr>
-				<td>Descripcion:</td>
-				<td><input type="text" id="descripcion" name="descripcion" value="{{ cargo.descripcion }}" required class="form-control"></td>
+				<td>Nombre:</td>
+				<td><input type="text" id="nombre" name="nombre" value="{{ item.nombre }}" required class="form-control"></td>
 			</tr>	
 			<tr>
 				<td>Activo:</td>
-				{% if cargo.activa== 1 %}
+				{% if item.activa == 1 %}
 					<td><input type="checkbox" name="activa" checked></td>
 				{% else %}
 					<td><input type="checkbox" name="activa"></td>

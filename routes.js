@@ -21,6 +21,10 @@ var etiquetaController = require('./controllers/cEtiquetas');
 var tipotareaController = require('./controllers/cTipoTarea');
 var modelom1Controller = require('./controllers/cModeloMantenimiento');
 var modelom2Controller = require('./controllers/cModeloMantenimientoDetalle');
+var itemsController = require('./controllers/cItems');
+var tipohoraController = require('./controllers/cTipoHora');
+var codigohoraController = require('./controllers/cCodigoHora');
+var relojesController = require('./controllers/cRelojes');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -196,4 +200,32 @@ module.exports = function(app) {
 	app.post('/modelodetallemodificar', auth, modelom2Controller.postModificar);
 	app.get('/modelodetalleborrar/:idm1/:idm2', auth, modelom2Controller.getDel);
 	app.get('/modelodetallerepuestover/:id', auth, modelom2Controller.getVerRepuestos);
+	//items de trabajo
+	app.get('/itemslista', auth, itemsController.getLista);
+	app.get('/itemsalta', auth, itemsController.getAlta);
+	app.post('/itemsalta', auth, itemsController.postAlta);
+	app.get('/itemsmodificar/:id', auth, itemsController.getModificar);
+	app.post('/itemsmodificar', auth, itemsController.postModificar);
+	app.get('/itemsborrar/:id', auth, itemsController.getDel);
+	//tipos de hora
+	app.get('/tipohoralista', auth, tipohoraController.getLista);
+	app.get('/tipohoraalta', auth, tipohoraController.getAlta);
+	app.post('/tipohoraalta', auth, tipohoraController.postAlta);
+	app.get('/tipohoramodificar/:id', auth, tipohoraController.getModificar);
+	app.post('/tipohoramodificar', auth, tipohoraController.postModificar);
+	app.get('/tipohoraborrar/:id', auth, tipohoraController.getDel);
+	//codigo de hora
+	app.get('/codigohoralista', auth, codigohoraController.getLista);
+	app.get('/codigohoraalta', auth, codigohoraController.getAlta);
+	app.post('/codigohoraalta', auth, codigohoraController.postAlta);
+	app.get('/codigohoramodificar/:id', auth, codigohoraController.getModificar);
+	app.post('/codigohoramodificar', auth, codigohoraController.postModificar);
+	app.get('/codigohoraborrar/:id', auth, codigohoraController.getDel);
+	//relojes
+	app.get('/relojeslista', auth, relojesController.getLista);
+	app.get('/relojesalta', auth, relojesController.getAlta);
+	app.post('/relojesalta', auth, relojesController.postAlta);
+	app.get('/relojesmodificar/:id', auth, relojesController.getModificar);
+	app.post('/relojesmodificar', auth, relojesController.postModificar);
+	app.get('/relojesborrar/:id', auth, relojesController.getDel);
 }; 
