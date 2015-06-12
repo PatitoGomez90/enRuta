@@ -37,14 +37,14 @@
 		</table>
 	</form>
 </div>
-	<script src="/js/jquery.min.js"></script>
-	<script src="/js/jquery.limit-1.2.js"></script>
-	<script type="text/javascript">
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<script type="text/javascript">
 	$('#nombre').limit('30','#charsLeftNombre');
 	$('#numero').limit('10','#charsLeftNumero');
 	function soloNumeros(e){
 		var key = window.Event ? e.which : e.keyCode
 		return (key >= 48 && key <= 57)
 	}
-	</script>
+</script>
 {% endblock %}
