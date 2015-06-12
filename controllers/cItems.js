@@ -55,8 +55,9 @@ function postModificar(req, res){
 	id = params.id;
 	numero = params.numero;
 	nombre = params.nombre;
-	activo = params.activo;
-	if (activo = "on")
+	activo = params.activa;
+
+	if (activo == "on")
 		activo = 1;
 	else
 		activo = 0;

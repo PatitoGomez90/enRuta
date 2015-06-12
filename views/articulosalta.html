@@ -47,11 +47,11 @@
 			</tr>
 			<tr>
 				<td>Codigo de Fabrica:</td>
-				<td><input type="text" id="cdfabrica" name="cdfabrica" required class="form-control"></td>
+				<td><input type="text" id="cdfabrica" name="cdfabrica" required class="form-control"><div class="aviso">Quedan <span id="charsLeftCdfabrica"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Descripcion:</td>
-				<td><input type="text" id="descripcion" name="descripcion" required class="form-control"><div class="aviso">Quedan <span id="charsLeftDescripcion"></span> caraceteres.</div></td>
+				<td><input type="text" id="descripcion" name="descripcion" class="form-control"><div class="aviso">Quedan <span id="charsLeftDescripcion"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Familia:</td>
@@ -137,10 +137,13 @@
 	$('#nombre').limit('50','#charsLeftNombre');
 	$('#cdinterno').limit('13','#charsLeftCdinterno');
 	$('#descripcion').limit('400','#charsLeftDescripcion');
+	$('#cdfabrica').limit('25', '#charsLeftCdfabrica');
+
 	function soloNumeros(e){
 		var key = window.Event ? e.which : e.keyCode
 		return (key >= 48 && key <= 57)
 	}
+
 	function Numy1Punto(e, field) {
 	  key = e.keyCode ? e.keyCode : e.which
 	  // backspace
