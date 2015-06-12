@@ -12,7 +12,7 @@
 		<table align="center" class="table table-striped">
 			<tr>
 				<td>Descripcion:</td>
-				<td><input type="text" id="descripcion" name="descripcion" required class="form-control"></td>
+				<td><input type="text" id="descripcion" name="descripcion" required class="form-control"><div class="aviso">Quedan <span id="charsLeftDescripcion"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td><input type="button" value="Atras" onclick="history.back()"></td>
@@ -22,7 +22,9 @@
 	</form>
 </div>
 <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
 <script type="text/javascript">
+	$('#descripcion').limit('50','#charsLeftDescripcion');
 </script>
 
 {% endblock %}

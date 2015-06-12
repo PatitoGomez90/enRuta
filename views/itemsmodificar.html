@@ -16,11 +16,11 @@
 			</tr>
 			<tr>
 				<td>Numero: </td>
-				<td><input type="text" id="numero" name="numero" value="{{ item.numero }}" required class="form-control"></td>
+				<td><input type="text" id="numero" name="numero" value="{{ item.numero }}" required class="form-control" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftNumero"></span> caraceteres.</div></td>
 			</tr>	
 			<tr>
 				<td>Nombre:</td>
-				<td><input type="text" id="nombre" name="nombre" value="{{ item.nombre }}" required class="form-control"></td>
+				<td><input type="text" id="nombre" name="nombre" value="{{ item.nombre }}" required class="form-control"><div class="aviso">Quedan <span id="charsLeftNombre"></span> caraceteres.</div></td>
 			</tr>	
 			<tr>
 				<td>Activo:</td>
@@ -38,6 +38,13 @@
 	</form>
 </div>
 	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery.limit-1.2.js"></script>
 	<script type="text/javascript">
+	$('#nombre').limit('30','#charsLeftNombre');
+	$('#numero').limit('10','#charsLeftNumero');
+	function soloNumeros(e){
+		var key = window.Event ? e.which : e.keyCode
+		return (key >= 48 && key <= 57)
+	}
 	</script>
 {% endblock %}
