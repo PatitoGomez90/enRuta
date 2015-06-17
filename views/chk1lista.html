@@ -12,7 +12,7 @@
   	<!-- Table -->
 		<table>
 		<tr>	
-			<td><a href="/"> <button type="button" class="btn btn-primary">Atras</button></a></td>
+			<td><a href="/inicio"> <button type="button" class="btn btn-primary">Atras</button></a></td>
 			<td><a href="/chk1alta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
 		</tr>	
 		</table>
@@ -26,6 +26,7 @@
 							<th>Nombre del Modelo</th>
 							<th>Mas Datos</th>
 							<th>Activo</th>
+							<th colspan="2">Opciones</th>
 						</tr>
 			  		</thead>
 			  		<tbody>
@@ -39,7 +40,7 @@
 								{% else %}
 									<td><span>No activo</span></td>
 								{% endif %}
-								<!-- <td><a href="/cargosmodificar/{{ cargo.id }}"><button class="btn btn-warning">Modificar</button></a></td> -->
+								<td><a href="/chk2lista/{{ chk1.id }}"><button class="btn btn-default">Contenido</button></a></td>
 								<td><a href='/chk1borrar/{{ chk1.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
 							</tr>
 							{% endfor %}

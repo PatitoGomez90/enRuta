@@ -9,8 +9,9 @@
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
 	<form method="post" id="formalta" action="/chk2alta">
+		<input hidden name="chk1" id="chk1" value="{{ idchk1 }}">
 		<table align="center" class="table table-striped">
-			<tr>
+			<!-- <tr>
 				<td>Checkbox 1:</td>
 				<td>
 					<select name="chk1" id="chk1" class="form-control">
@@ -19,14 +20,14 @@
 						{% endfor %}
 					</select>
 				</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td>Detalle:</td>
 				<td><input type="text" id="detalle" name="detalle"> </td>
 			</tr>
 			<tr>
 				<td>Orden:</td>
-				<td><input type="text" id="orden" name="orden"></td>
+				<td><input type="text" id="orden" name="orden" onKeyPress="return soloNumeros(event)"></td>
 			</tr>
 			<tr>
 				<td>Titulo?</td>
@@ -41,7 +42,10 @@
 </div>
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
-	
+	function soloNumeros(e){
+		var key = window.Event ? e.which : e.keyCode
+		return (key >= 48 && key <= 57)
+	}
 </script>
 
 {% endblock %}

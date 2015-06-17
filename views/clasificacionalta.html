@@ -5,14 +5,15 @@
 {% endblock %}
 
 {% block content %}
-<link href="/css/tipoequipoalta.css" rel="stylesheet">
+<link href="/css/clasificacionalta.css" rel="stylesheet">
 <h2>{{ pagename }}</h2>
+Ej: Hrs Insalubres, Hrs Calorias, Hrs Peligrosas, etc..
 <div class="panel panel-default">
-	<form method="post" id="formalta" action="/tipoequipoalta">
+	<form method="post" id="formalta" action="/clasificacionalta">
 		<table align="center" class="table table-striped">
 			<tr>
-				<td>Descripcion:</td>
-				<td><input type="text" id="descripcion" name="descripcion" required ></td>
+				<td>Nombre:</td>
+				<td><input type="text" id="nombre" name="nombre" required class="form-control"></td>
 			</tr>
 			<tr>
 				<td><input type="button" value="Atras" onclick="history.back()"></td>
@@ -24,5 +25,4 @@
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
 </script>
-
 {% endblock %}

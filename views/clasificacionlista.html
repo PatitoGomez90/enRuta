@@ -1,0 +1,57 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<h2>{{ pagename }}</h2>
+Ej: Hrs Insalubres, Hrs Calorias, Hrs Peligrosas, etc..
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  	<div class="panel-heading">
+  	<!-- Table -->
+		<table>
+		<tr>	
+			<td><a href="/inicio"> <button type="button" class="btn btn-primary">Atras</button></a></td>
+			<td><a href="/clasificacionalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
+		</tr>	
+		</table>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<table class="table table-striped">
+		  		<thead>
+		  			<tr> 
+						<th>ID</th>
+						<th>Descripcion</th>
+						<th>Activo</th>
+						<th colspan="2">Opciones</th>
+					</tr>
+		  		</thead>
+		  		<tbody>
+		  			{% for c in clasificaciones %}
+						<tr>
+							<td>{{ c.id }}</td>
+							<td>{{ c.nombre }}</td>
+							{% if c.activa == 1 %}
+								<td><span>Activo</span></td>
+							{% else %}
+								<td><span>No activo</span></td>
+							{% endif %}
+							<td>
+								<a href="/clasificacionmodificar/{{ c.id }}"><button class="btn btn-warning">Modificar</button></a>
+							</td>
+							<td>
+								<a href='/clasificacionborrar/{{ c.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
+							</td>
+						</tr>
+					{% endfor %}
+		  		</tbody>
+			</table>				
+		</div><!--div col xs12 -->
+	</div><!--div row -->
+</div>
+
+{% endblock %}

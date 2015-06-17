@@ -6,24 +6,32 @@ module.exports = {
 	getAlta: getAlta,
 	postAlta: postAlta,
 	getModificar: getModificar,
-	postModificar: postModificar
+	postModificar: postModificar,
+	getDel: getDel
 };
 
 function getLista(req, res) {
-  	mChk2.getAll(function (chk2s){
-  		res.render('chk2lista', {
-			pagename: 'Lista de CheckLists 2',
-			chk2s: chk2s,
-		});
-  	});
+	params = req.params;
+	idchk1 = params.id;
+
+	mChk1.getById(idchk1, function (chk1){
+		mChk2.getAllByChk1Id(idchk1, function (chk2s){
+	  		res.render('chk2lista', {
+				pagename: 'Contenido de ',
+				chk2s: chk2s,
+				chk1: chk1[0]
+			});
+	  	});
+	});  	
 }
 
 function getAlta(req, res){
-	mChk1.getAll(function (chk1s){
-		res.render('chk2alta',{
-			pagename: "Alta de CheckList",
-			chk1s: chk1s
-		});
+	params = req.params;
+	id = params.id;
+
+	res.render('chk2alta',{
+		pagename: "Alta de CheckList",
+		idchk1: id
 	});
 }
 
@@ -40,22 +48,19 @@ function postAlta(req, res){
 		titulo = 0;
 
 	mChk2.insert(idchk1, detalle, orden, titulo, function(){
-		res.redirect('chk2lista');
+		res.redirect('chk2lista/'+idchk1);
 	});
 }
 
 function getModificar(req, res){
 	params = req.params;
 	idchk2 = params.id;
-	mChk1.getAll(function (chk1s){
-		//console.log(chk1s)
-		mChk2.getChk2ById(idchk2 ,function (chk2){
-			//console.log(chk2)
-			res.render('chk2modificar',{
-				chk1s: chk1s,
-				chk2: chk2[0],
-				pagename: 'Modificar'
-			});
+
+	mChk2.getChk2ById(idchk2 ,function (chk2){
+		//console.log(chk2)
+		res.render('chk2modificar',{
+			chk2: chk2[0],
+			pagename: 'Modificar'
 		});
 	});
 }
@@ -74,6 +79,16 @@ function postModificar(req, res){
 		titulo = 0;
 	
 	mChk2.update(chk2id, chk1id, detalle, orden, titulo, function (){
-		res.redirect('chk2lista');
+		res.redirect('chk2lista/'+idchk1);
+	});
+}
+
+function getDel(req, res){
+	params = req.params;
+	id = params.id;
+	mChk2.getChk2ById(id, function (chk2){
+		mChk2.del(id, function(){
+			res.redirect('chk2lista/'+chk2[0].id_chk1_fk);
+		});
 	});
 }

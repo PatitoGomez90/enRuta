@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block content %}
-<h2>{{ pagename }}</h2>
+<h2>{{ pagename }}</h2><b>{{ chk1.nombre }}</b>
 <div class="panel panel-default">
   <!-- Default panel contents -->
   	<div class="panel-heading">
   	<!-- Table -->
 		<table>
 		<tr>	
-			<td><a href="/"> <button type="button" class="btn btn-primary">Atras</button></a></td>
-			<td><a href="/chk2alta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
+			<td><a href="/chk1lista"> <button type="button" class="btn btn-primary">Atras</button></a></td>
+			<td><a href="/chk2alta/{{ chk1.id }}"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
 		</tr>	
 		</table>
 	</div>
@@ -23,7 +23,7 @@
 			  		<thead>
 			  			<tr> 
 							<th>ID</th>
-							<th>Tipo checklist 1</th>
+							<!-- <th>Tipo checklist 1</th> -->
 							<th>Detalle</th>
 							<th>Orden</th>
 							<th>Titulo</th>
@@ -33,7 +33,7 @@
 			  			{% for chk2 in chk2s %}
 							<tr>
 								<td>{{ chk2.id }}</td>
-								<td>{{ chk2.chk1 }}</td>
+								<!-- <td>{{ chk2.chk1 }}</td> -->
 								<td>{{ chk2.detalle }}</td>
 								<td>{{ chk2.orden }}</td>
 								{% if chk2.titulo == 1 %}
@@ -42,7 +42,7 @@
 									<td>No</td>
 								{% endif %}
 								<td><a href="/chk2modificar/{{ chk2.id }}"><button class="btn btn-warning">Modificar</button></a></td>
-								<td><a href='/chk1borrar/{{ chk2.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
+								<td><a href='/chk2borrar/{{ chk2.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
 							</tr>
 							{% endfor %}
 			  		</tbody>

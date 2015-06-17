@@ -25,6 +25,9 @@ var itemsController = require('./controllers/cItems');
 var tipohoraController = require('./controllers/cTipoHora');
 var codigohoraController = require('./controllers/cCodigoHora');
 var relojesController = require('./controllers/cRelojes');
+var lugaresController = require('./controllers/cLugares');
+var clasificacionController = require('./controllers/cClasificacion');
+var inputaController = require('./controllers/cInputacion');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -160,11 +163,12 @@ module.exports = function(app) {
 	app.get('/chk1alta', auth, chk1Controller.getAlta);
 	app.post('/chk1alta', auth, chk1Controller.postAlta);
 	//checklist 2
-	app.get('/chk2lista', auth, chk2Controller.getLista);
-	app.get('/chk2alta', auth, chk2Controller.getAlta);
+	app.get('/chk2lista/:id', auth, chk2Controller.getLista);
+	app.get('/chk2alta/:id', auth, chk2Controller.getAlta);
 	app.post('/chk2alta', auth, chk2Controller.postAlta);
 	app.get('/chk2modificar/:id', auth, chk2Controller.getModificar);
 	app.post('/chk2modificar', auth, chk2Controller.postModificar);
+	app.get('/chk2borrar/:id', auth, chk2Controller.getDel);
 	//ot
 	app.get('/otlista', auth, otController.getLista);
 	app.get('/otalta', auth, otController.getAlta);
@@ -228,4 +232,25 @@ module.exports = function(app) {
 	app.get('/relojesmodificar/:id', auth, relojesController.getModificar);
 	app.post('/relojesmodificar', auth, relojesController.postModificar);
 	app.get('/relojesborrar/:id', auth, relojesController.getDel);
+	//lugares
+	app.get('/lugareslista', auth, lugaresController.getLista);
+	app.get('/lugaresalta', auth, lugaresController.getAlta);
+	app.post('/lugaresalta', auth, lugaresController.postAlta);
+	app.get('/lugaresmodificar/:id', auth, lugaresController.getModificar);
+	app.post('/lugaresmodificar', auth, lugaresController.postModificar);
+	app.get('/lugaresborrar/:id', auth, lugaresController.getDel);
+	//clasificacion de horas
+	app.get('/clasificacionlista', auth, clasificacionController.getLista);
+	app.get('/clasificacionalta', auth, clasificacionController.getAlta);
+	app.post('/clasificacionalta', auth, clasificacionController.postAlta);
+	app.get('/clasificacionmodificar/:id', auth, clasificacionController.getModificar);
+	app.post('/clasificacionmodificar', auth, clasificacionController.postModificar);
+	app.get('/clasificacionborrar/:id', auth, clasificacionController.getDel);
+	//inputacion de horas
+	app.get('/inputacionlista', auth, inputaController.getLista);
+	app.get('/inputacionalta', auth, inputaController.getAlta);
+	app.post('/inputacionalta', auth, inputaController.postAlta);
+	app.get('/inputacionmodificar/:id', auth, inputaController.getModificar);
+	app.post('/inputacionmodificar', auth, inputaController.postModificar);
+	app.get('/inputacionborrar/:id', auth, inputaController.getDel);
 }; 

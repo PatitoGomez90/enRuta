@@ -1,0 +1,36 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/inputacionmodificar.css" rel="stylesheet">	
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="POST" action="/inputacionmodificar">
+		<table align="center" class="table table-striped">
+			<input hidden id="id" name="id" value="{{ inputacion.id }}">	
+			<tr>
+				<td>Nombre:</td>
+				<td><input type="text" id="nombre" name="nombre" value="{{ inputacion.nombre }}" required class="form-control"></td>
+			</tr>	
+			<tr>
+				<td>Activo:</td>
+				{% if inputacion.activa == 1 %}
+					<td><input type="checkbox" name="activa" checked></td>
+				{% else %}
+					<td><input type="checkbox" name="activa"></td>
+				{% endif %}	
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Guardar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+</script>
+{% endblock %}
