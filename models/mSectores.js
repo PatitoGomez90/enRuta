@@ -8,7 +8,7 @@ module.exports = {
 	update: update,
 	del: del,
 	getUltimoCodigo: getUltimoCodigo
-	}
+}
 
 function getAll(cb){
 	conn("select * from sectores", cb);

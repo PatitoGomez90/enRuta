@@ -1,0 +1,203 @@
+	{% extends 'template.html' %}
+
+	{% block title %}
+		{{ pagename }}
+	{% endblock %}
+
+	{% block content %}
+	<link href="/css/partediario1alta.css" rel="stylesheet">
+	<h2>{{ pagename }}</h2>
+	<div class="panel panel-default">
+		<form method="post" id="formalta" action="/partediario1alta">
+			<table align="center" class="table table-striped">
+				<tr>
+					<td>Fecha:</td>
+					<td><input type="text" id="fecha" name="fecha" readonly class="datepicker form-control"></td>
+				</tr>
+				<tr>
+					<td>Sector:</td>
+					<td>
+						<select name="sector" id="sector" class="form-control">
+							{% for s in sectores %}
+								<option value="{{ s.id }}">{{ s.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Lugar:</td>
+					<td>
+						<select name="lugar" id="lugar" class="form-control">
+							{% for l in lugares %}
+								<option value="{{ l.id }}">{{ l.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><h4><b>Clasificacion de Horas</b></h4> (Ej: Hrs Insalubres, Hrs Calorias, etc..)</td>
+				</tr>
+				<tr>
+					<td>Clasificacion de Horas N°1</td>
+					<td>
+						<select name="clasificacion1" id="clasificacion1" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for c in clasificaciones %}
+								<option value="{{ c.id }}">{{ c.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Clasificacion de Horas N°2</td>
+					<td>
+						<select name="clasificacion2" id="clasificacion2" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for c in clasificaciones %}
+								<option value="{{ c.id }}">{{ c.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Clasificacion de Horas N°3</td>
+					<td>
+						<select name="clasificacion3" id="clasificacion3" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for c in clasificaciones %}
+								<option value="{{ c.id }}">{{ c.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Clasificacion de Horas N°4</td>
+					<td>
+						<select name="clasificacion4" id="clasificacion4" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for c in clasificaciones %}
+								<option value="{{ c.id }}">{{ c.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Clasificacion de Horas N°5</td>
+					<td>
+						<select name="clasificacion5" id="clasificacion5" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for c in clasificaciones %}
+								<option value="{{ c.id }}">{{ c.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Clasificacion de Horas N°6</td>
+					<td>
+						<select name="clasificacion6" id="clasificacion6" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for c in clasificaciones %}
+								<option value="{{ c.id }}">{{ c.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><h4><b>Items</b></h4> (Ej: Mec, Elec, Ed, etc..)</td>
+				</tr>
+				<tr>
+					<td>Item N°1</td>
+					<td>
+						<select name="imputacion1" id="imputacion1" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Item N°2</td>
+					<td>
+						<select name="imputacion2" id="imputacion2" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Item N°3</td>
+					<td>
+						<select name="imputacion3" id="imputacion3" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Item N°4</td>
+					<td>
+						<select name="imputacion4" id="imputacion4" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Item N°5</td>
+					<td>
+						<select name="imputacion5" id="imputacion5" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Item N°6</td>
+					<td>
+						<select name="imputacion6" id="imputacion6" class="form-control">
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="button" value="Atras" onclick="history.back()"></td>
+					<td><input type="submit" value="Agregar"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<script type="text/javascript">
+	$(".datepicker").datepicker({
+		format: 'dd/mm/yyyy',
+		autoclose: true,
+		language: 'es'
+	});
+	
+	var myDate = new Date(); 
+
+	day = myDate.getDate();
+	if (day<10)
+		day = "0"+day;
+	month = myDate.getMonth() +1;
+	if (month<10)
+		month = "0"+month
+	myDate = day + "/" + month + "/" + myDate.getFullYear();
+	$("#fecha").val(myDate)
+</script>
+{% endblock %}

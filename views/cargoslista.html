@@ -20,38 +20,37 @@
 
 	<div class="row">
 		<div class="col-xs-12">
-				<table class="table table-striped">
-			  		<thead>
-			  			<tr> 
-							<th>ID</th>
-							<th>Descripcion</th>
-							<th>Activo</th>
-							<th colspan="2">Opciones</th>
+			<table class="table table-striped">
+		  		<thead>
+		  			<tr> 
+						<th>ID</th>
+						<th>Descripcion</th>
+						<th>Activo</th>
+						<th colspan="2">Opciones</th>
+					</tr>
+		  		</thead>
+		  		<tbody>
+		  			{% for cargo in cargos %}
+						<tr>
+							<td>{{ cargo.id }}</td>
+							<td>{{ cargo.descripcion }}</td>
+							{% if cargo.activa == 1 %}
+								<td><span>Activo</span></td>
+							{% else %}
+								<td><span>No activo</span></td>
+							{% endif %}
+							<td>
+								<a href="/cargosmodificar/{{ cargo.id }}"><button class="btn btn-warning">Modificar</button></a>
+							</td>
+							<td>
+								<a href='/cargosborrar/{{ cargo.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
+							</td>
 						</tr>
-			  		</thead>
-			  		<tbody>
-			  			{% for cargo in cargos %}
-							<tr>
-								<td>{{ cargo.id }}</td>
-								<td>{{ cargo.descripcion }}</td>
-								{% if cargo.activa == 1 %}
-									<td><span>Activo</span></td>
-								{% else %}
-									<td><span>No activo</span></td>
-								{% endif %}
-								<td>
-									<a href="/cargosmodificar/{{ cargo.id }}"><button class="btn btn-warning">Modificar</button></a>
-								</td>
-								<td>
-									<a href='/cargosborrar/{{ cargo.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
-								</td>
-							</tr>
-							{% endfor %}
-			  		</tbody>
-				  </table>				
+					{% endfor %}
+		  		</tbody>
+			</table>				
 		</div><!--div col xs12 -->
 	</div><!--div row -->
-
 </div>
 
 {% endblock %}

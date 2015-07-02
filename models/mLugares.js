@@ -5,7 +5,8 @@ module.exports = {
 	insert: insert,
 	getById: getById,
 	update: update,
-	del: del
+	del: del,
+	getAllActivos: getAllActivos
 }
 
 function getAll(cb){
@@ -26,4 +27,8 @@ function update(id, nombre, activa, cb){
 
 function del(id, cb){
 	conn("delete from lugares where id="+id, cb);
+}
+
+function getAllActivos(cb){
+	conn("select * from lugares where activa = 1", cb);
 }

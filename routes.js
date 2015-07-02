@@ -27,7 +27,12 @@ var codigohoraController = require('./controllers/cCodigoHora');
 var relojesController = require('./controllers/cRelojes');
 var lugaresController = require('./controllers/cLugares');
 var clasificacionController = require('./controllers/cClasificacion');
-var inputaController = require('./controllers/cInputacion');
+var imputaController = require('./controllers/cImputacion');
+var partediario1Controller = require('./controllers/cPartediario1');
+var partediario2Controller = require('./controllers/cPartediario2');
+var fichadasController = require('./controllers/cFichadas');
+
+var pruebasqlController = require('./controllers/cPruebaSQL');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -158,7 +163,7 @@ module.exports = function(app) {
 	app.post('/printselection', auth, valesController.getPrintSelection);
 	//prueba xls to json
 	app.get('/test', auth, test.getTest);
-	//checklist 1
+	//checklist 1 02/07/2015-> ahora se llama Modelo de Checklist [ABM]
 	app.get('/chk1lista', auth, chk1Controller.getLista);
 	app.get('/chk1alta', auth, chk1Controller.getAlta);
 	app.post('/chk1alta', auth, chk1Controller.postAlta);
@@ -246,11 +251,33 @@ module.exports = function(app) {
 	app.get('/clasificacionmodificar/:id', auth, clasificacionController.getModificar);
 	app.post('/clasificacionmodificar', auth, clasificacionController.postModificar);
 	app.get('/clasificacionborrar/:id', auth, clasificacionController.getDel);
-	//inputacion de horas
-	app.get('/inputacionlista', auth, inputaController.getLista);
-	app.get('/inputacionalta', auth, inputaController.getAlta);
-	app.post('/inputacionalta', auth, inputaController.postAlta);
-	app.get('/inputacionmodificar/:id', auth, inputaController.getModificar);
-	app.post('/inputacionmodificar', auth, inputaController.postModificar);
-	app.get('/inputacionborrar/:id', auth, inputaController.getDel);
+	//imputacion de horas 02/07/2015-> ahora se llama ITEMS
+	app.get('/imputacionlista', auth, imputaController.getLista);
+	app.get('/imputacionalta', auth, imputaController.getAlta);
+	app.post('/imputacionalta', auth, imputaController.postAlta);
+	app.get('/imputacionmodificar/:id', auth, imputaController.getModificar);
+	app.post('/imputacionmodificar', auth, imputaController.postModificar);
+	app.get('/imputacionborrar/:id', auth, imputaController.getDel);
+	//parte diario 1
+	app.get('/partediario1lista', auth, partediario1Controller.getLista);
+	app.get('/partediario1alta', auth, partediario1Controller.getAlta);
+	app.post('/partediario1alta', auth, partediario1Controller.postAlta);
+	app.get('/partediario1modificar/:id', auth, partediario1Controller.getModificar);
+	app.post('/partediario1modificar', auth, partediario1Controller.postModificar);
+	app.get('/partediario1borrar/:id', auth, partediario1Controller.getDel);
+	//parte diario 2
+	app.get('/partediario2lista/:id', auth, partediario2Controller.getLista);
+	app.post('/partediario2lista', auth, partediario2Controller.postLista);
+	app.get('/partediario2alta/:id', auth, partediario2Controller.getAlta);
+	app.post('/partediario2alta', auth, partediario2Controller.postAlta);
+	app.get('/partediario2modificar/:id', auth, partediario2Controller.getModificar);
+	app.post('/partediario2modificar', auth, partediario2Controller.postModificar);
+	app.get('/partediario2borrar/:id', auth, partediario2Controller.getDel);
+	app.post('/saverow', auth, partediario2Controller.postSaveRow);
+	//pruebasql
+	app.get('/pruebasql', auth, pruebasqlController.getPrueba);
+	//fichadas
+	app.get('/fichadaslista', auth, fichadasController.getLista);
+	app.get('/buscarfichadas/:fecha', auth, fichadasController.getFichadas);
+	app.get('/fichadasver/:reloj/:fecha', auth, fichadasController.getVer);
 }; 

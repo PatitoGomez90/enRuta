@@ -14,7 +14,7 @@ Ej: Mecanicas (MEC), Electricas (ELEC), "ED", etc..
 		<table>
 		<tr>	
 			<td><a href="/inicio"> <button type="button" class="btn btn-primary">Atras</button></a></td>
-			<td><a href="/inputacionalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
+			<td><a href="/imputacionalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
 		</tr>	
 		</table>
 	</div>
@@ -26,25 +26,27 @@ Ej: Mecanicas (MEC), Electricas (ELEC), "ED", etc..
 		  			<tr> 
 						<th>ID</th>
 						<th>Descripcion</th>
+						<th>Numero</th>
 						<th>Activo</th>
 						<th colspan="2">Opciones</th>
 					</tr>
 		  		</thead>
 		  		<tbody>
-		  			{% for i in inputaciones %}
+		  			{% for i in imputaciones %}
 						<tr>
 							<td>{{ i.id }}</td>
 							<td>{{ i.nombre }}</td>
+							<td>{{ i.numero }}</td>
 							{% if i.activa == 1 %}
 								<td><span>Activo</span></td>
 							{% else %}
 								<td><span>No activo</span></td>
 							{% endif %}
 							<td>
-								<a href="/inputacionmodificar/{{ i.id }}"><button class="btn btn-warning">Modificar</button></a>
+								<a href="/imputacionmodificar/{{ i.id }}"><button class="btn btn-warning">Modificar</button></a>
 							</td>
 							<td>
-								<a href='/inputacionborrar/{{ i.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
+								<a href='/imputacionborrar/{{ i.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
 							</td>
 						</tr>
 					{% endfor %}

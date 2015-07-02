@@ -1,4 +1,4 @@
-var mInputacion = require('../models/mInputacion');
+var mImputacion = require('../models/mImputacion');
 var mAyuda = require('../models/mAyuda');
 
 module.exports = {
@@ -13,10 +13,10 @@ module.exports = {
 function getLista(req, res) {
 	//req.session.nromenu = 5;
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
-	mInputacion.getAll(function (inputaciones){
-		res.render('inputacionlista', {
-        	pagename: 'Lista de Tipos de Inputaciones de Horas',
-        	inputaciones: inputaciones
+	mImputacion.getAll(function (imputaciones){
+		res.render('imputacionlista', {
+        	pagename: 'Lista de Items',
+        	imputaciones: imputaciones
         	//ayuda: ayuda[0]
       	}); 
 	});    
@@ -24,17 +24,18 @@ function getLista(req, res) {
 };
 
 function getAlta(req, res){
-	res.render('inputacionalta', {
-		pagename: "Alta de Tipo de Inputacion de Horas"
+	res.render('imputacionalta', {
+		pagename: "Alta de Items"
 	});
 }
 
 function postAlta(req, res){
 	params = req.body;
 	nombre = params.nombre;
+	numero = params.numero;
 
-	mInputacion.insert(nombre, function (){
-		res.redirect('inputacionlista');
+	mImputacion.insert(nombre, numero, function (){
+		res.redirect('imputacionlista');
 	});
 }
 
@@ -42,10 +43,10 @@ function getModificar(req, res){
 	params = req.params;
 	id = params.id;
 
-	mInputacion.getById(id, function (inputacion){
-		res.render('inputacionmodificar', {
-			pagename: "Modificar Tipo de Inputacion de Horas",
-			inputacion: inputacion[0]
+	mImputacion.getById(id, function (imputacion){
+		res.render('imputacionmodificar', {
+			pagename: "Modificar Items",
+			imputacion: imputacion[0]
 		});
 	});
 }
@@ -54,20 +55,21 @@ function postModificar(req, res){
 	params = req.body;
 	id = params.id;
 	nombre = params.nombre;
+	numero = params.numero;
 	activa = params.activa;
 	if (activa == "on")
 		activa = 1;
 	else
 		activa = 0;
-	mInputacion.update(id, nombre, activa, function (){
-		res.redirect('inputacionlista');
+	mImputacion.update(id, nombre, numero, activa, function (){
+		res.redirect('imputacionlista');
 	});
 }
 
 function getDel(req, res){
 	params = req.params;
 	id = params.id;
-	mInputacion.del(id, function(){
-		res.redirect('inputacionlista');
+	mImputacion.del(id, function(){
+		res.redirect('imputacionlista');
 	});
 }

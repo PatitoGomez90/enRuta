@@ -1,0 +1,11 @@
+#codigohora{
+	width: 30px;
+}
+
+#entrada, #salida, #total{
+	width: 50px;
+}
+
+.clasificacion, .imputacion{
+	width: 50px;
+}

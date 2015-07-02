@@ -1,0 +1,35 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/partediario2alta.css" rel="stylesheet">
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="post" id="formalta" action="/partediario2alta">
+		<input hidden name="idpartediario1" id="idpartediario1" value="{{ idpartediario1 }}">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>Empleado:</td>
+				<td>
+					<select name="empleado" id="empleado" class="form-control">
+						{% for e in empleados %}
+							<option value="{{ e.codigo }}">{{ e.nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Agregar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+</script>
+
+{% endblock %}
