@@ -32,18 +32,18 @@
 			</tr>
 			<tr>
 				<td>Nº Serie:</td>
-				<td><input type="text" id="serie" name="serie" required class="form-control"><div class="aviso">Quedan <span id="charsLeftSerie"></span> caraceteres.</div></td>
+				<td><input type="text" id="serie" name="serie" required class="form-control" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftSerie"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Nº de Motor (para Vehiculos):</td>
-				<td><input type="text" name="nmotor" id="nmotor" required class="form-control"><div class="aviso">Quedan <span id="charsLeftNmotor"></span> caraceteres.</div></td>
+				<td><input type="text" name="nmotor" id="nmotor" required class="form-control" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftNmotor"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Tipo:</td>
 				<td>
 					<select name="tipomaq" id="tipomaq" class="form-control">
 						{% for tipomaq in tipomaqs %}
-							{% if tipomaq.id == 2 or tipomaq.id == 3 %}
+							{% if tipomaq.id == 1 or tipomaq.id == 3 %}
 								<option value="{{ tipomaq.id }}">{{ tipomaq.descripcion }}</option>
 							{% endif %}
 						{% endfor %}
@@ -90,7 +90,7 @@
 			</tr>
 			<tr>
 				<td>Km o Hrs Base:</td>
-				<td><input type="text" name="base" id="base" class="form-control"></td>
+				<td><input type="text" id="base" name="base" class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Titular:</td>

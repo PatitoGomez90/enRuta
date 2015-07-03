@@ -17,7 +17,7 @@
 			</tr>
 			<tr>
 				<td>Dominio:</td>
-				<td><input type="text" id="dominio" name="dominio" required class="form-control" value="{{ equipo.dominio }}"></td>
+				<td><input type="text" id="dominio" name="dominio" class="form-control" value="{{ equipo.dominio }}"></td>
 			</tr>
 			<tr>
 				<td>Denominacion:</td>
@@ -33,18 +33,18 @@
 			</tr>
 			<tr>
 				<td>Nº Serie:</td>
-				<td><input type="text" id="serie" name="serie" required class="form-control" value="{{ equipo.serie }}"><div class="aviso">Quedan <span id="charsLeftSerie"></span> caraceteres.</div></td>
+				<td><input type="text" id="serie" name="serie" required class="form-control" value="{{ equipo.serie }}" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftSerie"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Nº de Motor (para Vehiculos):</td>
-				<td><input type="text" name="nmotor" id="nmotor" required class="form-control" value="{{ equipo.motor }}"><div class="aviso">Quedan <span id="charsLeftNmotor"></span> caraceteres.</div></td>
+				<td><input type="text" name="nmotor" id="nmotor" required class="form-control" value="{{ equipo.motor }}" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftNmotor"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Tipo:</td>
 				<td>
-					<select name="tipomaq" id="tipomaq" class="form-control" readonly>
+					<select name="tipomaq" id="tipomaq" class="form-control">
 						{% for tipomaq in tipomaqs %}
-							{% if tipomaq.id == 2 or tipomaq.id == 3 %}
+							{% if tipomaq.id == 1 or tipomaq.id == 3 %}
 								{% if equipo.tipo == tipomaq.id %}
 									<option value="{{ tipomaq.id }}" selected>{{ tipomaq.descripcion }}</option>
 								{% else %}
@@ -58,7 +58,7 @@
 			<tr>
 				<td>Tipo de Equipo:</td>
 				<td>
-					<select name="tipoeq" id="tipoeq" class="form-control" readonly>
+					<select name="tipoeq" id="tipoeq" class="form-control">
 						{% for tipoeq in tipoeqs %}
 							{% if equipo.tipoequipo == tipoeq.id %}
 								<option value="{{ tipoeq.id }}" selected>{{ tipoeq.descripcion }}</option>
@@ -115,11 +115,19 @@
 			</tr>
 			<tr>
 				<td>Fecha de Baja:</td>
-				<td><input type="text" class="datepicker form-control" readonly name="fbaja" id="fbaja" value="{{ equipo.fbajaf }}"></td>
+				{% if equipo.fbajaf == null %}
+					<td><input type="text" class="datepicker form-control" readonly name="fbaja" id="fbaja" value=" "></td>
+				{% else %}
+					<td><input type="text" class="datepicker form-control" readonly name="fbaja" id="fbaja" value="{{ equipo.fbajaf }}"></td>
+				{% endif %}
 			</tr>
 			<tr>
 				<td>Motivo de Baja:</td>
-				<td><input type="text" id="mbaja" name="mbaja" class="form-control" value="{{ equipo.mbaja }}"></td>
+				{% if equipo.mbaja == null %}
+					<td><input type="text" id="mbaja" name="mbaja" class="form-control" value=""></td>
+				{% else %}
+					<td><input type="text" id="mbaja" name="mbaja" class="form-control" value="{{ equipo.mbaja }}"></td>
+				{% endif %}
 			</tr>
 			<tr>
 				<td>Activa:</td>

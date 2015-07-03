@@ -13,6 +13,7 @@
 		<table>
 			<tr>
 				<td><button type="button" name="btnAyuda" id="btnAyuda" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
+				<td><button type="button" name="addArt" id="addArt" class="btn btn-success" title="Agregar Otro Articulo"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></td>
 			</tr>
 		</table>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -49,7 +50,7 @@
 		</div>
 	</div> <!-- Cierre de div class="panel panel-heading"-->	
 	<form method="post" id="formalta" action="/valesalta">
-		<table align="center" class="table table-striped">
+		<table align="center" id="tablavale" class="table table-striped">
 			<!-- <tr>
 				<td>Vale Nro.:</td>
 				<td><input type="textbox" class="form-control" name="nrovale" id="nrovale" readonly></td>
@@ -69,6 +70,27 @@
 				<td><input type="text" class="datepicker form-control" id="fecha" name="fecha" required readonly></td>
 			</tr>
 			<tr>
+				<td>Retira:</td>
+				<td>
+					<select id="emple" name="emple" class="form-control">
+						<option value="0">-Ningun Empleado</option>
+						{% for emple in emples %}
+							<option value="{{emple.codigo}}">{{emple.nombre}}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Sector Destino:</td>
+				<td>
+					<select name="secdes" id="secdes" class="form-control">
+						{% for sector in sectores %}
+							<option value="{{ sector.id }}">{{ sector.nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td>Articulo:</td>
 				<td>
 					<table style="width:100%;">
@@ -76,7 +98,6 @@
 							<td>
 								<input type="text" class="form-control" name="artid" id="artid" readonly>
 							</td>
-							
 							<td>
 								<select id="articulo" name="articulo" class="form-control">
 									{% for art in arts %}
@@ -89,25 +110,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Codigo de Fabrica:</td>
-				<td><input type="text" class="form-control" id="codart" name="codart" placeholder="Puede usar lector..."></td>
+				<td>Codigo de Fabrica:</td><td><input type="text" class="form-control" id="codart" name="codart" placeholder="Puede usar lector...">Cantidad:<input type="text" id="cantidad" name="cantidad" class="form-control" required onkeyup="checkDec(this);"></td>
 			</tr>
-			<tr>
-				<td>Retira:</td>
-				<td>
-					<select id="emple" name="emple" class="form-control">
-							<option value="0">-Ningun Empleado</option>
-						{% for emple in emples %}
-							<option value="{{emple.codigo}}">{{emple.nombre}}</option>
-						{% endfor %}
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>Cantidad:</td>
-				<td><input type="text" id="cantidad" name="cantidad" class="form-control" required onkeyup="checkDec(this);"></td>
-			</tr>
-			<tr>
+			<!-- <tr>
 				<td>Deposito Origen:</td>
 				<td>
 					<select name="depor" id="depor" class="form-control">
@@ -118,8 +123,8 @@
 						<option value="Deposito 4">Deposito 4</option>
 					</select>
 				</td>
-			</tr>
-			<tr>
+			</tr> -->
+			<!-- <tr>
 				<td>Deposito Destino:</td>
 				<td>
 					<select name="depdes" id="depdes" class="form-control">
@@ -130,8 +135,8 @@
 						<option value="Deposito 4">Deposito 4</option>
 					</select>
 				</td>
-			</tr>
-			<tr>
+			</tr> -->
+			<!-- <tr>
 				<td>Sector Origen:</td>
 				<td>
 					<select name="secor" id="secor" class="form-control">
@@ -140,22 +145,13 @@
 						{% endfor %}
 					</select>
 				</td>
-			</tr>
-			<tr>
-				<td>Sector Destino:</td>
-				<td>
-					<select name="secdes" id="secdes" class="form-control">
-					{% for sector in sectores %}
-							<option value="{{ sector.id }}">{{ sector.nombre }}</option>
-						{% endfor %}
-					</select>
-				</td>
-			</tr>
+			</tr> -->
+			
 			<input type="text" id="costou" name="costou" hidden>
 			<input type="text" id="costot" name="costot" hidden>
 			<tr>
 				<td><input type="button" value="Atras" onclick="history.back()"></td>
-				<td><input type="submit" value="Guardar y Salir"> <input type="button" id="submit2" value="Guardar y Continuar Agregando"></td>
+				<td><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
 	</form>
@@ -163,11 +159,8 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
-	$("#submit2").on('click', function (){
-		//hacer q guarde los datos 
-		//despues q guarde los datos tiene que redirijir a alta2
-		//en alta2 tiene q cargar algunos datos guardados en el punto 1
-		//y el alta 2 tiene q funcionar igual
+	$("#addArt").on('click', function (){
+		$('#tablavale tr:last').after('<tr><td>Articulo:</td><td><table style="width:100%;"><tr><td><input type="text" class="form-control" name="artid" id="artid" readonly></td><td><select id="articulo" name="articulo" class="form-control">{% for art in arts %}<option value="{{ art.id }}">{{ art.Nombre }}</option>{% endfor %}</select></td></tr></table></td></tr><tr><td>Codigo de Fabrica:</td><td><input type="text" class="form-control" id="codart" name="codart" placeholder="Puede usar lector..."></td></tr><tr><td>Cantidad:</td><td><input type="text" id="cantidad" name="cantidad" class="form-control" required onkeyup="checkDec(this);"></td></tr>');
 	});
 
 	$(".datepicker").datepicker({

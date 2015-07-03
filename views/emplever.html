@@ -10,48 +10,48 @@
 <div class="panel panel-default">
 	<table align="center" class="table table-striped">
 		<tr>
-			<td>ID: </td>
-			<td><input type="text" id="codigo" name="codigo" value="{{ emple.codigo }}" readonly></td>
+			<td>ID:</td>
+			<td>{{ emple.codigo }}</td>
 		</tr>	
 		<tr>
 			<td>Nombre:</td>
-			<td><input type="text" id="nombre" name="nombre" value="{{ emple.nombre }}" readonly></td>
+			<td>{{ emple.nombre }}</td>
 		</tr>
 		<tr>
 			<td>Fecha de Alta:</td>
-			<td><input type="text" id="falta" name="falta" value="{{ emple.falta|date('d/m/Y') }}" readonly></td>
+			<td>{{ emple.falta|date('d/m/Y') }}</td>
 		</tr>
 		<tr>
 			<td>Fecha de Baja:</td>
-			<td><input type="text" id="fbaja" name="fbaja" value="{{ emple.fbaja|date('d/m/Y') }}" readonly></td>
+			<td>{{ emple.fbaja|date('d/m/Y') }}</td>
 		</tr>	
 		<tr>
 			<td>Cargo:</td>
-			<td><input type="text" id="cargo" name="cargo" value="{{ emple.cargo_descripcion }}" readonly></td>
+			<td>{{ emple.cargo_descripcion }}</td>
 		</tr>
 		<tr>
 			<td>Legajo:</td>
-			<td><input type="text" id="legajo" name="legajo" value="{{ emple.legajo }}" readonly></td>
+			<td>{{ emple.legajo }}</td>
 		</tr>
 		<tr>
 			<td>CUIL:</td>
-			<td><input type="text" id="cuil" name="cuil" value="{{ emple.cuil }}" readonly></td>
+			<td>{{ emple.cuil }}</td>
 		</tr>
 		<tr>
 			<td>Fecha de Nacimiento:</td>
-			<td><input type="text" id="fnac" name="fnac" value="{{ emple.fecha_nac|date('d/m/Y') }}" readonly></td>
+			<td>{{ emple.fecha_nac|date('d/m/Y') }}</td>
 		</tr>
 		<tr>
 			<td>Domicilio: </td>
-			<td><input type="text" id="domicilio" name="domicilio" value="{{ emple.domicilio }}" readonly></td>
+			<td>{{ emple.domicilio }}</td>
 		</tr>
 		<tr>	
 			<td>Codigo Postal:</td>
-			<td><input type="text" id="cp" name="cp" value="{{ emple.cp }}" readonly></td>
+			<td>{{ emple.cp }}</td>
 		</tr>
 		<tr>
 			<td>Telefono:</td>
-			<td><input type="text" id="telefono" name="telefono" value="{{ emple.tel }}" readonly></td>
+			<td>{{ emple.tel }}</td>
 		</tr>
 		<tr>
 			<td>Activo:</td>

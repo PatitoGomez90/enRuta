@@ -12,14 +12,14 @@
 		<table align="center" class="table table-striped">
 			<tr>
 				<td>Nombre:</td>
-				<td><input type="text" id="nombre" name="nombre" required class="form-control"></td>
+				<td><input type="text" id="nombre" name="nombre" required class="form-control"><div class="aviso">Quedan <span id="charsLeftNombre"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Descripcion:</td>
-				<td><input type="text" id="descripcion" name="descripcion" required class="form-control"></td>
+				<td><textarea rows="2" cols="50" id="descripcion" name="descripcion" class="form-control" value="{{ m.descripcion }}" required></textarea><div class="aviso">Quedan <span id="charsLeftDescripcion"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
-				<td>Medir por:</td>
+				<td><b>Medir por:</b></td>
 				<td></td>
 			</tr>
 			<tr>
@@ -42,11 +42,13 @@
 	</form>
 </div>
 <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
 <script type="text/javascript">
+	$('#descripcion').limit('200','#charsLeftDescripcion');
+	$('#nombre').limit('30', '#charsLeftNombre');
 	function soloNumeros(e){
 		var key = window.Event ? e.which : e.keyCode
 		return (key >= 48 && key <= 57)
-	}
-	
+	}	
 </script>
 {% endblock %}

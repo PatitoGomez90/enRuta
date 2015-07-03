@@ -45,23 +45,23 @@
 			<tr>
 				<td>Tipo:</td>
 				<td>
-						{% for tipomaq in tipomaqs %}
-							{% if tipomaq.id == 2 or tipomaq.id == 3 %}
-								{% if equipo.tipo == tipomaq.id %}
-									<input type="text" id="tipomaqtxt" name="tipomaqtxt" class="form-control" readonly value="{{ tipomaq.descripcion }}">
-								{% endif %}
+					{% for tipomaq in tipomaqs %}
+						{% if tipomaq.id == 1 or tipomaq.id == 3 %}
+							{% if equipo.tipo == tipomaq.id %}
+								<input type="text" id="tipomaqtxt" name="tipomaqtxt" class="form-control" readonly value="{{ tipomaq.descripcion }}">
 							{% endif %}
-						{% endfor %}
+						{% endif %}
+					{% endfor %}
 				</td>
 			</tr>
 			<tr>
 				<td>Tipo de Equipo:</td>
 				<td>
-						{% for tipoeq in tipoeqs %}
-							{% if equipo.tipoequipo == tipoeq.id %}
-								<input type="text" name="tipoeqtxt" id="tipoeqtxt" readonly class="form-control" value="{{ tipoeq.descripcion }}">
-							{% endif %}
-						{% endfor %}
+					{% for tipoeq in tipoeqs %}
+						{% if equipo.tipoequipo == tipoeq.id %}
+							<input type="text" name="tipoeqtxt" id="tipoeqtxt" readonly class="form-control" value="{{ tipoeq.descripcion }}">
+						{% endif %}
+					{% endfor %}
 				</td>
 			</tr>
 			<tr>
@@ -102,11 +102,19 @@
 			</tr>
 			<tr>
 				<td>Fecha de Baja:</td>
-				<td><input type="text" class="datepicker form-control" readonly name="fbaja" id="fbaja" value="{{ equipo.fbajaf }}"></td>
+				{% if equipo.fbajaf == null %}
+					<td><input type="text" class="form-control" readonly name="fbaja" id="fbaja" value=" "></td>
+				{% else %}
+					<td><input type="text" class="form-control" readonly name="fbaja" id="fbaja" value="{{ equipo.fbajaf }}"></td>
+				{% endif %}
 			</tr>
 			<tr>
 				<td>Motivo de Baja:</td>
-				<td><input type="text" id="mbaja" name="mbaja" readonly class="form-control" value="{{ equipo.mbaja }}"></td>
+				{% if equipo.mbaja == null %}
+					<td><input type="text" id="mbaja" name="mbaja" readonly class="form-control" value=""></td>
+				{% else %}
+					<td><input type="text" id="mbaja" name="mbaja" readonly class="form-control" value="{{ equipo.mbaja }}"></td>
+				{% endif %}
 			</tr>
 			<tr>
 				<td>Activa:</td>

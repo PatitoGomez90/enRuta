@@ -8,18 +8,19 @@
 <link href="/css/sectoresmodificar.css" rel="stylesheet">	
 <h2>{{ pagename }}</h2>
 <form method="POST" action="/sectoresmodificar">
+	<div class="panel panel-default">
 		<table align="center" class="table table-striped">
 			<tr>
 				<td>ID</td>
-				<td><input type="text" id="id" name="id" value="{{ sector.id }}" readonly></td>
+				<td><input type="text" id="id" name="id" value="{{ sector.id }}" readonly class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Codigo: </td>
-				<td><input type="text" id="codigo" name="codigo" value="{{ sector.codigo }}" readonly ></td>
+				<td><input type="text" id="codigo" name="codigo" value="{{ sector.codigo }}" readonly class="form-control"></td>
 			</tr>	
 			<tr>
 				<td>Nombre:</td>
-				<td><input type="text" id="nombre" name="nombre" value="{{ sector.nombre }}" required></td>
+				<td><input type="text" id="nombre" name="nombre" value="{{ sector.nombre }}" required class="form-control"></td>
 			</tr>	
 			<tr>
 				<td>Activo:</td>
@@ -34,16 +35,14 @@
 				<td><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
-		 <br>
-		 <br>
-
-	<script src="/js/jquery.min.js"></script>
-	<script type="text/javascript">
-		function checkInput(ob) {
-		  var invalidChars = /[^0-9]/gi
-		  if(invalidChars.test(ob.value)) {
-		            ob.value = ob.value.replace(invalidChars,"");
-		      }
-		}
-	</script>
+	</div>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+	function checkInput(ob) {
+	  var invalidChars = /[^0-9]/gi
+	  if(invalidChars.test(ob.value)) {
+	            ob.value = ob.value.replace(invalidChars,"");
+	      }
+	}
+</script>
 {% endblock %}

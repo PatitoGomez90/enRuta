@@ -7,19 +7,20 @@
 {% block content %}
 <link href="/css/umedmodificar.css" rel="stylesheet">
 <h2>{{ pagename }}</h2>
+<div class="panel panel-default">
 	<form method="post" id="formactualizar" action="/umedactualizar">
 		<table align="center" class="table table-striped">
 			<tr>
 				<td>ID:</td>
-				<td><input type="text" id="id" name="id" value="{{ umed.id }}" required readonly></td>
+				<td><input type="text" id="id" name="id" value="{{ umed.id }}" required readonly class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Codigo:</td>
-				<td><input type="text" id="codigo" name="codigo" value="{{ umed.codigo }}" required></td>
+				<td><input type="text" id="codigo" name="codigo" value="{{ umed.codigo }}" required class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Nombre:</td>
-				<td><input type="text" id="nombre" name="nombre" value="{{ umed.nombre }}" required><div class="aviso">Quedan <span id="charsLeftNombre"></span> caraceteres.</div></td>
+				<td><input type="text" id="nombre" name="nombre" value="{{ umed.nombre }}" required class="form-control"><div class="aviso">Quedan <span id="charsLeftNombre"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Activo:</td>
@@ -34,9 +35,8 @@
 				<td><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
-		 <br>
-		 <br>
 	</form>
+</div>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.limit-1.2.js"></script>
 <script type="text/javascript">

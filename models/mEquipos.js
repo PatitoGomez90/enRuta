@@ -9,7 +9,7 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn('select * from maq where tipo = 2 or tipo = 3', cb);
+	conn('select * from maq where tipo = 1 or tipo = 3', cb);
 }
 
 function insert(codigo, dominio, nombre, marca, modelo, serie, nmotor, tipomaq, tipoequipo, anio, fcompra, tipocontrol, tipocomb, base, titular, datos, linkfab, activa, cb){
@@ -21,7 +21,10 @@ function getEquipoById(id, cb){
 }
 
 function update(id,	codigo,	dominio, nombre, marca,	modelo, serie, nmotor, tipomaq, tipoequipo, anio, fcompra, fbaja, mbaja, tipocontrol, tipocomb, base, titular, datos, linkfab, activa, cb){
-	conn("UPDATE `maq` SET `codigo`="+codigo+", `dominio`='"+dominio+"', `nombre`='"+nombre+"', `marca`='"+marca+"', `tipo`="+tipomaq+", `modelo`='"+modelo+"', `anio`="+anio+", `serie`='"+serie+"', `motor`='"+nmotor+"',	`fcompra`='"+fcompra+"', `control`="+tipocontrol+", `combus`="+tipocomb+", `titular`='"+titular+"', `fbaja`='"+fbaja+"', `mbaja`='"+mbaja+"', `datos`='"+datos+"', `linkfab`='"+linkfab+"', `activa`="+activa+", `base`="+base+", `tipoequipo`="+tipoequipo+" WHERE id="+id, cb);
+	if (fbaja==null || fbaja=="")
+		conn("UPDATE `maq` SET `codigo`="+codigo+", `dominio`='"+dominio+"', `nombre`='"+nombre+"', `marca`='"+marca+"', `tipo`="+tipomaq+", `modelo`='"+modelo+"', `anio`="+anio+", `serie`='"+serie+"', `motor`='"+nmotor+"', `fcompra`='"+fcompra+"', `control`="+tipocontrol+", `combus`="+tipocomb+", `titular`='"+titular+"', `mbaja`='"+mbaja+"', `datos`='"+datos+"', `linkfab`='"+linkfab+"', `activa`="+activa+", `base`="+base+", `tipoequipo`="+tipoequipo+" WHERE id="+id, cb);
+	else
+		conn("UPDATE `maq` SET `codigo`="+codigo+", `dominio`='"+dominio+"', `nombre`='"+nombre+"', `marca`='"+marca+"', `tipo`="+tipomaq+", `modelo`='"+modelo+"', `anio`="+anio+", `serie`='"+serie+"', `motor`='"+nmotor+"', `fcompra`='"+fcompra+"', `control`="+tipocontrol+", `combus`="+tipocomb+", `titular`='"+titular+"', `fbaja`='"+fbaja+"', `mbaja`='"+mbaja+"', `datos`='"+datos+"', `linkfab`='"+linkfab+"', `activa`="+activa+", `base`="+base+", `tipoequipo`="+tipoequipo+" WHERE id="+id, cb);
 }
 
 function del(id, cb){

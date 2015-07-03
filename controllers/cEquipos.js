@@ -35,7 +35,7 @@ function getAll(req, res) {
 	req.session.nromenu = 6;
 	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 	  	mEq.getAll(function (alleqs){
-	  		console.log(alleqs)
+	  		//console.log(alleqs)
 	  		mTipoMaquinaria.getAll(function (alltipomaquinaria){
 		  		res.render('equipolista', {
 					pagename: 'Lista de Maquinas / Vehiculos',
@@ -101,6 +101,10 @@ function postAlta(req, res){
   	tipocontrol = params.tipocontrol;
   	tipocomb = params.tipocomb;
   	base = params.base;
+  	//console.log("b: "+base)
+  	if (base==null || base == "")
+  		base = 0;
+  	//console.log("b2: "+base)
   	titular = params.titular;
   	datos = params.datos;
 	linkfab = params.linkfab;
@@ -119,6 +123,7 @@ function getModificar(req, res){
 			mTipoMaquinaria.getAll(function (tipomaqs){
 				mTipoEquipo.getAll(function (tipoeqs){
 					mEq.getEquipoById(id, function (eq){
+						console.log(eq)
 						res.render('equipomodificar',{
 							pagename: "Modificar Maquina / Vehiculo",
 							controles: allcontrol,
@@ -151,18 +156,22 @@ function postModificar(req, res){
 	if(fcompra.length>1){
     	fcompra = changeDate(fcompra);
   	}else{
-  		fcompra="";
+  		fcompra=null;
   	}
   	fbaja = params.fbaja;
 	if(fbaja.length>1){
     	fbaja = changeDate(fbaja);
   	}else{
-  		fbaja="";
+  		fbaja=null;
   	}
   	mbaja = params.mbaja;
   	tipocontrol = params.tipocontrol;
   	tipocomb = params.tipocomb;
   	base = params.base;
+  	console.log("b: "+base)
+  	if (base==null || base == "")
+  		base = 0;
+  	console.log("b2: "+base)
   	titular = params.titular;
   	datos = params.datos;
 	linkfab = params.linkfab;
@@ -172,7 +181,7 @@ function postModificar(req, res){
 	else
 		activa = 0;
 
-	mEq.update(id,	codigo,	dominio, nombre, marca,	modelo, serie, nmotor, tipomaq, tipoequipo, anio, fcompra, fbaja, mbaja, tipocontrol, tipocomb, base, titular, datos, linkfab, activa, function(){
+	mEq.update(id, codigo, dominio, nombre, marca, modelo, serie, nmotor, tipomaq, tipoequipo, anio, fcompra, fbaja, mbaja, tipocontrol, tipocomb, base, titular, datos, linkfab, activa, function(){
 		res.redirect('equipolista')
 	});
 }
@@ -190,6 +199,7 @@ function getVer(req, res){
 	id = params.id;
 
 	mEq.getEquipoById(id, function (eq){
+		//console.log(eq)
 		mControl.getAll(function (allcontrol){
 			mCombustible.getAll(function (allcombustible){
 				mTipoMaquinaria.getAll(function (tipomaqs){
