@@ -66,79 +66,99 @@ function postAlta(req, res){
 	fecha = params.fecha;
 	fecha = changeDate(fecha);
 	articulo = params.articulo;
+	console.log("articulo")
+	console.log(articulo)
+	console.log("articulo 0")
+	console.log(articulo[0])
+	//artid = params.artid;
+	//console.log(artid)
 	cantidad = params.cantidad;
-	depor = params.depor;
-	depdes = params.depdes;
-	secor = params.secor;
-	secdes = params.secdes;
+	console.log("cantidad")
+	console.log(cantidad)
+	depor = 1;
+	depdes = 0; //nada
+	secor = 6; //pañol
+	secdes = params.secdes; //elije
 	costou = params.costou;
 	costot = params.costot;
 	emple = params.emple;
 
-	if (cantidad < 100000){
-		if (depor != depdes){
-			if (cantidad != 0){
-				error = 1;	
-				switch(depor) {
-					case "0":
-						break;
-					default:
-						mArt.updateStockResta(articulo, depor, cantidad, function(){
-						});
-						break;
-				}
-				switch(depdes){
-					case "0":
-						break;
-					default:
-						mArt.updateStockSuma(articulo, depdes, cantidad, function(){
-						});
-						break;
-				}
-				//aca tengo que insertar el movimiento y obtener el numero para grabarlo en el vale
-				//agregar movimiento
-				fechahoy = new Date();
-				day = fechahoy.getDate();
-				month = fechahoy.getMonth();
-				year = fechahoy.getFullYear();
-				if (day<10)
-					day = "0"+day;
-				if (month<10)
-					month = "0"+month;
-				fechahoy = year + "/" + month + "/" + day;
-				mMovi.add(fechahoy,req.session.user.unica, function(){
-					mMovi.getUltimo(function (docs){
-						nmovi = docs[0].id;
-						mVale.getLastNroVale(function (vale){
-							ultimonrovale = vale[0].nro_vale;
-							if (ultimonrovale == null || ultimonrovale == 0){
-								proxnrovale = 1;
-							}else{
-								proxnrovale = ultimonrovale +1;
-							}
-							mVale.insert(proxnrovale, idtipovale, fecha, nmovi, articulo, cantidad, depor, depdes, secor, secdes, costou, costot, emple, function(){
-								res.redirect('/valesalta');
-							});
-						})
-					});
-				});
-			}else{
-				res.render('error', {          
-		          error: "El campo cantidad es obligatorio y tiene que ser mayor que cero."
-		        });	
-			}
+	console.log("a.length "+ articulo.length)
+	//console.log(articulo[i])
+	//console.log(cantidad[i])
+
+	var error = 0;
+	for (i = 0; i < articulo.length; i++){
+		if (cantidad[i] > 100000 || cantidad[i] == 0){
+			error = 1;
+			console.log("ERROR con el campo cantidad"); 
+			res.render('error', {
+		        error: "El campo cantidad debe ser mayor que cero y menor que 100000."
+			});
 		}
-		else{
-			res.render('error', {          
-	          error: "Los depositos de Origen y de Destino no pueden ser los mismos."
-	        });
-		}
-	}else{
-		res.render('error', {          
-          	error: "El campo cantidad no puede ser mayor a 100.000."
-        });
 	}
-	
+
+	if ( error == 0 ){
+
+		//aca tengo que insertar el movimiento y obtener el numero para grabarlo en el vale
+		//agregar movimiento
+
+		fechahoy = new Date();
+		day = fechahoy.getDate();
+		month = fechahoy.getMonth();
+		year = fechahoy.getFullYear();
+		if (day<10)
+			day = "0"+day;
+		if (month<10)
+			month = "0"+month;
+		fechahoy = year + "/" + month + "/" + day;
+
+		mMovi.add(fechahoy, req.session.user.unica, function(){
+		});
+
+		var nmovi = 0;
+		mMovi.getUltimo(function (movi){
+			console.log("movi")
+			console.log(movi)
+			nmovi = movi[0].id;
+		});
+
+		console.log("nmovi")
+		console.log(nmovi)
+
+		var ultimonrovale = 0;
+		var proxnrovale = 0;
+		mVale.getLastNroVale(function (vale){
+
+			console.log("getLastNroVale");
+			console.log(vale)
+
+			ultimonrovale = vale[0].nro_vale;
+		});
+		
+		if (ultimonrovale == null || ultimonrovale == 0){
+			proxnrovale = 1;
+		}else{
+			proxnrovale = ultimonrovale +1;
+		}
+		console.log(proxnrovale)
+
+		console.log("proxnrovale")
+		console.log(proxnrovale)
+
+		for ( i = 0; i < articulo.length; i++){
+			mArt.updateStockResta(articulo[i], depor, cantidad[i], function(){
+			});
+
+			mArt.updateStockSuma(articulo[i], depdes, cantidad[i], function(){
+			});
+
+			mVale.insert(proxnrovale, idtipovale, fecha, nmovi, articulo[i], cantidad[i], depor, depdes, secor, secdes, costou, costot, emple, function(){
+			});
+
+		} //endfor
+		res.redirect('/valesalta');
+	} //end if error == 0
 }
 
 function getVales(req, res){

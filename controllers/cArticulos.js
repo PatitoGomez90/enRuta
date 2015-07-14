@@ -235,7 +235,8 @@ function getVerArt(req, res){
 function getArtporCdFabrica2(req, res){
 	params = req.params;
 	cdfabrica = params.cdfabrica;
-	mArt.getArtporCdFabrica2(cdfabrica, function(art){
+	console.log("cd de cArt "+cdfabrica);
+	mArt.getArtporCdFabrica2(cdfabrica, function (art){
 		res.send(art);
 	});
 }

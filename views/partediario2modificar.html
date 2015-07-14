@@ -1,0 +1,258 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/partediario2modificar.css" rel="stylesheet">	
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="POST" action="/partediario2modificar">
+		<table align="center" class="table table-striped">
+			<input hidden name="idpartediario1" id="idpartediario1" value="{{ partediario2.id_partediario1_fk }}">
+			<tr>
+				<td>ID:</td>
+				<td><input type="text" id="id" name="id" value="{{ partediario2.id }}" readonly="readonly" class="form-control"></td>
+			</tr>	
+			<tr>
+				<td>N°:</td>
+				<td><input type="text" id="nro" name="nro" value="{{ partediario2.numero }}" readonly class="form-control"></td>
+			</tr>	
+			<tr>
+				<td>Legajo:</td>
+				<td><input type="text" id="legajo" name="legajo" value="{{ partediario2.legajo }}" readonly class="form-control"></td>
+			</tr>
+			<tr>
+				<td>Nombre:</td>
+				<td><input type="text" id="nombre" name="nombre" value="{{ partediario2.nombre }}" readonly class="form-control"></td>
+			</tr>
+			<tr>
+				<td>Codigo:</td>
+				<td>
+					<select class="form-control" name="codigohora" id="codigohora">
+						{% for ch in codigoshora %}
+							{% if ch.id == partediario2.id_codigohora_fk %}
+								<option value="{{ ch.id }}" selected>{{ ch.numero }} - {{ ch.nombre }}</option>
+							{% else %}
+								<option value="{{ ch.id }}">{{ ch.numero }} - {{ ch.nombre }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Entrada:</td>
+				<td><input type="time" id="entrada" name="entrada" value="{{ partediario2.hr_entrada }}" required class="form-control" onkeypress='validate(event)'></td>
+			</tr>
+			<tr>
+				<td>Salida:</td>
+				<td><input type="time" id="salida" name="salida" value="{{ partediario2.hr_salida }}" required class="form-control" onkeypress='validate(event)'></td>
+			</tr>
+			<tr>
+				<td>Total:</td>
+				<td><input type="text" id="total" name="total" value="{{ partediario2.hr_total }}" required class="form-control" onkeypress='validate(event)'></td>
+			</tr>
+			<tr>
+				<td>Tipo Hora:</td>
+				<td>
+					<select class="form-control" name="tipohora" id="tipohora">
+						{% for th in tiposhora %}
+							{% if th.id == partediario2.id_tipohora_fk %}
+								<option selected value="{{ th.id }}">{{ th.codigo }} - {{ th.nombre }}</option>
+							{% else %}
+								<option value="{{ th.id }}">{{ th.codigo }} - {{ th.nombre }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			{% if partediario1.id_clasificacion1_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion1txt }}:</td>
+					<td><input type="text" id="clasificacion1" name="clasificacion1" value="{{ partediario2.hrclasificacion1 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_clasificacion2_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion2txt }}:</td>
+					<td><input type="text" id="clasificacion2" name="clasificacion2" value="{{ partediario2.hrclasificacion2 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_clasificacion3_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion3txt }}:</td>
+					<td><input type="text" id="clasificacion3" name="clasificacion3" value="{{ partediario2.hrclasificacion3 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_clasificacion4_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion4txt }}:</td>
+					<td><input type="text" id="clasificacion4" name="clasificacion4" value="{{ partediario2.hrclasificacion4 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_clasificacion5_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion5txt }}:</td>
+					<td><input type="text" id="clasificacion5" name="clasificacion5" value="{{ partediario2.hrclasificacion5 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_clasificacion6_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion6txt }}:</td>
+					<td><input type="text" id="clasificacion6" name="clasificacion6" value="{{ partediario2.hrclasificacion6 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion1_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion1txt }}:</td>
+					<td><input type="text" id="imputacion1" name="imputacion1" value="{{ partediario2.hrimputacion1 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion2_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion2txt }}:</td>
+					<td><input type="text" id="imputacion2" name="imputacion2" value="{{ partediario2.hrimputacion2 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion3_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion3txt }}:</td>
+					<td><input type="text" id="imputacion3" name="imputacion3" value="{{ partediario2.hrimputacion3 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion4_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion4txt }}:</td>
+					<td><input type="text" id="imputacion4" name="imputacion4" value="{{ partediario2.hrimputacion4 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion5_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion5txt }}:</td>
+					<td><input type="text" id="imputacion5" name="imputacion5" value="{{ partediario2.hrimputacion5 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion6_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion6txt }}:</td>
+					<td><input type="text" id="imputacion6" name="imputacion6" value="{{ partediario2.hrimputacion6 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Guardar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+	function validate(evt) {
+	  var theEvent = evt || window.event;
+	  var key = theEvent.keyCode || theEvent.which;
+	  key = String.fromCharCode( key );
+	  var regex = /[0-9]|\./;
+	  if( !regex.test(key) ) {
+	    theEvent.returnValue = false;
+	    if(theEvent.preventDefault) theEvent.preventDefault();
+	  }
+	}
+
+	$('#entrada').on('change', function(){
+		salida = $('#salida').val()
+		if (salida.length > 0){
+			calculo();
+		}
+	});
+
+	$('#salida').on('change', function(){
+		calculo();
+	});	
+
+	function msToTime(duration) {
+        var milliseconds = parseInt((duration%1000)/100)
+            , seconds = parseInt((duration/1000)%60)
+            , minutes = parseInt((duration/(1000*60))%60)
+            , hours = parseInt((duration/(1000*60*60))%24);
+
+        hours = (hours < 10) ? "0" + hours : hours;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+        return hours + ":" + minutes;
+    }
+
+	function calculo(){
+
+		var entrada = $('#entrada').val();
+	    var salida = $('#salida').val();
+
+	    if (entrada <= salida){
+	    	var startDate = new Date("1/1/1900 " + entrada);
+			var endDate = new Date("1/1/1900 " + salida );
+		}else{
+			var startDate = new Date("1/1/1900 " + entrada);
+			var endDate = new Date("2/1/1900 " + salida );			
+		}
+		var diff = endDate - startDate;
+
+		diff = msToTime(diff);
+	    // e = start.split(':');
+	    // s = end.split(':');
+
+	    // if (start > end){
+	    // 	if(s[1]>=e[1]){
+	    // 		min = e[1]-s[1];	
+	    // 	}else{
+	    // 		se = parseInt(s[1]);
+	    // 		ee = parseInt(e[1]);
+	    // 		min = (60-se)+ee;
+	    // 	}	    	
+	    // 	hour_carry = 0;
+	    // 	console.log(min)
+	    // 	if(min < 0){
+		   //      min += 60;
+		   //      hour_carry += 1;
+	    // 	}
+	    // 	se = parseInt(s[0]);
+	    // 	ee = parseInt(e[0]);
+	    // 	hour = se+(24-ee);//-hour_carry;
+	    // 	if (min < 10)
+	    // 		min = "0"+min;
+	    // 	diff = hour + ":" + min;
+	    // }else{
+	    // 	if(s[1]>e[1]){
+	    // 		min = e[1]-s[1];	
+	    // 	}else{
+	    // 		min = (60-s[1])+e[1];
+	    // 	}
+	    // 	hour_carry = 0;
+	    // 	if(min < 0){
+		   //      min += 60;
+		   //      hour_carry += 1;
+	    // 	}
+	    // 	hour = s[0]-e[0]-hour_carry;
+	    // 	if (min < 10)
+	    // 		min = "0"+min;
+	    // 	diff = hour + ":" + min;
+	    // }
+
+	    $('#total').val(diff);
+
+
+
+		// entrada = $('#entrada').val();
+		// salida = $('#salida').val();
+		// console.log(entrada)
+		// console.log(salida)
+		// if (entrada > salida)
+		// 	total = (24 - entrada) + salida;
+		// else
+		// 	total = salida - entrada;
+
+		// console.log(total)
+		// $('#total').val(total);
+	}
+</script>
+{% endblock %}

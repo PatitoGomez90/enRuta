@@ -13,7 +13,7 @@
 		<table>
 			<tr>
 				<td><button type="button" name="btnAyuda" id="btnAyuda" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
-				<td><button type="button" name="addArt" id="addArt" class="btn btn-success" title="Agregar Otro Articulo"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></td>
+				<td><button type="button" name="addArt" id="addArt" class="btn btn-success" title="Agregar Otro Articulo al Vale"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></td>
 			</tr>
 		</table>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -64,10 +64,12 @@
 						{% endfor %}
 					</select>
 				</td>
+				<td></td>
 			</tr>
 			<tr>
 				<td>Fecha:</td>
 				<td><input type="text" class="datepicker form-control" id="fecha" name="fecha" required readonly></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td>Retira:</td>
@@ -79,6 +81,7 @@
 						{% endfor %}
 					</select>
 				</td>
+				<td></td>
 			</tr>
 			<tr>
 				<td>Sector Destino:</td>
@@ -89,6 +92,7 @@
 						{% endfor %}
 					</select>
 				</td>
+				<td></td>
 			</tr>
 			<tr>
 				<td>Articulo:</td>
@@ -96,10 +100,10 @@
 					<table style="width:100%;">
 						<tr>
 							<td>
-								<input type="text" class="form-control" name="artid" id="artid" readonly>
+								<input type="text" class="artid form-control" name="artid" id="artid1" data-n="1" readonly>
 							</td>
 							<td>
-								<select id="articulo" name="articulo" class="form-control">
+								<select id="articulo1" name="articulo" class="cmbArt form-control" data-n="1">
 									{% for art in arts %}
 										<option value="{{ art.id }}">{{ art.Nombre }}</option>
 									{% endfor %}
@@ -108,9 +112,22 @@
 						</tr>
 					</table>
 				</td>
+				<td></td>
 			</tr>
 			<tr>
-				<td>Codigo de Fabrica:</td><td><input type="text" class="form-control" id="codart" name="codart" placeholder="Puede usar lector...">Cantidad:<input type="text" id="cantidad" name="cantidad" class="form-control" required onkeyup="checkDec(this);"></td>
+				<td></td>
+				<td>
+					<table style="width:100%;" align="left">
+						<tr>
+							<td style="width:122px">Codigo de Fabrica:</td>
+							<td style="width:150px"><input type="text" id="codart1" class="codart form-control" name="codart1" data-n="1" placeholder="Puede usar lector..."></td>
+							<td style="width:70px">Cantidad:</td>
+							<td style="width:150px"><input type="text" class="form-control" id="cantidad" name="cantidad" required onkeyup="checkDec(this);"></td>
+							<td></td>
+						</tr>
+					</table>
+				</td>
+				<td></td>
 			</tr>
 			<!-- <tr>
 				<td>Deposito Origen:</td>
@@ -146,12 +163,12 @@
 					</select>
 				</td>
 			</tr> -->
-			
 			<input type="text" id="costou" name="costou" hidden>
 			<input type="text" id="costot" name="costot" hidden>
 			<tr>
 				<td><input type="button" value="Atras" onclick="history.back()"></td>
 				<td><input type="submit" value="Guardar"></td>
+				<td></td>
 			</tr>
 		</table>
 	</form>
@@ -159,8 +176,95 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
+	$('.cmbArt').on('change', function(){
+		traerCostou($(this).val());
+		n = this.getAttribute('data-n');
+		inputid = "#artid" + n;
+		//ver xq esta funcion no se ejecuta cuando cmabian los cmb que agrego con jquery
+		console.log("inputid "+inputid)
+		$(inputid).val(this.value);
+	});
+
+	//Intenta esto
+	function ShowID() { 
+		$('.cmbArt').on('change', function(){ 
+			traerCostou($(this).val()); 
+			n = this.getAttribute('data-n'); 
+			inputid = "#artid" + n; 
+			//ver xq esta funcion no se ejecuta cuando cmabian los cmb que agrego con jquery 
+			//console.log("inputid "+inputid);
+			$(inputid).val(this.value); 
+		}); 
+	}
+
+	$(".codart").focusout(function() {
+		txtCodArt = $(this).val();
+		//console.log("txtcodart "+txtCodArt);
+		n = this.getAttribute('data-n');
+		//console.log("n de focusout "+n)
+		if( txtCodArt.length > 0 ){
+		//buscar art por cd fabrica
+			$.getJSON('/getartporcdfabrica/'+txtCodArt, function (art){
+			if (art[0] != null){
+				//muestro id art en txtArtId
+					$("#artid"+n).val(art[0].id);
+				//selecciono art en cmbArticulo
+					$("#articulo"+n).val(art[0].id);				
+			}else{
+				//msj: cd fabrica no existe
+				$('#myErrorModal').modal('toggle');
+				$("#myErrorModalLabel").text("Error");
+				cdfabrica = $('#codart').val();
+				$('#errormodalbodytext').text("El Codigo de Fabrica '"+cdfabrica+"' no existe en la base de datos.");
+				$("#codart").val("");
+			}
+			});
+		}
+		$(this).val("");
+  	});
+
+	function ShowArt() {
+		$(".codart").focusout(function() {
+			txtCodArt = $(this).val();
+			//console.log("txtcodart "+txtCodArt);
+			n = this.getAttribute('data-n');
+			if( txtCodArt.length > 0 ){
+			//buscar art por cd fabrica
+				$.getJSON('/getartporcdfabrica/'+txtCodArt, function (art){
+					if (art[0] != null){
+						//muestro id art en txtArtId
+							$("#artid"+n).val(art[0].id);
+						//selecciono art en cmbArticulo
+							$("#articulo"+n).val(art[0].id);				
+					}else{
+						//msj: cd fabrica no existe
+						$('#myErrorModal').modal('toggle');
+						$("#myErrorModalLabel").text("Error");
+						cdfabrica = $("#codart"+n).val();
+						$('#errormodalbodytext').text("El Codigo de Fabrica '"+cdfabrica+"' no existe en la base de datos.");
+						$("#codart").val("");
+					}
+				});
+			}
+			$(this).val("");
+  		});
+	}
+
 	$("#addArt").on('click', function (){
-		$('#tablavale tr:last').after('<tr><td>Articulo:</td><td><table style="width:100%;"><tr><td><input type="text" class="form-control" name="artid" id="artid" readonly></td><td><select id="articulo" name="articulo" class="form-control">{% for art in arts %}<option value="{{ art.id }}">{{ art.Nombre }}</option>{% endfor %}</select></td></tr></table></td></tr><tr><td>Codigo de Fabrica:</td><td><input type="text" class="form-control" id="codart" name="codart" placeholder="Puede usar lector..."></td></tr><tr><td>Cantidad:</td><td><input type="text" id="cantidad" name="cantidad" class="form-control" required onkeyup="checkDec(this);"></td></tr>');
+		idartElements = document.getElementsByClassName('artid');
+		lastid = idartElements[idartElements.length-1].id;
+		lastid = "#"+lastid
+		//console.log("ultimo id "+lastid)
+		last_n = $(lastid).attr('data-n');
+		//console.log("ultimo num "+last_n)
+		n = parseInt(last_n)
+		n = n+1;
+		//console.log("ultimo num +1 "+n)
+		//n = idartElements[idartElements.length -1 ]
+		$('#tablavale tr:last').before("<tr><td>Articulo:</td><td><table style='width:100%;'><tr><td><input type='text' class='artid form-control' name='artid' id='artid"+n+"' data-n='"+n+"' readonly></td><td><select id='articulo"+n+"' name='articulo' class='cmbArt form-control' data-n='"+n+"'>{% for art in arts %}<option value='{{ art.id }}'>{{ art.Nombre }}</option>{% endfor %}</select></td></tr></table></td></tr><tr><td></td><td><table style='width:100%;' align='center'><tr><td style='width:122px'>Codigo de Fabrica:</td><td style='width:150px'><input type='text' id='codart"+n+"' class='codart form-control' name='codart"+n+"' data-n='"+n+"' placeholder='Puede usar lector...'></td><td style='width:70px'>Cantidad:</td><td style='width:150px'><input type='text' class='form-control' id='cantidad' name='cantidad' required onkeyup='checkDec(this);'></td><td></td></tr></table></td><td></td></tr>");
+		ShowID();
+		ShowArt();
+		$("#artid"+n).val($("#articulo"+n).val());
 	});
 
 	$(".datepicker").datepicker({
@@ -169,10 +273,10 @@
 		language: 'es'
 	});
 
-	$('#articulo').on('change', function() {
-		traerCostou($('#articulo').val());
-		$("#artid").val(this.value);
-	});
+	// $('#articulo').on('change', function() {
+	// 	traerCostou($('#articulo').val());
+	// 	$("#artid").val(this.value);
+	// });
 
 	$('#cantidad').on('change', function() {
 		calcularTotal();
@@ -258,34 +362,12 @@
 		$('#costot').val(total);
 	}
 
-	$("#codart").focusout(function() {
-		txtCodArt = $('#codart').val();
-		if( txtCodArt.length > 0 ){
-		//buscar art por cd fabrica
-			$.getJSON('/getartporcdfabrica/'+txtCodArt, function (art){
-			if (art[0] != null){
-				//muestro id art en txtArtId
-					$('#artid').val(art[0].id);
-				//selecciono art en cmbArticulo
-					$('#articulo').val(art[0].id);				
-			}else{
-				//msj: cd fabrica no existe
-				$('#myErrorModal').modal('toggle');
-				$("#myErrorModalLabel").text("Error");
-				cdfabrica = $('#codart').val();
-				$('#errormodalbodytext').text("El Codigo de Fabrica '"+cdfabrica+"' no existe en la base de datos.");
-				$("#codart").val("");
-			}
-			});
-		}
-  	});
-
 	$(function(){
-		traerCostou($('#articulo').val());
+		traerCostou($('#articulo1').val());
 		calcularTotal();
 		$('#depor').val("Sin Deposito")
 		$('#depdes').val("Deposito 1");
-		$("#artid").val($('#articulo').val());
+		$("#artid1").val($('#articulo1').val());
 	});
 
 	// $("#btnAyuda").on("click", function(){

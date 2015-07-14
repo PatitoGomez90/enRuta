@@ -267,13 +267,11 @@ module.exports = function(app) {
 	app.get('/partediario1borrar/:id', auth, partediario1Controller.getDel);
 	//parte diario 2
 	app.get('/partediario2lista/:id', auth, partediario2Controller.getLista);
-	app.post('/partediario2lista', auth, partediario2Controller.postLista);
 	app.get('/partediario2alta/:id', auth, partediario2Controller.getAlta);
 	app.post('/partediario2alta', auth, partediario2Controller.postAlta);
 	app.get('/partediario2modificar/:id', auth, partediario2Controller.getModificar);
 	app.post('/partediario2modificar', auth, partediario2Controller.postModificar);
 	app.get('/partediario2borrar/:id', auth, partediario2Controller.getDel);
-	app.post('/saverow', auth, partediario2Controller.postSaveRow);
 	//pruebasql
 	app.get('/pruebasql', auth, pruebasqlController.getPrueba);
 	//fichadas
