@@ -31,7 +31,7 @@ function insertNewEmpleado(idpartediario1, idempleado, cb){
 }
 
 function update(id, codigohora, entrada, salida, total, tipohora, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, cb){
-	conn("UPDATE `partediario2` SET `id_codigohora_fk`="+codigohora+", `hr_entrada`='"+entrada+"', `hr_salida`='"+salida+"', `hr_total`="+total+",`id_tipohora_fk`="+tipohora+", `hrclasificacion1`="+clasificacion1+",`hrclasificacion2`="+clasificacion2+",`hrclasificacion3`="+clasificacion3+",`hrclasificacion4`="+clasificacion4+",`hrclasificacion5`="+clasificacion5+",`hrclasificacion6`="+clasificacion6+",`hrimputacion1`="+imputacion1+",`hrimputacion2`="+imputacion2+",`hrimputacion3`="+imputacion3+",`hrimputacion4`="+imputacion4+",`hrimputacion5`="+imputacion5+",`hrimputacion6`="+imputacion6+" WHERE partediario2.id ="+id, cb);
+	conn("UPDATE `partediario2` SET `id_codigohora_fk`="+codigohora+", `hr_entrada`='"+entrada+"', `hr_salida`='"+salida+"', `hr_total`='"+total+"', `id_tipohora_fk`="+tipohora+", `hrclasificacion1`="+clasificacion1+",`hrclasificacion2`="+clasificacion2+",`hrclasificacion3`="+clasificacion3+",`hrclasificacion4`="+clasificacion4+",`hrclasificacion5`="+clasificacion5+",`hrclasificacion6`="+clasificacion6+",`hrimputacion1`="+imputacion1+",`hrimputacion2`="+imputacion2+",`hrimputacion3`="+imputacion3+",`hrimputacion4`="+imputacion4+",`hrimputacion5`="+imputacion5+",`hrimputacion6`="+imputacion6+" WHERE partediario2.id ="+id, cb);
 }
 
 function del(id, cb){
