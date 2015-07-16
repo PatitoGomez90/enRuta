@@ -11,7 +11,8 @@ module.exports = {
 };
 
 function getAllCargos(req, res) {
-  	mCargo.getAll(function(docs){
+  	mCargo.getAll(function (docs){
+  		console.log(docs)
   		res.render('Cargoslista', {
 			pagename: 'Cargos de Empleados',
 			cargos: docs,
@@ -45,7 +46,7 @@ function postAlta(req, res){
 function getModificar(req, res){
 	params = req.params;
 	id = params.id;
-	mCargo.getCargoPorId(id, function(docs){
+	mCargo.getCargoPorId(id, function (docs){
 		res.render('Cargosmodificar',{
 			pagename: 'Modificar Cargo',
 			cargo: docs[0]
@@ -72,7 +73,7 @@ function getDelCargo(req, res){
   	var params = req.params;
   	var id = params.id;
 
-  	mCargo.getCargoPorId(id, function(docs){
+  	mCargo.getCargoPorId(id, function (docs){
   		cargo = docs[0];
 		mBorro.add(req.session.user.usuario,"Cargos", "Borra descripcion: "+ cargo.descripcion + ", id: " + id , function(){
 			mCargo.delCargo(id, function(){

@@ -30,9 +30,19 @@
 				<td>Cargo:</td>
 				<td>
 					<select class="form-control" id="cargo" name="cargo">
-					{% for cargo in cargos %}
-						<option value="{{ cargo.id }}">{{ cargo.descripcion }}</option>
-					{% endfor %}
+						{% for cargo in cargos %}
+							<option value="{{ cargo.id }}">{{ cargo.descripcion }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Sector Usual:</td>
+				<td>
+					<select name="sector" id="sector" class="form-control">
+						{% for s in sectores %}
+							<option value="{{ s.id }}">{{ s.nombre }}</option>
+						{% endfor %}
 					</select>
 				</td>
 			</tr>

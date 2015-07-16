@@ -6,7 +6,9 @@ module.exports = {
 	insertNewEmpleado: insertNewEmpleado,
 	getById: getById,
 	update: update,
-	del: del
+	del: del,
+	delByIdpartediario1: delByIdpartediario1,
+	getEmpleInPartediario2: getEmpleInPartediario2
 }
 
 function getAll(cb){
@@ -35,14 +37,13 @@ function update(id, codigohora, entrada, salida, total, tipohora, clasificacion1
 }
 
 function del(id, cb){
-	conn("delete from partediario1 where partediario1.id="+id, cb);
+	conn("delete from partediario2 where partediario2.id="+id, cb);
 }
-
 
 function delByIdpartediario1(id, cb){
 	conn("delete from partediario2 where partediario2.id_partediario1_fk="+id, cb);
 }
 
-function saveRow(idp2, txt, cb){
-	conn("update partediario2 set entrada = "+txt+" where id="+idp2, cb);
+function getEmpleInPartediario2(idp1, idemple, cb){
+	conn("select count(id_partediario1_fk) as cant from partediario2 where id_partediario1_fk="+idp1+" and id_emple_fk="+idemple, cb);
 }

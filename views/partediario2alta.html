@@ -7,18 +7,36 @@
 {% block content %}
 <link href="/css/partediario2alta.css" rel="stylesheet">
 <h2>{{ pagename }}</h2>
+
 <div class="panel panel-default">
 	<form method="post" id="formalta" action="/partediario2alta">
 		<input hidden name="idpartediario1" id="idpartediario1" value="{{ idpartediario1 }}">
+		<!-- <input hidden name="idpartediario2" id="idpartediario2" value="{{  }}"> -->
 		<table align="center" class="table table-striped">
+			<tr>
+				<td>Sector:</td>
+				<td>
+					<select name="sector" id="sector" class="form-control">
+						{% for s in sectores %}
+							{% if s.id == 7%}
+								<option selected value="{{ s.id }}">{{ s.nombre }}</option>
+							{% else %}
+								<option value="{{ s.id }}">{{ s.nombre }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
 			<tr>
 				<td>Empleado:</td>
 				<td>
 					<select name="empleado" id="empleado" class="form-control">
+						<option selected value="0">Seleccione un empleado</option>
 						{% for e in empleados %}
 							<option value="{{ e.codigo }}">{{ e.nombre }}</option>
 						{% endfor %}
-					</select>
+					</select> 
+					<label name="aviso" id="aviso"></label>
 				</td>
 			</tr>
 			<tr>
@@ -30,6 +48,80 @@
 </div>
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
+	$("#formalta").submit(function(event) {
+	  if ( $("#empleado").val() != 0 ) {
+	    return;
+	  }
+	  event.preventDefault();
+	});
+
+	function actualizarAviso(){
+		empleado = $("#empleado").val();
+		idpartediario1 = $("#idpartediario1").val();
+		if (empleado == 0){
+			$("#aviso").text("Aviso: Seleccione un empleado.");	
+		}else{
+			$.getJSON("/getempleinpd2/"+idpartediario1+"/"+empleado, function (data){
+				if ( data[0].cant == 0 || data[0].cant == null){
+					$("#aviso").text("Aviso: El usuario no está en el parte diario.");
+				}else{
+					if (data[0].cant == 1)
+						$("#aviso").text("Aviso: El usuario aparece 1 vez en el parte diario.");	
+					else
+						$("#aviso").text("Aviso: El usuario aparece "+data[0].cant +" veces en el parte diario.");
+				}
+			});				
+		}
+	}
+
+	function actualizarEmple(){
+		sector = $('#sector').val();
+		console.log(sector)
+
+		if ( sector != 7){
+			$.getJSON('/getemplesbysector/'+ sector, function (data){
+				//console.log(data);
+				var i = 0;
+				$('#empleado').empty();
+				if (data.length == 0){
+					$("#empleado").append("<option value=0>Sin Empleados Asignados</option>");
+				}else{
+					$("#empleado").append("<option selected value=0>Seleccione un empleado.</option>")
+					for ( i = 0 ; i < data.length ; i++){
+						$("#empleado").append("<option value="+data[i].codigo+">"+data[i].nombre+"</option>");
+					}
+				}
+			});
+		}else{
+			$.getJSON('/getallemple', function (data){
+				//console.log(data);
+				var i = 0;
+				$('#empleado').empty();
+				if (data.length == 0){
+					$("#empleado").append("<option value=0>Sin Empleados Asignados</option>");
+				}else{
+					$("#empleado").append("<option selected value=0>Seleccione un empleado.</option>")
+					for ( i = 0 ; i < data.length ; i++){
+						$("#empleado").append("<option value="+data[i].codigo+">"+data[i].nombre+"</option>");
+					}
+				}
+			});
+		}
+	}
+
+	$(function() {
+	    console.log( "ready!" );
+	    actualizarAviso();
+	});
+
+	$("#sector").on("change", function() {
+		actualizarEmple();
+		$("#aviso").text("Aviso: Seleccione un empleado.");	
+	});
+
+	$("#empleado").on("change", function(){
+		actualizarAviso();
+	});
 </script>
 
 {% endblock %}

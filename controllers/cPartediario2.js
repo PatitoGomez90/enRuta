@@ -15,7 +15,9 @@ module.exports = {
 	postAlta: postAlta,
 	getModificar: getModificar,
 	postModificar: postModificar,
-	getDel: getDel
+	getDel: getDel,
+	getEmples: getEmples,
+	getEmpleInPartediario2: getEmpleInPartediario2
 };
 
 function changeDate(date){
@@ -32,7 +34,6 @@ function getLista(req, res) {
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 	mPartediario1.getById(id, function (partediario1){
 		mPartediario2.getAllByPartediario1Id(id, function (partediario2s){
-			//console.log(partediario2s)
 			mTipoHora.getAllActivos(function (tipohoras){
 				res.render('partediario2lista', {
 		        	pagename: 'Lista de Empleados',
@@ -41,7 +42,7 @@ function getLista(req, res) {
 		        	tipohoras: tipohoras
 		        	//ayuda: ayuda[0]
 		      	}); 
-			});			
+			});		
 		}); 	
 	});	   
 	//});
@@ -51,12 +52,16 @@ function getLista(req, res) {
 function getAlta(req, res){
 	params = req.params;
 	id = params.id;
-
-	mEmple.getAllActivos(function (empleados){
-		res.render('partediario2alta', {
-			pagename: "Alta de Empleado",
-			empleados: empleados,
-			idpartediario1: id
+	mSectores.getAll(function (sectores){
+		//console.log(sectores)
+		mEmple.getAllActivos(function (empleados){
+			//console.log(empleados)
+			res.render('partediario2alta', {
+				pagename: "Alta de Empleado",
+				empleados: empleados,
+				idpartediario1: id,
+				sectores: sectores
+			});
 		});
 	});
 }
@@ -65,9 +70,14 @@ function postAlta(req, res){
 	params = req.body;
 	idempleado = params.empleado;
 	idpartediario1 = params.idpartediario1;
-	mPartediario2.insertNewEmpleado(idpartediario1, idempleado, function(){
+
+	if( idempleado != 0){
+		mPartediario2.insertNewEmpleado(idpartediario1, idempleado, function(){
+			res.redirect('partediario2lista/'+idpartediario1);
+		});
+	}else{
 		res.redirect('partediario2lista/'+idpartediario1);
-	});
+	}
 }
 
 function getModificar(req, res){
@@ -156,14 +166,32 @@ function postModificar(req, res){
 	});
 }
 
-//////////////////////////////
+function getEmples(req, res){
+	params = req.params;
+	sector = params.id;
+
+	mEmple.getEmpleBySector(sector, function (emples){
+		res.send(emples);
+	});
+}
 
 function getDel(req, res){
 	params = req.params;
 	id = params.id;
-	mPartediario1.del(id, function (){
-		mPartediario2.delByIdpartediario1(id, function (){
-			res.redirect('partediario1lista');
+	mPartediario2.getById(id, function (p2){
+		p2 = p2[0];
+		mPartediario2.del(id, function (){
+			res.redirect('partediario2lista/'+p2.id_partediario1_fk);
 		});
+	});
+}
+
+function getEmpleInPartediario2(req, res){
+	params = req.params;
+	idpartediario1 = params.idp1;
+	idemple = params.idemple;
+
+	mPartediario2.getEmpleInPartediario2(idpartediario1, idemple, function (resultado){
+		res.send(resultado);
 	});
 }

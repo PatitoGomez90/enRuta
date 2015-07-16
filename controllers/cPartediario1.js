@@ -130,9 +130,10 @@ function postModificar(req, res){
 function getDel(req, res){
 	params = req.params;
 	id = params.id;
-	mPartediario1.del(id, function (){
-		mPartediario2.delByIdpartediario1(id, function (){
+	mPartediario2.delByIdpartediario1(id, function (){
+		mPartediario1.del(id, function (){		
 			res.redirect('partediario1lista');
 		});
 	});
 }
+

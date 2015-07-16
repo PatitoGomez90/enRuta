@@ -39,7 +39,21 @@
 					{% endfor %}
 					</select>
 				</td>
-			</tr>	
+			</tr>
+			<tr>
+				<td>Sector Usual:</td>
+				<td>
+					<select name="sector" id="sector" class="form-control">
+						{% for s in sectores %}
+							{% if emple.id_sector_fk == s.id %}
+								<option selected value="{{ s.id }}">{{ s.nombre }}</option>
+							{% else %}
+								<option value="{{ s.id }}">{{ s.nombre }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
 			<tr>
 				<td>Activo:</td>
 				{% if emple.activa== 1 %}

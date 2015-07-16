@@ -88,6 +88,7 @@ module.exports = function(app) {
 	app.post('/emplemodificar', auth, empleController.postModificar);
 	app.get('/empleborrar/:codigo', auth, empleController.getDelEmple);
 	app.get('/emplever/:codigo', auth, empleController.getVer);
+	app.get('/getallemple', auth, empleController.getAllEmple);
 	//cargos de empleados
 	app.get('/cargoslista', auth, cargoController.getAllCargos);
 	app.get('/cargosalta', auth, cargoController.getAlta);
@@ -272,6 +273,8 @@ module.exports = function(app) {
 	app.get('/partediario2modificar/:id', auth, partediario2Controller.getModificar);
 	app.post('/partediario2modificar', auth, partediario2Controller.postModificar);
 	app.get('/partediario2borrar/:id', auth, partediario2Controller.getDel);
+	app.get('/getemplesbysector/:id', auth, partediario2Controller.getEmples);
+	app.get('/getempleinpd2/:idp1/:idemple', auth, partediario2Controller.getEmpleInPartediario2);
 	//pruebasql
 	app.get('/pruebasql', auth, pruebasqlController.getPrueba);
 	//fichadas

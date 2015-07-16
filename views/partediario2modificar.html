@@ -105,37 +105,37 @@
 			{% endif %}
 			{% if partediario1.id_imputacion1_fk != 0 %}
 				<tr>
-					<td>{{ partediario1.imputacion1txt }}:</td>
+					<td>{{ partediario1.imputacion1txt }} - {% for i in imputaciones%}{% if partediario1.id_imputacion1_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
 					<td><input type="text" id="imputacion1" name="imputacion1" value="{{ partediario2.hrimputacion1 }}" required class="form-control" onkeypress='validate(event)'></td>
 				</tr>
 			{% endif %}
 			{% if partediario1.id_imputacion2_fk != 0 %}
 				<tr>
-					<td>{{ partediario1.imputacion2txt }}:</td>
+					<td>{{ partediario1.imputacion2txt }} - {% for i in imputaciones%}{% if partediario1.id_imputacion2_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
 					<td><input type="text" id="imputacion2" name="imputacion2" value="{{ partediario2.hrimputacion2 }}" required class="form-control" onkeypress='validate(event)'></td>
 				</tr>
 			{% endif %}
 			{% if partediario1.id_imputacion3_fk != 0 %}
 				<tr>
-					<td>{{ partediario1.imputacion3txt }}:</td>
+					<td>{{ partediario1.imputacion3txt }} - {% for i in imputaciones%}{% if partediario1.id_imputacion3_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
 					<td><input type="text" id="imputacion3" name="imputacion3" value="{{ partediario2.hrimputacion3 }}" required class="form-control" onkeypress='validate(event)'></td>
 				</tr>
 			{% endif %}
 			{% if partediario1.id_imputacion4_fk != 0 %}
 				<tr>
-					<td>{{ partediario1.imputacion4txt }}:</td>
+					<td>{{ partediario1.imputacion3txt }} - {% for i in imputaciones%}{% if partediario1.id_imputacion3_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
 					<td><input type="text" id="imputacion4" name="imputacion4" value="{{ partediario2.hrimputacion4 }}" required class="form-control" onkeypress='validate(event)'></td>
 				</tr>
 			{% endif %}
 			{% if partediario1.id_imputacion5_fk != 0 %}
 				<tr>
-					<td>{{ partediario1.imputacion5txt }}:</td>
+					<td>{{ partediario1.imputacion3txt }} - {% for i in imputaciones%}{% if partediario1.id_imputacion3_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
 					<td><input type="text" id="imputacion5" name="imputacion5" value="{{ partediario2.hrimputacion5 }}" required class="form-control" onkeypress='validate(event)'></td>
 				</tr>
 			{% endif %}
 			{% if partediario1.id_imputacion6_fk != 0 %}
 				<tr>
-					<td>{{ partediario1.imputacion6txt }}:</td>
+					<td>{{ partediario1.imputacion3txt }} - {% for i in imputaciones%}{% if partediario1.id_imputacion3_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
 					<td><input type="text" id="imputacion6" name="imputacion6" value="{{ partediario2.hrimputacion6 }}" required class="form-control" onkeypress='validate(event)'></td>
 				</tr>
 			{% endif %}
@@ -198,61 +198,8 @@
 		var diff = endDate - startDate;
 
 		diff = msToTime(diff);
-	    // e = start.split(':');
-	    // s = end.split(':');
-
-	    // if (start > end){
-	    // 	if(s[1]>=e[1]){
-	    // 		min = e[1]-s[1];	
-	    // 	}else{
-	    // 		se = parseInt(s[1]);
-	    // 		ee = parseInt(e[1]);
-	    // 		min = (60-se)+ee;
-	    // 	}	    	
-	    // 	hour_carry = 0;
-	    // 	console.log(min)
-	    // 	if(min < 0){
-		   //      min += 60;
-		   //      hour_carry += 1;
-	    // 	}
-	    // 	se = parseInt(s[0]);
-	    // 	ee = parseInt(e[0]);
-	    // 	hour = se+(24-ee);//-hour_carry;
-	    // 	if (min < 10)
-	    // 		min = "0"+min;
-	    // 	diff = hour + ":" + min;
-	    // }else{
-	    // 	if(s[1]>e[1]){
-	    // 		min = e[1]-s[1];	
-	    // 	}else{
-	    // 		min = (60-s[1])+e[1];
-	    // 	}
-	    // 	hour_carry = 0;
-	    // 	if(min < 0){
-		   //      min += 60;
-		   //      hour_carry += 1;
-	    // 	}
-	    // 	hour = s[0]-e[0]-hour_carry;
-	    // 	if (min < 10)
-	    // 		min = "0"+min;
-	    // 	diff = hour + ":" + min;
-	    // }
 
 	    $('#total').val(diff);
-
-
-
-		// entrada = $('#entrada').val();
-		// salida = $('#salida').val();
-		// console.log(entrada)
-		// console.log(salida)
-		// if (entrada > salida)
-		// 	total = (24 - entrada) + salida;
-		// else
-		// 	total = salida - entrada;
-
-		// console.log(total)
-		// $('#total').val(total);
 	}
 </script>
 {% endblock %}

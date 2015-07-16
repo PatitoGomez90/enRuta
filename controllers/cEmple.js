@@ -2,6 +2,7 @@ var mEmple = require('../models/mEmple');
 var mCargos = require('../models/mCargos');
 var mBorro = require('../models/mBorro');
 var mAyuda = require('../models/mAyuda');
+var mSectores = require('../models/mSectores');
 
 module.exports = {
 	getEmpleados: getEmpleados,
@@ -10,7 +11,8 @@ module.exports = {
 	postAlta: postAlta,
 	getModificar: getModificar,
 	postModificar: postModificar,
-	getDelEmple: getDelEmple
+	getDelEmple: getDelEmple,
+	getAllEmple: getAllEmple
 };
 
 function changeDate(date){
@@ -49,22 +51,26 @@ function getVer(req, res){
 }
 
 function getAlta(req, res){
-	mCargos.getAll(function (cargos){
-		mEmple.getUltimo(function (docs2){
-			if(docs2[0].max==null)
-				res.render('emplealta', {
-					pagename: 'Alta de Empleados',
-					cargos: cargos,
-					cdmax: 1
-				});
-			else
-				res.render('emplealta', {
-					pagename: 'Alta de Empleados',
-					cargos: cargos,
-					cdmax: docs2[0].max +1
-				});
+	mSectores.getAllActivos(function (sectores){
+		mCargos.getAll(function (cargos){
+			mEmple.getUltimo(function (docs2){
+				if(docs2[0].max==null)
+					res.render('emplealta', {
+						pagename: 'Alta de Empleados',
+						cargos: cargos,
+						sectores: sectores,
+						cdmax: 1
+					});
+				else
+					res.render('emplealta', {
+						pagename: 'Alta de Empleados',
+						cargos: cargos,
+						sectores: sectores,
+						cdmax: docs2[0].max +1
+					});
+			});
 		});
-	});	
+	});
 }
 
 function postAlta(req, res){
@@ -74,6 +80,7 @@ function postAlta(req, res){
 	falta = params.falta;
 	fbaja = params.fbaja;
 	cargo = params.cargo;
+	sector = params.sector;
 	//nuevos campos
 	legajo = params.legajo;
 	cuil = params.cuil;
@@ -96,7 +103,7 @@ function postAlta(req, res){
 					error: "El número de legajo no puede repetirse."
 				});
 			}else{
-				mEmple.insert(codigo, nombre, falta, fbaja, cargo, 1, legajo, cuil, fnac, domicilio, cp, telefono, function(){
+				mEmple.insert(codigo, nombre, falta, fbaja, cargo, sector, 1, legajo, cuil, fnac, domicilio, cp, telefono, function(){
 					res.redirect('emplelista');
 				});
 			}
@@ -109,10 +116,13 @@ function getModificar(req, res){
 	codigo= params.codigo;
 	mEmple.getEmplePorCodigo(codigo, function (docs){
 		mCargos.getAll(function (cargos){
-			res.render('emplemodificar', {
-				pagename: 'Modificar Empleado',
-				emple: docs[0],
-				cargos: cargos
+			mSectores.getAllActivos(function (sectores){
+				res.render('emplemodificar', {
+					pagename: 'Modificar Empleado',
+					emple: docs[0],
+					cargos: cargos,
+					sectores: sectores
+				});
 			});
 		});
 	});
@@ -125,6 +135,7 @@ function postModificar(req, res){
 	falta = params.falta;
 	fbaja =  params.fbaja;
 	cargo = params.cargo;
+	sector = params.sector;
 	activo = params.activa;
 	//nuevos campos
 	legajo = params.legajo;
@@ -149,7 +160,7 @@ function postModificar(req, res){
 					error: "El número de legajo no puede repetirse."
 				});
 			}else{
-				mEmple.update(codigo, nombre, falta, fbaja, cargo, activo, legajo, cuil, fnac, domicilio, cp, telefono, function(){
+				mEmple.update(codigo, nombre, falta, fbaja, cargo, sector, activo, legajo, cuil, fnac, domicilio, cp, telefono, function(){
 					res.redirect('/emplelista');
 				})
 			}
@@ -169,4 +180,10 @@ function getDelEmple(req, res){
 	  	});
   	});	
   });  
+}
+
+function getAllEmple(req, res){
+	mEmple.getAllActivos(function (emples){
+		res.send(emples);
+	});
 }

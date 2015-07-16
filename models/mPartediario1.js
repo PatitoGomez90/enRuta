@@ -28,3 +28,4 @@ function update(id, fecha, idsector, idlugar, estado, clasificacion1, clasificac
 function del(id, cb){
 	conn("delete from partediario1 where partediario1.id="+id, cb);
 }
+

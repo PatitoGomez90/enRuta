@@ -30,6 +30,16 @@
 			<td>{{ emple.cargo_descripcion }}</td>
 		</tr>
 		<tr>
+			<td>Sector Usual:</td>
+			<td>
+				{% if emple.sectortxt != null %}
+					{{ emple.sectortxt }}
+				{% else %}
+					n/c
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
 			<td>Legajo:</td>
 			<td>{{ emple.legajo }}</td>
 		</tr>

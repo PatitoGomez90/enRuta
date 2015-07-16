@@ -1,8 +1,7 @@
 function soloNumeros(e){
 	var key = window.Event ? e.which : e.keyCode
 	return (key >= 48 && key <= 57)
-}
-//onKeyPress="return soloNumeros(event)"
+}//onKeyPress="return soloNumeros(event)"
 
 function changeDate(date){
 	// input: dd/mm/yyyy
@@ -46,12 +45,12 @@ function checkDec(el){
 }//i cant remember what this does
 
 function validate(evt) {
-	  var theEvent = evt || window.event;
-	  var key = theEvent.keyCode || theEvent.which;
-	  key = String.fromCharCode( key );
-	  var regex = /[0-9]|\./;
-	  if( !regex.test(key) ) {
-	    theEvent.returnValue = false;
-	    if(theEvent.preventDefault) theEvent.preventDefault();
-	  }
-	}// onkeypress='validate(event)'
+  var theEvent = evt || window.event;
+  var key = theEvent.keyCode || theEvent.which;
+  key = String.fromCharCode( key );
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}// onkeypress='validate(event)'

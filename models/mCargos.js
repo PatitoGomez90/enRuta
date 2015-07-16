@@ -6,7 +6,7 @@ module.exports = {
 	getCargoPorId: getCargoPorId,
 	updateCargo: updateCargo,
 	delCargo: delCargo
-	}
+}
 
 function getAll(cb){
 	conn('select * from Cargos', cb);
