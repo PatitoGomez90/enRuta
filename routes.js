@@ -33,6 +33,7 @@ var partediario2Controller = require('./controllers/cPartediario2');
 var fichadasController = require('./controllers/cFichadas');
 
 var pruebasqlController = require('./controllers/cPruebaSQL');
+var randomController = require('./controllers/cRandom');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -281,4 +282,7 @@ module.exports = function(app) {
 	app.get('/fichadaslista', auth, fichadasController.getLista);
 	app.get('/buscarfichadas/:fecha', auth, fichadasController.getFichadas);
 	app.get('/fichadasver/:reloj/:fecha', auth, fichadasController.getVer);
+	//random
+	app.get('/random', auth, randomController.getAsd);
+	app.post('/random', auth, randomController.postAsd);
 }; 

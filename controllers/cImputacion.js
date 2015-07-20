@@ -14,6 +14,7 @@ function getLista(req, res) {
 	//req.session.nromenu = 5;
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 	mImputacion.getAll(function (imputaciones){
+		console.log(imputaciones)
 		res.render('imputacionlista', {
         	pagename: 'Lista de Items',
         	imputaciones: imputaciones

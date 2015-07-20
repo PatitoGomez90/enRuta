@@ -14,6 +14,7 @@ function getLista(req, res) {
 	//req.session.nromenu = 5;
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 		mItems.getAll(function (items){
+			console.log(items)
 			res.render('itemslista', {
 	        	pagename: 'Lista de Items de Trabajos',
 	        	items: items

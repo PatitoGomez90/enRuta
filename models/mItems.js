@@ -4,6 +4,7 @@ module.exports = {
 	getAll: getAll,
 	getAllActivos: getAllActivos,
 	insert: insert,
+	insert2: insert2,
 	getItemById: getItemById,
 	update: update,
 	del: del,
@@ -20,6 +21,10 @@ function getAllActivos(cb){
 
 function insert(numero, nombre, cb){
 	conn("insert into items(numero, nombre, activa) values("+numero+", '"+nombre+"', 1)", cb)
+}
+
+function insert2(numero, nombre, sector, um, cb){
+	conn("insert into items(numero, nombre, id_sector_fk, um) values("+numero+", '"+nombre+"', "+sector+", '"+um+"', 1)", cb)
 }
 
 function getItemById(id, cb){

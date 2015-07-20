@@ -10,7 +10,7 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn('select * from imputacion_hora', cb);
+	conn('select * from items', cb);
 }
 
 function insert(nombre, numero, cb){
