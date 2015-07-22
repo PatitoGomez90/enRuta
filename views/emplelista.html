@@ -45,11 +45,13 @@
 		  		<thead>
 		  			<tr> 
 						<th>Codigo</th>
+						<th>Tarjeta</th>
 						<th><div style="width: 150px">Nombre</div></th>
 						<th>Fecha Alta</th>
 						<th>Fecha Baja</th>
 						<th>Cargo</th>
 						<th>Sector Usual</th>
+						<th>Sexo</th>
 						<th>Activo</th>
 						<th colspan="3">Opciones</th>
 					</tr>
@@ -58,6 +60,7 @@
 		  			{% for emple in empleados %}
 						<tr>
 							<td>{{ emple.codigo }}</td>
+							<td>{{ emple.tarjeta }}</td>
 							<td>{{ emple.nombre }}</td>
 							<td>{{ emple.falta|date('d/m/Y') }}</td>
 							<td>{{ emple.fbaja|date('d/m/Y') }}</td>
@@ -69,6 +72,14 @@
 									n/c
 								{% endif %}
 							</td>
+
+
+							{% if emple.sexo == 0 %}
+								<td><span>Masculino</span></td>
+							{% else %}
+								<td><span>Femenino</span></td>
+							{% endif %}
+
 							{% if emple.activa == 1 %}
 								<td><span>Activo</span></td>
 							{% else %}

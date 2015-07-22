@@ -12,7 +12,11 @@
 		<tr>
 			<td>ID:</td>
 			<td>{{ emple.codigo }}</td>
-		</tr>	
+		</tr>
+		<tr>
+			<td>Tarjeta:</td>
+			<td>{{ emple.tarjeta }}</td>
+		</tr>
 		<tr>
 			<td>Nombre:</td>
 			<td>{{ emple.nombre }}</td>
@@ -50,6 +54,14 @@
 		<tr>
 			<td>Fecha de Nacimiento:</td>
 			<td>{{ emple.fecha_nac|date('d/m/Y') }}</td>
+		</tr>
+		<tr>
+			<td>Sexo:</td>
+			{% if emple.sexo == 0 %}
+				<td>Masculino</td>
+			{% else %}
+				<td>Femenino</td>
+			{% endif %}	
 		</tr>
 		<tr>
 			<td>Domicilio: </td>

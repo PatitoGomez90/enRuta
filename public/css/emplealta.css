@@ -1,10 +1,7 @@
-#codigo{
-	width: 60%;
+#codigo, #legajo, #cp, #telefono, #falta, #fbaja, #cuil, #fnac{
+	width: 40%;
 }
-#nombre{
-	width: 60%;
-}
-#cargo{
+#tarjeta, #nombre, #cargo, #sector, #domicilio{
 	width: 60%;
 }
 .aviso{
