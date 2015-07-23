@@ -12,7 +12,11 @@
 		<tr>
 			<td>ID:</td>
 			<td>{{ emple.codigo }}</td>
-		</tr>	
+		</tr>
+		<tr>
+			<td>Tarjeta:</td>
+			<td>{{ emple.tarjeta }}</td>
+		</tr>
 		<tr>
 			<td>Nombre:</td>
 			<td>{{ emple.nombre }}</td>
@@ -23,11 +27,23 @@
 		</tr>
 		<tr>
 			<td>Fecha de Baja:</td>
-			<td>{{ emple.fbaja|date('d/m/Y') }}</td>
+			<td>
+				{% if emple.fbaja != "0000-00-00" %}
+					{{ emple.fbaja|date('d/m/Y') }}
+				{% else %}
+
+				{% endif %}
+			</td>
 		</tr>	
 		<tr>
 			<td>Cargo:</td>
-			<td>{{ emple.cargo_descripcion }}</td>
+			<td>
+				{% if emple.cargo != 0 %}
+					{{ emple.cargo_descripcion }}
+				{% else %}
+
+				{% endif %}
+			</td>
 		</tr>
 		<tr>
 			<td>Sector Usual:</td>
@@ -49,7 +65,21 @@
 		</tr>
 		<tr>
 			<td>Fecha de Nacimiento:</td>
-			<td>{{ emple.fecha_nac|date('d/m/Y') }}</td>
+			<td>
+				{% if emple.fecha_nac != "0000-00-00" %}
+					{{ emple.fecha_nac|date('d/m/Y') }}
+				{% else %}
+
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Sexo:</td>
+			{% if emple.sexo == 0 %}
+				<td>Masculino</td>
+			{% else %}
+				<td>Femenino</td>
+			{% endif %}	
 		</tr>
 		<tr>
 			<td>Domicilio: </td>

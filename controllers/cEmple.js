@@ -75,6 +75,7 @@ function getAlta(req, res){
 
 function postAlta(req, res){
 	params = req.body;
+	console.log(params)
 	codigo = params.codigo;
 	nombre = params.nombre;
 	falta = params.falta;
@@ -88,10 +89,21 @@ function postAlta(req, res){
 	domicilio = params.domicilio;
 	cp = params.cp;
 	telefono = params.telefono;
+	tarjeta = params.tarjeta;
+	sexo = params.sexo;
 	//fin nuevos campos
 	falta = changeDate(falta);
 	fbaja = changeDate(fbaja);
 	fnac = changeDate(fnac);
+console.log("hihihihihihihihi")
+console.log(sexo)
+
+	if (sexo == "masculino") {
+		sexo = 0;
+	}else{
+		sexo = 1;
+	}
+
 	if (fbaja == ""){
 		res.render('error',{
 			error: "La fecha de baja no puede estar vacia."
@@ -103,7 +115,7 @@ function postAlta(req, res){
 					error: "El número de legajo no puede repetirse."
 				});
 			}else{
-				mEmple.insert(codigo, nombre, falta, fbaja, cargo, sector, 1, legajo, cuil, fnac, domicilio, cp, telefono, function(){
+				mEmple.insert(codigo, nombre, falta, fbaja, cargo, sector, 1, legajo, cuil, fnac, domicilio, cp, telefono, tarjeta, sexo, function(){
 					res.redirect('emplelista');
 				});
 			}
@@ -144,7 +156,15 @@ function postModificar(req, res){
 	domicilio = params.domicilio;
 	cp = params.cp;
 	telefono = params.telefono;
+	tarjeta = params.tarjeta;
+	sexo = params.sexo;
 	//fin nuevos campos
+	if (sexo == "masculino") {
+		sexo = 0;
+	}else{
+		sexo = 1;
+	}
+
 	if (activo=='on')
 		activo=1;
 	else
@@ -160,7 +180,7 @@ function postModificar(req, res){
 					error: "El número de legajo no puede repetirse."
 				});
 			}else{
-				mEmple.update(codigo, nombre, falta, fbaja, cargo, sector, activo, legajo, cuil, fnac, domicilio, cp, telefono, function(){
+				mEmple.update(codigo, nombre, falta, fbaja, cargo, sector, activo, legajo, cuil, fnac, domicilio, cp, telefono, tarjeta, sexo, function(){
 					res.redirect('/emplelista');
 				})
 			}

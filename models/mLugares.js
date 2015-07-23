@@ -2,6 +2,7 @@ var conn = require('../config/db').conn;
 
 module.exports = {
 	getAll: getAll,
+	getSectores: getSectores,
 	insert: insert,
 	getById: getById,
 	update: update,
@@ -10,19 +11,24 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn('select * from lugares', cb);
+	//conn('select * from lugares', cb);
+	conn('select lugares.*, sectores.nombre as sectortxt from lugares left join sectores on lugares.id_sector_fk = sectores.id', cb);
 }
 
-function insert(nombre, cb){
-	conn("insert into lugares(nombre, activa) values('"+nombre+"', 1)", cb);
+function getSectores(cb){
+	conn('select * from sectores', cb);
+}
+
+function insert(nombre, sector, cb){
+	conn("insert into lugares(nombre, activa, id_sector_fk) values('"+nombre+"', 1, "+sector+")", cb);
 }
 
 function getById(id, cb){
-	conn("select * from lugares where id = "+id, cb);
+	conn("select * from lugares where id = "+id , cb);
 }
 
-function update(id, nombre, activa, cb){
-	conn("update lugares set nombre='"+nombre+"', activa="+activa+" where id="+id, cb);
+function update(id, nombre, activa, sector, cb){
+	conn("update lugares set nombre='"+nombre+"', activa="+activa+", id_sector_fk="+sector+" where id="+id, cb);
 }
 
 function del(id, cb){

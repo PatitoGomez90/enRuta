@@ -7,14 +7,20 @@
 {% block content %}
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
-	<form method="post" id="formalta" action="/random">
-
-		<td><input type="button" value="Atras" onclick="history.back()"></td>
-		<td><input type="submit" value="Magia"></td>
-	</form>
+<!-- 	<form method="post" id="formalta" action="/random"> -->
+		<table>
+			<tr>
+				<td>Ir a esto hacia otra cosa que no me acuerdo</td>
+				<td><a href="/random1"><button class="btn btn-default" id="btnLaOtraCosa">Go</button></a></td>
+			</tr>
+			<tr>
+				<td>Ir a traer tabla "Emple" (Legajo) desde Server a Mysql Local:</td>
+				<td><a href="/random2"><button class="btn btn-default" id="btnEmpleSvrtoMysqlLocal">Go!</button></a></td>
+			</tr>
+		</table>
+	<!-- </form> -->
 </div>
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
 </script>
-
 {% endblock %}

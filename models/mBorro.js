@@ -2,7 +2,7 @@ var conn = require('../config/db').conn;
 
 module.exports = {
 	add: add
-	}
+}
 
 function add(user, tabla, string, cb){
 	var currentdate = new Date();

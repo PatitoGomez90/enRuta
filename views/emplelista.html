@@ -45,11 +45,13 @@
 		  		<thead>
 		  			<tr> 
 						<th>Codigo</th>
+						<th>Tarjeta</th>
 						<th><div style="width: 150px">Nombre</div></th>
 						<th>Fecha Alta</th>
 						<th>Fecha Baja</th>
 						<th>Cargo</th>
 						<th>Sector Usual</th>
+						<th>Sexo</th>
 						<th>Activo</th>
 						<th colspan="3">Opciones</th>
 					</tr>
@@ -58,10 +60,23 @@
 		  			{% for emple in empleados %}
 						<tr>
 							<td>{{ emple.codigo }}</td>
+							<td>{{ emple.tarjeta }}</td>
 							<td>{{ emple.nombre }}</td>
 							<td>{{ emple.falta|date('d/m/Y') }}</td>
-							<td>{{ emple.fbaja|date('d/m/Y') }}</td>
-							<td>{{ emple.descripcion }}</td>
+							<!-- ESTO DE LAS FECHAS HAY QUE CAMBIARLO PARA QUE VENGAN FORMATEADAS DESDE EL SQL -->
+							<td>{% if emple.fbaja == "0000-00-00" %}
+								
+								{% else %}
+									{{ emple.fbaja|date('d/m/Y') }}
+								{% endif %}
+							</td>
+							<td>
+								{% if emple.cargo != 0 %}
+									{{ emple.descripcion }}
+								{% else %}
+									n/c
+								{% endif %}
+							</td>
 							<td>
 								{% if emple.sectortxt != null %}
 									{{ emple.sectortxt }}
@@ -69,6 +84,12 @@
 									n/c
 								{% endif %}
 							</td>
+							{% if emple.sexo == 0 %}
+								<td><span>Masculino</span></td>
+							{% else %}
+								<td><span>Femenino</span></td>
+							{% endif %}
+
 							{% if emple.activa == 1 %}
 								<td><span>Activo</span></td>
 							{% else %}

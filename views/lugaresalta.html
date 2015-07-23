@@ -15,6 +15,16 @@
 				<td><input type="text" id="nombre" name="nombre" required class="form-control"></td>
 			</tr>
 			<tr>
+				<td>Sector:</td>
+				<td>
+					<select class="form-control" id="sector" name="sector">
+					{% for sector in sectores %}
+      					<option value="{{ sector.id }}" required> {{ sector.nombre }}</option>
+					{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td><input type="button" value="Atras" onclick="history.back()"></td>
 				<td><input type="submit" value="Agregar"></td>
 			</tr>
