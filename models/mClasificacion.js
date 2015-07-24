@@ -1,3 +1,4 @@
+//24/07/2015 - desde ahora "clasificacion horas " es "adicionales"
 var conn = require('../config/db').conn;
 
 module.exports = {

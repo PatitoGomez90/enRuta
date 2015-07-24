@@ -169,6 +169,7 @@ module.exports = function(app) {
 	app.get('/chk1lista', auth, chk1Controller.getLista);
 	app.get('/chk1alta', auth, chk1Controller.getAlta);
 	app.post('/chk1alta', auth, chk1Controller.postAlta);
+	//chkborrar
 	//checklist 2
 	app.get('/chk2lista/:id', auth, chk2Controller.getLista);
 	app.get('/chk2alta/:id', auth, chk2Controller.getAlta);
@@ -247,6 +248,7 @@ module.exports = function(app) {
 	app.post('/lugaresmodificar', auth, lugaresController.postModificar);
 	app.get('/lugaresborrar/:id', auth, lugaresController.getDel);
 	//clasificacion de horas
+	//24/07/2015 - desde ahora "clasificacion horas " es "adicionales"
 	app.get('/clasificacionlista', auth, clasificacionController.getLista);
 	app.get('/clasificacionalta', auth, clasificacionController.getAlta);
 	app.post('/clasificacionalta', auth, clasificacionController.postAlta);
