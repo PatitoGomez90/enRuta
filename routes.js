@@ -31,6 +31,9 @@ var imputaController = require('./controllers/cImputacion');
 var partediario1Controller = require('./controllers/cPartediario1');
 var partediario2Controller = require('./controllers/cPartediario2');
 var fichadasController = require('./controllers/cFichadas');
+var cContratos = require('./controllers/cContratos');
+var cTurnos = require('./controllers/cTurnos');
+var cCategorias = require('./controllers/cCategorias');
 
 var pruebasqlController = require('./controllers/cPruebaSQL');
 var randomController = require('./controllers/cRandom');
@@ -255,7 +258,9 @@ module.exports = function(app) {
 	app.get('/clasificacionmodificar/:id', auth, clasificacionController.getModificar);
 	app.post('/clasificacionmodificar', auth, clasificacionController.postModificar);
 	app.get('/clasificacionborrar/:id', auth, clasificacionController.getDel);
-	//imputacion de horas 02/07/2015-> ahora se llama ITEMS
+	//imputacion de horas 
+	//02/07/2015-> ahora se llama ITEMS
+	//los html y rutas son 'imputacion' y la base de datos es 'items'
 	app.get('/imputacionlista', auth, imputaController.getLista);
 	app.get('/imputacionalta', auth, imputaController.getAlta);
 	app.post('/imputacionalta', auth, imputaController.postAlta);
@@ -278,12 +283,34 @@ module.exports = function(app) {
 	app.get('/partediario2borrar/:id', auth, partediario2Controller.getDel);
 	app.get('/getemplesbysector/:id', auth, partediario2Controller.getEmples);
 	app.get('/getempleinpd2/:idp1/:idemple', auth, partediario2Controller.getEmpleInPartediario2);
-	//pruebasql
-	app.get('/pruebasql', auth, pruebasqlController.getPrueba);
 	//fichadas
 	app.get('/fichadaslista', auth, fichadasController.getLista);
 	app.get('/buscarfichadas/:fecha', auth, fichadasController.getFichadas);
 	app.get('/fichadasver/:reloj/:fecha', auth, fichadasController.getVer);
+	//contratos
+	app.get('/contratoslista', auth, cContratos.getLista);
+	app.get('/contratosalta', auth, cContratos.getAlta);
+	app.post('/contratosalta', auth, cContratos.postAlta);
+	app.get('/contratosmodificar/:id', auth, cContratos.getModificar);
+	app.post('/contratosmodificar', auth, cContratos.postModificar);
+	app.get('/contratosborrar/:id', auth, cContratos.getDel);
+	//turnos
+	app.get('/turnoslista', auth, cTurnos.getLista);
+	app.get('/turnosalta', auth, cTurnos.getAlta);
+	app.post('/turnosalta', auth, cTurnos.postAlta);
+	app.get('/turnosmodificar/:id', auth, cTurnos.getModificar);
+	app.post('/turnosmodificar', auth, cTurnos.postModificar);
+	app.get('/turnosborrar/:id', auth, cTurnos.getDel);
+	//categorias
+	app.get('/categoriaslista', auth, cCategorias.getLista);
+	app.get('/categoriasalta', auth, cCategorias.getAlta);
+	app.post('/categoriasalta', auth, cCategorias.postAlta);
+	app.get('/categoriasmodificar/:id', auth, cCategorias.getModificar);
+	app.post('/categoriasmodificar', auth, cCategorias.postModificar);
+	app.get('/categoriasborrar/:id', auth, cCategorias.getDel);
+
+	//pruebasql
+	app.get('/pruebasql', auth, pruebasqlController.getPrueba);
 	//random
 	app.get('/random', auth, randomController.getAsd);
 	app.post('/random', auth, randomController.postAsd);

@@ -15,12 +15,20 @@
 				<td><input type="text" id="codigo" name="codigo" value="{{ cdmax }}" required readonly class="form-control"></td>
 			</tr>
 			<tr>
+				<td>Nro de Legajo:</td>
+				<td><input type="text" id="legajo" name="legajo" required class="form-control"></td>
+			</tr>
+			<tr>
 				<td>Tarjeta:</td>
 				<td><input type="text" id="tarjeta" name="tarjeta" required class="form-control" onKeyPress="return soloNumeros(event)"></td>
 			</tr>			
 			<tr>
 				<td>Nombre:</td>
 				<td><input type="text" id="nombre" name="nombre" required class="form-control"><div class="aviso">Quedan <span id="charsLeftNombre"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>CUIL:</td>
+				<td><input type="text" id="cuil" name="cuil" required class="form-control"><div class="aviso">Quedan <span id="charsLeftCuil"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Fecha de Alta:</td>
@@ -51,12 +59,44 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Nro de Legajo:</td>
-				<td><input type="text" id="legajo" name="legajo" required class="form-control"></td>
+				<td>Categoria:</td>
+				<td>	
+					<select class="form-control" name="categoria" id="categoria">
+						{% for c in categorias %}
+							<option value="{{ c.id }}">{{ c.nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
 			</tr>
 			<tr>
-				<td>CUIL:</td>
-				<td><input type="text" id="cuil" name="cuil" required class="form-control"><div class="aviso">Quedan <span id="charsLeftCuil"></span> caraceteres.</div></td>
+				<td>Turno:</td>
+				<td>
+					<select class="form-control" name="turno" id="turno">
+						{% for t in turnos %}
+							<option value="{{ t.id }}">{{ t.codigo }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Contrato:</td>
+				<td>
+					<select class="form-control" name="contrato" id="contrato">
+						{% for c in contratos %}
+							<option value="{{ c.id }}">{{ c.nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Condicion:</td>
+				<td>
+					<select class="form-control" name="condicion" id="condicion">
+						{% for c in condiciones %}
+							<option value="{{ c.id }}">{{ c.nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td>Fecha de Nacimiento:</td>

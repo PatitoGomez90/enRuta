@@ -14,12 +14,20 @@
 			<td>{{ emple.codigo }}</td>
 		</tr>
 		<tr>
+			<td>Legajo:</td>
+			<td>{{ emple.legajo }}</td>
+		</tr>
+		<tr>
 			<td>Tarjeta:</td>
 			<td>{{ emple.tarjeta }}</td>
 		</tr>
 		<tr>
 			<td>Nombre:</td>
 			<td>{{ emple.nombre }}</td>
+		</tr>
+		<tr>
+			<td>CUIL:</td>
+			<td>{{ emple.cuil }}</td>
 		</tr>
 		<tr>
 			<td>Fecha de Alta:</td>
@@ -56,12 +64,36 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Legajo:</td>
-			<td>{{ emple.legajo }}</td>
+			<td>Categoria:</td>
+			<td>
+				{% if emple.id_categoria_fk != 0 %}
+					{{ emple.categoriatxt }}
+				{% endif %}
+			</td>
 		</tr>
 		<tr>
-			<td>CUIL:</td>
-			<td>{{ emple.cuil }}</td>
+			<td>Turno:</td>
+			<td>
+				{% if emple.id_turno_fk != 0 %}
+					{{ emple.turnotxt }}
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Contrato:</td>
+			<td>
+				{% if emple.id_contrato_fk != 0 %}
+					{{ emple.contratotxt }}
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Condicion:</td>
+			<td>
+				{% if emple.id_condicion_fk != 0 %}
+					{{ emple.condiciontxt }}
+				{% endif %}
+			</td>
 		</tr>
 		<tr>
 			<td>Fecha de Nacimiento:</td>
@@ -72,14 +104,6 @@
 
 				{% endif %}
 			</td>
-		</tr>
-		<tr>
-			<td>Sexo:</td>
-			{% if emple.sexo == 0 %}
-				<td>Masculino</td>
-			{% else %}
-				<td>Femenino</td>
-			{% endif %}	
 		</tr>
 		<tr>
 			<td>Sexo:</td>
