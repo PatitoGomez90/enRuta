@@ -15,6 +15,20 @@
 				<td><input type="text" id="nombre" name="nombre" required class="form-control"></td>
 			</tr>
 			<tr>
+				<td>Sector:</td>
+				<td>
+					<select class="form-control" id="sector" name="sector">
+					{% for sector in sectores %}
+						{% if sector.nombre == "--Sin sector" %}
+      						<option value="{{ sector.id }}" selected> {{ sector.nombre }}</option>
+      					{% else %}
+      						<option value="{{ sector.id }}"> {{ sector.nombre }}</option>
+      					{% endif %}
+					{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td><input type="button" value="Atras" onclick="history.back()"></td>
 				<td><input type="submit" value="Agregar"></td>
 			</tr>

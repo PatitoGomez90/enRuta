@@ -31,6 +31,7 @@ var imputaController = require('./controllers/cImputacion');
 var partediario1Controller = require('./controllers/cPartediario1');
 var partediario2Controller = require('./controllers/cPartediario2');
 var fichadasController = require('./controllers/cFichadas');
+var categoriaController = require('./controllers/cCategorias');
 
 var pruebasqlController = require('./controllers/cPruebaSQL');
 var randomController = require('./controllers/cRandom');
@@ -282,6 +283,13 @@ module.exports = function(app) {
 	app.get('/fichadaslista', auth, fichadasController.getLista);
 	app.get('/buscarfichadas/:fecha', auth, fichadasController.getFichadas);
 	app.get('/fichadasver/:reloj/:fecha', auth, fichadasController.getVer);
+	//categorias
+	app.get('/categoriaslista', auth, categoriaController.getLista);
+	app.get('/categoriasalta', auth, categoriaController.getAlta);
+	app.post('/categoriasalta', auth, categoriaController.postAlta);
+	app.get('/categoriamodificar/:id', auth, categoriaController.getModificar);
+	app.post('/categoriamodificar', auth, categoriaController.postModificar);
+	app.get('/categoriaborrar/:id', auth, categoriaController.del);
 	//random
 	app.get('/random', auth, randomController.getAsd);
 	app.post('/random', auth, randomController.postAsd);

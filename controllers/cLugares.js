@@ -1,5 +1,6 @@
 var mLugares = require('../models/mLugares');
 var mAyuda = require('../models/mAyuda');
+var mSectores = require('../models/mSectores');
 
 module.exports = {
 	getLista: getLista,
@@ -18,22 +19,26 @@ function getLista(req, res) {
         	pagename: 'Lista de Lugares',
         	lugares: lugares
         	//ayuda: ayuda[0]
-      	}); 
+      	});
 	});    
 	//});
 };
 
 function getAlta(req, res){
-	res.render('lugaresalta', {
-		pagename: "Alta de Lugar"
+	mLugares.getSectores(function (sectores){
+		res.render('lugaresalta', {
+		pagename: "Alta de Lugar",
+		sectores: sectores
+		});
 	});
 }
 
 function postAlta(req, res){
 	params = req.body;
 	nombre = params.nombre;
+	sector = params.sector;
 
-	mLugares.insert(nombre, function (){
+	mLugares.insert(nombre, sector, function (){
 		res.redirect('lugareslista');
 	});
 }
@@ -43,9 +48,12 @@ function getModificar(req, res){
 	id = params.id;
 
 	mLugares.getById(id, function (lugar){
-		res.render('lugaresmodificar', {
-			pagename: "Modificar informacion de un Lugar",
-			lugar: lugar[0]
+		mSectores.getAll(function (sectores){
+			res.render('lugaresmodificar', {
+				pagename: "Modificar informacion de un Lugar",
+				lugar: lugar[0],
+				sectores: sectores
+			});
 		});
 	});
 }
@@ -55,11 +63,13 @@ function postModificar(req, res){
 	id = params.id;
 	nombre = params.nombre;
 	activa = params.activa;
+	sector = params.sector;
+
 	if (activa == "on")
 		activa = 1;
 	else
 		activa = 0;
-	mLugares.update(id, nombre, activa, function (){
+	mLugares.update(id, nombre, activa, sector, function (){
 		res.redirect('lugareslista');
 	});
 }
