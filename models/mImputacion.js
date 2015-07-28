@@ -17,7 +17,7 @@ function getAll(cb){
 }
 
 function getAllActivos(cb){
-	conn("select items.*, sectores.nombre as sectortxt, lugares.nombre as lugartxt, contratos.nombre as contratotxt, umed.nombre as umedtxt from items left join sectores on sectores.id = items.id_sector_fk left join lugares on lugares.id = items.id_lugar_fk left join contratos on contratos.id = items.id_contrato_fk left join umed on umed.id = items.id_umed_fk where activa = 1 order by nombre", cb);
+	conn("select items.*, sectores.nombre as sectortxt, lugares.nombre as lugartxt, contratos.nombre as contratotxt, umed.nombre as umedtxt from items left join sectores on sectores.id = items.id_sector_fk left join lugares on lugares.id = items.id_lugar_fk left join contratos on contratos.id = items.id_contrato_fk left join umed on umed.id = items.id_umed_fk where items.activa = 1 order by items.numero", cb);
 }
 
 function insert(numero, nombre, sector, lugar, umed, horas_standard, contrato, cb){
