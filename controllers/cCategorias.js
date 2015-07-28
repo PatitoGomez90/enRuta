@@ -11,10 +11,14 @@ module.exports = {
 };
 
 function getLista(req, res){
+	req.session.nromenu = 12;
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 	mCategorias.getAll(function (categorias){
 		res.render('categoriaslista',{
 			pagename: 'Lista de Categorias',
-			categorias: categorias
+			categorias: categorias,
+			ayuda: ayuda[0]
+			});
 		});
 	});
 };

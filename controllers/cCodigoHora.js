@@ -11,16 +11,16 @@ module.exports = {
 };
 
 function getLista(req, res) {
-	//req.session.nromenu = 5;
-	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
+	req.session.nromenu = 15;
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 		mCodigoHora.getAll(function (codigohoras){
 			res.render('codigohoralista', {
 	        	pagename: 'Lista de Codigos de Hora',
-	        	codigohoras: codigohoras
-	        	//ayuda: ayuda[0]
+	        	codigohoras: codigohoras,
+	        	ayuda: ayuda[0]
 	      	}); 
 		});    
-	//});
+	});
 };
 
 function getAlta(req, res){

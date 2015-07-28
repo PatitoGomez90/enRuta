@@ -1,5 +1,6 @@
 var mCargo = require('../models/mCargos');
 var mBorro = require('../models/mBorro');
+var mAyuda = require('../models/mAyuda');
 
 module.exports = {
 	getAllCargos: getAllCargos,
@@ -11,14 +12,18 @@ module.exports = {
 };
 
 function getAllCargos(req, res) {
+	req.session.nromenu = 19;
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
   	mCargo.getAll(function (docs){
   		console.log(docs)
   		res.render('Cargoslista', {
 			pagename: 'Cargos de Empleados',
 			cargos: docs,
+			ayuda: ayuda[0]
+			});
 		});
   	});
-}
+};
 
 function getAlta(req, res){
 	res.render('Cargosalta', {
