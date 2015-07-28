@@ -14,7 +14,6 @@ function getLista(req, res) {
 	//req.session.nromenu = 5;
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 		mItems.getAll(function (items){
-			console.log(items)
 			res.render('itemslista', {
 	        	pagename: 'Lista de Items de Trabajos',
 	        	items: items
@@ -34,8 +33,13 @@ function postAlta(req, res){
 	params = req.body;
 	numero = params.numero;
 	nombre = params.nombre;
+	sector = params.sector;
+	lugar = params.lugar;
+	umed = params.umed;
+	horas_standard = params.horas_standard;
+	contrato = params.contrato;
 
-	mItems.insert(numero, nombre, function(){
+	mItems.insert(numero, nombre, sector, lugar, umed, horas_standard, contrato, function(){
 		res.redirect('itemslista');
 	});
 }
@@ -43,7 +47,7 @@ function postAlta(req, res){
 function getModificar(req, res){
 	params = req.params;
 	id = params.id;
-	mItems.getItemById(id, function (item){
+	mItems.getById(id, function (item){
 		res.render('itemsmodificar',{
 			pagename: "Modificar Item de Trabajo",
 			item: item[0]
@@ -57,13 +61,18 @@ function postModificar(req, res){
 	numero = params.numero;
 	nombre = params.nombre;
 	activo = params.activa;
-
+	sector = params.sector;
+	lugar = params.lugar;
+	umed = params.umed;
+	horas_standard = params.horas_standard;
+	contrato = params.contrato;
+	 
 	if (activo == "on")
 		activo = 1;
 	else
 		activo = 0;
 
-	mItems.update(id, numero, nombre, activo, function(){
+	mItems.update(id, numero, nombre, sector, lugar, umed, horas_standard, contrato, activo, function(){
 		res.redirect('itemslista');
 	});
 }

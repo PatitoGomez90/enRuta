@@ -45,6 +45,7 @@
 		  		<thead>
 		  			<tr> 
 						<th>Codigo</th>
+						<th>Legajo</th>
 						<th>Tarjeta</th>
 						<th><div style="width: 150px">Nombre</div></th>
 						<th>Fecha Alta</th>
@@ -60,16 +61,24 @@
 		  			{% for emple in empleados %}
 						<tr>
 							<td>{{ emple.codigo }}</td>
+							<td>{{ emple.legajo }}</td>
 							<td>{{ emple.tarjeta }}</td>
 							<td>{{ emple.nombre }}</td>
 							<td>{{ emple.falta|date('d/m/Y') }}</td>
+							<!-- ESTO DE LAS FECHAS HAY QUE CAMBIARLO PARA QUE VENGAN FORMATEADAS DESDE EL SQL -->
 							<td>{% if emple.fbaja == "0000-00-00" %}
 								
-							{% else %}
-								{{ emple.fbaja|date('d/m/Y') }}
-							{% endif %}
+								{% else %}
+									{{ emple.fbaja|date('d/m/Y') }}
+								{% endif %}
 							</td>
-							<td>{{ emple.descripcion }}</td>
+							<td>
+								{% if emple.cargo != 0 %}
+									{{ emple.descripcion }}
+								{% else %}
+									n/c
+								{% endif %}
+							</td>
 							<td>
 								{% if emple.sectortxt != null %}
 									{{ emple.sectortxt }}

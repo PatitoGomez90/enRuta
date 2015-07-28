@@ -7,7 +7,7 @@ module.exports = {
 	getFamiliaPorId: getFamiliaPorId,
 	update: update,
 	del: del
-	}
+}
 
 function getAll(cb){
 	conn('select * from Familia', cb);

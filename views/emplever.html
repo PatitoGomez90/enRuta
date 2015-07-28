@@ -14,6 +14,10 @@
 			<td>{{ emple.codigo }}</td>
 		</tr>
 		<tr>
+			<td>Legajo:</td>
+			<td>{{ emple.legajo }}</td>
+		</tr>
+		<tr>
 			<td>Tarjeta:</td>
 			<td>{{ emple.tarjeta }}</td>
 		</tr>
@@ -22,16 +26,32 @@
 			<td>{{ emple.nombre }}</td>
 		</tr>
 		<tr>
+			<td>CUIL:</td>
+			<td>{{ emple.cuil }}</td>
+		</tr>
+		<tr>
 			<td>Fecha de Alta:</td>
 			<td>{{ emple.falta|date('d/m/Y') }}</td>
 		</tr>
 		<tr>
 			<td>Fecha de Baja:</td>
-			<td>{{ emple.fbaja|date('d/m/Y') }}</td>
+			<td>
+				{% if emple.fbaja != "0000-00-00" %}
+					{{ emple.fbaja|date('d/m/Y') }}
+				{% else %}
+
+				{% endif %}
+			</td>
 		</tr>	
 		<tr>
 			<td>Cargo:</td>
-			<td>{{ emple.cargo_descripcion }}</td>
+			<td>
+				{% if emple.cargo != 0 %}
+					{{ emple.cargo_descripcion }}
+				{% else %}
+
+				{% endif %}
+			</td>
 		</tr>
 		<tr>
 			<td>Sector Usual:</td>
@@ -44,16 +64,54 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Legajo:</td>
-			<td>{{ emple.legajo }}</td>
+			<td>Categoria:</td>
+			<td>
+				{% if emple.id_categoria_fk != 0 %}
+					{{ emple.categoriatxt }}
+				{% endif %}
+			</td>
 		</tr>
 		<tr>
-			<td>CUIL:</td>
-			<td>{{ emple.cuil }}</td>
+			<td>Turno:</td>
+			<td>
+				{% if emple.id_turno_fk != 0 %}
+					{{ emple.turnotxt }}
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Contrato:</td>
+			<td>
+				{% if emple.id_contrato_fk != 0 %}
+					{{ emple.contratotxt }}
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Condicion:</td>
+			<td>
+				{% if emple.id_condicion_fk != 0 %}
+					{{ emple.condiciontxt }}
+				{% endif %}
+			</td>
 		</tr>
 		<tr>
 			<td>Fecha de Nacimiento:</td>
-			<td>{{ emple.fecha_nac|date('d/m/Y') }}</td>
+			<td>
+				{% if emple.fecha_nac != "0000-00-00" %}
+					{{ emple.fecha_nac|date('d/m/Y') }}
+				{% else %}
+
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Sexo:</td>
+			{% if emple.sexo == 0 %}
+				<td>Masculino</td>
+			{% else %}
+				<td>Femenino</td>
+			{% endif %}	
 		</tr>
 		<tr>
 			<td>Sexo:</td>

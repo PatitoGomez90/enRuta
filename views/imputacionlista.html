@@ -25,18 +25,48 @@ Ej: Mecanicas (MEC), Electricas (ELEC), "ED", etc..
 		  		<thead>
 		  			<tr> 
 						<th>ID</th>
-						<th>Descripcion</th>
 						<th>Numero</th>
+						<th>Nombre</th>
+						<th>Sector</th>
+						<th>Lugar</th>
+						<th>Unidad de Medida</th>
+						<th>HS_STD</th>
+						<th>Contrato</th>
 						<th>Activo</th>
 						<th colspan="2">Opciones</th>
 					</tr>
 		  		</thead>
 		  		<tbody>
-		  			{% for i in imputaciones %}
+		  			{% for i in items %}
 						<tr>
 							<td>{{ i.id }}</td>
-							<td>{{ i.nombre }}</td>
 							<td>{{ i.numero }}</td>
+							<td>{{ i.nombre }}</td>
+							<td>
+								{% if i.id_sector_fk != 0 %}
+									{{ i.sectortxt }}
+								{% else %}
+								{% endif %}
+							</td>
+							<td>
+								{% if i.id_lugar_fk != 0 %}
+									{{ i.lugartxt }}
+								{% else %}
+								{% endif %}
+							</td>
+							<td>
+								{% if i.id_umed_fk != 0 %}
+									{{ i.umedtxt }}
+								{% else %}
+								{% endif %}
+							</td>
+							<td>{{ i.horas_standard }}</td>
+							<td>
+								{% if i.id_contrato_fk != 0 %}
+									{{ i.contratotxt }}
+								{% else %}
+								{% endif %}
+							</td>
 							{% if i.activa == 1 %}
 								<td><span>Activo</span></td>
 							{% else %}

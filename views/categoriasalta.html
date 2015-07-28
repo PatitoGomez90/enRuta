@@ -11,20 +11,8 @@
 	<form method="post" id="formalta" action="/categoriasalta">
 		<table align="center" class="table table-striped">
 			<tr>
-				<td>
-					Nombre:
-				</td>
-				<td>
-					<input  class="form-control" type="text" name="nombre" id="nombre">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Activa:
-				</td>
-				<td>
-					<input type="checkbox" name="activa" id="activa">
-				</td>
+				<td>Nombre:</td>
+				<td><input  class="form-control" type="text" name="nombre" id="nombre"><div class="aviso">Quedan <span id="charsLeftNombre"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td><input type="button" value="Atras" onclick="history.back()"></td>
@@ -34,5 +22,8 @@
 	</form>
 </div>
 <script src="/js/jquery.min.js"></script>
-<script type="text/javascript"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<script type="text/javascript">
+	$('#nombre').limit('15','#charsLeftNombre');
+</script>
 {% endblock %}

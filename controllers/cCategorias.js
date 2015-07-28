@@ -7,13 +7,13 @@ module.exports = {
 	postAlta: postAlta,
 	getModificar: getModificar,
 	postModificar: postModificar,
-	del: del
+	getDel: getDel
 };
 
 function getLista(req, res){
 	mCategorias.getAll(function (categorias){
 		res.render('categoriaslista',{
-			pagename: 'Categorias Lista',
+			pagename: 'Lista de Categorias',
 			categorias: categorias
 		});
 	});
@@ -21,22 +21,15 @@ function getLista(req, res){
 
 function getAlta(req, res){
 	res.render('categoriasalta',{
-		pagename: 'Categorias Alta'
+		pagename: 'Agregar Nueva Categorias'
 	});
 };
 
 function postAlta(req, res){
 	params = req.body;
 	nombre = params.nombre;
-	activa = params.activa;
 
-	if (activa == "on") {
-		activa = 1;
-	}else{
-		activa = 0;
-	};
-
-	mCategorias.insert(nombre, activa, function(){
+	mCategorias.insert(nombre, function(){
 		res.redirect('categoriaslista');
 	});
 };
@@ -46,8 +39,8 @@ function getModificar(req, res){
 	id = params.id;
 
 	mCategorias.getById(id, function (categoria){
-		res.render('categoriamodificar',{
-			pagename: 'Modificar Categorias',
+		res.render('categoriasmodificar',{
+			pagename: 'Modificar Categoria',
 			categoria: categoria[0]
 		});
 	});
@@ -70,7 +63,8 @@ function postModificar(req, res){
 	});
 };
 
-function del(req, res){
+
+function getDel(req, res){
 	params = req.params;
 	id = params.id;
 

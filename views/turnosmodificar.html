@@ -1,0 +1,47 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/turnomodificar.css" rel="stylesheet">	
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="POST" action="/turnosmodificar">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>ID: </td>
+				<td><input type="text" id="id" name="id" value="{{ turno.id }}" readonly class="form-control"></td>
+			</tr>	
+			<tr>
+				<td>Codigo:</td>
+				<td><input type="text" id="codigo" name="codigo" value="{{ turno.codigo }}" class="form-control" required><div class="aviso">Quedan <span id="charsLeftCodigo"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Sector:</td>
+				<td>
+					<select class="form-control" id="sector" name="sector">
+						{% for s in sectores %}
+							{% if s.id == turno.id_sector_fk %}
+								<option value="{{ s.id }}" selected>{{ s.nombre }}</option>
+							{% else %}
+								<option value="{{ s.id }}">{{ s.nombre }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Guardar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<script type="text/javascript">
+	$('#codigo').limit('4','#charsLeftCodigo');
+</script>
+{% endblock %}

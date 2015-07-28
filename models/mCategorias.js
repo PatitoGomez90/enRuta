@@ -9,21 +9,21 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn("select * from categoria", cb);
+	conn("select * from categorias", cb);
 }
 
-function insert(nombre, activa, cb){
-	conn("insert into categoria(nombre, activa) values ('"+nombre+"', "+activa+")", cb);
+function insert(nombre, cb){
+	conn("insert into categorias(nombre, activa) values ('"+nombre+"', 1)", cb);
 }
 
 function getById(id, cb){
-	conn("select * from categoria where id="+id, cb);
+	conn("select * from categorias where id="+id, cb);
 }
 
 function update(id, nombre, activa, cb){
-	conn("update categoria set id="+id+", nombre='"+nombre+"', activa="+activa+" where id="+id, cb);
+	conn("update categorias set nombre='"+nombre+"', activa="+activa+" where id="+id, cb);
 }
 
 function del(id, cb){
-	conn("delete from categoria where id="+id, cb);
+	conn("delete from categorias where id="+id, cb);
 }

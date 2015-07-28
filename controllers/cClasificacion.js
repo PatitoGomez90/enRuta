@@ -1,3 +1,4 @@
+//24/07/2015 - desde ahora "clasificacion horas " es "adicionales"
 var mClasificaciones = require('../models/mClasificacion');
 var mAyuda = require('../models/mAyuda');
 
@@ -15,7 +16,7 @@ function getLista(req, res) {
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 	mClasificaciones.getAll(function (clasificaciones){
 		res.render('clasificacionlista', {
-        	pagename: 'Lista de Clasificaciones de Horas',
+        	pagename: 'Lista de Adicionales',
         	clasificaciones: clasificaciones
         	//ayuda: ayuda[0]
       	}); 
@@ -25,7 +26,7 @@ function getLista(req, res) {
 
 function getAlta(req, res){
 	res.render('clasificacionalta', {
-		pagename: "Alta de Clasificacion de Horas"
+		pagename: "Alta de Adicionales"
 	});
 }
 
@@ -44,7 +45,7 @@ function getModificar(req, res){
 
 	mClasificaciones.getById(id, function (clasificacion){
 		res.render('clasificacionmodificar', {
-			pagename: "Modificar Clasificacion de Horas",
+			pagename: "Modificar Adicionales",
 			clasificacion: clasificacion[0]
 		});
 	});

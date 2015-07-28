@@ -13,6 +13,14 @@
 			<tr>
 				<td>Codigo: </td>
 				<td><input type="text" id="codigo" name="codigo" value="{{ emple.codigo }}" readonly class="form-control"></td>
+			</tr>
+			<tr>
+				<td>Nro de Legajo:</td>
+				<td><input type="text" id="legajo" name="legajo" value="{{ emple.legajo }}" required class="form-control"></td>
+			</tr>
+			<tr>
+				<td>Tarjeta: </td>
+				<td><input type="text" id="tarjeta" name="tarjeta" value="{{ emple.tarjeta }}" class="form-control" onKeyPress="return soloNumeros(event)"></td>
 			</tr>	
 			<tr>
 				<td>Tarjeta: </td>
@@ -23,22 +31,26 @@
 				<td><input type="text" id="nombre" name="nombre" value="{{ emple.nombre }}" class="form-control"><div class="aviso">Quedan <span id="charsLeftNombre"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
-				<td>Fecha de alta:</td>
+				<td>CUIL:</td>
+				<td><input type="text" id="cuil" name="cuil" required class="form-control" value="{{ emple.cuil }}"><div class="aviso">Quedan <span id="charsLeftCuil"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Fecha de Alta:</td>
 				<td><input type="text" id="falta" name="falta" class="form-control datepicker" readonly value="{{ emple.falta|date('d/m/Y') }}"></td>
 			</tr>
 			<tr>
-				<td>Fecha de baja:</td>
+				<td>Fecha de Baja:</td>
 				<td><input type="text" id="fbaja" name="fbaja" class="form-control datepicker" readonly value="{{ emple.fbaja|date('d/m/Y') }}"></td>
 			</tr>
 			<tr>
 				<td>Cargo:</td>
 				<td>
 					<select class="form-control" id="cargo" name="cargo">
-					{% for cargo in cargos %}
-						{% if emple.cargo == cargo.id %}
-      						<option value="{{ cargo.id }}" selected> {{ cargo.descripcion }}</option>
+					{% for c in cargos %}
+						{% if emple.cargo == c.id %}
+      						<option value="{{ c.id }}" selected> {{ c.descripcion }}</option>
    						{% else %}
-      						<option value="{{ cargo.id }}">{{ cargo.descripcion }}</option>
+      						<option value="{{ c.id }}">{{ c.descripcion }}</option>
       					{% endif %}
 					{% endfor %}
 					</select>
@@ -59,20 +71,60 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Activo:</td>
-				{% if emple.activa== 1 %}
-					<td><input type="checkbox" name="activa" checked></td>
-				{% else %}
-					<td><input type="checkbox" name="activa"></td>
-				{% endif %}	
+				<td>Categoria:</td>
+				<td>	
+					<select class="form-control" name="categoria" id="categoria">
+						{% for c in categorias %}
+							{% if emple.id_categoria_fk == c.id %}
+								<option value="{{ c.id }}" selected>{{ c.nombre }}</option>
+							{% else %}
+								<option value="{{ c.id }}">{{ c.nombre }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
 			</tr>
 			<tr>
-				<td>Legajo:</td>
-				<td><input type="text" id="legajo" name="legajo" value="{{ emple.legajo }}" class="form-control"></td>
+				<td>Turno:</td>
+				<td>
+					<select class="form-control" name="turno" id="turno">
+						{% for t in turnos %}
+							{% if emple.id_turno_fk == t.id %}
+								<option value="{{ t.id }}" selected>{{ t.codigo }}</option>
+							{% else %}
+								<option value="{{ t.id }}">{{ t.codigo }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
 			</tr>
 			<tr>
-				<td>CUIL:</td>
-				<td><input type="text" id="cuil" name="cuil" value="{{ emple.cuil }}" class="form-control"><div class="aviso">Quedan <span id="charsLeftCuil"></span> caraceteres.</div></td>
+				<td>Contrato:</td>
+				<td>
+					<select class="form-control" name="contrato" id="contrato">
+						{% for c in contratos %}
+							{% if emple.id_contrato_fk == c.id %}
+								<option value="{{ c.id }}" selected>{{ c.nombre }}</option>
+							{% else %}
+								<option value="{{ c.id }}">{{ c.nombre }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Condicion:</td>
+				<td>
+					<select class="form-control" name="condicion" id="condicion">
+						{% for c in condiciones %}
+							{% if emple.id_condicion_fk == c.id %}
+								<option value="{{ c.id }}" selected>{{ c.nombre }}</option>
+							{% else %}
+								<option value="{{ c.id }}">{{ c.nombre }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td>Fecha de Nacimiento:</td>
@@ -90,7 +142,7 @@
 				<td>
 					<input type="radio" id="sexo" name="sexo" value="masculino" unchecked> Masculino
 						<br>
-					<input type="radio" id="sexo" name="sexo" value="femenino" checked required> Femenino
+					<input type="radio" id="sexo" name="sexo" value="femenino" checked> Femenino
 				</td>
 				{% endif %}
 			</tr>
@@ -105,6 +157,14 @@
 			<tr>
 				<td>Telefono:</td>
 				<td><input type="text" id="telefono" name="telefono" value="{{ emple.tel }}" class="form-control"></td>
+			</tr>
+				<tr>
+				<td>Activo:</td>
+				{% if emple.activa == 1 %}
+					<td><input type="checkbox" name="activa" checked></td>
+				{% else %}
+					<td><input type="checkbox" name="activa"></td>
+				{% endif %}	
 			</tr>
 			<tr>
 				<td><input type="button" value="Atras" onclick="history.back()"></td>

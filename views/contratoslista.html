@@ -5,17 +5,15 @@
 {% endblock %}
 
 {% block content %}
-<!-- //24/07/2015 - desde ahora "clasificacion horas " es "adicionales" -->
 <h2>{{ pagename }}</h2>
-Ej: Hrs Insalubres, Hrs Calorias, Hrs Peligrosas, etc..
 <div class="panel panel-default">
   <!-- Default panel contents -->
   	<div class="panel-heading">
   	<!-- Table -->
 		<table>
 		<tr>	
-			<td><a href="/inicio"> <button type="button" class="btn btn-primary">Atras</button></a></td>
-			<td><a href="/clasificacionalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
+			<td><a href="/"> <button type="button" class="btn btn-primary">Atras</button></a></td>
+			<td><a href="/contratosalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
 		</tr>	
 		</table>
 	</div>
@@ -26,26 +24,28 @@ Ej: Hrs Insalubres, Hrs Calorias, Hrs Peligrosas, etc..
 		  		<thead>
 		  			<tr> 
 						<th>ID</th>
-						<th>Descripcion</th>
+						<th>Nombre</th>
+						<th>Numero</th>
 						<th>Activo</th>
 						<th colspan="2">Opciones</th>
 					</tr>
 		  		</thead>
 		  		<tbody>
-		  			{% for c in clasificaciones %}
+		  			{% for c in contratos %}
 						<tr>
 							<td>{{ c.id }}</td>
 							<td>{{ c.nombre }}</td>
+							<td>{{ c.numero }}</td>
 							{% if c.activa == 1 %}
 								<td><span>Activo</span></td>
 							{% else %}
 								<td><span>No activo</span></td>
 							{% endif %}
 							<td>
-								<a href="/clasificacionmodificar/{{ c.id }}"><button class="btn btn-warning">Modificar</button></a>
+								<a href="/contratosmodificar/{{ c.id }}"><button class="btn btn-warning">Modificar</button></a>
 							</td>
 							<td>
-								<a href='/clasificacionborrar/{{ c.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
+								<a href='/contratosborrar/{{ c.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
 							</td>
 						</tr>
 					{% endfor %}

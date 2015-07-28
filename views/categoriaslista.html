@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<img src=".png">
+<!-- <img src=".png">-->
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
   <!-- Default panel contents -->
@@ -47,17 +47,17 @@
 						</tr>
 			  		</thead>
 			  		<tbody>
-			  			{% for categoria in categorias %}
+			  			{% for c in categorias %}
 							<tr>
-								<td>{{ categoria.id }}</td>
-								<td>{{ categoria.nombre }}</td>
-								{% if categoria.activa == 1 %}
+								<td>{{ c.id }}</td>
+								<td>{{ c.nombre }}</td>
+								{% if c.activa == 1 %}
 									<td><span>Activo</span></td>
 								{% else %}
 									<td><span>No activo</span></td>
 								{% endif %}
-								<td><a href="/categoriamodificar/{{ categoria.id }}"><button class="btn btn-warning">Modificar</button></a></td>
-								<td><a href='/categoriaborrar/{{ categoria.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
+								<td><a href="/categoriasmodificar/{{ c.id }}"><button class="btn btn-warning">Modificar</button></a></td>
+								<td><a href='/categoriasborrar/{{ c.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
 							</tr>
 							{% endfor %}
 			  		</tbody>
