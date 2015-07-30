@@ -14,12 +14,12 @@ module.exports = {
 function getAllCargos(req, res) {
 	req.session.nromenu = 19;
 	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
-  	mCargo.getAll(function (docs){
-  		console.log(docs)
-  		res.render('Cargoslista', {
-			pagename: 'Cargos de Empleados',
-			cargos: docs,
-			ayuda: ayuda[0]
+	  	mCargo.getAll(function (docs){
+	  		//console.log(docs)
+	  		res.render('Cargoslista', {
+				pagename: 'Cargos de Empleados',
+				cargos: docs,
+				ayuda: ayuda[0]
 			});
 		});
   	});
