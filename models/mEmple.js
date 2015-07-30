@@ -1,4 +1,4 @@
-var conn = require('../config/db').conn;
+	var conn = require('../config/db').conn;
 
 module.exports = {
 	getAll: getAll,

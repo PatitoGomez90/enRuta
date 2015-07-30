@@ -12,16 +12,16 @@ module.exports = {
 };
 
 function getLista(req, res) {
-	//req.session.nromenu = 5;
-	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
+	req.session.nromenu = 13;
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 		mRelojes.getAll(function (relojes){
 			res.render('relojeslista', {
 	        	pagename: 'Lista de Relojes',
-	        	relojes: relojes
-	        	//ayuda: ayuda[0]
+	        	relojes: relojes,
+	        	ayuda: ayuda[0]
 	      	}); 
 		});    
-	//});
+	});
 };
 
 function getAlta(req, res){

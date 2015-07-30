@@ -11,16 +11,16 @@ module.exports = {
 };
 
 function getLista(req, res) {
-	//req.session.nromenu = 5;
-	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
+	req.session.nromenu = 14;
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 		mTipoHora.getAll(function (tipohoras){
 			res.render('tipohoralista', {
 	        	pagename: 'Lista de Tipos de Hora',
-	        	tipohoras: tipohoras
-	        	//ayuda: ayuda[0]
+	        	tipohoras: tipohoras,
+	        	ayuda: ayuda[0]
 	      	}); 
 		});    
-	//});
+	});
 };
 
 function getAlta(req, res){

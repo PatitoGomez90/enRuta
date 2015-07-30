@@ -1,5 +1,5 @@
 var mTurnos = require('../models/mTurnos');
-//var mAyuda = require('../models/mAyuda')
+var mAyuda = require('../models/mAyuda')
 var mSectores = require('../models/mSectores');
 
 module.exports = {
@@ -12,15 +12,16 @@ module.exports = {
 };
 
 function getLista(req, res) {
-	//req.session.nromenu = 5;
-	//mAyuda.getAyudaTexto(req.session.nromenu, function(ayuda){
+	req.session.nromenu = 17;
+	mAyuda.getAyudaTexto(req.session.nromenu, function(ayuda){
 	mTurnos.getAll(function (turnos){
 		res.render('turnoslista', {
         	pagename: 'Lista de Turnos',
-        	turnos: turnos
-      	}); 
-	});    
-	//});
+        	turnos: turnos,
+        	ayuda: ayuda[0]
+      		}); 
+		});    
+	});
 };
 
 function getAlta(req, res){

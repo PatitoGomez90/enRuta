@@ -114,6 +114,14 @@
 			{% endif %}	
 		</tr>
 		<tr>
+			<td>Sexo:</td>
+			{% if emple.sexo == 0 %}
+				<td>Masculino</td>
+			{% else %}
+				<td>Femenino</td>
+			{% endif %}	
+		</tr>
+		<tr>
 			<td>Domicilio: </td>
 			<td>{{ emple.domicilio }}</td>
 		</tr>

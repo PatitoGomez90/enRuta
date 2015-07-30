@@ -12,16 +12,16 @@ module.exports = {
 };
 
 function getLista(req, res) {
-	//req.session.nromenu = 5;
-	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
+	req.session.nromenu = 16;
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 	mClasificaciones.getAll(function (clasificaciones){
 		res.render('clasificacionlista', {
         	pagename: 'Lista de Adicionales',
-        	clasificaciones: clasificaciones
-        	//ayuda: ayuda[0]
-      	}); 
-	});    
-	//});
+        	clasificaciones: clasificaciones,
+        	ayuda: ayuda[0]
+      		}); 
+		});    
+	});
 };
 
 function getAlta(req, res){

@@ -1,5 +1,5 @@
 var mContratos = require('../models/mContratos');
-//var mAyuda = require('../models/mAyuda');
+var mAyuda = require('../models/mAyuda');
 
 module.exports = {
 	getLista: getLista,
@@ -11,15 +11,16 @@ module.exports = {
 };
 
 function getLista(req, res) {
-	//req.session.nromenu = 5;
-	//mAyuda.getAyudaTexto(req.session.nromenu, function(ayuda){
+	req.session.nromenu = 18;
+	mAyuda.getAyudaTexto(req.session.nromenu, function(ayuda){
 	mContratos.getAll(function (contratos){
 		res.render('contratoslista', {
         	pagename: 'Lista de Contratos',
-        	contratos: contratos
-      	}); 
-	});    
-	//});
+        	contratos: contratos,
+        	ayuda: ayuda[0]
+      		}); 
+		});    
+	});
 };
 
 function getAlta(req, res){

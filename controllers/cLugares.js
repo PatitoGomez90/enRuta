@@ -12,16 +12,16 @@ module.exports = {
 };
 
 function getLista(req, res) {
-	//req.session.nromenu = 5;
-	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
+	req.session.nromenu = 2;
+	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 	mLugares.getAll(function (lugares){
 		res.render('lugareslista', {
         	pagename: 'Lista de Lugares',
-        	lugares: lugares
-        	//ayuda: ayuda[0]
-      	});
-	});    
-	//});
+        	lugares: lugares,
+        	ayuda: ayuda[0]
+      		});
+		});    
+	});
 };
 
 function getAlta(req, res){

@@ -115,6 +115,7 @@ function postAlta(req, res){
 	falta = changeDate(falta);
 	fbaja = changeDate(fbaja);
 	fnac = changeDate(fnac);
+
 	//nuevos campos
 	categoria = params.categoria;
 	turno = params.turno;
@@ -194,10 +195,12 @@ function postModificar(req, res){
 	tarjeta = params.tarjeta;
 	sexo = params.sexo;
 	//fin nuevos campos
+
 	if (sexo == "masculino")
 		sexo = 0;
 	else
 		sexo = 1;
+
 
 	if (activo=='on')
 		activo=1;
