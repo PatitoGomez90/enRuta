@@ -35,7 +35,13 @@
 						<tr>
 							<td>{{ l.id }}</td>
 							<td>{{ l.nombre }}</td>
-							<td>{{ l.sectortxt }}</td>
+							<td>
+								{% if l.id_sector_fk != 0 %}
+									{{ l.sectortxt }}
+								{% else %}
+									n/c
+								{% endif %}
+							</td>
 							{% if l.activa == 1 %}
 								<td><span>Activo</span></td>
 							{% else %}

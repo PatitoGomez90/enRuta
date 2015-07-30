@@ -316,4 +316,6 @@ module.exports = function(app) {
 	app.post('/random', auth, randomController.postAsd);
 	app.get('/random2', auth, randomController.getr2);
 	app.post('/random2', auth, randomController.postr2);
+	app.get('/random3', auth, randomController.getRandom3);
+	app.post('/random3', auth, randomController.postRandom3);
 }; 

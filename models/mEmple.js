@@ -5,6 +5,7 @@ module.exports = {
 	getAllActivos: getAllActivos,
 	getAllActivos2: getAllActivos2,
 	insert: insert,
+	insertFinal: insertFinal,
 	getUltimo: getUltimo,
 	getEmplePorCodigo: getEmplePorCodigo,
 	getEmplePorLegajo: getEmplePorLegajo,
@@ -29,6 +30,10 @@ function getAllActivos2(cb){
 
 function insert(codigo, nombre, falta, fbaja, cargo, sector, activa, legajo, cuil, fnac, domicilio, cp, telefono, tarjeta, sexo, categoria, turno, condicion, contrato, cb){
 	conn("insert into emple(nombre, falta, fbaja, cargo, id_sector_fk, activa, legajo, cuil, fecha_nac, domicilio, cp, tel, tarjeta, sexo, id_categoria_fk, id_turno_fk, id_condicion_fk, id_contrato_fk) values('"+nombre+"', '"+falta+"', '"+fbaja+"', '"+cargo+"',"+sector+", "+ activa+", "+legajo+", '"+cuil+"', '"+fnac+"', '"+domicilio+"', "+cp+", '"+telefono+"', "+tarjeta+", "+sexo+", "+categoria+", "+turno+", "+condicion+", "+contrato+")", cb);
+}
+
+function insertFinal(codigo, nombre, falta, fbaja, cargo, sector, activa, legajo, cuil, fnac, domicilio, cp, telefono, tarjeta, sexo, categoria, turno, condicion, contrato, cb){
+	conn("insert into emplefinal(nombre, falta, fbaja, cargo, id_sector_fk, activa, legajo, cuil, fecha_nac, domicilio, cp, tel, tarjeta, sexo, id_categoria_fk, id_turno_fk, id_condicion_fk, id_contrato_fk) values('"+nombre+"', '"+falta+"', '"+fbaja+"', '"+cargo+"',"+sector+", "+ activa+", "+legajo+", '"+cuil+"', '"+fnac+"', '"+domicilio+"', "+cp+", '"+telefono+"', "+tarjeta+", "+sexo+", "+categoria+", "+turno+", "+condicion+", "+contrato+")", cb);
 }
 
 function getUltimo(cb){
