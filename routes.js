@@ -93,6 +93,7 @@ module.exports = function(app) {
 	app.get('/empleborrar/:codigo', auth, empleController.getDelEmple);
 	app.get('/emplever/:codigo', auth, empleController.getVer);
 	app.get('/getallemple', auth, empleController.getAllEmple);
+	app.get('/emplesexport', auth, empleController.getExport);
 	//cargos de empleados
 	app.get('/cargoslista', auth, cargoController.getAllCargos);
 	app.get('/cargosalta', auth, cargoController.getAlta);
@@ -318,4 +319,6 @@ module.exports = function(app) {
 	app.post('/random2', auth, randomController.postr2);
 	app.get('/random3', auth, randomController.getRandom3);
 	app.post('/random3', auth, randomController.postRandom3);
+	app.get('/random4', auth, randomController.getRandom4);
+	app.post('/random4', auth, randomController.postRandom4);
 }; 

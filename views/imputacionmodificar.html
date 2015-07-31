@@ -56,9 +56,9 @@
 					<select class="form-control" id="umed" name="umed">
 						{% for u in umeds %}
 							{% if u.id == item.id_umed_fk %}
-								<option value="{{ u.id }}" selected>{{ u.nombre }}</option>
+								<option value="{{ u.id }}" selected>{{ u.codigo }} - {{ u.nombre }}</option>
 							{% else %}
-								<option value="{{ l.id }}">{{ l.nombre }}</option>
+								<option value="{{ l.id }}">{{ u.codigo }} - {{ u.nombre }}</option>
 							{% endif %}
 						{% endfor %}
 					</select>

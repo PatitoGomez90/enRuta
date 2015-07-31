@@ -8,7 +8,7 @@ module.exports = {
 	delUmed: delUmed,
 	getUmedPorCodigo: getUmedPorCodigo,
 	getAllActivas: getAllActivas
-	}
+}
 
 function getAll(cb){
 	conn('select * from umed', cb);

@@ -5,6 +5,7 @@ var mSectores = require('../models/mSectores');
 var mEmple = require('../models/mEmple');
 var mCategoria = require('../models/mCategorias');
 var mContratos = require('../models/mContratos');
+var mUmed = require('../models/mUmed');
 
 var mysql = require('mysql');
 var sql = require('mssql');
@@ -15,7 +16,9 @@ module.exports = {
 	getr2: getr2,
 	postr2: postr2,
 	getRandom3: getRandom3,
-	postRandom3: postRandom3
+	postRandom3: postRandom3,
+	getRandom4: getRandom4,
+	postRandom4: postRandom4
 }
 
 function changeDate(date){
@@ -397,4 +400,137 @@ function postRandom3(req, res){
 			});
 		});
 	});	
+}
+
+function getRandom4(req, res){
+	res.render("random4", {
+		pagename: "Actualizar tabla items con itemscsv"
+	});
+}
+
+function postRandom4(req, res){
+
+	var connection = mysql.createConnection({
+	    user: 'root',
+	    password: '',
+	    host: '127.0.0.1',
+	    port: '3306',
+	    database: 'Maresa',
+	    dateStrings : true
+	 });
+
+	connection.connect();
+
+	mUmed.getAll(function (umeds){
+		mLugares.getAll(function (lugares){
+			mSectores.getAll(function (sectores){
+				mRandom.getAllFromItemsCSV(function (itemscsv){
+					mContratos.getAll(function (contratos){
+						console.log("Items: "+itemscsv.length);
+						console.log("Umeds: "+umeds.length);
+						console.log("Sectores: "+sectores.length);
+						console.log("Lugares: "+lugares.length);
+						console.log("Contratos: "+contratos.length);
+
+						for (var i1 = 0 ; i1 < itemscsv.length ; i1++){
+							var numeroInt =	itemscsv[i1].numero;
+							var descripcionTXT = itemscsv[i1].descripcion;
+							var sectorTXT = itemscsv[i1].sector;
+							var lugarTXT =	itemscsv[i1].lugar;
+							var umedTXT = itemscsv[i1].umed;
+							var horas_standard_final = itemscsv[i1].horas_standard;
+							var contratoTXT = itemscsv[i1].contrato;
+
+							switch(sectorTXT) {
+							    case "COQUERÍA":
+							        var id_sector_final = 5;
+							        break;
+							    case "TAREAS GRAL":
+							        var id_sector_final = 3;
+							        break;
+							    case "ACERÍA":
+							        var id_sector_final = 4;
+							        break;
+							    case "GRALES":
+							        var id_sector_final = 8;
+							        break;
+							    default:
+							        var id_sector_final = 7;
+							}
+
+							//guardar id lugar
+							for (var i3 = 0 ; i3 < lugares.length ; i3++){
+								var lugartxtDB = lugares[i3].nombre;
+								var lugartxtDBmayus = lugartxtDB.toUpperCase();
+
+								if ( lugarTXT == lugartxtDBmayus ){
+									var id_lugar_final = lugares[i3].id;
+									break;
+								}else{
+									var id_lugar_final = 0;
+								}
+							}
+
+							//guardar id umed
+							for (var i4 = 0 ; i4 < umeds.length ; i4++){
+								var umedtxtDB = umeds[i4].codigo;
+								var umedtxtDBmayus = umedtxtDB;
+
+								if ( umedTXT == umedtxtDBmayus ){
+									var id_umed_final = umeds[i4].id;
+									break;
+								}else{
+									var id_umed_final = 0;
+								}
+							}
+
+							//guardar id contrato
+							contratoTXT = contratoTXT.trim();
+							switch(contratoTXT) {
+							    case "1000000000":
+							        var id_contrato_final = 10;
+							        break;
+							    case "2000000000":
+							        var id_contrato_final = 9;
+							        break;
+							    case "6700119523":
+							        var id_contrato_final = 5;
+							        break;
+							    case "6700119546":
+							        var id_contrato_final = 4;
+							        break;
+							    case "6700158761":
+							        var id_contrato_final = 7;
+							        break;
+							    case "6700166490":
+							        var id_contrato_final = 6;
+							        break;
+							    default:
+							        var id_contrato_final = 8;
+							}
+
+							//fin de los for.. add item
+
+							query = "insert into items(numero, nombre, id_sector_fk, id_lugar_fk, id_umed_fk, horas_standard, id_contrato_fk, activa) values("+numeroInt+", '"+descripcionTXT+"', "+id_sector_final+", "+id_lugar_final+", "+id_umed_final+", "+horas_standard_final+", "+id_contrato_final+", 1)"
+
+							connection.query(query, function(err, rows, fields) {
+								if (err) throw err;
+									
+								if (err)
+									console.log(err);
+							    //cb(rows);
+							});
+
+						}
+
+						console.log("agregados: "+i1)
+						connection.end();
+						console.log("Fin ")
+
+						res.redirect('random');
+					});
+				});
+			});
+		});
+	});
 }

@@ -7,7 +7,8 @@ module.exports = {
 	insertInEmpleMysql: insertInEmpleMysql,
 	getAllFromEmpleadosCSV: getAllFromEmpleadosCSV,
 	getAllFromEmple: getAllFromEmple,
-	getAllFromLegajoSQLenServer: getAllFromLegajoSQLenServer
+	getAllFromLegajoSQLenServer: getAllFromLegajoSQLenServer,
+	getAllFromItemsCSV: getAllFromItemsCSV
 }
 
 function getAll(cb){
@@ -33,4 +34,9 @@ function getAllFromEmple(cb){
 
 function getAllFromLegajoSQLenServer(cb){
 	SQLconn("select * from legajo", cb);
+}
+
+//random4
+function getAllFromItemsCSV(cb){
+	conn("select * from itemscsv", cb);
 }
