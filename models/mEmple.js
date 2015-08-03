@@ -13,7 +13,8 @@ module.exports = {
 	getEmplePorLegajoConIdDistinto: getEmplePorLegajoConIdDistinto,
 	update: update,
 	delEmple: delEmple,
-	getEmpleBySector: getEmpleBySector
+	getEmpleBySector: getEmpleBySector,
+	getFiltrado: getFiltrado
 }
 
 function getAll(cb){
@@ -66,4 +67,22 @@ function delEmple(codigo, cb){
 
 function getEmpleBySector(sector, cb){
 	conn("select * from emple where id_sector_fk ="+sector, cb);
+}
+
+function getFiltrado(idsector, idcondicion, codigoturno, nrolegajomenor, nrolegajomayor, cb){
+	query = "select emple.*, cargos.descripcion as cargotxt, sectores.nombre as sectortxt, DATE_FORMAT(emple.fecha_nac, '%d/%m/%Y') as fecha_nacf, DATE_FORMAT(emple.fbaja, '%d/%m/%Y') as fbajaf, DATE_FORMAT(emple.falta, '%d/%m/%Y') as faltaf,	contratos.nombre as contratotxt, turnos.codigo as turnotxt,	categorias.nombre as categoriatxt, condicion.nombre as condiciontxt from emple left join sectores on sectores.id = emple.id_sector_fk left join cargos on cargos.id = emple.cargo left join contratos on contratos.id = emple.id_contrato_fk left join turnos on turnos.id = emple.id_turno_fk left join categorias on categorias.id = emple.id_categoria_fk left join condicion on condicion.id = emple.id_condicion_fk where 1=1 and";
+	
+	if (idsector !=7)
+		query = query + " emple.id_sector_fk = "+idsector+" and";
+
+	if (idcondicion != 0)
+		query = query + " emple.id_condicion_fk = "+idcondicion+" and";
+
+	// if (codigoturno != "0")
+	// 	query = query + " turnos.codigo = '"+ codigoturno+"' and";
+
+	querylength = query.length;
+	query = query.substr(0, querylength-3)
+	query = query + " order by nombre"
+	conn(query, cb);
 }

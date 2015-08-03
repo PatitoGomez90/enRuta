@@ -94,6 +94,8 @@ module.exports = function(app) {
 	app.get('/emplever/:codigo', auth, empleController.getVer);
 	app.get('/getallemple', auth, empleController.getAllEmple);
 	app.get('/emplesexport', auth, empleController.getExport);
+	app.get('/emplefiltro', auth, empleController.getFiltro);
+	app.post('/emplefiltro', auth, empleController.postFiltro);
 	//cargos de empleados
 	app.get('/cargoslista', auth, cargoController.getAllCargos);
 	app.get('/cargosalta', auth, cargoController.getAlta);

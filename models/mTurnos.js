@@ -5,7 +5,9 @@ module.exports = {
 	getById: getById,
 	insert: insert,
 	update: update,
-	del: del
+	del: del,
+	getByIdSector: getByIdSector,
+	getAllSinRepetir: getAllSinRepetir
 }
 
 function getAll(cb){
@@ -26,4 +28,12 @@ function update(id, codigo, sector, cb){
 
 function del(id, cb){
 	conn("delete from turnos where id = "+id, cb);
+}
+
+function getByIdSector(idsector, cb){
+	conn("select * from turnos where id_sector_fk="+idsector, cb);
+}
+
+function getAllSinRepetir(cb){
+	conn("select max(codigo) as codigo from turnos group by codigo", cb)
 }

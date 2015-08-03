@@ -19,8 +19,10 @@ module.exports = {
 	postModificar: postModificar,
 	getDelEmple: getDelEmple,
 	getAllEmple: getAllEmple,
-	getExport: getExport
-};
+	getExport: getExport,
+	getFiltro: getFiltro,
+	postFiltro: postFiltro
+}
 
 function changeDate(date){
 	// input: dd/mm/yyyy
@@ -34,7 +36,7 @@ function getEmpleados(req, res) {
 	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 		mCargos.getAll(function (cargos){
 	  		mEmple.getAllActivos(function (empleados){
-	  			//console.log(docs2)
+				//console.log(docs2)
 	  			res.render('emplelista', {
 					pagename: 'Archivo de Empleados',
 					cargos: cargos,
@@ -304,4 +306,45 @@ function getExport(req, res){
     // res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
     res.send(result, 'binary');
 
+}
+
+function getTurnos(req, res){
+	params = req.params;
+	idsector = params.idsector;
+
+	mTurnos.getByIdSector(idsector, function (turnos){
+		res.send(turnos);
+	});
+}
+
+function getFiltro(req, res){
+	mSectores.getAll(function (sectores){
+		mTurnos.getAllSinRepetir(function (turnos){
+			mCondicion.getAll(function (condiciones){
+				res.render("emplefiltro", {
+					pagename: "Filtrar Lista de Empleados",
+					sectores: sectores,
+					turnos: turnos,
+					condiciones: condiciones
+				});
+			});
+		});
+	});
+}
+
+function postFiltro(req, res){
+	params = req.body;
+	idsector = params.cmbSector;
+	idcondicion = params.cmbCondicion;
+	codigoturno = params.cmbTurno;
+	nrolegajomenor = params.legajomenor;
+	nrolegajomayor = params.legajomayor;
+
+	console.log(codigoturno)
+	mEmple.getFiltrado(idsector, idcondicion, codigoturno, nrolegajomenor, nrolegajomayor, function (empleados){
+		res.render("emplelista", {
+			pagename: "Lista de Empleados Filtrada",
+			empleados: empleados
+		});
+	});
 }

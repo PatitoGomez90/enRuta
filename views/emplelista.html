@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+<link href="/css/emplelista.css" rel="stylesheet">
 <img src="/uploads/empleados.png">
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
@@ -48,115 +49,120 @@
 	<div id="mainHolder" style="overflow: scroll; max-height: 400px;">
 		<div class="row" >
 			<div class="col-xs-12">
-	 			<!-- <div style="overflow: scroll;"> -->
-					<table  class="table table-hover"> 
-				  		<thead>
-				  			<tr>
-				  				<th colspan="3">Opciones</th>
-								<th>Codigo</th>
-								<th>Legajo</th>
-								<th>Tarjeta</th>
-								<th><div style="width: 250px">Nombre</div></th>
-								<th><div style="width: 100px">CUIL</div></th>
-								<th>Fecha Alta</th>
-								<th>Fecha Baja</th>
-								<th>Condicion</th>
-								<th><div style="width: 150px">Sector</div></th>
-								<th>Cargo</th>								
-								<th><div style="width: 100px">Categoria</div></th>
-								<th>Turno</th>
-								<th><div style="width: 200px">Contrato</div></th>
-								<th>C.P.</th>
-								<th><div style="width: 430px">Domicilio</div></th>
-								<th><div style="width: 250px">Telefono</div></th>
-								<th>Fecha Nac.</th>
-								<th>Sexo</th>
-								<th>Activo</th>
+				<table  class="table table-hover"> 
+			  		<thead >
+			  			<tr>
+			  				<th colspan="3">Opciones</th>
+							<th>Codigo</th>
+							<th>Legajo</th>
+							<th>Tarjeta</th>
+							<th><div style="width: 250px">Nombre</div></th>
+							<th><div style="width: 100px">CUIL</div></th>
+							<th>Fecha Alta</th>
+							<th>Fecha Baja</th>
+							<th>Condicion</th>
+							<th><div style="width: 150px">Sector</div></th>
+							<th>Cargo</th>								
+							<th><div style="width: 100px">Categoria</div></th>
+							<th>Turno</th>
+							<th><div style="width: 200px">Contrato</div></th>
+							<th>C.P.</th>
+							<th><div style="width: 430px">Domicilio</div></th>
+							<th><div style="width: 250px">Telefono</div></th>
+							<th>Fecha Nac.</th>
+							<th>Sexo</th>
+							<th>Activo</th>
+						</tr>
+			  		</thead>
+			  		<!-- <tfoot>
+			  			<tr>
+			  				<td>
+
+			  				</td>
+			  			</tr>
+			  		</tfoot> -->
+			  		
+			  		<tbody>
+			  			{% for emple in empleados %}
+							<tr>
+								<td><a href="/emplever/{{ emple.codigo }}"><button class="btn btn-primary btn-xs" title="Ver"><span class="glyphicon glyphicon-search"></span></button></a></td>
+								<td><a href="/emplemodificar/{{ emple.codigo }}"><button class="btn btn-warning btn-xs" title="Modificar"><span class="glyphicon glyphicon-edit"></span></button></a></td>
+								<td><a href='/empleborrar/{{ emple.codigo }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger btn-xs" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button><a/></td>
+								<td>{{ emple.codigo }}</td>
+								<td>{{ emple.legajo }}</td>
+								<td>{{ emple.tarjeta }}</td>
+								<td>{{ emple.nombre }}</td>
+								<td>{{ emple.cuil }}</td>
+								<td>{{ emple.faltaf }}</td>
+								<!-- //ESTO DE LAS FECHAS HAY QUE CAMBIARLO PARA QUE VENGAN FORMATEADAS DESDE EL SQL  -->
+								<td>{% if emple.fbaja != "0000-00-00" %}
+										{{ emple.fbajaf }}
+									{% endif %}
+								</td>
+								<td>{% if emple.id_condicion_fk != 0 %}
+										{{ emple.condiciontxt }}
+									{% endif %}
+								</td>
+								<td>
+									{% if emple.sectortxt != null %}
+										{{ emple.sectortxt }}
+									{% endif %}
+								</td>
+								<td>
+									{% if emple.cargo != 0 %}
+										{{ emple.cargotxt }}
+									{% endif %}
+								</td>
+								<td>
+									{% if emple.id_categoria_fk != 0 %}
+										{{ emple.categoriatxt }}
+									{% endif %}
+								</td>
+								<td>
+									{% if emple.id_turno_fk != 0 %}
+										{{ emple.turnotxt }}
+									{% endif %}
+								</td>
+								<td>
+									{% if emple.id_contrato_fk != 0 %}
+										{{ emple.contratotxt }}
+									{% endif %}
+								</td>
+								<td>
+									{% if emple.cp != 0 || emple.cp != "" %}
+										{{ emple.cp }}
+									{% endif %}
+								</td>
+								<td>
+									{% if emple.domicilio != 0 || emple.domicilio != "" %}
+										{{ emple.domicilio }}
+									{% endif %}
+								</td>
+								<td>
+									{% if emple.tel != 0 || emple.tel != "" %}
+										{{ emple.tel }}
+									{% endif %}
+								</td>
+								<td>
+									{% if emple.fecha_nac != "0000-00-00" %}
+										{{ emple.fecha_nacf }}
+									{% endif %}
+								</td>
+
+								{% if emple.sexo == 0 %}
+									<td><span>Masculino</span></td>
+								{% else %}
+									<td><span>Femenino</span></td>
+								{% endif %}
+								{% if emple.activa == 1 %}
+									<td><span>Activo</span></td>
+								{% else %}
+									<td><span>No activo</span></td>
+								{% endif %}
 							</tr>
-				  		</thead>
-
-				  		<tbody>
-				  			{% for emple in empleados %}
-								<tr>
-									<td><a href="/emplever/{{ emple.codigo }}"><button class="btn btn-primary btn-xs" title="Ver"><span class="glyphicon glyphicon-search"></span></button></a></td>
-									<td><a href="/emplemodificar/{{ emple.codigo }}"><button class="btn btn-warning btn-xs" title="Modificar"><span class="glyphicon glyphicon-edit"></span></button></a></td>
-									<td><a href='/empleborrar/{{ emple.codigo }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger btn-xs" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button><a/></td>
-									<td>{{ emple.codigo }}</td>
-									<td>{{ emple.legajo }}</td>
-									<td>{{ emple.tarjeta }}</td>
-									<td>{{ emple.nombre }}</td>
-									<td>{{ emple.cuil }}</td>
-									<td>{{ emple.faltaf }}</td>
-									<!-- ESTO DE LAS FECHAS HAY QUE CAMBIARLO PARA QUE VENGAN FORMATEADAS DESDE EL SQL -->
-									<td>{% if emple.fbaja != "0000-00-00" %}
-											{{ emple.fbajaf }}
-										{% endif %}
-									</td>
-									<td>{% if emple.id_condicion_fk != 0 %}
-											{{ emple.condiciontxt }}
-										{% endif %}
-									</td>
-									<td>
-										{% if emple.sectortxt != null %}
-											{{ emple.sectortxt }}
-										{% endif %}
-									</td>
-									<td>
-										{% if emple.cargo != 0 %}
-											{{ emple.cargotxt }}
-										{% endif %}
-									</td>
-									<td>
-										{% if emple.id_categoria_fk != 0 %}
-											{{ emple.categoriatxt }}
-										{% endif %}
-									</td>
-									<td>
-										{% if emple.id_turno_fk != 0 %}
-											{{ emple.turnotxt }}
-										{% endif %}
-									</td>
-									<td>
-										{% if emple.id_contrato_fk != 0 %}
-											{{ emple.contratotxt }}
-										{% endif %}
-									</td>
-									<td>
-										{% if emple.cp != 0 || emple.cp != "" %}
-											{{ emple.cp }}
-										{% endif %}
-									</td>
-									<td>
-										{% if emple.domicilio != 0 || emple.domicilio != "" %}
-											{{ emple.domicilio }}
-										{% endif %}
-									</td>
-									<td>
-										{% if emple.tel != 0 || emple.tel != "" %}
-											{{ emple.tel }}
-										{% endif %}
-									</td>
-									<td>
-										{% if emple.fecha_nac != "0000-00-00" %}
-											{{ emple.fecha_nacf }}
-										{% endif %}
-									</td>
-
-									{% if emple.sexo == 0 %}
-										<td><span>Masculino</span></td>
-									{% else %}
-										<td><span>Femenino</span></td>
-									{% endif %}
-									{% if emple.activa == 1 %}
-										<td><span>Activo</span></td>
-									{% else %}
-										<td><span>No activo</span></td>
-									{% endif %}
-								</tr>
-							{% endfor %}
-				  		</tbody>
-					</table>
-				<!-- </div> -->
+						{% endfor %}
+			  		</tbody>
+				</table>
 			</div><!--div col xs12 -->
 		</div><!--div row -->
 	</div> <!--div caja 400px -->
@@ -182,5 +188,20 @@
 		var url = "/emplesexport";
 		window.location = url;
 	});
+
+	//cod para filtrar turnos por sector
+	// $("#cmbSector").change(function (){
+	// 	idsector = $("#cmbSector").val();
+	// 	$.getJSON('/traerturnosporsector/'+idsector, function (data){
+	// 		console.log(data);
+
+	// 		$('#tbodyprogramacioneslisto > tr').remove();
+	// 		var template = $('#tablaprogramaciones').html();
+	// 		Mustache.tags =['[[',']]'];
+	// 		var html = Mustache.to_html(template, data);
+	// 		//console.log(html);
+	// 		$('#tbodyprogramacioneslisto').html(html);
+	// 	});
+	// });
 </script>
 {% endblock %}
