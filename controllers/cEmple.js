@@ -53,7 +53,7 @@ function getEmpleados(req, res) {
 function getVer(req, res){
 	params = req.params;
 	codigo = params.codigo;
-	mEmple.getEmplePorCodigoconJoin(codigo, function (emple){
+	mEmple.getEmplePorCodigo(codigo, function (emple){
 		res.render('emplever',{
 			pagename: 'Ver Ficha de Empleado',
 			emple: emple[0],

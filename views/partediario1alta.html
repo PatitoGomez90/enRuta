@@ -15,6 +15,16 @@
 					<td><input type="text" id="fecha" name="fecha" readonly class="datepicker form-control"></td>
 				</tr>
 				<tr>
+					<td>Contrato:</td>
+					<td>
+						<select name="contrato" id="contrato" class="form-control">
+							{% for c in contratos %}
+								<option value="{{ c.id }}">{{ c.nombre }} {{c.numero}}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
 					<td>Sector:</td>
 					<td>
 						<select name="sector" id="sector" class="form-control">
@@ -30,6 +40,16 @@
 						<select name="lugar" id="lugar" class="form-control">
 							{% for l in lugares %}
 								<option value="{{ l.id }}">{{ l.nombre }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Turno:</td>
+					<td>
+						<select name="turno" id="turno" class="form-control">
+							{% for t in turnos %}
+								<option value="{{ t.id }}">{{ t.codigo }}</option>
 							{% endfor %}
 						</select>
 					</td>
@@ -109,7 +129,7 @@
 				<tr>
 					<td>Item N°1</td>
 					<td>
-						<select name="imputacion1" id="imputacion1" class="form-control">
+						<select name="imputacion1" id="imputacion1" class="items form-control">
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
@@ -120,7 +140,7 @@
 				<tr>
 					<td>Item N°2</td>
 					<td>
-						<select name="imputacion2" id="imputacion2" class="form-control">
+						<select name="imputacion2" id="imputacion2" class="items form-control">
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
@@ -131,7 +151,7 @@
 				<tr>
 					<td>Item N°3</td>
 					<td>
-						<select name="imputacion3" id="imputacion3" class="form-control">
+						<select name="imputacion3" id="imputacion3" class="items form-control">
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
@@ -142,7 +162,7 @@
 				<tr>
 					<td>Item N°4</td>
 					<td>
-						<select name="imputacion4" id="imputacion4" class="form-control">
+						<select name="imputacion4" id="imputacion4" class="items form-control">
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
@@ -153,7 +173,7 @@
 				<tr>
 					<td>Item N°5</td>
 					<td>
-						<select name="imputacion5" id="imputacion5" class="form-control">
+						<select name="imputacion5" id="imputacion5" class="items form-control">
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
@@ -164,7 +184,7 @@
 				<tr>
 					<td>Item N°6</td>
 					<td>
-						<select name="imputacion6" id="imputacion6" class="form-control">
+						<select name="imputacion6" id="imputacion6" class="items form-control">
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
@@ -188,16 +208,69 @@
 		autoclose: true,
 		language: 'es'
 	});
-	
-	var myDate = new Date(); 
 
-	day = myDate.getDate();
-	if (day<10)
-		day = "0"+day;
-	month = myDate.getMonth() +1;
-	if (month<10)
-		month = "0"+month
-	myDate = day + "/" + month + "/" + myDate.getFullYear();
-	$("#fecha").val(myDate)
+	$(function(){
+		var myDate = new Date(); 
+
+		day = myDate.getDate();
+		if (day<10)
+			day = "0"+day;
+		month = myDate.getMonth() +1;
+		if (month<10)
+			month = "0"+month
+		myDate = day + "/" + month + "/" + myDate.getFullYear();
+		console.log(myDate)
+		$("#fecha").val(myDate)
+	});
+	
+
+	$("#sector").on("change", function(){
+		var sectorid = $("#sector").val()
+		$("#lugar").empty()
+		$("#lugar").append("<option selected value='0'>Seleccione un Lugar</option>");
+		$.getJSON("/lugargetbysectorid/"+sectorid, function (lugares){
+			$.each(lugares, function (i, value){
+				$("#lugar").append("<option value='"+value.id+"'>"+value.nombre+"</option>");
+			});
+		});
+
+		$("#turno").empty();
+		$("#turno").append("<option selected value='0'>Seleccione un Turno</option>");
+		$.getJSON("/getturnobysectorid/"+sectorid, function (turnos){
+			$.each(turnos, function (i, value){
+				$("#turno").append("<option value='"+value.id+"'>"+value.codigo+"</option>");
+			});
+		});
+
+		//hacer lo mismo para los 6 combos de items
+		// $(".items").empty();
+		// $(".items".append("<option selected value='0'>Seleccione un Item</option>")
+		// $.eachJSON("/getitems")
+
+	});
+
+
+
+	//EJ:
+	// $('#cmbCliente').on('change', function() {
+	// 	RefrescaCombo(this.value);
+	// });
+
+	// $('#envase').on('change', function(){
+	// 	TraerCapacidad(this.value, function (err, data){
+	// 		capacidad = data.capacidad;
+	// 		calcula();
+	// 	});
+	// });
+	// function RefrescaCombo(value){
+	// 	$('#cmbMatep').empty();
+	// 	$("#cmbMatep").append("<option selected value='0'>Seleccione una Materia Prima</option>")
+	// 	$.getJSON('/'+ value + '/materiasprimas', function (data){
+	// 		$.each(data, function (i, value){
+	// 			$('#cmbMatep').append('<option value=' + value.id + ' data-u='+value.usacinta +'>' + value.nombre + '</option>' );
+	// 		});
+	// 	});
+	// }
+
 </script>
 {% endblock %}

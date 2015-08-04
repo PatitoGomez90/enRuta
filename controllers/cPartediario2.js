@@ -53,9 +53,7 @@ function getAlta(req, res){
 	params = req.params;
 	id = params.id;
 	mSectores.getAll(function (sectores){
-		//console.log(sectores)
 		mEmple.getAllActivos(function (empleados){
-			//console.log(empleados)
 			res.render('partediario2alta', {
 				pagename: "Alta de Empleado",
 				empleados: empleados,

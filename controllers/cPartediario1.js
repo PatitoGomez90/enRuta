@@ -5,6 +5,8 @@ var mLugares = require('../models/mLugares');
 var mSectores = require('../models/mSectores');
 var mClasificacion = require('../models/mClasificacion')
 var mImputacion = require('../models/mImputacion');
+var mContratos = require('../models/mContratos');
+var mTurnos = require('../models/mTurnos');
 
 module.exports = {
 	getLista: getLista,
@@ -40,12 +42,18 @@ function getAlta(req, res){
 		mSectores.getAllActivos(function (sectores){
 			mClasificacion.getAllActivos(function (clasificaciones){
 				mImputacion.getAllActivos(function (imputaciones){
-					res.render('partediario1alta', {
-						pagename: "Alta de Parte Diario",
-						imputaciones: imputaciones,
-						clasificaciones: clasificaciones,
-						sectores: sectores,
-						lugares: lugares
+					mContratos.getAll(function (contratos){
+						mTurnos.getAll(function (turnos){
+							res.render('partediario1alta', {
+								pagename: "Alta de Parte Diario",
+								imputaciones: imputaciones,
+								clasificaciones: clasificaciones,
+								sectores: sectores,
+								lugares: lugares,
+								contratos: contratos,
+								turnos: turnos
+							});
+						});
 					});
 				});
 			});

@@ -36,11 +36,17 @@
 			</tr>
 			<tr>
 				<td>Fecha de Alta:</td>
-				<td><input type="text" id="falta" name="falta" class="form-control datepicker" readonly value="{{ emple.falta|date('d/m/Y') }}"></td>
+				<td><input type="text" id="falta" name="falta" class="form-control datepicker" readonly value="{{ emple.faltaf }}"></td>
 			</tr>
 			<tr>
 				<td>Fecha de Baja:</td>
-				<td><input type="text" id="fbaja" name="fbaja" class="form-control datepicker" readonly value="{{ emple.fbaja|date('d/m/Y') }}"></td>
+				<td>
+					{% if emple.fbaja != "0000-00-00" %}
+						<input type="text" id="fbaja" name="fbaja" class="form-control datepicker" readonly value="{{ emple.fbajaf }}">
+					{% else %}
+						<input type="text" id="fbaja" name="fbaja" class="form-control datepicker" readonly value="">
+					{% endif %}
+				</td>
 			</tr>
 			<tr>
 				<td>Cargo:</td>
@@ -57,7 +63,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Sector Usual:</td>
+				<td>Sector:</td>
 				<td>
 					<select name="sector" id="sector" class="form-control">
 						{% for s in sectores %}
@@ -128,7 +134,13 @@
 			</tr>
 			<tr>
 				<td>Fecha de Nacimiento:</td>
-				<td><input type="text" id="fnac" name="fnac" class="form-control datepicker" readonly value="{{ emple.fecha_nac|date('d/m/Y') }}"></td>
+				<td>
+					{% if emple.fecha_nac != "0000-00-00" %}
+						<input type="text" id="fnac" name="fnac" class="form-control datepicker" readonly value="{{ emple.fecha_nacf }}">
+					{% else %}
+						<input type="text" id="fnac" name="fnac" class="form-control datepicker" readonly value="">
+					{% endif %}
+				</td>
 			</tr>
 			<tr>
 				<td>Sexo:</td>
@@ -179,10 +191,27 @@
 <script type="text/javascript">
 	$('#nombre').limit('30','#charsLeftNombre');
 	$('#cuil').limit('13','#charsLeftCuil');
-		$('.datepicker').datepicker({
-			format: 'dd/mm/yyyy',
-			autoclose: true,
-			language: 'es'
-		})
-	</script>
+	$('.datepicker').datepicker({
+		format: 'dd/mm/yyyy',
+		autoclose: true,
+		language: 'es'
+	});
+
+	$("#sector").on("change", function(){
+		var sectorid = $("#sector").val()
+
+		$("#turno").empty();
+		$("#turno").append("<option selected value='0'>Seleccione un Turno</option>");
+		
+		$.getJSON("/getturnobysectorid/"+sectorid, function (turnos){
+			console.log(turnos)
+			$.each(turnos, function (i, value){
+				$("#turno").append("<option value='"+value.id+"'>"+value.codigo+"</option>");
+			});
+		});
+
+	});
+
+
+</script>
 {% endblock %}

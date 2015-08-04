@@ -7,7 +7,8 @@ module.exports = {
 	getById: getById,
 	update: update,
 	del: del,
-	getAllActivos: getAllActivos
+	getAllActivos: getAllActivos,
+	getBySectorId: getBySectorId
 }
 
 function getAll(cb){
@@ -37,4 +38,8 @@ function del(id, cb){
 
 function getAllActivos(cb){
 	conn("select * from lugares where activa = 1", cb);
+}
+
+function getBySectorId(sectorid, cb){
+	conn("select * from lugares where id_sector_fk="+sectorid, cb);
 }

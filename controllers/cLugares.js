@@ -8,7 +8,8 @@ module.exports = {
 	postAlta: postAlta,
 	getModificar: getModificar,
 	postModificar: postModificar,
-	getDel: getDel
+	getDel: getDel,
+	getBySectorId: getBySectorId
 };
 
 function getLista(req, res) {
@@ -79,5 +80,15 @@ function getDel(req, res){
 	id = params.id;
 	mLugares.del(id, function(){
 		res.redirect('lugareslista');
+	});
+}
+
+//para partediario1alta
+function getBySectorId(req, res){
+	params = req.params;
+	sectorid = params.sectorid;
+
+	mLugares.getBySectorId(sectorid, function (lugares){
+		res.send(lugares);
 	});
 }

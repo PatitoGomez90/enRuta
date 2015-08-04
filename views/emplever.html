@@ -31,13 +31,13 @@
 		</tr>
 		<tr>
 			<td>Fecha de Alta:</td>
-			<td>{{ emple.falta|date('d/m/Y') }}</td>
+			<td>{{ emple.faltaf }}</td>
 		</tr>
 		<tr>
 			<td>Fecha de Baja:</td>
 			<td>
 				{% if emple.fbaja != "0000-00-00" %}
-					{{ emple.fbaja|date('d/m/Y') }}
+					{{ emple.fbajaf }}
 				{% else %}
 
 				{% endif %}
@@ -99,7 +99,7 @@
 			<td>Fecha de Nacimiento:</td>
 			<td>
 				{% if emple.fecha_nac != "0000-00-00" %}
-					{{ emple.fecha_nac|date('d/m/Y') }}
+					{{ emple.fecha_nacf }}
 				{% else %}
 
 				{% endif %}

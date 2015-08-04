@@ -8,7 +8,8 @@ module.exports = {
 	postAlta: postAlta,
 	getModificar: getModificar,
 	postModificar: postModificar,
-	getDel: getDel
+	getDel: getDel,
+	getTurnosBySectorId: getTurnosBySectorId
 };
 
 function getLista(req, res) {
@@ -75,5 +76,15 @@ function getDel(req, res){
 
 	mTurnos.del(id, function(){
 		res.redirect('turnoslista');
+	});
+}
+
+//para el emple.modificar
+function getTurnosBySectorId(req, res){
+	params = req.params;
+	sectorid = params.sectorid;
+
+	mTurnos.getByIdSector(sectorid, function (turnos){
+		res.send(turnos);
 	});
 }

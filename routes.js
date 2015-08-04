@@ -25,7 +25,7 @@ var itemsController = require('./controllers/cItems');
 var tipohoraController = require('./controllers/cTipoHora');
 var codigohoraController = require('./controllers/cCodigoHora');
 var relojesController = require('./controllers/cRelojes');
-var lugaresController = require('./controllers/cLugares');
+var cLugares = require('./controllers/cLugares');
 var clasificacionController = require('./controllers/cClasificacion');
 var imputaController = require('./controllers/cImputacion');
 var partediario1Controller = require('./controllers/cPartediario1');
@@ -247,12 +247,13 @@ module.exports = function(app) {
 	app.post('/relojesmodificar', auth, relojesController.postModificar);
 	app.get('/relojesborrar/:id', auth, relojesController.getDel);
 	//lugares
-	app.get('/lugareslista', auth, lugaresController.getLista);
-	app.get('/lugaresalta', auth, lugaresController.getAlta);
-	app.post('/lugaresalta', auth, lugaresController.postAlta);
-	app.get('/lugaresmodificar/:id', auth, lugaresController.getModificar);
-	app.post('/lugaresmodificar', auth, lugaresController.postModificar);
-	app.get('/lugaresborrar/:id', auth, lugaresController.getDel);
+	app.get('/lugareslista', auth, cLugares.getLista);
+	app.get('/lugaresalta', auth, cLugares.getAlta);
+	app.post('/lugaresalta', auth, cLugares.postAlta);
+	app.get('/lugaresmodificar/:id', auth, cLugares.getModificar);
+	app.post('/lugaresmodificar', auth, cLugares.postModificar);
+	app.get('/lugaresborrar/:id', auth, cLugares.getDel);
+	app.get('/lugargetbysectorid/:sectorid', auth, cLugares.getBySectorId);
 	//clasificacion de horas
 	//24/07/2015 - desde ahora "clasificacion horas " es "adicionales"
 	app.get('/clasificacionlista', auth, clasificacionController.getLista);
@@ -306,6 +307,7 @@ module.exports = function(app) {
 	app.get('/turnosmodificar/:id', auth, cTurnos.getModificar);
 	app.post('/turnosmodificar', auth, cTurnos.postModificar);
 	app.get('/turnosborrar/:id', auth, cTurnos.getDel);
+	app.get("/getturnobysectorid/:sectorid", auth, cTurnos.getTurnosBySectorId);
 	//categorias
 	app.get('/categoriaslista', auth, cCategorias.getLista);
 	app.get('/categoriasalta', auth, cCategorias.getAlta);
