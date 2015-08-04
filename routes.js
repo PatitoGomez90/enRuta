@@ -30,7 +30,7 @@ var clasificacionController = require('./controllers/cClasificacion');
 var imputaController = require('./controllers/cImputacion');
 var partediario1Controller = require('./controllers/cPartediario1');
 var partediario2Controller = require('./controllers/cPartediario2');
-var fichadasController = require('./controllers/cFichadas');
+var cFichadas = require('./controllers/cFichadas');
 var cContratos = require('./controllers/cContratos');
 var cTurnos = require('./controllers/cTurnos');
 var cCategorias = require('./controllers/cCategorias');
@@ -287,9 +287,11 @@ module.exports = function(app) {
 	app.get('/getemplesbysector/:id', auth, partediario2Controller.getEmples);
 	app.get('/getempleinpd2/:idp1/:idemple', auth, partediario2Controller.getEmpleInPartediario2);
 	//fichadas
-	app.get('/fichadaslista', auth, fichadasController.getLista);
-	app.get('/buscarfichadas/:fecha', auth, fichadasController.getFichadas);
-	app.get('/fichadasver/:reloj/:fecha', auth, fichadasController.getVer);
+	app.get('/fichadaslista', auth, cFichadas.getLista);
+	app.get('/buscarfichadas/:fecha', auth, cFichadas.getFichadas);
+	app.get('/fichadasver/:reloj/:fecha', auth, cFichadas.getVer);
+	app.get('/getallfichadas', auth, cFichadas.getAll);
+
 	//contratos
 	app.get('/contratoslista', auth, cContratos.getLista);
 	app.get('/contratosalta', auth, cContratos.getAlta);

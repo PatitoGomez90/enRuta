@@ -36,12 +36,14 @@ function getEmpleados(req, res) {
 	mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 		mCargos.getAll(function (cargos){
 	  		mEmple.getAllActivos(function (empleados){
+	  			var length = empleados.length;
 				//console.log(docs2)
 	  			res.render('emplelista', {
 					pagename: 'Archivo de Empleados',
 					cargos: cargos,
 					empleados: empleados,
-					ayuda: ayuda[0]
+					ayuda: ayuda[0],
+					length: length
 				});
 	  		});
 	  	});
@@ -340,11 +342,14 @@ function postFiltro(req, res){
 	nrolegajomenor = params.legajomenor;
 	nrolegajomayor = params.legajomayor;
 
-	console.log(codigoturno)
+	console.log(nrolegajomenor)
+	console.log(nrolegajomayor)
 	mEmple.getFiltrado(idsector, idcondicion, codigoturno, nrolegajomenor, nrolegajomayor, function (empleados){
+		var length = empleados.length;
 		res.render("emplelista", {
 			pagename: "Lista de Empleados Filtrada",
-			empleados: empleados
+			empleados: empleados,
+			length: length
 		});
 	});
 }

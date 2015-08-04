@@ -78,8 +78,14 @@ function getFiltrado(idsector, idcondicion, codigoturno, nrolegajomenor, nrolega
 	if (idcondicion != 0)
 		query = query + " emple.id_condicion_fk = "+idcondicion+" and";
 
-	// if (codigoturno != "0")
-	// 	query = query + " turnos.codigo = '"+ codigoturno+"' and";
+	if (codigoturno != "0")
+	 	query = query + " turnos.codigo = '"+ codigoturno+"' and";
+
+	if (nrolegajomenor != "" && nrolegajomayor != "")
+		query = query + " emple.legajo > "+nrolegajomenor + " and emple.legajo < "+nrolegajomayor+" and";
+	
+	
+
 
 	querylength = query.length;
 	query = query.substr(0, querylength-3)

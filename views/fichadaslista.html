@@ -107,18 +107,8 @@
 
 		$('#fecha').val(fechar);
 
-	});
-
-	$(".datepicker").datepicker({
-		format: 'dd/mm/yyyy',
-		language: 'es',
-		autoclose: true
-	});
-
-	$("#buscar").on("click", function() {
-		var fecha  = encodeURIComponent(document.getElementById('fecha').value);
-
-		$.getJSON('/buscarfichadas/'+ fecha, function (fichadas){
+		$.getJSON('/getallfichadas', function (fichadas){
+			console.log(fichadas)
 			$('#tbodylisto > tr').remove();
 			var template= $('#tablafichadas').html();
 			Mustache.tags=['[[',']]'];
@@ -128,16 +118,35 @@
 		});
 	});
 
-	function run(){
-		console.log("dfg")
-		var fecha  = encodeURIComponent(document.getElementById('fecha').value);
-		var relojid = $('#relojid').val();
-		console.log('/fichadasver/'+relojid+"/"+fecha)
+	$(".datepicker").datepicker({
+		format: 'dd/mm/yyyy',
+		language: 'es',
+		autoclose: true
+	});
+
+	// $("#buscar").on("click", function() {
+	// 	var fecha  = encodeURIComponent(document.getElementById('fecha').value);
+
+	// 	$.getJSON('/buscarfichadas/'+ fecha, function (fichadas){
+	// 		$('#tbodylisto > tr').remove();
+	// 		var template= $('#tablafichadas').html();
+	// 		Mustache.tags=['[[',']]'];
+	// 		var html = Mustache.to_html(template, fichadas);
+	// 		//console.log(html);
+	// 		$('#tbodylisto').html(html);
+	// 	});
+	// });
+
+	// function run(){
+	// 	console.log("dfg")
+	// 	var fecha  = encodeURIComponent(document.getElementById('fecha').value);
+	// 	var relojid = $('#relojid').val();
+	// 	console.log('/fichadasver/'+relojid+"/"+fecha)
 		
-		$.getJSON('/fichadasver/'+relojid+"/"+fecha, function(){
-			console.log("jsoneado "+relojid+" "+fecha)
-		});
-		//href="fichadasver/[[reloj]]/[[fecha]]"
-	}
+	// 	$.getJSON('/fichadasver/'+relojid+"/"+fecha, function(){
+	// 		console.log("jsoneado "+relojid+" "+fecha)
+	// 	});
+	// 	//href="fichadasver/[[reloj]]/[[fecha]]"
+	// }
 </script>
 {% endblock %}

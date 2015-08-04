@@ -33,13 +33,13 @@
 					</select>
 				</td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td colspan="2">Proxima versión:</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td>Por Turno:</td>
 				<td>
-					<select id="cmbTurno" class="form-control" disabled>
+					<select id="cmbTurno" name="cmbTurno" class="form-control">
 						<option value="0" selected>Sin Turno</option>
 						{% for t in turnos %}
 							<option value="{{ t.codigo }}">{{ t.codigo }}</option>
@@ -47,10 +47,12 @@
 					</select>
 				</td>
 			<tr>
-				<td>Por Nro de Legajo:</td>
+				<td>Por Rango de Nro de Legajo:</td>
 				<td>
-					<input type="text" id="legajomenor" name="legajomenor" class="form-control" readonly> a 
-					<input type="text" id="legajomayor" name="legajomayor" class="form-control" readonly>
+					De<br>
+					<input type="text" id="legajomenor" name="legajomenor" class="form-control" onKeyPress="return soloNumeros(event)"> 
+					<br>a 
+					<input type="text" id="legajomayor" name="legajomayor" class="form-control" onKeyPress="return soloNumeros(event)">
 				</td>
 			</tr>
 			<tr>

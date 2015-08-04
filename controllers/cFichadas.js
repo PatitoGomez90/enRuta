@@ -7,8 +7,10 @@ var mRelojes = require('../models/mRelojes');
 module.exports = {
 	getLista: getLista,
 	getFichadas: getFichadas,
-	getVer: getVer
-};
+	getVer: getVer,
+	getAll: getAll,
+	updateFichadas: updateFichadas
+}
 
 function changeDate(date){
 	// input: dd/mm/yyyy
@@ -20,26 +22,10 @@ function changeDate(date){
 function getLista(req, res) {
 	//req.session.nromenu = 11;
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
-	mFichadas.getLastFicId(function (lastficid){
-		console.log(lastficid)
-		if(lastficid[0].maxfic_id == null)
-			lastficid = 0;
-		else
-			lastficid = lastficid[0].maxfic_id;
-		console.log(lastficid)
-		mFichadas.getLatestFic(lastficid, function (latestfic){
-			console.log(latestfic.length)
-			for (var i = 0; i < latestfic.length; i++ ){
-				mFichadas.insert(latestfic[i], function (){
-					console.log(i)
-				});
-			}
-		});
-	});
+	updateFichadas();
 	res.render('fichadaslista', {
 		pagename: 'Lista de Fichadas'
 	});
-	//});
 }
 
 function getFichadas(req, res){
@@ -84,4 +70,41 @@ function getVer(req, res){
 			});
 		});
 	});
+}
+
+function updateFichadas(){
+	var lastficid = 0;
+	mFichadas.getLastFicIdMySql(function (lastficidfrommysql){
+		console.log(lastficidfrommysql)
+		if(lastficidfrommysql[0].maxfic_id == null)
+			lastficid = 0;
+		else
+			lastficid = lastficid[0].maxfic_id;
+
+		mFichadas.getLatestFicSQL(lastficid, function (latestfic){
+
+			for (var i = 0; i < latestfic.length; i++ ){
+
+				mFichadas.SQLifIDexists(latestfic[0].fic_id, function (fic_id){
+					console.log(fic_id);
+					console.log("length "+fic_id.length);
+					if (fic_id.length != 0){
+						mFichadas.MySqlInsert(latestfic[i], function (){
+							console.log(i)
+						});
+					}else{
+						console.log("Registro fic_id = "+latestfic[i].fic_id+" existente en MySql");
+					}
+				});
+
+			}
+
+		});
+	});
+}
+
+function getAll(req, res){
+	mFichadas.getAllFromMySql(function (fichadas){
+		res.send(fichadas);
+	})
 }
