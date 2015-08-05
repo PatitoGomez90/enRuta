@@ -7,13 +7,30 @@
 {% block content %}
 <link href="/css/partediario1alta.css" rel="stylesheet">
 <h2>{{ pagename }}</h2>
-<div class="panel panel-default">
-	<form method="post" id="formalta" action="/partediario1modificar">
+<form method="post" id="formalta" action="/partediario1modificar">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4><b>Información General</b></h4>
+		</div>
 		<table align="center" class="table table-striped">
 			<input hidden name="id" id="id" value="{{ partediario1.id }}">
 			<tr>
 				<td>Fecha:</td>
 				<td><input type="text" id="fecha" name="fecha" readonly class="datepicker form-control" value="{{ partediario1.fechaf }}"></td>
+			</tr>
+			<tr>
+				<td>Contrato:</td>
+				<td>
+					<select name="contrato" id="contrato" class="form-control">
+						{% for c in contratos %}
+							{% if c.id == partediario1.id_contrato_fk %}
+								<option selected value="{{ c.id }}">{{ c.nombre }} {{ c.numero }}</option>
+							{% else %}
+								<option value="{{ c.id }}">{{ c.nombre }} {{ c.numero }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td>Sector:</td>
@@ -44,6 +61,21 @@
 				</td>
 			</tr>
 			<tr>
+				<td>Turno:</td>
+				<td>
+					<select name="turno" id="turno" class="form-control">
+						<option value="0" selected>Seleccione un Turno</option>
+						{% for t in turnos %}
+							{% if t.id == partediario1.id_turno_fk %}
+								<option selected value="{{ t.id }}">{{ t.codigo }}</option>
+							{% else %}
+								<option value="{{ t.id }}">{{ t.codigo }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td>Estado:</td>
 				<td>
 					<select name="estado" id="estado" class="form-control">
@@ -57,11 +89,16 @@
 					</select>
 				</td>
 			</tr>
+		</table>
+	</div>
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h4><b>Horas Adicionales</b></h4> 
+			(Ej: Hrs Insalubres, Hrs Calorias, etc..)
+		</div>
+		<table class="table table-striped">
 			<tr>
-				<td colspan="2"><h4><b>Clasificacion de Horas</b></h4> (Ej: Hrs Insalubres, Hrs Calorias, etc..)</td>
-			</tr>
-			<tr>
-				<td>Clasificacion de Horas N°1</td>
+				<td>Hora Adicional N°1</td>
 				<td>
 					<select name="clasificacion1" id="clasificacion1" class="form-control">
 						{% if partediario1.id_clasificacion1_fk == 0 %}
@@ -83,7 +120,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Clasificacion de Horas N°2</td>
+				<td>Hora Adicional N°2</td>
 				<td>
 					<select name="clasificacion2" id="clasificacion2" class="form-control">
 						{% if partediario1.id_clasificacion2_fk == 0 %}
@@ -105,7 +142,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Clasificacion de Horas N°3</td>
+				<td>Hora Adicional N°3</td>
 				<td>
 					<select name="clasificacion3" id="clasificacion3" class="form-control">
 						{% if partediario1.id_clasificacion3_fk == 0 %}
@@ -127,7 +164,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Clasificacion de Horas N°4</td>
+				<td>Hora Adicional N°4</td>
 				<td>
 					<select name="clasificacion4" id="clasificacion4" class="form-control">
 						{% if partediario1.id_clasificacion4_fk == 0 %}
@@ -149,7 +186,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Clasificacion de Horas N°5</td>
+				<td>Hora Adicional N°5</td>
 				<td>
 					<select name="clasificacion5" id="clasificacion5" class="form-control">
 						{% if partediario1.id_clasificacion5_fk == 0 %}
@@ -171,7 +208,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Clasificacion de Horas N°6</td>
+				<td>Hora Adicional N°6</td>
 				<td>
 					<select name="clasificacion6" id="clasificacion6" class="form-control">
 						{% if partediario1.id_clasificacion6_fk == 0 %}
@@ -192,25 +229,31 @@
 					</select>
 				</td>
 			</tr>
+		</table>
+	</div>
+
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h4><b>Items</b></h4>
+			(Ej: Mec, Elec, Ed, etc..)
+		</div>
+		<table class="table table-striped">
 			<tr>
-				<td colspan="2"><h4><b>Tipos de Imputacion de Horas</b></h4> (Ej: Mec, Elec, Ed, etc..)</td>
-			</tr>
-			<tr>
-				<td>Tipo de Imputacion de Horas N°1</td>
+				<td>Item N°1</td>
 				<td>
 					<select name="imputacion1" id="imputacion1" class="form-control">
 						{% if partediario1.id_imputacion1_fk == 0 %}
 							<option value="0" selected>Sin Usar</option>
 							{% for i in imputaciones %}
-								<option value="{{ i.id }}">{{ i.nombre }}</option>
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 							{% endfor %}
 						{% else %}
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								{% if partediario1.id_imputacion1_fk == i.id %}
-									<option value="{{ i.id }}" selected>{{ i.nombre }}</option>
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
 								{% else %}
-									<option value="{{ i.id }}">{{ i.nombre }}</option>
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 								{% endif %}
 							{% endfor %}
 						{% endif %}
@@ -218,21 +261,21 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Tipo de Imputacion de Horas N°2</td>
+				<td>Item N°2</td>
 				<td>
 					<select name="imputacion2" id="imputacion2" class="form-control">
 						{% if partediario1.id_imputacion2_fk == 0 %}
 							<option value="0" selected>Sin Usar</option>
 							{% for i in imputaciones %}
-								<option value="{{ i.id }}">{{ i.nombre }}</option>
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 							{% endfor %}
 						{% else %}
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								{% if partediario1.id_imputacion2_fk == i.id %}
-									<option value="{{ i.id }}" selected>{{ i.nombre }}</option>
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
 								{% else %}
-									<option value="{{ i.id }}">{{ i.nombre }}</option>
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 								{% endif %}
 							{% endfor %}
 						{% endif %}
@@ -240,21 +283,21 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Tipo de Imputacion de Horas N°3</td>
+				<td>Item N°3</td>
 				<td>
 					<select name="imputacion3" id="imputacion3" class="form-control">
 						{% if partediario1.id_imputacion3_fk == 0 %}
 							<option value="0" selected>Sin Usar</option>
 							{% for i in imputaciones %}
-								<option value="{{ i.id }}">{{ i.nombre }}</option>
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 							{% endfor %}
 						{% else %}
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								{% if partediario1.id_imputacion3_fk == i.id %}
-									<option value="{{ i.id }}" selected>{{ i.nombre }}</option>
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
 								{% else %}
-									<option value="{{ i.id }}">{{ i.nombre }}</option>
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 								{% endif %}
 							{% endfor %}
 						{% endif %}
@@ -262,21 +305,21 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Tipo de Imputacion de Horas N°4</td>
+				<td>Item N°4</td>
 				<td>
 					<select name="imputacion4" id="imputacion4" class="form-control">
 						{% if partediario1.id_imputacion4_fk == 0 %}
 							<option value="0" selected>Sin Usar</option>
 							{% for i in imputaciones %}
-								<option value="{{ i.id }}">{{ i.nombre }}</option>
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 							{% endfor %}
 						{% else %}
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								{% if partediario1.id_imputacion4_fk == i.id %}
-									<option value="{{ i.id }}" selected>{{ i.nombre }}</option>
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
 								{% else %}
-									<option value="{{ i.id }}">{{ i.nombre }}</option>
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 								{% endif %}
 							{% endfor %}
 						{% endif %}
@@ -284,21 +327,21 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Tipo de Imputacion de Horas N°5</td>
+				<td>Item N°5</td>
 				<td>
 					<select name="imputacion5" id="imputacion5" class="form-control">
 						{% if partediario1.id_imputacion5_fk == 0 %}
 							<option value="0" selected>Sin Usar</option>
 							{% for i in imputaciones %}
-								<option value="{{ i.id }}">{{ i.nombre }}</option>
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 							{% endfor %}
 						{% else %}
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								{% if partediario1.id_imputacion5_fk == i.id %}
-									<option value="{{ i.id }}" selected>{{ i.nombre }}</option>
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
 								{% else %}
-									<option value="{{ i.id }}">{{ i.nombre }}</option>
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 								{% endif %}
 							{% endfor %}
 						{% endif %}
@@ -306,34 +349,38 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Tipo de Imputacion de Horas N°6</td>
+				<td>Item N°6</td>
 				<td>
 					<select name="imputacion6" id="imputacion6" class="form-control">
 						{% if partediario1.id_imputacion6_fk == 0 %}
 							<option value="0" selected>Sin Usar</option>
 							{% for i in imputaciones %}
-								<option value="{{ i.id }}">{{ i.nombre }}</option>
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 							{% endfor %}
 						{% else %}
 							<option value="0">Sin Usar</option>
 							{% for i in imputaciones %}
 								{% if partediario1.id_imputacion6_fk == i.id %}
-									<option value="{{ i.id }}" selected>{{ i.nombre }}</option>
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
 								{% else %}
-									<option value="{{ i.id }}">{{ i.nombre }}</option>
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 								{% endif %}
 							{% endfor %}
 						{% endif %}
 					</select>
 				</td>
 			</tr>
+		</table>
+	</div>
+	<div class="panel panel-default">
+		<table class="table">
 			<tr>
-				<td><input type="button" value="Atras" onclick="history.back()"></td>
-				<td><input type="submit" value="Guardar"></td>
+				<td><input class="btn btn-default" type="button" value="Atras" onclick="history.back()"></td>
+				<td><input class="btn btn-default" type="submit" value="Guardar"></td>
 			</tr>
 		</table>
-	</form>
-</div>
+	</div>
+</form>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/jquery.limit-1.2.js"></script>
@@ -342,6 +389,40 @@
 		format: 'dd/mm/yyyy',
 		autoclose: true,
 		language: 'es'
+	});
+
+	$(function(){
+		
+	});
+
+
+	$("#sector").on("change", function(){
+		var sectorid = $("#sector").val()
+		$("#lugar").empty()
+		$("#lugar").append("<option selected value='0'>Seleccione un Lugar</option>");
+		$.getJSON("/lugargetbysectorid/"+sectorid, function (lugares){
+			$.each(lugares, function (i, value){
+				$("#lugar").append("<option value='"+value.id+"'>"+value.nombre+"</option>");
+			});
+		});
+
+		$("#turno").empty();
+		$("#turno").append("<option selected value='0'>Seleccione un Turno</option>");
+		$.getJSON("/getturnobysectorid/"+sectorid, function (turnos){
+			$.each(turnos, function (i, value){
+				$("#turno").append("<option value='"+value.id+"'>"+value.codigo+"</option>");
+			});
+		});
+
+		//hacer lo mismo para los 6 combos de items
+		$(".items").empty();
+		$(".items").append("<option selected value='0'>Seleccione un Item</option>")
+		$.getJSON("/getitemsgeneralesandbysector/"+sectorid, function (itemsgenyporsector){
+			console.log("items: "+itemsgenyporsector.length);
+			$.each(itemsgenyporsector, function (i, value){
+				$(".items").append("<option value='"+value.id+"'>"+value.numero+" - "+value.nombre+"</option>");
+			});
+		});
 	});
 </script>
 {% endblock %}

@@ -7,8 +7,11 @@
 	{% block content %}
 	<link href="/css/partediario1alta.css" rel="stylesheet">
 	<h2>{{ pagename }}</h2>
-	<div class="panel panel-default">
-		<form method="post" id="formalta" action="/partediario1alta">
+	<form method="post" id="formalta" action="/partediario1alta">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4><b>Información General</b></h4>
+			</div>
 			<table align="center" class="table table-striped">
 				<tr>
 					<td>Fecha:</td>
@@ -60,9 +63,15 @@
 						</select>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="2"><h4><b>Horas Adicionales</b></h4> (Ej: Hrs Insalubres, Hrs Calorias, etc..)</td>
-				</tr>
+			</table>
+		</div>
+
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h4><b>Horas Adicionales</b></h4> 
+				(Ej: Hrs Insalubres, Hrs Calorias, etc..)
+			</div>
+			<table class="table table-striped">
 				<tr>
 					<td>Hora Adicional N°1</td>
 					<td>
@@ -153,9 +162,15 @@
 						</select>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="2"><h4><b>Items</b></h4> (Ej: Mec, Elec, Ed, etc..)</td>
-				</tr>
+			</table>
+		</div>
+
+		<div class="panel panel-warning">
+			<div class="panel-heading">
+				<h4><b>Items</b></h4>
+				(Ej: Mec, Elec, Ed, etc..)
+			</div>
+			<table class="table table-striped">
 				<tr>
 					<td>Item N°1</td>
 					<td>
@@ -222,13 +237,18 @@
 						</select>
 					</td>
 				</tr>
+			</table>
+		</div>
+		<div class="panel panel-default">
+			<table class="table">
 				<tr>
-					<td><input type="button" value="Atras" onclick="history.back()"></td>
-					<td><input type="submit" value="Agregar"></td>
+					<td><input class="btn btn-default" type="button" value="Atras" onclick="history.back()"></td>
+					<td><input class="btn btn-default" type="submit" value="Agregar"></td>
 				</tr>
 			</table>
-		</form>
-	</div>
+		</div>
+	</form>
+	
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/jquery.limit-1.2.js"></script>

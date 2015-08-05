@@ -102,18 +102,24 @@ function getModificar(req, res){
 	id = params.id;
 
 	mPartediario1.getById(id, function (partediario1){
-		mLugares.getAllActivos(function (lugares){
+		mLugares.getBySectorId(partediario1[0].id_sector_fk, function (lugares){
 			mSectores.getAllActivos(function (sectores){
 				mClasificacion.getAllActivos(function (clasificaciones){
 					mImputacion.getAllActivos(function (imputaciones){
-						console.log(partediario1[0])
-						res.render('partediario1modificar', {
-							pagename: "Modificar Parte Diario",
-							partediario1: partediario1[0],
-							imputaciones: imputaciones,
-							clasificaciones: clasificaciones,
-							sectores: sectores,
-							lugares: lugares
+						mTurnos.getByIdSector(partediario1[0].id_sector_fk, function (turnos){
+							mContratos.getAll(function (contratos){
+								console.log(partediario1[0])
+								res.render('partediario1modificar', {
+									pagename: "Modificar Parte Diario",
+									partediario1: partediario1[0],
+									imputaciones: imputaciones,
+									clasificaciones: clasificaciones,
+									sectores: sectores,
+									lugares: lugares,
+									turnos: turnos,
+									contratos: contratos
+								});
+							});
 						});
 					});
 				});
@@ -127,6 +133,8 @@ function postModificar(req, res){
 	id = params.id;
 	fecha = params.fecha;
 	fecha = changeDate(fecha);
+	turno = params.turno;
+	contrato = params.contrato;
 	idsector = params.sector;
 	idlugar = params.lugar;
 	estado = 1;
@@ -142,7 +150,7 @@ function postModificar(req, res){
 	imputacion4 = params.imputacion4;
 	imputacion5 = params.imputacion5;
 	imputacion6 = params.imputacion6;
-	mPartediario1.update(id, fecha, idsector, idlugar, estado, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, function(){
+	mPartediario1.update(id, fecha, contrato, idsector, idlugar, turno, estado, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, function(){
 		res.redirect('partediario1lista');
 	});
 }

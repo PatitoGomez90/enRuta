@@ -19,21 +19,21 @@ function getAll(cb){
 function getAllByPartediario1Id(id, cb){
 	//legajo, nombre from emple with id_emple_fk
 	//clasificacion1txt... clasificacion6txt
-	//imputacion1txt... imputacion6txt
+	//item1txt... item6txt
 	//ej:  (select nombre from articu where articu.id = modelo_m2.id_rep1_fk) as rep1txt
-	conn("select partediario2.*, emple.legajo as legajo, emple.nombre as nombre, tipohora.nombre as tipohoratxt, codigohora.numero as codigohoracod from partediario2 left join codigohora on codigohora.id = partediario2.id_codigohora_fk left join tipohora on tipohora.id = partediario2.id_tipohora_fk left join emple on emple.codigo = partediario2.id_emple_fk where partediario2.id_partediario1_fk="+id, cb);
+	conn("select partediario2.*, emple.legajo as legajo, emple.nombre as nombre, codigohora.numero as codigohoracod from partediario2 left join codigohora on codigohora.id = partediario2.id_codigohora_fk left join emple on emple.codigo = partediario2.id_emple_fk where partediario2.id_partediario1_fk="+id, cb);
 }
 
 function getById(id, cb){
-	conn("select partediario2.*, emple.legajo as legajo, emple.nombre as nombre, codigohora.nombre as codigohoratxt, tipohora.nombre as tipohoratxt from partediario2 left join emple on emple.codigo = partediario2.id_emple_fk left join codigohora on codigohora.id = partediario2.id_codigohora_fk left join tipohora on tipohora.id = partediario2.id_tipohora_fk where partediario2.id="+id, cb);
+	conn("select partediario2.*, emple.legajo as legajo, emple.nombre as nombre, codigohora.nombre as codigohoratxt from partediario2 left join emple on emple.codigo = partediario2.id_emple_fk left join codigohora on codigohora.id = partediario2.id_codigohora_fk where partediario2.id="+id, cb);
 }
 
 function insertNewEmpleado(idpartediario1, idempleado, cb){
 	conn("insert into partediario2(id_partediario1_fk, id_emple_fk) values("+idpartediario1+", "+idempleado+")", cb);
 }
 
-function update(id, codigohora, entrada, salida, total, tipohora, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, cb){
-	conn("UPDATE `partediario2` SET `id_codigohora_fk`="+codigohora+", `hr_entrada`='"+entrada+"', `hr_salida`='"+salida+"', `hr_total`='"+total+"', `id_tipohora_fk`="+tipohora+", `hrclasificacion1`="+clasificacion1+",`hrclasificacion2`="+clasificacion2+",`hrclasificacion3`="+clasificacion3+",`hrclasificacion4`="+clasificacion4+",`hrclasificacion5`="+clasificacion5+",`hrclasificacion6`="+clasificacion6+",`hrimputacion1`="+imputacion1+",`hrimputacion2`="+imputacion2+",`hrimputacion3`="+imputacion3+",`hrimputacion4`="+imputacion4+",`hrimputacion5`="+imputacion5+",`hrimputacion6`="+imputacion6+" WHERE partediario2.id ="+id, cb);
+function update(id, codigohora, entrada, salida, total, adicional1_n, adicional1_50, adicional1_100, adicional2_n, adicional2_50, adicional2_100, adicional3_n, adicional3_50, adicional3_100, adicional4_n, adicional4_50, adicional4_100, adicional5_n, adicional5_50, adicional5_100, adicional6_n, adicional6_50, adicional6_100, item1, item2, item3, item4, item5, item6, cb){
+	conn("UPDATE `partediario2` SET `id_codigohora_fk`="+codigohora+", `hr_entrada`='"+entrada+"', `hr_salida`='"+salida+"', `hr_total`='"+total+"', `adicional1_n`="+adicional1_n+",`adicional1_50`="+adicional1_50+", `adicional1_100`="+adicional1_100+", `adicional2_n`="+adicional2_n+",`adicional2_50`="+adicional2_50+", `adicional2_100`="+adicional2_100+", `adicional3_n`="+adicional3_n+",`adicional3_50`="+adicional3_50+", `adicional3_100`="+adicional3_100+", `adicional4_n`="+adicional4_n+",`adicional4_50`="+adicional4_50+", `adicional4_100`="+adicional4_100+", `adicional5_n`="+adicional5_n+",`adicional5_50`="+adicional5_50+", `adicional5_100`="+adicional5_100+", `adicional6_n`="+adicional6_n+",`adicional6_50`="+adicional6_50+", `adicional6_100`="+adicional6_100+", `item1`="+item1+",`item2`="+item2+",`item3`="+item3+",`item4`="+item4+",`item5`="+item5+",`item6`="+item6+" WHERE partediario2.id ="+id, cb);
 }
 
 function del(id, cb){

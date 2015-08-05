@@ -45,6 +45,7 @@
 						<th>Fecha</th>
 						<th>Sector</th>
 						<th>Lugar</th>
+						<th>Turno</th>
 						<th>Estado</th>
 					</tr>
 		  		</thead>
@@ -59,11 +60,14 @@
 							<td>{{ p.fechaf }}</td>
 							<td>{{ p.sectortxt }}</td>
 							<td>{{ p.lugartxt }}</td>
-							{% if p.estado == 1 %}
-								<td>Abierto</td>
-							{% else %}
-								<td>Cerrado</td>
-							{% endif %}
+							<td>{{ p.turnotxt }}
+							<td>
+								{% if p.estado == 1 %}
+									Abierto
+								{% else %}
+									Cerrado
+								{% endif %}
+							</td>
 						</tr>
 					{% endfor %}
 		  		</tbody>

@@ -88,7 +88,7 @@ function getModificar(req, res){
 			mLugares.getAllActivos(function (lugares){
 				mSectores.getAllActivos(function (sectores){
 					mClasificacion.getAllActivos(function (clasificaciones){
-						mImputacion.getAllActivos(function (imputaciones){
+						mImputacion.getAllActivos(function (items){
 							mCodigohora.getAll(function (codigoshora){
 								mTipoHora.getAll(function (tiposhora){
 									//console.log(partediario1[0])
@@ -96,7 +96,7 @@ function getModificar(req, res){
 										pagename: "Modificar Parte Diario",
 										partediario2: partediario2[0],
 										partediario1: partediario1[0],
-										imputaciones: imputaciones,
+										items: items,
 										clasificaciones: clasificaciones,
 										sectores: sectores,
 										lugares: lugares,
@@ -121,46 +121,82 @@ function postModificar(req, res){
 	entrada = params.entrada;
 	salida = params.salida;
 	total = params.total;
-	tipohora = params.tipohora;
+	//nuevos campos
+	adicional1_n = params.adicional1_n;
+	adicional1_50 = params.adicional1_50;
+	adicional1_100 = params.adicional1_100;
+	if (!adicional1_n)
+		adicional1_n = 0;
+	if (!adicional1_50)
+		adicional1_50 = 0;
+	if (!adicional1_100)
+		adicional1_100 = 0;
+	adicional2_n = params.adicional2_n;
+	adicional2_50 = params.adicional2_50;
+	adicional2_100 = params.adicional2_100;
+	if (!adicional2_n)
+		adicional2_n = 0;
+	if (!adicional2_50)
+		adicional2_50 = 0;
+	if (!adicional2_100)
+		adicional2_100 = 0;
+	adicional3_n = params.adicional3_n;
+	adicional3_50 = params.adicional3_50;
+	adicional3_100 = params.adicional3_100;
+	if (!adicional3_n)
+		adicional3_n = 0;
+	if (!adicional3_50)
+		adicional3_50 = 0;
+	if (!adicional3_100)
+		adicional3_100 = 0;
+	adicional4_n = params.adicional4_n;
+	adicional4_50 = params.adicional4_50;
+	adicional4_100 = params.adicional4_100;
+	if (!adicional4_n)
+		adicional4_n = 0;
+	if (!adicional4_50)
+		adicional4_50 = 0;
+	if (!adicional4_100)
+		adicional4_100 = 0;
+	adicional5_n = params.adicional5_n;
+	adicional5_50 = params.adicional5_50;
+	adicional5_100 = params.adicional5_100;
+	if (!adicional5_n)
+		adicional5_n = 0;
+	if (!adicional5_50)
+		adicional5_50 = 0;
+	if (!adicional5_100)
+		adicional5_100 = 0;
+	adicional6_n = params.adicional6_n;
+	adicional6_50 = params.adicional6_50;
+	adicional6_100 = params.adicional6_100;
+	if (!adicional6_n)
+		adicional6_n = 0;
+	if (!adicional6_50)
+		adicional6_50 = 0;
+	if (!adicional6_100)
+		adicional6_100 = 0;
+	//fin nuevos campos, actualizar "imputacion" por "items"
+	item1 = params.item1;
+	if (!item1)
+		item1 = 0;
+	item2 = params.item2;
+	if (!item2)
+		item2 = 0;
+	item3 = params.item3;
+	if (!item3)
+		item3 = 0;
+	item4 = params.item4;
+	if (!item4)
+		item4 = 0;
+	item5 = params.item5;
+	if (!item5)
+		item5 = 0;
+	item6 = params.item6;
+	if (!item6)
+		item6 = 0;
 
-	clasificacion1 = params.clasificacion1;
-	if (!clasificacion1)
-		clasificacion1 = 0;
-	clasificacion2 = params.clasificacion2;
-	if (!clasificacion2)
-		clasificacion2 = 0;
-	clasificacion3 = params.clasificacion3;
-	if (!clasificacion3)
-		clasificacion3 = 0;
-	clasificacion4 = params.clasificacion4;
-	if (!clasificacion4)
-		clasificacion4 = 0;
-	clasificacion5 = params.clasificacion5;
-	if (!clasificacion5)
-		clasificacion5 = 0;
-	clasificacion6 = params.clasificacion6;
-	if (!clasificacion6)
-		clasificacion6 = 0;
-	imputacion1 = params.imputacion1;
-	if (!imputacion1)
-		imputacion1 = 0;
-	imputacion2 = params.imputacion2;
-	if (!imputacion2)
-		imputacion2 = 0;
-	imputacion3 = params.imputacion3;
-	if (!imputacion3)
-		imputacion3 = 0;
-	imputacion4 = params.imputacion4;
-	if (!imputacion4)
-		imputacion4 = 0;
-	imputacion5 = params.imputacion5;
-	if (!imputacion5)
-		imputacion5 = 0;
-	imputacion6 = params.imputacion6;
-	if (!imputacion6)
-		imputacion6 = 0;
-
-	mPartediario2.update(id, codigohora, entrada, salida, total, tipohora, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, function(){
+	mPartediario2.update(id, codigohora, entrada, salida, total, adicional1_n, adicional1_50, adicional1_100, adicional2_n, adicional2_50, adicional2_100, adicional3_n, adicional3_50, adicional3_100, adicional4_n, adicional4_50, adicional4_100, adicional5_n, adicional5_50, adicional5_100, adicional6_n, adicional6_50, adicional6_100, item1, item2, item3, item4, item5, item6, function(){
 		res.redirect('partediario2lista/'+idpartediario1);
 	});
 }
