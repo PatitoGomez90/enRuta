@@ -9,7 +9,8 @@ module.exports = {
 	del: del,
 	insert2: insert2,
 	getItemById: getItemById,
-	getUltimoNumero: getUltimoNumero
+	getUltimoNumero: getUltimoNumero,
+	getGeneralesAndBySectorId: getGeneralesAndBySectorId
 }
 
 function getAll(cb){
@@ -45,5 +46,9 @@ function getUltimoNumero(cb){
 }
 
 function del(id, cb){
-	conn("delete from imputacion_hora where id="+id, cb);
+	conn("delete from items where id="+id, cb);
+}
+
+function getGeneralesAndBySectorId(sectorid, cb){
+	conn("select * from items where id_sector_fk= 8 or id_sector_fk="+sectorid, cb);
 }

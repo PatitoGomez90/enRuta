@@ -11,7 +11,8 @@ module.exports = {
 	postAlta: postAlta,
 	getModificar: getModificar,
 	postModificar: postModificar,
-	getDel: getDel
+	getDel: getDel,
+	getItems: getItems
 };
 
 function getLista(req, res) {
@@ -113,4 +114,13 @@ function getDel(req, res){
 	mImputacion.del(id, function(){
 		res.redirect('imputacionlista');
 	})
+}
+
+function getItems(req, res){
+	params = req.params;
+	sectorid = params.sectorid;
+
+	mImputacion.getGeneralesAndBySectorId(sectorid, function (items){
+		res.send(items);
+	});
 }

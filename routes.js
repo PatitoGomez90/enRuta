@@ -27,7 +27,7 @@ var codigohoraController = require('./controllers/cCodigoHora');
 var relojesController = require('./controllers/cRelojes');
 var cLugares = require('./controllers/cLugares');
 var clasificacionController = require('./controllers/cClasificacion');
-var imputaController = require('./controllers/cImputacion');
+var cImputacion = require('./controllers/cImputacion');
 var partediario1Controller = require('./controllers/cPartediario1');
 var partediario2Controller = require('./controllers/cPartediario2');
 var cFichadas = require('./controllers/cFichadas');
@@ -265,12 +265,13 @@ module.exports = function(app) {
 	//imputacion de horas 
 	//02/07/2015-> ahora se llama ITEMS
 	//los html y rutas son 'imputacion' y la base de datos es 'items'
-	app.get('/imputacionlista', auth, imputaController.getLista);
-	app.get('/imputacionalta', auth, imputaController.getAlta);
-	app.post('/imputacionalta', auth, imputaController.postAlta);
-	app.get('/imputacionmodificar/:id', auth, imputaController.getModificar);
-	app.post('/imputacionmodificar', auth, imputaController.postModificar);
-	app.get('/imputacionborrar/:id', auth, imputaController.getDel);
+	app.get('/imputacionlista', auth, cImputacion.getLista);
+	app.get('/imputacionalta', auth, cImputacion.getAlta);
+	app.post('/imputacionalta', auth, cImputacion.postAlta);
+	app.get('/imputacionmodificar/:id', auth, cImputacion.getModificar);
+	app.post('/imputacionmodificar', auth, cImputacion.postModificar);
+	app.get('/imputacionborrar/:id', auth, cImputacion.getDel);
+	app.get('/getitemsgeneralesandbysector/:sectorid', auth, cImputacion.getItems)
 	//parte diario 1
 	app.get('/partediario1lista', auth, partediario1Controller.getLista);
 	app.get('/partediario1alta', auth, partediario1Controller.getAlta);

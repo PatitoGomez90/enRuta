@@ -29,7 +29,11 @@
 					<td>
 						<select name="sector" id="sector" class="form-control">
 							{% for s in sectores %}
-								<option value="{{ s.id }}">{{ s.nombre }}</option>
+								{% if s.id == 7 %}
+									<option value="{{ s.id }}" selected>{{ s.nombre }}</option>
+								{% else %}
+									<option value="{{ s.id }}">{{ s.nombre }}</option>
+								{% endif %}
 							{% endfor %}
 						</select>
 					</td>
@@ -38,6 +42,7 @@
 					<td>Lugar:</td>
 					<td>
 						<select name="lugar" id="lugar" class="form-control">
+							<option selected value='0'>Seleccione un Lugar</option>
 							{% for l in lugares %}
 								<option value="{{ l.id }}">{{ l.nombre }}</option>
 							{% endfor %}
@@ -48,6 +53,7 @@
 					<td>Turno:</td>
 					<td>
 						<select name="turno" id="turno" class="form-control">
+							<option value="0" selected>Seleccione un Turno</option>
 							{% for t in turnos %}
 								<option value="{{ t.id }}">{{ t.codigo }}</option>
 							{% endfor %}
@@ -55,70 +61,94 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2"><h4><b>Clasificacion de Horas</b></h4> (Ej: Hrs Insalubres, Hrs Calorias, etc..)</td>
+					<td colspan="2"><h4><b>Horas Adicionales</b></h4> (Ej: Hrs Insalubres, Hrs Calorias, etc..)</td>
 				</tr>
 				<tr>
-					<td>Clasificacion de Horas N°1</td>
+					<td>Hora Adicional N°1</td>
 					<td>
 						<select name="clasificacion1" id="clasificacion1" class="form-control">
 							<option value="0">Sin Usar</option>
 							{% for c in clasificaciones %}
-								<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% if c.id == 9 %}
+									<option selected value="{{ c.id }}">{{ c.nombre }}</option>
+								{% else %}
+									<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% endif %}
 							{% endfor %}
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td>Clasificacion de Horas N°2</td>
+					<td>Hora Adicional N°2</td>
 					<td>
 						<select name="clasificacion2" id="clasificacion2" class="form-control">
 							<option value="0">Sin Usar</option>
 							{% for c in clasificaciones %}
-								<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% if c.id == 10 %}
+									<option selected value="{{ c.id }}">{{ c.nombre }}</option>
+								{% else %}
+									<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% endif %}
 							{% endfor %}
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td>Clasificacion de Horas N°3</td>
+					<td>Hora Adicional N°3</td>
 					<td>
 						<select name="clasificacion3" id="clasificacion3" class="form-control">
 							<option value="0">Sin Usar</option>
 							{% for c in clasificaciones %}
-								<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% if c.id == 11 %}
+									<option selected value="{{ c.id }}">{{ c.nombre }}</option>
+								{% else %}
+									<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% endif %}
 							{% endfor %}
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td>Clasificacion de Horas N°4</td>
+					<td>Hora Adicional N°4</td>
 					<td>
 						<select name="clasificacion4" id="clasificacion4" class="form-control">
 							<option value="0">Sin Usar</option>
 							{% for c in clasificaciones %}
-								<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% if c.id == 12 %}
+									<option selected value="{{ c.id }}">{{ c.nombre }}</option>
+								{% else %}
+									<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% endif %}
 							{% endfor %}
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td>Clasificacion de Horas N°5</td>
+					<td>Hora Adicional N°5</td>
 					<td>
 						<select name="clasificacion5" id="clasificacion5" class="form-control">
 							<option value="0">Sin Usar</option>
 							{% for c in clasificaciones %}
-								<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% if c.id == 20 %}
+									<option selected value="{{ c.id }}">{{ c.nombre }}</option>
+								{% else %}
+									<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% endif %}
 							{% endfor %}
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td>Clasificacion de Horas N°6</td>
+					<td>Hora Adicional N°6</td>
 					<td>
 						<select name="clasificacion6" id="clasificacion6" class="form-control">
 							<option value="0">Sin Usar</option>
 							{% for c in clasificaciones %}
-								<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% if c.id == 24 %}
+									<option selected value="{{ c.id }}">{{ c.nombre }}</option>
+								{% else %}
+									<option value="{{ c.id }}">{{ c.nombre }}</option>
+								{% endif %}
 							{% endfor %}
 						</select>
 					</td>
@@ -175,7 +205,7 @@
 					<td>
 						<select name="imputacion5" id="imputacion5" class="items form-control">
 							<option value="0">Sin Usar</option>
-							{% for i in imputaciones %}
+							{% for i in imputaciones %}2
 								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
 							{% endfor %}
 						</select>
@@ -243,10 +273,14 @@
 		});
 
 		//hacer lo mismo para los 6 combos de items
-		// $(".items").empty();
-		// $(".items".append("<option selected value='0'>Seleccione un Item</option>")
-		// $.eachJSON("/getitems")
-
+		$(".items").empty();
+		$(".items").append("<option selected value='0'>Seleccione un Item</option>")
+		$.getJSON("/getitemsgeneralesandbysector/"+sectorid, function (itemsgenyporsector){
+			console.log("items: "+itemsgenyporsector.length);
+			$.each(itemsgenyporsector, function (i, value){
+				$(".items").append("<option value='"+value.id+"'>"+value.numero+" - "+value.nombre+"</option>");
+			});
+		});
 	});
 
 

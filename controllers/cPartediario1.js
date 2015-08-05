@@ -7,6 +7,7 @@ var mClasificacion = require('../models/mClasificacion')
 var mImputacion = require('../models/mImputacion');
 var mContratos = require('../models/mContratos');
 var mTurnos = require('../models/mTurnos');
+var mEmple = require('../models/mEmple');
 
 module.exports = {
 	getLista: getLista,
@@ -38,23 +39,14 @@ function getLista(req, res) {
 };
 
 function getAlta(req, res){
-	mLugares.getAllActivos(function (lugares){
-		mSectores.getAllActivos(function (sectores){
-			mClasificacion.getAllActivos(function (clasificaciones){
-				mImputacion.getAllActivos(function (imputaciones){
-					mContratos.getAll(function (contratos){
-						mTurnos.getAll(function (turnos){
-							res.render('partediario1alta', {
-								pagename: "Alta de Parte Diario",
-								imputaciones: imputaciones,
-								clasificaciones: clasificaciones,
-								sectores: sectores,
-								lugares: lugares,
-								contratos: contratos,
-								turnos: turnos
-							});
-						});
-					});
+	mSectores.getAllActivos(function (sectores){
+		mClasificacion.getAllActivos(function (clasificaciones){
+			mContratos.getAll(function (contratos){
+				res.render('partediario1alta', {
+					pagename: "Alta de Parte Diario",
+					clasificaciones: clasificaciones,
+					sectores: sectores,
+					contratos: contratos
 				});
 			});
 		});
@@ -65,8 +57,10 @@ function postAlta(req, res){
 	params = req.body;
 	fecha = params.fecha;
 	fecha = changeDate(fecha);
+	contrato = params.contrato;
 	idsector = params.sector;
 	idlugar = params.lugar;
+	turno = params.turno;
 	estado = 1;
 	clasificacion1 = params.clasificacion1;
 	clasificacion2 = params.clasificacion2;
@@ -80,8 +74,26 @@ function postAlta(req, res){
 	imputacion4 = params.imputacion4;
 	imputacion5 = params.imputacion5;
 	imputacion6 = params.imputacion6;
-	mPartediario1.insert(fecha, idsector, idlugar, estado, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, function(){
-		res.redirect('partediario1lista');
+
+	mPartediario1.insert(fecha, contrato, idsector, idlugar, turno, estado, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, function(){
+		mPartediario1.getLastId(function (pdultimoid){
+			console.log(pdultimoid)
+			var ultimoid = pdultimoid[0].id;
+			mEmple.getByTurno(turno, function (emplesbyturno){
+				console.log(emplesbyturno.length)
+
+				var bandera = false;
+				for (var x = 0 ; x < emplesbyturno.length ; x++){
+					mPartediario2.insertNewEmpleado(ultimoid, emplesbyturno[x].codigo, function (){
+						bandera = true;
+					});
+				}
+				if (bandera)
+					console.log("Ingresados "+emplesbyturno.length+" empleados.");
+				console.log("Redirigiendo a ParteDiario1 Lista..")
+				res.redirect('partediario1lista');
+			});
+		});
 	});
 }
 

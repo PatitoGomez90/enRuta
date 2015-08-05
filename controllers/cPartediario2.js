@@ -33,6 +33,7 @@ function getLista(req, res) {
 	//req.session.nromenu = 5;
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 	mPartediario1.getById(id, function (partediario1){
+		console.log(partediario1[0])
 		mPartediario2.getAllByPartediario1Id(id, function (partediario2s){
 			mTipoHora.getAllActivos(function (tipohoras){
 				res.render('partediario2lista', {
