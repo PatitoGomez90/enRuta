@@ -162,7 +162,7 @@ function getModificar(req, res){
 			mSectores.getAllActivos(function (sectores){
 				mCategorias.getAll(function (categorias){
 					mCondicion.getAll(function (condiciones){
-						mTurnos.getAll(function (turnos){
+						mTurnos.getByIdSector(emple[0].id_sector_fk, function (turnos){
 							mContratos.getAll(function (contratos){
 								res.render('emplemodificar', {
 									pagename: 'Modificar Empleado',

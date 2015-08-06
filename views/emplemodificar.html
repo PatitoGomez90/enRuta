@@ -21,11 +21,7 @@
 			<tr>
 				<td>Tarjeta: </td>
 				<td><input type="text" id="tarjeta" name="tarjeta" value="{{ emple.tarjeta }}" class="form-control" onKeyPress="return soloNumeros(event)"></td>
-			</tr>	
-			<tr>
-				<td>Tarjeta: </td>
-				<td><input type="text" id="tarjeta" name="tarjeta" value="{{ emple.tarjeta }}" class="form-control" onKeyPress="return soloNumeros(event)"></td>
-			</tr>	
+			</tr>
 			<tr>
 				<td>Nombre:</td>
 				<td><input type="text" id="nombre" name="nombre" value="{{ emple.nombre }}" class="form-control"><div class="aviso">Quedan <span id="charsLeftNombre"></span> caraceteres.</div></td>
@@ -199,15 +195,18 @@
 
 	$("#sector").on("change", function(){
 		var sectorid = $("#sector").val()
-
 		$("#turno").empty();
-		$("#turno").append("<option selected value='0'>Seleccione un Turno</option>");
-		
 		$.getJSON("/getturnobysectorid/"+sectorid, function (turnos){
 			console.log(turnos)
-			$.each(turnos, function (i, value){
-				$("#turno").append("<option value='"+value.id+"'>"+value.codigo+"</option>");
-			});
+			if (turnos.length > 0){
+				$("#turno").append("<option selected value='0'>Seleccione un Turno</option>");
+				$.each(turnos, function (i, value){
+					$("#turno").append("<option value='"+value.id+"'>"+value.codigo+"</option>");
+				});
+			}else{
+				$("#turno").append("<option selected value='0'>Sin Turnos para este Sector</option>");
+			}
+			
 		});
 
 	});
