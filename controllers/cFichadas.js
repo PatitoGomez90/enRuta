@@ -33,8 +33,7 @@ function getFichadas(req, res){
 	fecha= params.fecha;
 	fecha = changeDate(fecha);
 
-	mFichadas.getFichadas(fecha, function (fichadas){
-
+	mFichadas.getFichadasFromSQL(fecha, function (fichadas){
 		console.log(fichadas)
 		res.send(fichadas);
 	});
@@ -75,12 +74,13 @@ function getVer(req, res){
 function updateFichadas(){
 	var lastficid = 0;
 	mFichadas.getLastFicIdMySql(function (lastficidfrommysql){
-		console.log(lastficidfrommysql)
+		console.log("lastficidfrommysql: "+lastficidfrommysql)
 		if(lastficidfrommysql[0].maxfic_id == null)
 			lastficid = 0;
 		else
 			lastficid = lastficid[0].maxfic_id;
 
+		console.log("last fic id antes de la request: "+lastficid);
 		mFichadas.getLatestFicSQL(lastficid, function (latestfic){
 
 			for (var i = 0; i < latestfic.length; i++ ){
@@ -106,5 +106,5 @@ function updateFichadas(){
 function getAll(req, res){
 	mFichadas.getAllFromMySql(function (fichadas){
 		res.send(fichadas);
-	})
+	});
 }

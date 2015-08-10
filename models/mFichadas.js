@@ -2,7 +2,7 @@ var SQLconn = require('../config/db').SQLconn;
 var conn = require('../config/db').conn;
 
 module.exports = {
-	getFichadas: getFichadas,
+	getFichadasFromSQL: getFichadasFromSQL,
 	getFichada: getFichada,
 	getLastFicIdMySql: getLastFicIdMySql,
 	getLatestFicSQL: getLatestFicSQL,
@@ -12,7 +12,7 @@ module.exports = {
 	getAllFromMySql: getAllFromMySql
 }
 
-function getFichadas(fecha, cb){
+function getFichadasFromSQL(fecha, cb){
 	SQLconn("select MAX(convert(varchar, fic_fecha, 103)) as fecha, fic_reloj as reloj, COUNT(DISTINCT FIC_TARJETA) as cant, (select COUNT(DISTINCT FIC_TARJETA) from FICHADA where FIC_FECHA='"+fecha+"' AND FIC_ENTSAL='E' ) as entraron, (select COUNT(DISTINCT FIC_TARJETA) from FICHADA where FIC_FECHA='"+fecha+"' AND FIC_ENTSAL='S' ) as salieron from fichada where fic_fecha='"+fecha+"' group by fic_reloj", cb);
 }
 
@@ -52,3 +52,5 @@ function getAllFromMySql(cb){
 // (select COUNT(DISTINCT FIC_TARJETA) from FICHADA where FIC_FECHA='2015-06-03' AND FIC_ENTSAL='E' ) as entraron ,
 // (select COUNT(DISTINCT FIC_TARJETA) from FICHADA where FIC_FECHA='2015-06-03' AND FIC_ENTSAL='S' ) as salieron
 // from fichada where fic_fecha='2015-06-03' group by fic_reloj
+
+getAllFromMySql
