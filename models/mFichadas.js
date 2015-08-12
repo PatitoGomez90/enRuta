@@ -9,7 +9,8 @@ module.exports = {
 	SQLinsert: SQLinsert,
 	getAllFromFichadaSQL: getAllFromFichadaSQL,
 	MySqlInsert: MySqlInsert,
-	getAllFromMySql: getAllFromMySql
+	getAllFromMySql: getAllFromMySql,
+	SQLifIDexists: SQLifIDexists
 }
 
 function getFichadasFromSQL(fecha, cb){
@@ -29,7 +30,7 @@ function getLastFicIdMySql(cb){
 }
 
 function getLatestFicSQL(lastficid, cb){
-	SQLconn("select * from fichada where fic_id > "+lastficid, cb);
+	SQLconn("select fichada.*, convert(varchar, fichada.fic_fecha, 111) as fic_fechafmysql from fichada where fic_reloj in (33, 34, 35, 36) and leg_legajo > 0 and fic_id > "+lastficid+" and fic_fecha >= '2015-07-01'", cb);
 }
 
 function SQLinsert(latestfic, cb){
@@ -37,7 +38,9 @@ function SQLinsert(latestfic, cb){
 }
 
 function MySqlInsert(latestfic, cb){
-	conn("INSERT INTO `fichada`(`fic_id`, `leg_legajo`, `fic_tarjeta`, `fic_fecha`, `fic_hora`, `fic_entsal`, `fic_reloj`, `fic_origen`, `fic_novedad`, `fic_equipo`, `fic_notas`) VALUES ("+latestfic[0].fic_id+", "+latestfic[0].leg_legajo+", "+latestfic[0].fic_tarjeta+", '"+latestfic[0].fic_fecha+"', '"+latestfic[0].fic_hora+"', '"+latestfic[0].fic_entsal+"', "+latestfic[0].fic_reloj+", '"+latestfic[0].fic_origen+"', "+latestfic[0].fic_novedad+", '"+latestfic[0].fic_equipo+"', '"+latestfic[0].fic_notas+"')", cb)
+	console.log("- - Asi recibo el obj para insertar a mysql:");
+	console.log(latestfic)
+	conn("INSERT INTO `fichadas`(`fic_id`, `leg_legajo`, `fic_tarjeta`, `fic_fecha`, `fic_hora`, `fic_entsal`, `fic_reloj`, `fic_origen`, `fic_novedad`, `fic_equipo`, `fic_notas`) VALUES ("+latestfic.FIC_ID+", "+latestfic.LEG_LEGAJO+", "+latestfic.FIC_TARJETA+", '"+latestfic.fic_fechafmysql+"', '"+latestfic.FIC_HORA+"', '"+latestfic.FIC_ENTSAL+"', "+latestfic.FIC_RELOJ+", '"+latestfic.FIC_ORIGEN+"', "+latestfic.FIC_NOVEDAD+", '"+latestfic.FIC_EQUIPO+"', '"+latestfic.FIC_NOTAS+"')", cb)
 }
 
 function SQLifIDexists(newerficid, cb){
@@ -45,12 +48,10 @@ function SQLifIDexists(newerficid, cb){
 }
 
 function getAllFromMySql(cb){
-	conn("select * from fichadas", cb);
+	conn("select fichadas.*, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, relojes.descripcion as relojtxt, sectores.nombre as sectortxt, emple.nombre as empletxt from fichadas left join relojes on relojes.numero = fichadas.fic_reloj	left join sectores on sectores.id = relojes.id_sector_fk left join emple on emple.legajo = fichadas.leg_legajo order by fic_fecha desc", cb);
 }
 // select MAX(convert(varchar, fic_fecha, 103)) as fecha, fic_reloj as reloj,
 // COUNT(DISTINCT FIC_TARJETA) as cant,
 // (select COUNT(DISTINCT FIC_TARJETA) from FICHADA where FIC_FECHA='2015-06-03' AND FIC_ENTSAL='E' ) as entraron ,
 // (select COUNT(DISTINCT FIC_TARJETA) from FICHADA where FIC_FECHA='2015-06-03' AND FIC_ENTSAL='S' ) as salieron
 // from fichada where fic_fecha='2015-06-03' group by fic_reloj
-
-getAllFromMySql

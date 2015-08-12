@@ -47,13 +47,15 @@
 			<table id="tabla" class="table table-striped">
 		  		<thead>
 		  			<tr> 
-		  				<th>Opciones</th>
+		  				<!-- <th>Opciones</th> -->
+		  				<th>Fecha:Hora</th>
+		  				<th>E/S</th>
 		  				<th>Reloj</th>
-		  				<th>Nombre Reloj</th>
 		  				<th>Sector</th>
-		  				<th>Cant. Total</th>
-		  				<th>Entraron</th>
-		  				<th>Salieron</th>
+		  				<th>Tarjeta</th>
+		  				<th>Legajo</th>
+		  				<th>Nombre</th>
+		  				
 					</tr>
 		  		</thead>
 		  		<tbody id="tbodylisto">
@@ -63,25 +65,25 @@
 	  				[[#.]]
 	  				<tr>
 	  					<td>
-	  						<button id="ver" name="ver" onclick="run()" class="btn btn-default">Ver</button>
+	  						[[fic_fechaf]] [[fic_hora]]
 	  					</td>
 	  					<td>
-	  						<input hidden id="relojid" name="relojid" value="[[reloj]]">[[reloj]]
+	  						[[fic_entsal]]
 	  					</td>
 	  					<td>
-	  						[[relojtxt]]
+	  						([[fic_reloj]]) [[relojtxt]]
 	  					</td>
 	  					<td>
 	  						[[sectortxt]]
 	  					</td>
 	  					<td>
-	  						[[cant]]
+	  						[[fic_tarjeta]]
 	  					</td>
 	  					<td>
-	  						[[entraron]]
+	  						[[leg_legajo]]
 	  					</td>
 	  					<td>
-	  						[[salieron]]
+	  						[[empletxt]]
 	  					</td>
 	  				</tr>	
 	  				[[/.]]						
