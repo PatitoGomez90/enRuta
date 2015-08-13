@@ -293,6 +293,9 @@ module.exports = function(app) {
 	app.get('/buscarfichadas/:fecha', auth, cFichadas.getFichadas);
 	app.get('/fichadasver/:reloj/:fecha', auth, cFichadas.getVer);
 	app.get('/getallfichadas', auth, cFichadas.getAll);
+	app.get('/getallfichadasbydesde/:desde', auth, cFichadas.getFichadasByDesde);
+	app.get('/getallfichadasbyhasta/:hasta', auth, cFichadas.getFichadasByHasta);
+	app.get('/getallfichadasbyfecha/:desde/:hasta', auth, cFichadas.getFichadasByFecha);
 
 	//contratos
 	app.get('/contratoslista', auth, cContratos.getLista);
