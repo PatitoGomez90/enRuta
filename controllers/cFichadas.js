@@ -27,8 +27,11 @@ function getLista(req, res) {
 	//req.session.nromenu = 11;
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 	updateFichadas(function () {
-		res.render('fichadaslista', {
-			pagename: 'Lista de Fichadas'
+		mSectores.getAll(function (sectores){
+			res.render('fichadaslista', {
+				pagename: 'Lista de Fichadas',
+				sectores: sectores
+			});
 		});
 	});
 }
