@@ -10,10 +10,11 @@ module.exports = {
 	getFichadas: getFichadas,
 	getVer: getVer,
 	updateFichadas: updateFichadas,
-	getAll: getAll,	
-	getFichadasByDesde: getFichadasByDesde,
-	getFichadasByHasta: getFichadasByHasta,
-	getFichadasByFecha: getFichadasByFecha
+	getFichadasByQuery: getFichadasByQuery
+	// getAll: getAll,	
+	// getFichadasByDesde: getFichadasByDesde,
+	// getFichadasByHasta: getFichadasByHasta,
+	// getFichadasByFecha: getFichadasByFecha
 }
 
 function changeDate(date){
@@ -21,6 +22,13 @@ function changeDate(date){
 	fechaus = date.substring(6,10) + "/" + date.substring(3,5) + "/" + date.substring(0,2);
 	return fechaus;
 	// output: yyyy/mm/dd
+}
+
+function changeDate2(date){
+	// input: yyyy/mm/dd
+	fechaus = date.substring(8,10) + "/" + date.substring(5,7) + "/" + date.substring(0,4);
+	return fechaus;
+	// output: dd/mm/yyyy
 }
 
 function getLista(req, res) {
@@ -147,42 +155,27 @@ function updateFichadas(cb){
 
 }
 
-//estas 4 funcioens son para el ajax de fichadaslista
-function getAll(req, res){
-	mFichadas.getAllFromMySql(function (fichadas){
+//estas 5 funcioens son para el ajax de fichadaslista
+function getFichadasByQuery(req, res){
+	params = req.params;
+	id_sector = params.sector;
+	fecha_desde = params.desde;
+	fecha_hasta = params.hasta;
+
+	fecha_desde = decodeURIComponent(fecha_desde);
+	fecha_hasta = decodeURIComponent(fecha_hasta);
+	fecha_desde = changeDate(fecha_desde);
+	fecha_hasta = changeDate(fecha_hasta);
+
+	query = "select fichadas.*, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, relojes.descripcion as relojtxt, sectores.nombre as sectortxt, ifnull(emple.nombre, 'No existe legajo') as empletxt from fichadas left join relojes on relojes.numero = fichadas.fic_reloj left join sectores on sectores.id = relojes.id_sector_fk left join emple on emple.legajo = fichadas.leg_legajo where fic_fecha >= '"+fecha_desde+"' and fic_fecha <= '"+fecha_hasta+"'";
+
+	if (id_sector != 0)
+		query = query + " and relojes.id_sector_fk = "+id_sector;
+
+	//hacer tambien que filtre ENTRADA Y SALIDA (si selecciona ambos es TODO)
+	query = query + " order by fic_fecha desc, fic_hora desc"
+
+	mFichadas.getByQueryFromMySql(query, function (fichadas){
 		res.send(fichadas);
-	});
-}
-
-function getFichadasByDesde(req, res){
-	params = req.params;
-	desde = params.desde;
-
-	desde = changeDate(desde);
-	mFichadas.getAllByDesdeFromMySql(desde, function (fichadasdesde){
-		res.send(fichadasdesde);
-	});
-}
-
-function getFichadasByHasta(req, res){
-	params = req.params;
-	hasta = params.hasta;
-
-	hasta = changeDate(hasta);
-	mFichadas.getAllByHastaFromMySql(hasta, function (fichadashasta){
-		res.send(fichadashasta);
-	});
-}
-
-function getFichadasByFecha(req, res){
-	params = req.params;
-	desde = params.desde;
-	hasta = params.hasta;
-
-	desde = changeDate(desde);
-	hasta = changeDate(hasta);
-
-	mFichadas.getAllByFechaFromMySql(desde, hasta, function (fichadasbyfecha){
-		res.send(fichadasbyfecha);
 	});
 }

@@ -10,10 +10,11 @@ module.exports = {
 	getAllFromFichadaSQL: getAllFromFichadaSQL,
 	MySqlInsert: MySqlInsert,
 	SQLifIDexists: SQLifIDexists,
-	getAllFromMySql: getAllFromMySql,
-	getAllByDesdeFromMySql: getAllByDesdeFromMySql,
-	getAllByHastaFromMySql: getAllByHastaFromMySql,
-	getAllByFechaFromMySql: getAllByFechaFromMySql
+	getByQueryFromMySql: getByQueryFromMySql
+	// getAllFromMySql: getAllFromMySql,
+	// getAllByDesdeFromMySql: getAllByDesdeFromMySql,
+	// getAllByHastaFromMySql: getAllByHastaFromMySql,
+	// getAllByFechaFromMySql: getAllByFechaFromMySql
 }
 
 function getFichadasFromSQL(fecha, cb){
@@ -50,23 +51,7 @@ function SQLifIDexists(newerficid, cb){
 	SQLconn("select fic_id from fichada where fic_id = "+newerficid, cb);
 }
 
-function getAllFromMySql(cb){
-	conn("select fichadas.*, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, relojes.descripcion as relojtxt, sectores.nombre as sectortxt, ifnull(emple.nombre, 'No existe legajo') as empletxt from fichadas left join relojes on relojes.numero = fichadas.fic_reloj	left join sectores on sectores.id = relojes.id_sector_fk left join emple on emple.legajo = fichadas.leg_legajo order by fic_fecha desc, fic_hora desc", cb);
+//estas son para el filtro ajax de fichadaslista
+function getByQueryFromMySql(query, cb){
+	conn(query, cb);
 }
-
-function getAllByDesdeFromMySql(desde, cb){
-	conn("select fichadas.*, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, relojes.descripcion as relojtxt, sectores.nombre as sectortxt, ifnull(emple.nombre, 'No existe legajo') as empletxt from fichadas left join relojes on relojes.numero = fichadas.fic_reloj	left join sectores on sectores.id = relojes.id_sector_fk left join emple on emple.legajo = fichadas.leg_legajo where fic_fecha >= '"+desde+"' order by fic_fecha desc, fic_hora desc ", cb);
-}
-
-function getAllByHastaFromMySql(hasta, cb){
-	conn("select fichadas.*, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, relojes.descripcion as relojtxt, sectores.nombre as sectortxt, ifnull(emple.nombre, 'No existe legajo') as empletxt from fichadas left join relojes on relojes.numero = fichadas.fic_reloj	left join sectores on sectores.id = relojes.id_sector_fk left join emple on emple.legajo = fichadas.leg_legajo where fic_fecha <= '"+hasta+"' order by fic_fecha desc, fic_hora desc ", cb);
-}
-
-function getAllByFechaFromMySql(desde, hasta, cb){
-	conn("select fichadas.*, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, relojes.descripcion as relojtxt, sectores.nombre as sectortxt, ifnull(emple.nombre, 'No existe legajo') as empletxt from fichadas left join relojes on relojes.numero = fichadas.fic_reloj	left join sectores on sectores.id = relojes.id_sector_fk left join emple on emple.legajo = fichadas.leg_legajo where fic_fecha >= '"+desde+"' and fic_fecha <= '"+hasta+"' order by fic_fecha desc, fic_hora desc ", cb);
-}
-// select MAX(convert(varchar, fic_fecha, 103)) as fecha, fic_reloj as reloj,
-// COUNT(DISTINCT FIC_TARJETA) as cant,
-// (select COUNT(DISTINCT FIC_TARJETA) from FICHADA where FIC_FECHA='2015-06-03' AND FIC_ENTSAL='E' ) as entraron ,
-// (select COUNT(DISTINCT FIC_TARJETA) from FICHADA where FIC_FECHA='2015-06-03' AND FIC_ENTSAL='S' ) as salieron
-// from fichada where fic_fecha='2015-06-03' group by fic_reloj

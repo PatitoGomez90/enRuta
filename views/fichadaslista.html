@@ -11,7 +11,7 @@
   <!-- Default panel contents -->
   	<div class="panel-heading">
   	<!-- Table -->
-  		 <table>
+  		<table>
             <tr>
                 <td>
                     <div class="btn-group" role="group" aria-label="...">
@@ -20,13 +20,14 @@
                         	<span class="input-group-btn"><button type="button" id="btnSave" class="btn btn-default"><span class="glyphicon glyphicon-save"></span></button></span>
 					      	<span class="input-group-btn"><button type="button" id="btnAyuda" name="btnAyuda" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></span>
 					      	<span class="input-group-addon" id="basic-addon2">Filtrar por Sector:</span>
-					      	<span class="input-group-btn">
+					      	<!-- <span class="input-group-btn"> -->
 						  		<select class="form-control" id="cmbSector" name="cmbSector">
+						  			<option selected value="0">Todos los Sectores</option>
 						  			{% for s in sectores %}
 						  				<option value="{{ s.id }}">{{ s.nombre }}</option>
 						  			{% endfor %}
 						  		</select> 
-						  	</span>
+						  	<!-- </span> -->
 						  	<span class="input-group-addon" id="basic-addon1">Por fecha desde:</span>
 						  	<input type="text" id="fecha_desde" name="fecha_desde" class="datepicker form-control" placeholder="" aria-describedby="basic-addon1">
 						  	<span class="input-group-addon" id="basic-addon2">hasta:</span>
@@ -40,20 +41,20 @@
         </table>
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		        <h4 class="modal-title" id="myModalLabel">{{ ayuda.titulo }}</h4>
-		      </div>
-		      <div class="modal-body">
-		        {{ ayuda.texto }}
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-		      </div>
-		    </div>
-		  </div>
+		  	<div class="modal-dialog">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+		        		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        		<h4 class="modal-title" id="myModalLabel">{{ ayuda.titulo }}</h4>
+		      		</div>
+		      		<div class="modal-body">
+		        		{{ ayuda.texto }}
+		      		</div>
+		      		<div class="modal-footer">
+		        		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		      		</div>
+		    	</div>
+		  	</div>
 		</div>
 	</div>
 
@@ -118,18 +119,7 @@
     });
 
 	$(function(){
-		// var date = new Date();
-		// day = date.getDate();
-		// if (day<10)
-		// 	day = "0" + day;
-		// month = date.getMonth() +1;
-		// if (month<10)
-		// 	month = "0" + month;
-		// fechar =  day+ '/' + month + '/' +  date.getFullYear();
-
-		// $('#fecha').val(fechar);
-
-		getAllFichadasFromMySql();
+		//getAllFichadasFromMySql();
 	});
 
 	$(".datepicker").datepicker({
@@ -139,88 +129,39 @@
 	});
 
 	$("#btnBuscar").on("click", function() {
-		var fecha_desde  = encodeURIComponent(document.getElementById('fecha_desde').value);
-		var fecha_hasta = encodeURIComponent(document.getElementById('fecha_hasta').value);
+		var date = new Date();
+		day = date.getDate();
+		if (day<10)
+			day = "0" + day;
+		month = date.getMonth() +1;
+		if (month<10)
+			month = "0" + month;
+		hoy =  day+ '/' + month + '/' + date.getFullYear() ;
 
-		if (fecha_desde == "" && fecha_hasta == ""){
-			getAllFichadasFromMySql();
-		}else{
-			if (fecha_desde == "" && fecha_hasta != ""){
-				//buscar desde el principio hasta el fechahasta
-				getAllFichadasByHastaFromMySql(fecha_hasta);
-			}else{
-				if (fecha_hasta == "" && fecha_desde != ""){
-					//buscar desde fechadesde hasta el ultimo
-					getAllFichadasByDesdeFromMySql(fecha_desde);
-				}else{
-					if (fecha_desde != "" && fecha_hasta != ""){
-						getAllFichadasByDesdeHastaFromMySql(fecha_desde, fecha_hasta);
-					}else{
-						console.log("wtf");
-					}
-				}
-			}
-		}
+		var fecha_desde = $("#fecha_desde").val();
+		var fecha_hasta = $("#fecha_hasta").val();
+		var id_sector = $("#cmbSector").val();
+
+		if (fecha_hasta == "")
+			fecha_hasta = hoy;
+			
+		if (fecha_desde == "")
+			fecha_desde = "01/07/2015";
+
+		fecha_desde  = encodeURIComponent(fecha_desde);
+		fecha_hasta = encodeURIComponent(fecha_hasta);
+		
+
+		$.getJSON('/getfichadasbyquery/'+id_sector+'/'+fecha_desde+'/'+fecha_hasta, function (fichadas){
+			console.log(fichadas.length)
+			$('#tbodylisto > tr').remove();
+			var template= $('#tablafichadas').html();
+			Mustache.tags=['[[',']]'];
+			var html = Mustache.to_html(template, fichadas);
+			//console.log(html);
+			$('#tbodylisto').html(html);
+		});
 	});
 
-	function getAllFichadasFromMySql(){
-		$.getJSON('/getallfichadas', function (fichadas){
-			console.log(fichadas)
-			$('#tbodylisto > tr').remove();
-			var template= $('#tablafichadas').html();
-			Mustache.tags=['[[',']]'];
-			var html = Mustache.to_html(template, fichadas);
-			//console.log(html);
-			$('#tbodylisto').html(html);
-		});
-	}
-
-	function getAllFichadasByDesdeFromMySql(desde){
-		$.getJSON('/getallfichadasbydesde/'+desde, function (fichadas){
-			console.log(fichadas.length)
-			$('#tbodylisto > tr').remove();
-			var template= $('#tablafichadas').html();
-			Mustache.tags=['[[',']]'];
-			var html = Mustache.to_html(template, fichadas);
-			//console.log(html);
-			$('#tbodylisto').html(html);
-		});
-	}
-
-	function getAllFichadasByHastaFromMySql(hasta){
-		$.getJSON('/getallfichadasbyhasta/'+hasta, function (fichadas){
-			console.log(fichadas.length)
-			$('#tbodylisto > tr').remove();
-			var template= $('#tablafichadas').html();
-			Mustache.tags=['[[',']]'];
-			var html = Mustache.to_html(template, fichadas);
-			//console.log(html);
-			$('#tbodylisto').html(html);
-		});
-	}
-
-	function getAllFichadasByDesdeHastaFromMySql(desde, hasta){
-		$.getJSON('/getallfichadasbyfecha/'+desde+'/'+hasta, function (fichadas){
-			console.log(fichadas.length)
-			$('#tbodylisto > tr').remove();
-			var template= $('#tablafichadas').html();
-			Mustache.tags=['[[',']]'];
-			var html = Mustache.to_html(template, fichadas);
-			//console.log(html);
-			$('#tbodylisto').html(html);
-		});
-	}
-
-	// function run(){
-	// 	console.log("dfg")
-	// 	var fecha  = encodeURIComponent(document.getElementById('fecha').value);
-	// 	var relojid = $('#relojid').val();
-	// 	console.log('/fichadasver/'+relojid+"/"+fecha)
-		
-	// 	$.getJSON('/fichadasver/'+relojid+"/"+fecha, function(){
-	// 		console.log("jsoneado "+relojid+" "+fecha)
-	// 	});
-	// 	//href="fichadasver/[[reloj]]/[[fecha]]"
-	// }
 </script>
 {% endblock %}

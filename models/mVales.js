@@ -8,7 +8,7 @@ module.exports = {
 	getVale: getVale,
 	del: del,
 	getLastNroVale: getLastNroVale
-	}
+}
 
 function getAll(cb){
 	conn('select * from vales order by id', cb);

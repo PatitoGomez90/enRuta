@@ -66,15 +66,15 @@ function postAlta(req, res){
 	fecha = params.fecha;
 	fecha = changeDate(fecha);
 	articulo = params.articulo;
-	console.log("articulo")
-	console.log(articulo)
-	console.log("articulo 0")
-	console.log(articulo[0])
-	//artid = params.artid;
+	// console.log("articulo")
+	// console.log(articulo)
+	// console.log("articulo 0")
+	// console.log(articulo[0])
+	artid = params.artid;
 	//console.log(artid)
 	cantidad = params.cantidad;
-	console.log("cantidad")
-	console.log(cantidad)
+	// console.log("cantidad")
+	// console.log(cantidad)
 	depor = 1;
 	depdes = 0; //nada
 	secor = 6; //pañol
@@ -83,7 +83,7 @@ function postAlta(req, res){
 	costot = params.costot;
 	emple = params.emple;
 
-	console.log("a.length "+ articulo.length)
+	//console.log("a.length "+ articulo.length)
 	//console.log(articulo[i])
 	//console.log(cantidad[i])
 
