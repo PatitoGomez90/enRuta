@@ -10,6 +10,8 @@ var mUmed = require('../models/mUmed');
 var mysql = require('mysql');
 var sql = require('mssql');
 
+var async = require('async');
+
 module.exports = {
 	getAsd: getAsd,
 	postAsd: postAsd,
@@ -18,7 +20,11 @@ module.exports = {
 	getRandom3: getRandom3,
 	postRandom3: postRandom3,
 	getRandom4: getRandom4,
-	postRandom4: postRandom4
+	postRandom4: postRandom4,
+	getRandom5: getRandom5,
+	postRandom5: postRandom5,
+	getRandom6: getRandom6,
+	postRandom6: postRandom6
 }
 
 function changeDate(date){
@@ -341,7 +347,7 @@ function postRandom3(req, res){
 									//si empleadoscsv es igual q legajos, agarrar info
 									if ( legajofinal == legajos[i3].LEG_LEGAJO ){
 										//agarrar info
-										tarjetafinal = legajos[i3].LEG_LEGAJO;
+										tarjetafinal = legajos[i3].LEG_TARJETA;
 										sexofinal = legajos[i3].LEG_SEXO;
 										if (sexofinal == "M")
 											sexofinal = 0;
@@ -532,5 +538,85 @@ function postRandom4(req, res){
 				});
 			});
 		});
+	});
+}
+
+function getRandom5(req, res){
+	res.render("random5", {
+		pagename: "Traer tarjetas de tabla legajo del sql"
+	});
+}
+
+function postRandom5(req, res){
+	var connection = mysql.createConnection({
+	    user: 'root',
+	    password: '',
+	    host: '127.0.0.1',
+	    port: '3306',
+	    database: 'Maresa',
+	    dateStrings : true
+	 });
+
+	connection.connect();
+
+	mRandom.getLegajosFromSQL(function (legajos){
+		console.log(legajos.length)
+		//for (var i = 0 ; legajos.length < i ; i++){
+		async.each(legajos, function (legajo, callback) {
+			query = "INSERT INTO `templegajosytarjetas`(`legajo`, `tarjeta`) VALUES ("+legajo.LEG_LEGAJO+", "+legajo.LEG_TARJETA+");"
+
+			connection.query(query, function(err, rows, fields) {
+				if (err) {
+					throw err;
+					console.log(err);
+				}else{
+					//console.log("insert ok ");
+					callback();
+				}
+			});
+		}, function (){
+			console.log("Insert OK")
+			res.redirect('random');
+		});
+	});
+	//connection.end();
+}
+
+function getRandom6(req, res){
+	res.render('random6', {
+		pagename: "Actualizar Emple con Tarjetas de SQL"
+	})
+}
+
+function postRandom6(req, res){
+	var connection = mysql.createConnection({
+	    user: 'root',
+	    password: '',
+	    host: '127.0.0.1',
+	    port: '3306',
+	    database: 'Maresa',
+	    dateStrings : true
+	});
+
+	connection.connect();
+
+	mRandom.getLegajosTempsOfMySql(function (temp){
+		console.log(temp.length)
+
+      	async.each(temp, function (leg, callback){
+      		query = "UPDATE `emple` SET `tarjeta`= "+leg.tarjeta+" WHERE legajo = "+leg.legajo;
+			connection.query(query, function(err, rows, fields) {
+				if (err) {
+					throw err;
+					console.log(err);
+				}else{
+					//console.log("insert ok ");
+					callback();
+				}
+			});
+	    }, function (){
+			console.log("update OK")
+			res.redirect('random');
+		});    
 	});
 }

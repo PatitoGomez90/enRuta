@@ -8,7 +8,8 @@ module.exports = {
 	getAllFromEmpleadosCSV: getAllFromEmpleadosCSV,
 	getAllFromEmple: getAllFromEmple,
 	getAllFromLegajoSQLenServer: getAllFromLegajoSQLenServer,
-	getAllFromItemsCSV: getAllFromItemsCSV
+	getAllFromItemsCSV: getAllFromItemsCSV,
+	getLegajosTempsOfMySql: getLegajosTempsOfMySql
 }
 
 function getAll(cb){
@@ -40,3 +41,8 @@ function getAllFromLegajoSQLenServer(cb){
 function getAllFromItemsCSV(cb){
 	conn("select * from itemscsv", cb);
 }
+
+//random6
+	function getLegajosTempsOfMySql(cb){
+		conn("select * from templegajosytarjetas", cb);
+	}

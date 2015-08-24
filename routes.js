@@ -36,7 +36,7 @@ var cTurnos = require('./controllers/cTurnos');
 var cCategorias = require('./controllers/cCategorias');
 
 var pruebasqlController = require('./controllers/cPruebaSQL');
-var randomController = require('./controllers/cRandom');
+var cRandom = require('./controllers/cRandom');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -320,12 +320,16 @@ module.exports = function(app) {
 	//pruebasql
 	app.get('/pruebasql', auth, pruebasqlController.getPrueba);
 	//random
-	app.get('/random', auth, randomController.getAsd);
-	app.post('/random', auth, randomController.postAsd);
-	app.get('/random2', auth, randomController.getr2);
-	app.post('/random2', auth, randomController.postr2);
-	app.get('/random3', auth, randomController.getRandom3);
-	app.post('/random3', auth, randomController.postRandom3);
-	app.get('/random4', auth, randomController.getRandom4);
-	app.post('/random4', auth, randomController.postRandom4);
+	app.get('/random', auth, cRandom.getAsd);
+	app.post('/random', auth, cRandom.postAsd);
+	app.get('/random2', auth, cRandom.getr2);
+	app.post('/random2', auth, cRandom.postr2);
+	app.get('/random3', auth, cRandom.getRandom3);
+	app.post('/random3', auth, cRandom.postRandom3);
+	app.get('/random4', auth, cRandom.getRandom4);
+	app.post('/random4', auth, cRandom.postRandom4);
+	app.get('/random5', auth, cRandom.getRandom5);
+	app.post('/random5', auth, cRandom.postRandom5);
+	app.get('/random6', auth, cRandom.getRandom6);
+	app.post('/random6', auth, cRandom.postRandom6);
 }; 
