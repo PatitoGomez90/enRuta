@@ -25,7 +25,15 @@ function getAllByPartediario1Id(id, cb){
 }
 
 function getById(id, cb){
-	conn("select partediario2.*, emple.legajo as legajo, emple.nombre as nombre, codigohora.nombre as codigohoratxt from partediario2 left join emple on emple.codigo = partediario2.id_emple_fk left join codigohora on codigohora.id = partediario2.id_codigohora_fk where partediario2.id="+id, cb);
+	conn("select partediario2.*, "+
+		"emple.legajo as legajo, "+
+		"emple.nombre as nombre, "+
+		"emple.tarjeta as tarjeta, "+
+		"codigohora.nombre as codigohoratxt "+
+		"from partediario2 "+
+		"left join emple on emple.codigo = partediario2.id_emple_fk "+
+		"left join codigohora on codigohora.id = partediario2.id_codigohora_fk "+
+		"where partediario2.id="+id, cb);
 }
 
 function insertNewEmpleado(idpartediario1, idempleado, cb){

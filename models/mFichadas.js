@@ -10,7 +10,8 @@ module.exports = {
 	getAllFromFichadaSQL: getAllFromFichadaSQL,
 	MySqlInsert: MySqlInsert,
 	SQLifIDexists: SQLifIDexists,
-	getByQueryFromMySql: getByQueryFromMySql
+	getByQueryFromMySql: getByQueryFromMySql,
+	getByTarjetayFechas: getByTarjetayFechas
 	// getAllFromMySql: getAllFromMySql,
 	// getAllByDesdeFromMySql: getAllByDesdeFromMySql,
 	// getAllByHastaFromMySql: getAllByHastaFromMySql,
@@ -42,9 +43,9 @@ function SQLinsert(latestfic, cb){
 }
 
 function MySqlInsert(latestfic, cb){
-	console.log("- - Asi recibo el obj para insertar a mysql:");
-	console.log(latestfic)
-	conn("INSERT INTO `fichadas`(`fic_id`, `leg_legajo`, `fic_tarjeta`, `fic_fecha`, `fic_hora`, `fic_entsal`, `fic_reloj`, `fic_origen`, `fic_novedad`, `fic_equipo`, `fic_notas`) VALUES ("+latestfic.FIC_ID+", "+latestfic.LEG_LEGAJO+", "+latestfic.FIC_TARJETA+", '"+latestfic.fic_fechafmysql+"', '"+latestfic.FIC_HORA+"', '"+latestfic.FIC_ENTSAL+"', "+latestfic.FIC_RELOJ+", '"+latestfic.FIC_ORIGEN+"', "+latestfic.FIC_NOVEDAD+", '"+latestfic.FIC_EQUIPO+"', '"+latestfic.FIC_NOTAS+"')", cb)
+	//console.log("- - Asi recibo el obj para insertar a mysql:");
+	//console.log(latestfic)
+	conn("INSERT INTO `fichadas`(`fic_id`, `leg_legajo`, `fic_tarjeta`, `fic_fecha`, `fic_hora`, `fic_entsal`, `fic_reloj`, `fic_origen`, `fic_novedad`, `fic_equipo`, `fic_notas`) VALUES ("+latestfic.FIC_ID+", 0, "+latestfic.FIC_TARJETA+", '"+latestfic.fic_fechafmysql+"', '"+latestfic.FIC_HORA+"', '"+latestfic.FIC_ENTSAL+"', "+latestfic.FIC_RELOJ+", '"+latestfic.FIC_ORIGEN+"', "+latestfic.FIC_NOVEDAD+", '"+latestfic.FIC_EQUIPO+"', '"+latestfic.FIC_NOTAS+"')", cb)
 }
 
 function SQLifIDexists(newerficid, cb){
@@ -52,6 +53,12 @@ function SQLifIDexists(newerficid, cb){
 }
 
 //estas son para el filtro ajax de fichadaslista
-function getByQueryFromMySql(query, cb){
-	conn(query, cb);
-}
+	function getByQueryFromMySql(query, cb){
+		conn(query, cb);
+	}
+
+//para partediario2modificar
+	function getByTarjetayFechas(tarjeta, hoy, maniana, cb){
+		////
+		conn("SELECT fic_id, fic_reloj, fic_entsal, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, fic_hora FROM fichadas where fic_tarjeta = "+tarjeta+" and fic_fecha in ('2015-08-23', '2015-08-24') order by fic_id ", cb);
+	}

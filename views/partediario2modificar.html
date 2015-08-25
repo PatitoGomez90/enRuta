@@ -14,6 +14,7 @@
 		</div>
 		<table align="center" class="table table-striped">	
 			<input hidden name="idpartediario1" id="idpartediario1" value="{{ partediario2.id_partediario1_fk }}">
+			<input hidden name="fechapartediario1" id="fechapartediario1" value="{{ partediario1.fechaf }}">
 			<tr>
 				<td>ID:</td>
 				<td><input type="text" id="id" name="id" value="{{ partediario2.id }}" readonly="readonly" class="form-control"></td>
@@ -25,6 +26,10 @@
 			<tr>
 				<td>Legajo:</td>
 				<td><input type="text" id="legajo" name="legajo" value="{{ partediario2.legajo }}" readonly class="form-control"></td>
+			</tr>
+			<tr>
+				<td>Nro. de Tarjeta:</td>
+				<td><input type="text" id="tarjeta" name="tarjeta" value="{{ partediario2.tarjeta }}" readonly class="form-control"></td>
 			</tr>
 			<tr>
 				<td>Nombre:</td>
@@ -48,20 +53,44 @@
 	</div>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h4><b>Tiempos de Fichada</b></h4>
+			<h4><button type="button" onclick="refresh(); return false;" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button> <b>Horarios de Fichada</b></h4>
 		</div>
 		<table class="table table-striped">
 			<tr>
+				<td>Fichadas:</td>
+				<td>
+					<select id="cmbFichadas" name="cmbFichadas" class="form-control">
+						<option value="0">Refresque las Fichadas</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td>Entrada:</td>
-				<td><input type="time" id="entrada" name="entrada" value="{{ partediario2.hr_entrada }}" required class="form-control" onkeypress='validate(event)'></td>
+				<td>
+					<table>
+						<tr>
+							<td><input type="time" id="entrada" name="entrada" value="{{ partediario2.hr_entrada }}" class="form-control" onkeypress='validate(event)'></td>
+							<td>&nbsp;&nbsp;</td>
+							<td><label id="lblEntrada"></label></td>
+						</tr>
+					</table>
+				</td>
 			</tr>
 			<tr>
 				<td>Salida:</td>
-				<td><input type="time" id="salida" name="salida" value="{{ partediario2.hr_salida }}" required class="form-control" onkeypress='validate(event)'></td>
+				<td>
+					<table>
+						<tr>
+							<td><input type="time" id="salida" name="salida" value="{{ partediario2.hr_salida }}" class="form-control" onkeypress='validate(event)'></td>
+							<td>&nbsp;&nbsp;</td>
+							<td><label id="lblSalida"></label></td>
+						</tr>
+					</table>
+				</td>
 			</tr>
 			<tr>
 				<td>Total:</td>
-				<td><input type="text" id="total" name="total" value="{{ partediario2.hr_total }}" required class="form-control" onkeypress='validate(event)'></td>
+				<td><input type="text" id="total" name="total" value="{{ partediario2.hr_total }}" class="form-control" onkeypress='validate(event)'></td>
 			</tr>
 		</table>
 	</div>
@@ -175,6 +204,7 @@
 			<tr>
 				<td><input class="btn btn-default" type="button" value="Atras" onclick="history.back()"></td>
 				<td><input class="btn btn-default" type="submit" value="Guardar"></td>
+				<td><input class="btn btn-default" type="button" value="Guardar y Siguiente." id="SaveAndNext"></td>
 			</tr>
 		</table>
 	</div>
@@ -192,6 +222,13 @@
 	  }
 	}
 
+	function changeDate(date){
+		// input: dd/mm/yyyy
+		fechaus = date.substring(6,10) + "/" + date.substring(3,5) + "/" + date.substring(0,2);
+		return fechaus;
+		// output: yyyy/mm/dd
+	}
+
 	$('#entrada').on('change', function(){
 		salida = $('#salida').val()
 		if (salida.length > 0){
@@ -202,6 +239,11 @@
 	$('#salida').on('change', function(){
 		calculo();
 	});	
+
+	$("#SaveAndNext").on("click", function(){
+		//hacer el guardar
+		//redirijir al proximo
+	});
 
 	function msToTime(duration) {
         var milliseconds = parseInt((duration%1000)/100)
@@ -234,5 +276,63 @@
 
 	    $('#total').val(diff);
 	}
+
+	function refresh(){
+		console.log(":P");
+		tarjeta = $("#tarjeta").val();
+		fecha_hoy = $("#fechapartediario1").val();
+		fecha_hoy = changeDate(fecha_hoy);
+		diahoy = fecha_hoy.substring(8,10);
+		diahoyInt = parseInt(diahoy);
+		var diamanInt = diahoyInt +1;
+		fecha_maniana = fecha_hoy.substring(0, 4) + '/' + fecha_hoy.substring(5, 7) + '/' + diamanInt ;
+		//consulta sql
+		fecha_hoy = encodeURIComponent(fecha_hoy);
+		fecha_maniana = encodeURIComponent(fecha_maniana);
+
+			$.getJSON('/getbytarjetayfechas/'+tarjeta+'/'+fecha_hoy+'/'+fecha_maniana, function (fichadas){
+				console.log(fichadas);
+				if (fichadas.length != 0){
+				//actualizar textboxes
+				//actualizar labels al lado de los txt con la hora de e o s
+					$("#cmbFichadas").empty();
+					for (var i = 0 ; i < fichadas.length ; i++){
+						var intt = parseInt(i);
+						intt = intt+1;
+						if (fichadas[i].fic_entsal == 'E')
+							$("#cmbFichadas").append("<option>"+ intt +" - Entrada - "+ fichadas[i].fic_fechaf +" "+ fichadas[i].fic_hora +"</option>");
+						else
+							$("#cmbFichadas").append("<option>"+ intt +" - Salida - "+ fichadas[i].fic_fechaf +" "+ fichadas[i].fic_hora +"</option>");
+					}
+					var bandera = false;
+					for (var i = 0 ; i < fichadas.length ; i++){
+						if (fichadas[i].fic_entsal == 'E' && bandera == false){
+							$("#entrada").val(fichadas[i].fic_hora);
+							$("#lblEntrada").text(fichadas[i].fic_fechaf);//completar
+							bandera = true;
+						}
+						if (fichadas[i].fic_entsal == 'S' && bandera == true){
+							$("#salida").val(fichadas[i].fic_hora);
+							$("#lblSalida").text(fichadas[i].fic_fechaf);//completar
+							break;
+						}
+					}
+				//actualizar la cuenta de las horas
+				entrada = $("#entrada").val();
+				salida = $("#salida").val();
+				if (entrada.length > 0 && salida.length > 0)
+					calculo();
+				}else{
+					//hacer que aca muestre error de que no se encontro nada en la busqueda
+					$("#lblEntrada").text("No se ha encontrado nada.");
+					$("#lblSalida").text("No se ha encontrado nada.");
+					console.log("No se encontró nada en la búsqueda!")
+				}
+			});
+		
+		
+		
+	}
+
 </script>
 {% endblock %}

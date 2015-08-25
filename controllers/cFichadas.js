@@ -10,7 +10,8 @@ module.exports = {
 	getFichadas: getFichadas,
 	getVer: getVer,
 	updateFichadas: updateFichadas,
-	getFichadasByQuery: getFichadasByQuery
+	getFichadasByQuery: getFichadasByQuery,
+	getByTarjetayFechas: getByTarjetayFechas
 	// getAll: getAll,	
 	// getFichadasByDesde: getFichadasByDesde,
 	// getFichadasByHasta: getFichadasByHasta,
@@ -167,7 +168,16 @@ function getFichadasByQuery(req, res){
 	fecha_desde = changeDate(fecha_desde);
 	fecha_hasta = changeDate(fecha_hasta);
 
-	query = "select fichadas.*, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, relojes.descripcion as relojtxt, sectores.nombre as sectortxt, ifnull(emple.nombre, 'No existe legajo') as empletxt from fichadas left join relojes on relojes.numero = fichadas.fic_reloj left join sectores on sectores.id = relojes.id_sector_fk left join emple on emple.legajo = fichadas.leg_legajo where fic_fecha >= '"+fecha_desde+"' and fic_fecha <= '"+fecha_hasta+"'";
+	query = "select fichadas.*, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, "+ 
+	"relojes.descripcion as relojtxt, "+
+	"sectores.nombre as sectortxt, "+
+	"ifnull(emple.nombre, 'No existe legajo') as empletxt, "+
+	"ifnull(emple.legajo, '-->') as legajotxt "+
+	"from fichadas "+
+	"left join relojes on relojes.numero = fichadas.fic_reloj "+
+	"left join sectores on sectores.id = relojes.id_sector_fk "+
+	"left join emple on emple.tarjeta = fichadas.fic_tarjeta "+
+	"where fic_fecha >= '"+fecha_desde+"' and fic_fecha <= '"+fecha_hasta+"'";
 
 	if (id_sector != 0)
 		query = query + " and relojes.id_sector_fk = "+id_sector;
@@ -179,3 +189,19 @@ function getFichadasByQuery(req, res){
 		res.send(fichadas);
 	});
 }
+
+//SQL.FICHADAS.LEG_LEGAJO NO SE USA PORQUE HACE REFERENCIA A UN ID DE UNA TABLA DE LOS RELOJES 
+//QUE NO TIENE CONCORDANCIA CON NUESTRA TABLA MYSQL.EMPLE.LEGAJO. EN CAMBIO SQL.FICHADAS.LEG_TARJETA SÍ TIENE RELACION
+//CON MYSQL.EMPLE.TARJETA
+
+//para partediario2modificar
+	function getByTarjetayFechas(req, res){
+		params = req.params;
+		tarjeta = params.tarjeta;
+		fecha_hoy = params.fecha_hoy;
+		fecha_maniana = params.fecha_maniana;
+
+		mFichadas.getByTarjetayFechas(tarjeta, fecha_hoy, fecha_maniana, function (fichadas){
+			res.send(fichadas);
+		});
+	}
