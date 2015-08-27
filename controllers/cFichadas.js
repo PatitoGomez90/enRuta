@@ -11,7 +11,9 @@ module.exports = {
 	getVer: getVer,
 	updateFichadas: updateFichadas,
 	getFichadasByQuery: getFichadasByQuery,
-	getByTarjetayFechas: getByTarjetayFechas
+	getByTarjetayFechas: getByTarjetayFechas,
+	getFichadasPorSector: getFichadasPorSector,
+	getSelectCountByFechaGroupBySector: getSelectCountByFechaGroupBySector
 	// getAll: getAll,	
 	// getFichadasByDesde: getFichadasByDesde,
 	// getFichadasByHasta: getFichadasByHasta,
@@ -203,5 +205,67 @@ function getFichadasByQuery(req, res){
 
 		mFichadas.getByTarjetayFechas(tarjeta, fecha_hoy, fecha_maniana, function (fichadas){
 			res.send(fichadas);
+		});
+	}
+
+//Para Fichadas por sector
+	function getFichadasPorSector(req, res){
+		res.render('fichadasporsector',{
+			pagename: "Fichadas por Sector"
+		});
+	}
+
+	function getSelectCountByFechaGroupBySector(req, res){
+		params = req.params;
+		fecha = params.fecha;
+
+		fecha = changeDate(fecha);
+		var fichadasf = [];
+		mFichadas.getFichadasPorSector(fecha, function (fichadas){
+			for (var i = 0 ; i<fichadas.length ; i++){
+				console.log(fichadas)
+				switch (fichadas[i].id_reloj){
+						case 33:
+							isCoq = false
+							isPa = true
+							isMant = false
+							isTa = false
+							break;
+						case 34:
+							isCoq = false
+							isPa = false
+							isMant = true
+							isTa = false
+							break;
+						case 35:
+							isCoq = false
+							isPa = false
+							isMant = false
+							isTa = true
+							break;
+						case 36:
+							isCoq = true
+							isPa = false
+							isMant = false
+							isTa = false
+							break;
+						default:
+							isCoq = false
+							isPa = false
+							isMant = false
+							isTa = false
+					}	
+				fichadaf = {
+					id_reloj: fichadas[i].id_reloj,
+					cantidad: fichadas[i].cantidad,
+					sectortxt: fichadas[i].sectortxt,
+					isCoq: isCoq,
+					isPa: isPa,
+					isMant: isMant,
+					isTa: isTa
+				}
+				fichadasf.push(fichadaf)
+			}
+			res.send(fichadasf);
 		});
 	}

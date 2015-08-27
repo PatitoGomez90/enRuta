@@ -1,0 +1,162 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/fichadasporsector.css" rel="stylesheet">
+<link href="/css/sb-admin-2.css" rel="stylesheet">
+<h2>{{ pagename }}</h2>
+<h5>Cantidad de personas que entraron en cada sector.</h5>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  	<div class="panel-heading">
+  	<!-- Table -->
+  		<table>
+            <tr>
+                <td>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <div class="input-group">
+                        	<span class="input-group-btn"><button type="button" id="btnAtras" class="btn btn-primary">Atras</button></span>
+                        	<span class="input-group-btn"><button type="button" id="btnSave" class="btn btn-default"><span class="glyphicon glyphicon-save"></span></button></span>
+					      	<span class="input-group-btn"><button type="button" id="btnAyuda" name="btnAyuda" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></span>
+						  	<span class="input-group-addon" id="basic-addon1">Seleccione una fecha:</span>
+						  	<input type="text" id="fecha" name="fecha" class="datepicker form-control" placeholder="" aria-describedby="basic-addon1">
+						  	<span class="input-group-btn"><button type="button" id="btnBuscar" name="btnBuscar" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button></span>
+						</div>
+                    </div>
+                </td>
+            </tr>   
+        </table>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  	<div class="modal-dialog">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+		        		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        		<h4 class="modal-title" id="myModalLabel">{{ ayuda.titulo }}</h4>
+		      		</div>
+		      		<div class="modal-body">
+		        		{{ ayuda.texto }}
+		      		</div>
+		      		<div class="modal-footer">
+		        		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+  		<div id="tbodylisto">
+  			
+  		</div>
+  		<script type="text/template" id="tablafichadas">
+			[[#.]]
+				<div class="col-lg-3 col-md-6">
+					[[#isCoq]]
+					    <div class="panel panel-primary">
+					[[/isCoq]]                    
+                    [[#isPa]]
+					    <div class="panel panel-yellow">
+					[[/isPa]]
+					[[#isMant]]
+					    <div class="panel panel-green">
+					[[/isMant]]
+					[[#isTa]]
+					    <div class="panel panel-red">
+					[[/isTa]]
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <h1><i class="glyphicon glyphicon-user"></i></h1>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">[[cantidad]]</div>
+                                    <div><h4>[[sectortxt]]</h4></div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+			[[/.]]					
+  		</script>		  		
+	<!--</div>div col xs12 -->
+</div><!--div row -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/js/mustache.js"></script>
+<script type="text/javascript" src="/js/mustache-wax.js"></script>
+<script type="text/javascript">
+	$("#btnAtras").click(function (){
+        var url = "/inicio";
+        window.location = url;
+    });
+
+	$(function(){
+		var date = new Date();
+		day = date.getDate();
+		if (day<10)
+			day = "0" + day;
+		month = date.getMonth() +1;
+		if (month<10)
+			month = "0" + month;
+		var hoy =  day+ '/' + month + '/' + date.getFullYear() ;
+
+		$("#fecha").val(hoy)
+		fecha = encodeURIComponent(hoy);
+
+		$.getJSON('/getselectbyfechagroupbysector/'+fecha, function (fichadas){
+			console.log(fichadas.length)
+			console.log(fichadas)
+			$('#tbodylisto > tr').remove();
+			var template= $('#tablafichadas').html();
+			Mustache.tags=['[[',']]'];
+			var html = Mustache.to_html(template, fichadas);
+			//console.log(html);
+			$('#tbodylisto').html(html);
+		});
+	});
+
+	$(".datepicker").datepicker({
+		format: 'dd/mm/yyyy',
+		language: 'es',
+		autoclose: true
+	});
+
+	$("#btnBuscar").on("click", function() {
+		var date = new Date();
+		day = date.getDate();
+		if (day<10)
+			day = "0" + day;
+		month = date.getMonth() +1;
+		if (month<10)
+			month = "0" + month;
+		var hoy =  day+ '/' + month + '/' + date.getFullYear() ;
+
+		var fecha = $("#fecha").val();
+
+		fecha = encodeURIComponent(fecha);		
+
+		$.getJSON('/getselectbyfechagroupbysector/'+fecha, function (fichadas){
+			console.log(fichadas.length)
+			console.log(fichadas)
+			$('#tbodylisto > tr').remove();
+			var template= $('#tablafichadas').html();
+			Mustache.tags=['[[',']]'];
+			var html = Mustache.to_html(template, fichadas);
+			//console.log(html);
+			$('#tbodylisto').html(html);
+		});
+	});
+
+</script>
+{% endblock %}

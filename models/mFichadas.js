@@ -11,7 +11,8 @@ module.exports = {
 	MySqlInsert: MySqlInsert,
 	SQLifIDexists: SQLifIDexists,
 	getByQueryFromMySql: getByQueryFromMySql,
-	getByTarjetayFechas: getByTarjetayFechas
+	getByTarjetayFechas: getByTarjetayFechas,
+	getFichadasPorSector: getFichadasPorSector
 	// getAllFromMySql: getAllFromMySql,
 	// getAllByDesdeFromMySql: getAllByDesdeFromMySql,
 	// getAllByHastaFromMySql: getAllByHastaFromMySql,
@@ -61,4 +62,13 @@ function SQLifIDexists(newerficid, cb){
 	function getByTarjetayFechas(tarjeta, hoy, maniana, cb){
 		////
 		conn("SELECT fic_id, fic_reloj, fic_entsal, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, fic_hora FROM fichadas where fic_tarjeta = "+tarjeta+" and fic_fecha in ('2015-08-23', '2015-08-24') order by fic_id ", cb);
+	}
+
+//para fichadas por sector
+	function getFichadasPorSector(fecha, cb){
+		conn("select fichadas.fic_reloj as id_reloj, max(sectores.nombre) as sectortxt, count(distinct fichadas.id) as cantidad "+
+			"from fichadas "+
+			"left join relojes on relojes.numero = fichadas.fic_reloj "+
+			"left join sectores on sectores.id = relojes.id_sector_fk "+
+			"where fichadas.fic_fecha='"+fecha+"' and fic_entsal = 'E' and sectores.nombre != '' group by relojes.id_sector_fk", cb)
 	}

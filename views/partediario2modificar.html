@@ -53,7 +53,7 @@
 	</div>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h4><button type="button" onclick="refresh(); return false;" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button> <b>Horarios de Fichada</b></h4>
+			<h4><button type="button" title="Refrescar Fichadas" onclick="refresh(); return false;" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button> <b>Horarios de Fichada</b></h4>
 		</div>
 		<table class="table table-striped">
 			<tr>
@@ -181,19 +181,19 @@
 			{% endif %}
 			{% if partediario1.id_imputacion4_fk != 0 %}
 				<tr>
-					<td>{{ partediario1.imputacion3txt }} - {% for i in items%}{% if partediario1.id_imputacion3_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>{{ partediario1.imputacion4txt }} - {% for i in items%}{% if partediario1.id_imputacion4_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
 					<td><input type="text" id="item4" name="item4" value="{{ partediario2.item4 }}" required class="form-control" onkeypress='validate(event)'></td>
 				</tr>
 			{% endif %}
 			{% if partediario1.id_imputacion5_fk != 0 %}
 				<tr>
-					<td>{{ partediario1.imputacion3txt }} - {% for i in items%}{% if partediario1.id_imputacion3_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>{{ partediario1.imputacion5txt }} - {% for i in items%}{% if partediario1.id_imputacion5_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
 					<td><input type="text" id="item5" name="item5" value="{{ partediario2.item5 }}" required class="form-control" onkeypress='validate(event)'></td>
 				</tr>
 			{% endif %}
 			{% if partediario1.id_imputacion6_fk != 0 %}
 				<tr>
-					<td>{{ partediario1.imputacion3txt }} - {% for i in items%}{% if partediario1.id_imputacion3_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>{{ partediario1.imputacion6txt }} - {% for i in items%}{% if partediario1.id_imputacion6_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
 					<td><input type="text" id="item6" name="item6" value="{{ partediario2.item6 }}" required class="form-control" onkeypress='validate(event)'></td>
 				</tr>
 			{% endif %}
