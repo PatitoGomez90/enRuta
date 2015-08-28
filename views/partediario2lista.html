@@ -25,201 +25,203 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-			<div style="overflow: scroll;">
-				<form method="POST" id="formlista" action="/partediario2lista">
-					<input hidden id="idpartediario1" name="idpartediario1" value="{{ partediario1.id }}">
-				  	<table class="table table-striped">
-						<tr>
-							<th colspan="2"><div style="width: 70px">Opciones</div></th>
-							<th>ID</th>
-							<th><div style="width: 30px">N°</div></th>
-							<th>Legajo</th>
-							<th><div style="width: 100px">Nombre</div></th>
-							<th>Cod.</th>
-							<th>Entrada</th>
-							<th>Salida</th>
-							<th>Total</th>
-							<th>Tipo Hora</th>
-							{% if partediario1.id_clasificacion1_fk != 0 %}
-								<th>{{ partediario1.clasificacion1txt }}</th>
-							{% endif %}
-							{% if partediario1.id_clasificacion2_fk != 0 %}
-								<th>{{ partediario1.clasificacion2txt }}</th>
-							{% endif %}
-							{% if partediario1.id_clasificacion3_fk != 0 %}
-								<th>{{ partediario1.clasificacion3txt }}</th>
-							{% endif %}
-							{% if partediario1.id_clasificacion4_fk != 0 %}
-								<th>{{ partediario1.clasificacion4txt }}</th>
-							{% endif %}
-							{% if partediario1.id_clasificacion5_fk != 0 %}
-								<th>{{ partediario1.clasificacion5txt }}</th>
-							{% endif %}
-							{% if partediario1.id_clasificacion6_fk != 0 %}
-								<th>{{ partediario1.clasificacion6txt }}</th>
-							{% endif %}
-							{% if partediario1.id_imputacion1_fk != 0 %}
-								<th>{{ partediario1.imputacion1txt }}</th>
-							{% endif %}
-							{% if partediario1.id_imputacion2_fk != 0 %}
-								<th>{{ partediario1.imputacion2txt }}</th>
-							{% endif %}
-							{% if partediario1.id_imputacion3_fk != 0 %}
-								<th>{{ partediario1.imputacion3txt }}</th>
-							{% endif %}
-							{% if partediario1.id_imputacion4_fk != 0 %}
-								<th>{{ partediario1.imputacion4txt }}</th>
-							{% endif %}
-							{% if partediario1.id_imputacion5_fk != 0 %}
-								<th>{{ partediario1.imputacion5txt }}</th>
-							{% endif %}
-							{% if partediario1.id_imputacion6_fk != 0 %}
-								<th>{{ partediario1.imputacion6txt }}</th>
-							{% endif %}
-						</tr>
-						{% for p2 in partediario2s %}
+			<div id="mainHolder" style="overflow: scroll; max-height: 400px;">
+				<div style="overflow: scroll;">
+					<form method="POST" id="formlista" action="/partediario2lista">
+						<input hidden id="idpartediario1" name="idpartediario1" value="{{ partediario1.id }}">
+					  	<table class="table table-striped">
 							<tr>
-								<td>
-									<a href="/partediario2modificar/{{ p2.id }}" ><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-edit" aria-hidden="true" title="Modificar"></span></button></a>
-								</td>
-								<td>
-									<a href='/partediario2borrar/{{ p2.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar"></span></button><a/>
-								</td>
-								<td><input hidden name="idpartediario2" id="ipartediario2" value="{{ p2.id }}">{{ p2.id }}</td>
-								<td>{{ p2.numero }}</td>
-								<td><input hidden name="idemple" id="idemple" value="{{ p2.id_emple_fk }}">{{ p2.legajo }}</td>
-								<td>{{ p2.nombre }}</td>
-								{% if p2.id_codigohora_fk != 0 %}
-									<td>{{ p2.codigohoracod }}</td>
-								{% else %}
-									<td>n/c</td>
-								{% endif %}
-								<td>{{ p2.hr_entrada }}</td>
-								<td>{{ p2.hr_salida }}</td>
-								<td>{{ p2.hr_total }}</td>
-								<td>
-									<table>
-										<tr>
-											<td>Norm.</td>
-										<tr>
-											<td>50%</td>
-										</tr>
-										<tr>
-											<td>100%</td>
-										</tr>
-									</table>
-								</td>
-						
+								<th colspan="2"><div style="width: 70px">Opciones</div></th>
+								<th>ID</th>
+								<th><div style="width: 30px">N°</div></th>
+								<th>Legajo</th>
+								<th><div style="width: 100px">Nombre</div></th>
+								<th>Cod.</th>
+								<th>Entrada</th>
+								<th>Salida</th>
+								<th>Total</th>
+								<th>Tipo Hora</th>
 								{% if partediario1.id_clasificacion1_fk != 0 %}
-									<td style="text-align: center;">
-										<table style="width: 100%;">
-											<tr>
-												<td>{{ p2.adicional1_n }}</td>
-											<tr>
-												<td>{{ p2.adicional1_50 }}</td>
-											</tr>
-											<tr>
-												<td>{{ p2.adicional1_100 }}</td>
-											</tr>
-										</table>
-									</td>
+									<th>{{ partediario1.clasificacion1txt }}</th>
 								{% endif %}
 								{% if partediario1.id_clasificacion2_fk != 0 %}
-									<td style="text-align: center;">
-										<table style="width: 100%;">
-											<tr>
-												<td>{{ p2.adicional2_n }}</td>
-											<tr>
-												<td>{{ p2.adicional2_50 }}</td>
-											</tr>
-											<tr>
-												<td>{{ p2.adicional2_100 }}</td>
-											</tr>
-										</table>
-									</td>
+									<th>{{ partediario1.clasificacion2txt }}</th>
 								{% endif %}
 								{% if partediario1.id_clasificacion3_fk != 0 %}
-									<td style="text-align: center;">
-										<table style="width: 100%;">
-											<tr>
-												<td>{{ p2.adicional3_n }}</td>
-											<tr>
-												<td>{{ p2.adicional3_50 }}</td>
-											</tr>
-											<tr>
-												<td>{{ p2.adicional3_100 }}</td>
-											</tr>
-										</table>
-									</td>
+									<th>{{ partediario1.clasificacion3txt }}</th>
 								{% endif %}
 								{% if partediario1.id_clasificacion4_fk != 0 %}
-									<td style="text-align: center;">
-										<table style="width: 100%;">
-											<tr>
-												<td>{{ p2.adicional4_n }}</td>
-											<tr>
-												<td>{{ p2.adicional4_50 }}</td>
-											</tr>
-											<tr>
-												<td>{{ p2.adicional4_100 }}</td>
-											</tr>
-										</table>
-									</td>
+									<th>{{ partediario1.clasificacion4txt }}</th>
 								{% endif %}
 								{% if partediario1.id_clasificacion5_fk != 0 %}
-									<td style="text-align: center;">
-										<table style="width: 100%;">
-											<tr>
-												<td>{{ p2.adicional5_n }}</td>
-											<tr>
-												<td>{{ p2.adicional5_50 }}</td>
-											</tr>
-											<tr>
-												<td>{{ p2.adicional5_100 }}</td>
-											</tr>
-										</table>
-									</td>
+									<th>{{ partediario1.clasificacion5txt }}</th>
 								{% endif %}
 								{% if partediario1.id_clasificacion6_fk != 0 %}
-									<td style="text-align: center;">
-										<table style="width: 100%;">
+									<th>{{ partediario1.clasificacion6txt }}</th>
+								{% endif %}
+								{% if partediario1.id_imputacion1_fk != 0 %}
+									<th>{{ partediario1.imputacion1txt }}</th>
+								{% endif %}
+								{% if partediario1.id_imputacion2_fk != 0 %}
+									<th>{{ partediario1.imputacion2txt }}</th>
+								{% endif %}
+								{% if partediario1.id_imputacion3_fk != 0 %}
+									<th>{{ partediario1.imputacion3txt }}</th>
+								{% endif %}
+								{% if partediario1.id_imputacion4_fk != 0 %}
+									<th>{{ partediario1.imputacion4txt }}</th>
+								{% endif %}
+								{% if partediario1.id_imputacion5_fk != 0 %}
+									<th>{{ partediario1.imputacion5txt }}</th>
+								{% endif %}
+								{% if partediario1.id_imputacion6_fk != 0 %}
+									<th>{{ partediario1.imputacion6txt }}</th>
+								{% endif %}
+							</tr>
+							{% for p2 in partediario2s %}
+								<tr>
+									<td>
+										<a href="/partediario2modificar/{{ p2.id }}" ><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-edit" aria-hidden="true" title="Modificar"></span></button></a>
+									</td>
+									<td>
+										<a href='/partediario2borrar/{{ p2.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar"></span></button><a/>
+									</td>
+									<td><input hidden name="idpartediario2" id="ipartediario2" value="{{ p2.id }}">{{ p2.id }}</td>
+									<td>{{ p2.numero }}</td>
+									<td><input hidden name="idemple" id="idemple" value="{{ p2.id_emple_fk }}">{{ p2.legajo }}</td>
+									<td>{{ p2.nombre }}</td>
+									{% if p2.id_codigohora_fk != 0 %}
+										<td>{{ p2.codigohoracod }}</td>
+									{% else %}
+										<td>n/c</td>
+									{% endif %}
+									<td>{{ p2.hr_entrada }}</td>
+									<td>{{ p2.hr_salida }}</td>
+									<td>{{ p2.hr_total }}</td>
+									<td>
+										<table>
 											<tr>
-												<td>{{ p2.adicional6_n }}</td>
+												<td>Norm.</td>
 											<tr>
-												<td>{{ p2.adicional6_50 }}</td>
+												<td>50%</td>
 											</tr>
 											<tr>
-												<td>{{ p2.adicional6_100 }}</td>
+												<td>100%</td>
 											</tr>
 										</table>
 									</td>
-								{% endif %}
-								{% if partediario1.id_imputacion1_fk != 0 %}
-									<td>{{ p2.item1 }}</td>
-								{% endif %}
-								{% if partediario1.id_imputacion2_fk != 0 %}
-									<td>{{ p2.item2 }}</td>
-								{% endif %}
-								{% if partediario1.id_imputacion3_fk != 0 %}
-									<td>{{ p2.item3 }}</td>
-								{% endif %}
-								{% if partediario1.id_imputacion4_fk != 0 %}
-									<td>{{ p2.item4 }}</td>
-								{% endif %}
-								{% if partediario1.id_imputacion5_fk != 0 %}
-									<td>{{ p2.item5 }}</td>
-								{% endif %}
-								{% if partediario1.id_imputacion6_fk != 0 %}
-									<td>{{ p2.item6 }}</td>
-								{% endif %}
-							</tr>
-						{% endfor %}
-						<!-- <tr>
-							<td colspan="2"><input type="submit" value="Guardar Todo y Salir"></td>
-							<td colspan="21"></td>
-						</tr> -->	 
-				  	</table>
-				</form>				
+							
+									{% if partediario1.id_clasificacion1_fk != 0 %}
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.adicional1_n }}</td>
+												<tr>
+													<td>{{ p2.adicional1_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.adicional1_100 }}</td>
+												</tr>
+											</table>
+										</td>
+									{% endif %}
+									{% if partediario1.id_clasificacion2_fk != 0 %}
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.adicional2_n }}</td>
+												<tr>
+													<td>{{ p2.adicional2_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.adicional2_100 }}</td>
+												</tr>
+											</table>
+										</td>
+									{% endif %}
+									{% if partediario1.id_clasificacion3_fk != 0 %}
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.adicional3_n }}</td>
+												<tr>
+													<td>{{ p2.adicional3_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.adicional3_100 }}</td>
+												</tr>
+											</table>
+										</td>
+									{% endif %}
+									{% if partediario1.id_clasificacion4_fk != 0 %}
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.adicional4_n }}</td>
+												<tr>
+													<td>{{ p2.adicional4_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.adicional4_100 }}</td>
+												</tr>
+											</table>
+										</td>
+									{% endif %}
+									{% if partediario1.id_clasificacion5_fk != 0 %}
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.adicional5_n }}</td>
+												<tr>
+													<td>{{ p2.adicional5_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.adicional5_100 }}</td>
+												</tr>
+											</table>
+										</td>
+									{% endif %}
+									{% if partediario1.id_clasificacion6_fk != 0 %}
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.adicional6_n }}</td>
+												<tr>
+													<td>{{ p2.adicional6_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.adicional6_100 }}</td>
+												</tr>
+											</table>
+										</td>
+									{% endif %}
+									{% if partediario1.id_imputacion1_fk != 0 %}
+										<td>{{ p2.item1 }}</td>
+									{% endif %}
+									{% if partediario1.id_imputacion2_fk != 0 %}
+										<td>{{ p2.item2 }}</td>
+									{% endif %}
+									{% if partediario1.id_imputacion3_fk != 0 %}
+										<td>{{ p2.item3 }}</td>
+									{% endif %}
+									{% if partediario1.id_imputacion4_fk != 0 %}
+										<td>{{ p2.item4 }}</td>
+									{% endif %}
+									{% if partediario1.id_imputacion5_fk != 0 %}
+										<td>{{ p2.item5 }}</td>
+									{% endif %}
+									{% if partediario1.id_imputacion6_fk != 0 %}
+										<td>{{ p2.item6 }}</td>
+									{% endif %}
+								</tr>
+							{% endfor %}
+							<!-- <tr>
+								<td colspan="2"><input type="submit" value="Guardar Todo y Salir"></td>
+								<td colspan="21"></td>
+							</tr> -->	 
+					  	</table>
+					</form>				
+				</div>
 			</div>
 		</div><!--div col xs12 -->
 	</div><!--div row -->

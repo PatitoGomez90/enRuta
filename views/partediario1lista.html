@@ -37,41 +37,43 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-			<table class="table table-striped">
-		  		<thead>
-		  			<tr>
-		  				<th colspan="4">Opciones</th>
-						<th>ID</th>
-						<th>Fecha</th>
-						<th>Sector</th>
-						<th>Lugar</th>
-						<th>Turno</th>
-						<th>Estado</th>
-					</tr>
-		  		</thead>
-		  		<tbody>
-		  			{% for p in partediario1s %}
-						<tr>
-							<td><a href=""><button type="button" class="btn btn-default" onclick="alert('Proximamente');">Abrir/Cerrar</button></a></td>
-							<td><a href="/partediario2lista/{{ p.id }}"><button type="button" class="btn btn-default">Ver</button></a></td>	
-							<td><a href="/partediario1modificar/{{ p.id }}"><button class="btn btn-warning">Modificar</button></a></td>
-							<td><a href='/partediario1borrar/{{ p.id }}' onclick="if (!confirm('¿Seguro desea eliminar? Está a punto de eliminar TODO lo relacionado a este Parte Diario')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
-							<td>{{ p.id}}</td>
-							<td>{{ p.fechaf }}</td>
-							<td>{{ p.sectortxt }}</td>
-							<td>{{ p.lugartxt }}</td>
-							<td>{{ p.turnotxt }}
-							<td>
-								{% if p.estado == 1 %}
-									Abierto
-								{% else %}
-									Cerrado
-								{% endif %}
-							</td>
+			<div id="mainHolder" style="overflow: scroll; max-height: 400px;">
+				<table class="table table-striped">
+			  		<thead>
+			  			<tr>
+			  				<th colspan="4">Opciones</th>
+							<th>ID</th>
+							<th>Fecha</th>
+							<th>Sector</th>
+							<th>Lugar</th>
+							<th>Turno</th>
+							<th>Estado</th>
 						</tr>
-					{% endfor %}
-		  		</tbody>
-			</table>
+			  		</thead>
+			  		<tbody>
+			  			{% for p in partediario1s %}
+							<tr>
+								<td><a href=""><button type="button" class="btn btn-default" onclick="alert('Proximamente');">Abrir/Cerrar</button></a></td>
+								<td><a href="/partediario2lista/{{ p.id }}"><button type="button" class="btn btn-default">Ver</button></a></td>	
+								<td><a href="/partediario1modificar/{{ p.id }}"><button class="btn btn-warning">Modificar</button></a></td>
+								<td><a href='/partediario1borrar/{{ p.id }}' onclick="if (!confirm('¿Seguro desea eliminar? Está a punto de eliminar TODO lo relacionado a este Parte Diario')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
+								<td>{{ p.id}}</td>
+								<td>{{ p.fechaf }}</td>
+								<td>{{ p.sectortxt }}</td>
+								<td>{{ p.lugartxt }}</td>
+								<td>{{ p.turnotxt }}
+								<td>
+									{% if p.estado == 1 %}
+										Abierto
+									{% else %}
+										Cerrado
+									{% endif %}
+								</td>
+							</tr>
+						{% endfor %}
+			  		</tbody>
+				</table>
+			</div>
 		</div><!--div col xs12 -->
 	</div><!--div row -->
 </div>
