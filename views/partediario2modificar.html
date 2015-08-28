@@ -7,7 +7,7 @@
 {% block content %}
 <link href="/css/partediario2modificar.css" rel="stylesheet">	
 <h2>{{ pagename }}</h2>
-<form method="POST" action="/partediario2modificar">
+<form method="POST" name="formty" action="/partediario2modificar">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h4><b>Información General</b></h4>
@@ -204,7 +204,7 @@
 			<tr>
 				<td><input class="btn btn-default" type="button" value="Atras" onclick="history.back()"></td>
 				<td><input class="btn btn-default" type="submit" value="Guardar"></td>
-				<td><input class="btn btn-default" type="button" value="Guardar y Siguiente." id="SaveAndNext"></td>
+				<!-- <td><input class="btn btn-default" type="button" value="Guardar y Siguiente." id="SaveAndNext"></td> -->
 			</tr>
 		</table>
 	</div>
@@ -221,6 +221,43 @@
 	    if(theEvent.preventDefault) theEvent.preventDefault();
 	  }
 	}
+
+	$("formty").submit(function(e){
+
+		var validationfails = true;
+		var codigohora = $("#codigohora").val();
+		var entrada = $("#entrada").val();
+		var salida = $("#salida").val();
+		console.log(codigohora)
+		console.log(entrada)
+		console.log(entrada.length)
+		console.log(salida)
+		console.log(salida.length)
+		if (codigohora == 1 || codigohora == 18){
+			if (entrada.length == 0 || salida.length == 0){
+				validationfails = true;
+				alert("Si es Normal o Feriado Trabajado, DEBEN haber horarios cargados.")
+			}else{
+				validationfails = false;
+			}
+		}else{
+			if (entrada.length > 0 || salida.length > 0){
+				validationfails = true;
+				alert("Si NO son Normales o Feriado Trabajado, NO PUEDE haber horarios cargados.")
+			}else{
+				validationfails = false;
+			}
+		}
+
+
+	    if(validationfails){
+	    	e.preventDefault();
+	        //return false;
+	    }else{
+	        $("#form").submit();
+	        return true;
+	    }
+ 	});
 
 	function changeDate(date){
 		// input: dd/mm/yyyy
@@ -290,48 +327,45 @@
 		fecha_hoy = encodeURIComponent(fecha_hoy);
 		fecha_maniana = encodeURIComponent(fecha_maniana);
 
-			$.getJSON('/getbytarjetayfechas/'+tarjeta+'/'+fecha_hoy+'/'+fecha_maniana, function (fichadas){
-				console.log(fichadas);
-				if (fichadas.length != 0){
-				//actualizar textboxes
-				//actualizar labels al lado de los txt con la hora de e o s
-					$("#cmbFichadas").empty();
-					for (var i = 0 ; i < fichadas.length ; i++){
-						var intt = parseInt(i);
-						intt = intt+1;
-						if (fichadas[i].fic_entsal == 'E')
-							$("#cmbFichadas").append("<option>"+ intt +" - Entrada - "+ fichadas[i].fic_fechaf +" "+ fichadas[i].fic_hora +"</option>");
-						else
-							$("#cmbFichadas").append("<option>"+ intt +" - Salida - "+ fichadas[i].fic_fechaf +" "+ fichadas[i].fic_hora +"</option>");
-					}
-					var bandera = false;
-					for (var i = 0 ; i < fichadas.length ; i++){
-						if (fichadas[i].fic_entsal == 'E' && bandera == false){
-							$("#entrada").val(fichadas[i].fic_hora);
-							$("#lblEntrada").text(fichadas[i].fic_fechaf);//completar
-							bandera = true;
-						}
-						if (fichadas[i].fic_entsal == 'S' && bandera == true){
-							$("#salida").val(fichadas[i].fic_hora);
-							$("#lblSalida").text(fichadas[i].fic_fechaf);//completar
-							break;
-						}
-					}
-				//actualizar la cuenta de las horas
-				entrada = $("#entrada").val();
-				salida = $("#salida").val();
-				if (entrada.length > 0 && salida.length > 0)
-					calculo();
-				}else{
-					//hacer que aca muestre error de que no se encontro nada en la busqueda
-					$("#lblEntrada").text("No se ha encontrado nada.");
-					$("#lblSalida").text("No se ha encontrado nada.");
-					console.log("No se encontró nada en la búsqueda!")
+		$.getJSON('/getbytarjetayfechas/'+tarjeta+'/'+fecha_hoy+'/'+fecha_maniana, function (fichadas){
+			console.log(fichadas);
+			if (fichadas.length != 0){
+			//actualizar textboxes
+			//actualizar labels al lado de los txt con la hora de e o s
+				$("#cmbFichadas").empty();
+				for (var i = 0 ; i < fichadas.length ; i++){
+					var intt = parseInt(i);
+					intt = intt+1;
+					if (fichadas[i].fic_entsal == 'E')
+						$("#cmbFichadas").append("<option>"+ intt +" - Entrada - "+ fichadas[i].fic_fechaf +" "+ fichadas[i].fic_hora +"</option>");
+					else
+						$("#cmbFichadas").append("<option>"+ intt +" - Salida - "+ fichadas[i].fic_fechaf +" "+ fichadas[i].fic_hora +"</option>");
 				}
-			});
-		
-		
-		
+				var bandera = false;
+				for (var i = 0 ; i < fichadas.length ; i++){
+					if (fichadas[i].fic_entsal == 'E' && bandera == false){
+						$("#entrada").val(fichadas[i].fic_hora);
+						$("#lblEntrada").text(fichadas[i].fic_fechaf);//completar
+						bandera = true;
+					}
+					if (fichadas[i].fic_entsal == 'S' && bandera == true){
+						$("#salida").val(fichadas[i].fic_hora);
+						$("#lblSalida").text(fichadas[i].fic_fechaf);//completar
+						break;
+					}
+				}
+			//actualizar la cuenta de las horas
+			entrada = $("#entrada").val();
+			salida = $("#salida").val();
+			if (entrada.length > 0 && salida.length > 0)
+				calculo();
+			}else{
+				//hacer que aca muestre error de que no se encontro nada en la busqueda
+				$("#lblEntrada").text("No se ha encontrado nada.");
+				$("#lblSalida").text("No se ha encontrado nada.");
+				console.log("No se encontró nada en la búsqueda!")
+			}
+		});
 	}
 
 </script>
