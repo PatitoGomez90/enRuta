@@ -55,19 +55,19 @@
 						<th>Legajo</th>
 						<th>Tarjeta</th>
 						<th><div style="width: 250px">Nombre</div></th>
-						<th><div style="width: 100px">CUIL</div></th>
-						<th>Fecha Alta</th>
-						<th>Fecha Baja</th>
-						<th>Condicion</th>
 						<th><div style="width: 150px">Sector</div></th>
-						<th>Cargo</th>								
-						<th><div style="width: 100px">Categoria</div></th>
 						<th>Turno</th>
+						<th>Condicion</th>					
+						<th>Cargo</th>								
+						<th><div style="width: 100px">Categoria</div></th>						
 						<th><div style="width: 200px">Contrato</div></th>
-						<th>C.P.</th>
+						<th><div style="width: 100px">CUIL</div></th>
 						<th><div style="width: 430px">Domicilio</div></th>
+						<th>C.P.</th>
 						<th><div style="width: 250px">Telefono</div></th>
 						<th>Fecha Nac.</th>
+						<th>Fecha Alta</th>
+						<th>Fecha Baja</th>	
 						<th>Sexo</th>
 						<th>Activo</th>
 					</theader>
@@ -81,22 +81,20 @@
 								<td>{{ emple.legajo }}</td>
 								<td>{{ emple.tarjeta }}</td>
 								<td><div style="width: 250px">{{ emple.nombre }}</div></td>
-								<td><div style="width: 100px">{{ emple.cuil }}</div></td>
-								<td>{{ emple.faltaf }}</td>
-								<!-- //ESTO DE LAS FECHAS HAY QUE CAMBIARLO PARA QUE VENGAN FORMATEADAS DESDE EL SQL  -->
-								<td>{% if emple.fbaja != "0000-00-00" %}
-										{{ emple.fbajaf }}
+								<td><div style="width: 150px">
+									{% if emple.sectortxt != null %}
+										{{ emple.sectortxt }}
+									{% endif %}
+								</div></td>
+								<td>
+									{% if emple.id_turno_fk != 0 %}
+										{{ emple.turnotxt }}
 									{% endif %}
 								</td>
 								<td>{% if emple.id_condicion_fk != 0 %}
 										{{ emple.condiciontxt }}
 									{% endif %}
 								</td>
-								<td><div style="width: 150px">
-									{% if emple.sectortxt != null %}
-										{{ emple.sectortxt }}
-									{% endif %}
-								</div></td>
 								<td>
 									{% if emple.cargo != 0 %}
 										{{ emple.cargotxt }}
@@ -107,14 +105,15 @@
 										{{ emple.categoriatxt }}
 									{% endif %}
 								</div></td>
-								<td>
-									{% if emple.id_turno_fk != 0 %}
-										{{ emple.turnotxt }}
-									{% endif %}
-								</td>
 								<td><div style="width: 200px">
 									{% if emple.id_contrato_fk != 0 %}
 										{{ emple.contratotxt }}
+									{% endif %}
+								</div></td>
+								<td><div style="width: 100px">{{ emple.cuil }}</div></td>
+								<td><div style="width: 430px">
+									{% if emple.domicilio != 0 || emple.domicilio != "" %}
+										{{ emple.domicilio }}
 									{% endif %}
 								</div></td>
 								<td>
@@ -122,11 +121,6 @@
 										{{ emple.cp }}
 									{% endif %}
 								</td>
-								<td><div style="width: 430px">
-									{% if emple.domicilio != 0 || emple.domicilio != "" %}
-										{{ emple.domicilio }}
-									{% endif %}
-								</div></td>
 								<td><div style="width: 250px">
 									{% if emple.tel != 0 || emple.tel != "" %}
 										{{ emple.tel }}
@@ -137,7 +131,12 @@
 										{{ emple.fecha_nacf }}
 									{% endif %}
 								</td>
-
+								<td>{{ emple.faltaf }}</td>
+								<!-- //ESTO DE LAS FECHAS HAY QUE CAMBIARLO PARA QUE VENGAN FORMATEADAS DESDE EL SQL  -->
+								<td>{% if emple.fbaja != "0000-00-00" %}
+										{{ emple.fbajaf }}
+									{% endif %}
+								</td>
 								{% if emple.sexo == 0 %}
 									<td><span>Masculino</span></td>
 								{% else %}
