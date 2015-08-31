@@ -8,7 +8,8 @@ module.exports = {
 	update: update,
 	del: del,
 	delByIdpartediario1: delByIdpartediario1,
-	getEmpleInPartediario2: getEmpleInPartediario2
+	getEmpleInPartediario2: getEmpleInPartediario2,
+	getLastNumerobyPd1: getLastNumerobyPd1
 }
 
 function getAll(cb){
@@ -17,11 +18,7 @@ function getAll(cb){
 }
 
 function getAllByPartediario1Id(id, cb){
-	//legajo, nombre from emple with id_emple_fk
-	//clasificacion1txt... clasificacion6txt
-	//item1txt... item6txt
-	//ej:  (select nombre from articu where articu.id = modelo_m2.id_rep1_fk) as rep1txt
-	conn("select partediario2.*, emple.legajo as legajo, emple.nombre as nombre, codigohora.numero as codigohoracod from partediario2 left join codigohora on codigohora.id = partediario2.id_codigohora_fk left join emple on emple.codigo = partediario2.id_emple_fk where partediario2.id_partediario1_fk="+id, cb);
+	conn("select partediario2.*, emple.legajo as legajo, emple.nombre as nombre, codigohora.numero as codigohoracod from partediario2 left join codigohora on codigohora.id = partediario2.id_codigohora_fk left join emple on emple.codigo = partediario2.id_emple_fk where partediario2.id_partediario1_fk="+id+" order by numero", cb);
 }
 
 function getById(id, cb){
@@ -36,8 +33,9 @@ function getById(id, cb){
 		"where partediario2.id="+id, cb);
 }
 
-function insertNewEmpleado(idpartediario1, idempleado, cb){
-	conn("insert into partediario2(id_partediario1_fk, id_emple_fk) values("+idpartediario1+", "+idempleado+")", cb);
+function insertNewEmpleado(idpartediario1, idempleado, numero, cb){
+	conn("insert into partediario2(id_partediario1_fk, id_emple_fk, numero) "+
+		"values("+idpartediario1+", "+idempleado+", "+numero+")", cb);
 }
 
 function update(id, codigohora, entrada, salida, total, adicional1_n, adicional1_50, adicional1_100, adicional2_n, adicional2_50, adicional2_100, adicional3_n, adicional3_50, adicional3_100, adicional4_n, adicional4_50, adicional4_100, adicional5_n, adicional5_50, adicional5_100, adicional6_n, adicional6_50, adicional6_100, item1, item2, item3, item4, item5, item6, cb){
@@ -55,3 +53,8 @@ function delByIdpartediario1(id, cb){
 function getEmpleInPartediario2(idp1, idemple, cb){
 	conn("select count(id_partediario1_fk) as cant from partediario2 where id_partediario1_fk="+idp1+" and id_emple_fk="+idemple, cb);
 }
+
+//para el agregar de a 1 empleado
+	function getLastNumerobyPd1(idp1, cb){
+		conn("SELECT max(numero) as ultnumero FROM `partediario2` WHERE `id_partediario1_fk`="+idp1, cb);
+	}

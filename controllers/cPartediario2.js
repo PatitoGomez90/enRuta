@@ -70,9 +70,23 @@ function postAlta(req, res){
 	idempleado = params.empleado;
 	idpartediario1 = params.idpartediario1;
 
+	//acá corregir para que agrege bien el Numero de empleado en el PArte Diario
+	//se va a agregar el campo numero en la funcion insertNewEmpleado
+
 	if( idempleado != 0){
-		mPartediario2.insertNewEmpleado(idpartediario1, idempleado, function(){
-			res.redirect('partediario2lista/'+idpartediario1);
+		mPartediario2.getLastNumerobyPd1(idpartediario1, function (lastnumero){
+			lastnumero = lastnumero[0].ultnumero;
+			console.log(lastnumero)
+			if (lastnumero != null){
+				lastnumeroInt = parseInt(lastnumero)
+				var proxnro = lastnumeroInt +1;	
+			}else{
+				var proxnro = 1;
+			}
+			
+			mPartediario2.insertNewEmpleado(idpartediario1, idempleado, proxnro, function(){
+				res.redirect('partediario2lista/'+idpartediario1);
+			});
 		});
 	}else{
 		res.redirect('partediario2lista/'+idpartediario1);

@@ -7,7 +7,7 @@
 {% block content %}
 <link href="/css/partediario2modificar.css" rel="stylesheet">	
 <h2>{{ pagename }}</h2>
-<form method="POST" name="formty" action="/partediario2modificar">
+<form method="POST" id="formty" name="formty" action="/partediario2modificar">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h4><b>Información General</b></h4>
@@ -222,17 +222,17 @@
 	  }
 	}
 
-	$("formty").submit(function(e){
+	$("#formty").submit(function(e){
 
 		var validationfails = true;
 		var codigohora = $("#codigohora").val();
 		var entrada = $("#entrada").val();
 		var salida = $("#salida").val();
-		console.log(codigohora)
-		console.log(entrada)
-		console.log(entrada.length)
-		console.log(salida)
-		console.log(salida.length)
+		// console.log(codigohora)
+		// console.log(entrada)
+		// console.log(entrada.length)
+		// console.log(salida)
+		// console.log(salida.length)
 		if (codigohora == 1 || codigohora == 18){
 			if (entrada.length == 0 || salida.length == 0){
 				validationfails = true;
@@ -274,7 +274,9 @@
 	});
 
 	$('#salida').on('change', function(){
-		calculo();
+		var entrada = $("#entrada").val();
+		if (entrada.length != 0)
+			calculo();
 	});	
 
 	$("#SaveAndNext").on("click", function(){

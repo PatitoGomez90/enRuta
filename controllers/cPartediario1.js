@@ -84,7 +84,9 @@ function postAlta(req, res){
 
 				var bandera = false;
 				for (var x = 0 ; x < emplesbyturno.length ; x++){
-					mPartediario2.insertNewEmpleado(ultimoid, emplesbyturno[x].codigo, function (){
+					//acá agregar la columna 'Numero' de empleado en los Partes Diarios
+					var y = x+1;
+					mPartediario2.insertNewEmpleado(ultimoid, emplesbyturno[x].codigo, y, function (){
 						bandera = true;
 					});
 				}
