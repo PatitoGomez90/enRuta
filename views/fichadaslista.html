@@ -19,15 +19,27 @@
                         	<span class="input-group-btn"><button type="button" id="btnAtras" class="btn btn-primary">Atras</button></span>
                         	<span class="input-group-btn"><button type="button" id="btnSave" class="btn btn-default"><span class="glyphicon glyphicon-save"></span></button></span>
 					      	<span class="input-group-btn"><button type="button" id="btnAyuda" name="btnAyuda" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></span>
-					      	<span class="input-group-addon" id="basic-addon2">Filtrar por Sector:</span>
-					      	<!-- <span class="input-group-btn"> -->
-						  		<select class="form-control" id="cmbSector" name="cmbSector">
-						  			<option selected value="0">Todos los Sectores</option>
-						  			{% for s in sectores %}
-						  				<option value="{{ s.id }}">{{ s.nombre }}</option>
-						  			{% endfor %}
-						  		</select> 
-						  	<!-- </span> -->
+					      	<table >
+					      		<tr class="display: inline-block;">
+					      			<td>
+					      				<select class="form-control" id="cmbSector" name="cmbSector">
+								  			<option selected value="0">Filtrar por Sector</option>
+								  			<option value="0">Todos los Sectores</option>
+								  			{% for s in sectores %}
+								  				<option value="{{ s.id }}">{{ s.nombre }}</option>
+								  			{% endfor %}
+								  		</select>
+								  	</td>
+					      			<td>
+					      				<select class="form-control" id="cmbEmple" name="cmbEmple">
+								  			<option selected value="0">Filtrar por Empleado</option>
+								  			{% for e in emples %}
+								  				<option value="{{ e.codigo }}">{{ e.nombre }}</option>
+								  			{% endfor %}
+								  		</select>
+								  	</td>
+					      		</tr>
+					      	</table>
 						  	<span class="input-group-addon" id="basic-addon1">Por fecha desde:</span>
 						  	<input type="text" id="fecha_desde" name="fecha_desde" class="datepicker form-control" placeholder="" aria-describedby="basic-addon1">
 						  	<span class="input-group-addon" id="basic-addon2">hasta:</span>
@@ -140,6 +152,8 @@
 		var fecha_desde = $("#fecha_desde").val();
 		var fecha_hasta = $("#fecha_hasta").val();
 		var id_sector = $("#cmbSector").val();
+		var id_emple = $("#cmbEmple").val();
+		//console.log(id_emple)
 
 		if (fecha_hasta == "")
 			fecha_hasta = hoy;
@@ -151,7 +165,7 @@
 		fecha_hasta = encodeURIComponent(fecha_hasta);
 		
 
-		$.getJSON('/getfichadasbyquery/'+id_sector+'/'+fecha_desde+'/'+fecha_hasta, function (fichadas){
+		$.getJSON('/getfichadasbyquery/'+id_sector+'/'+fecha_desde+'/'+fecha_hasta+'/'+id_emple, function (fichadas){
 			console.log(fichadas.length)
 			$('#tbodylisto > tr').remove();
 			var template= $('#tablafichadas').html();

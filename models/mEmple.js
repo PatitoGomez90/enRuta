@@ -2,6 +2,7 @@
 
 module.exports = {
 	getAll: getAll,
+	getAllOrderByNombre: getAllOrderByNombre,
 	getAllActivos: getAllActivos,
 	getAllActivos2: getAllActivos2,
 	insert: insert,
@@ -20,6 +21,10 @@ module.exports = {
 
 function getAll(cb){
 	conn('select * from emple', cb);
+}
+
+function getAllOrderByNombre(cb){
+	conn("select * from emple order by nombre", cb);
 }
 
 function getAllActivos(cb){

@@ -39,9 +39,12 @@ function getLista(req, res) {
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 	updateFichadas(function () {
 		mSectores.getAll(function (sectores){
-			res.render('fichadaslista', {
-				pagename: 'Lista de Fichadas',
-				sectores: sectores
+			mEmple.getAllOrderByNombre(function (emples){
+				res.render('fichadaslista', {
+					pagename: 'Lista de Fichadas',
+					sectores: sectores,
+					emples: emples
+				});
 			});
 		});
 	});
@@ -162,6 +165,7 @@ function updateFichadas(cb){
 function getFichadasByQuery(req, res){
 	params = req.params;
 	id_sector = params.sector;
+	id_emple = params.id_emple;
 	fecha_desde = params.desde;
 	fecha_hasta = params.hasta;
 
@@ -181,8 +185,11 @@ function getFichadasByQuery(req, res){
 	"left join emple on emple.tarjeta = fichadas.fic_tarjeta "+
 	"where fic_fecha >= '"+fecha_desde+"' and fic_fecha <= '"+fecha_hasta+"'";
 
-	if (id_sector != 0)
-		query = query + " and relojes.id_sector_fk = "+id_sector;
+	if (id_emple != 0)
+		query = query + " and emple.codigo = "+id_emple;
+	else
+		if (id_sector != 0)
+			query = query + " and relojes.id_sector_fk = "+id_sector;
 
 	//hacer tambien que filtre ENTRADA Y SALIDA (si selecciona ambos es TODO)
 	query = query + " order by fic_fecha desc, fic_hora desc"

@@ -292,7 +292,7 @@ module.exports = function(app) {
 	app.get('/fichadaslista', auth, cFichadas.getLista);
 	app.get('/buscarfichadas/:fecha', auth, cFichadas.getFichadas);
 	app.get('/fichadasver/:reloj/:fecha', auth, cFichadas.getVer);
-	app.get('/getfichadasbyquery/:sector/:desde/:hasta', auth, cFichadas.getFichadasByQuery);
+	app.get('/getfichadasbyquery/:sector/:desde/:hasta/:id_emple', auth, cFichadas.getFichadasByQuery);
 	app.get('/getbytarjetayfechas/:tarjeta/:fecha_hoy/:fecha_maniana', auth, cFichadas.getByTarjetayFechas);
 	app.get('/fichadasporsector', auth, cFichadas.getFichadasPorSector);
 	app.get('/getselectbyfechagroupbysector/:fecha', auth, cFichadas.getSelectCountByFechaGroupBySector);
