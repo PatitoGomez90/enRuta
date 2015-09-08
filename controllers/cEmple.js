@@ -260,54 +260,104 @@ function getAllEmple(req, res){
 //export to excel
 
 function getExport(req, res){
+	console.log("go!")
+	//var cellData = "Give me something to believe";
 
-    var conf ={};
-    conf.stylesXmlFile = "styles.xml";
-    conf.cols = [{
-        caption:'string',
-        type:'string',
-        beforeCellWrite:function(row, cellData){
-             return cellData.toUpperCase();
-        },
-        width:28.7109375
-    },{
-        caption:'date',
-        type:'date',
-        beforeCellWrite:function(){
-            var originDate = new Date(Date.UTC(1899,11,30));
-            return function(row, cellData, eOpt){
-                if (eOpt.rowNum%2){
-                    eOpt.styleIndex = 1;
-                }  
-                else{
-                    eOpt.styleIndex = 2;
-                }
-                if (cellData === null){
-                  eOpt.cellType = 'string';
-                  return 'N/A';
-                } else
-                  return (cellData - originDate) / (24 * 60 * 60 * 1000);
-            } 
-        }()
-    },{
-        caption:'bool',
-        type:'bool'
-    },{
-        caption:'number',
-         type:'number'              
-    }];
-    conf.rows = [
-        ['pi', new Date(Date.UTC(2013, 4, 1)), true, 3.14],
-        ["e", new Date(2012, 4, 1), false, 2.7182],
-        ["M&M<>'", new Date(Date.UTC(2013, 6, 9)), false, 1.61803],
-        ["null date", null, true, 1.414]  
-    ];
+	mEmple.getAllActivos(function (emples){
+		var conf = {};
 
-    var result = nodeExcel.execute(conf);
-    // res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-    // res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
-    res.send(result, 'binary');
+		conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
 
+	    conf.cols = [{caption:'Codigo', type:'number'},
+	    {caption:'Legajo', type:'number'},
+	    {caption:'Nro Tarjeta', type:'number'},
+	    {caption:'Nombre', type:'string'},
+	    {caption:'Sector', type:'string'},
+	    {caption:'Turno', type:'string'},
+	    {caption:'Condicion', type:'string'},
+	    {caption:'Cargo', type:'string'},
+	    {caption:'Categoria', type:'string'},
+	    {caption:'Contrato', type:'string'},
+	    {caption:'CUIL', type:'string'},
+	    {caption:'Domicilio', type:'string'},
+	    {caption:'C.P.', type:'string'},
+	    {caption:'Telefono', type:'string'},
+	    {caption:'Fecha de Nacimiento', type:'date'},
+	    {caption:'Fecha de Alta', type:'date'},
+	    {caption:'Fecha de Baja', type:'date'},
+	    {caption:'Sexo', type:'string'},
+	    {caption:'Activo', type:'string'}];
+	
+		var arrEmple = [];
+
+		for (var x = 0 ; x < emples.length ; x++){
+	    	//Codigo, Legajo, Tarjeta, Nombre, Sector, Turno, Condicion, Cargo, Categoria, Contrato, CUIL, Domicilio, C.P., Telefono, Fecha Nac., 
+	    	//Fecha Alta, Fecha Baja, Sexo,	Activo
+	    	cod = emples[x].codigo;
+	    	leg = emples[x].legajo;
+	    	tarj = emples[x].tarjeta;
+	    	nomb = emples[x].nombre;
+	    	sec = emples[x].sectortxt;
+	    	tur = emples[x].turnotxt;
+	    	cond = emples[x].condiciontxt;
+	    	cargo = emples[x].cargotxt;
+	    	cat = emples[x].categoriatxt;
+	    	cont = emples[x].contratotxt;
+	    	cuil = emples[x].cuil;
+	    	dom = emples[x].domicilio;
+	    	cp = emples[x].cp;
+	    	tel = emples[x].tel;
+	    	fnac = emples[x].fecha_nacf;
+	    	falta = emples[x].faltaf;
+	    	fbaja = emples[x].fbajaf;
+	    	if (fbaja == "00/00/0000")
+	    		fbaja = "";
+	    	else
+	    		fbaja = emples[x].fbajaf;
+	    	if (emples[x].sexo == 0)
+	    		sexo = "Masculino";
+	    	else
+	    		sexo = "Femenino";
+	    	if (emples[x].activo == 1)
+	    		act = "Activo";
+	    	else
+	    		act = "No Activo";
+	    	//console.log("Datos en emple")
+	    	var emple = [];
+
+	    	emple.push(cod);
+	    	emple.push(leg);
+	    	emple.push(tarj);
+	    	emple.push(nomb);
+	    	emple.push(sec);
+	    	emple.push(tur);
+	    	emple.push(cond);
+	    	emple.push(cargo);
+	    	emple.push(cat);
+			emple.push(cont);
+			emple.push(cuil);
+			emple.push(dom);
+			emple.push(cp);
+	    	emple.push(tel);
+	    	emple.push(fnac);
+	    	emple.push(falta);
+	    	emple.push(fbaja);
+	    	emple.push(sexo);
+	    	emple.push(act);
+
+	    	arrEmple.push(emple);
+	    }
+
+	   	conf.rows = arrEmple;
+	    var result = nodeExcel.execute(conf);
+	    res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+	    res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
+	    res.end(result, 'binary');
+
+	});
+	
+    
+    console.log("finished")
 }
 
 function getTurnos(req, res){
