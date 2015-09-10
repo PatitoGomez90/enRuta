@@ -105,7 +105,7 @@ function getModificar(req, res){
 						mImputacion.getAllActivos(function (items){
 							mCodigohora.getAll(function (codigoshora){
 								mTipoHora.getAll(function (tiposhora){
-									//console.log(partediario1[0])
+									console.log(partediario2)
 									res.render('partediario2modificar', {
 										pagename: "Modificar Parte Diario",
 										partediario2: partediario2[0],
@@ -209,8 +209,27 @@ function postModificar(req, res){
 	item6 = params.item6;
 	if (!item6)
 		item6 = 0;
+	item7 = params.item7;
+	if (!item7)
+		item7 = 0;
+	item8 = params.item8;
+		if (!item8)
+			item8 = 0;
+	item9 = params.item9;
+		if (!item9)
+			item9 = 0;
+	item10 = params.item10;
+		if (!item10)
+			item10 = 0;
+	item11 = params.item11;
+		if (!item11)
+			item11 = 0;
+	item12 = params.item12;
+		if (!item12)
+			item12 = 0;
 
-	mPartediario2.update(id, codigohora, entrada, salida, total, adicional1_n, adicional1_50, adicional1_100, adicional2_n, adicional2_50, adicional2_100, adicional3_n, adicional3_50, adicional3_100, adicional4_n, adicional4_50, adicional4_100, adicional5_n, adicional5_50, adicional5_100, adicional6_n, adicional6_50, adicional6_100, item1, item2, item3, item4, item5, item6, function(){
+
+	mPartediario2.update(id, codigohora, entrada, salida, total, adicional1_n, adicional1_50, adicional1_100, adicional2_n, adicional2_50, adicional2_100, adicional3_n, adicional3_50, adicional3_100, adicional4_n, adicional4_50, adicional4_100, adicional5_n, adicional5_50, adicional5_100, adicional6_n, adicional6_50, adicional6_100, item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, function(){
 		res.redirect('partediario2lista/'+idpartediario1);
 	});
 }

@@ -77,6 +77,24 @@
 								{% if partediario1.id_imputacion6_fk != 0 %}
 									<th>{{ partediario1.imputacion6txt }}</th>
 								{% endif %}
+								{% if partediario1.id_imputacion7_fk != 0 %}
+									<th>{{ partediario1.imputacion7txt }}</th>
+								{% endif %}
+								{% if partediario1.id_imputacion8_fk != 0 %}
+									<th>{{ partediario1.imputacion8txt }}</th>
+								{% endif %}
+								{% if partediario1.id_imputacion9_fk != 0 %}
+									<th>{{ partediario1.imputacion9txt }}</th>
+								{% endif %}
+								{% if partediario1.id_imputacion10_fk != 0 %}
+									<th>{{ partediario1.imputacion10txt }}</th>
+								{% endif %}
+								{% if partediario1.id_imputacion11_fk != 0 %}
+									<th>{{ partediario1.imputacion11txt }}</th>
+								{% endif %}
+								{% if partediario1.id_imputacion12_fk != 0 %}
+									<th>{{ partediario1.imputacion12txt }}</th>
+								{% endif %}
 							</tr>
 							{% for p2 in partediario2s %}
 								<tr>
@@ -212,6 +230,24 @@
 									{% endif %}
 									{% if partediario1.id_imputacion6_fk != 0 %}
 										<td>{{ p2.item6 }}</td>
+									{% endif %}
+									{% if partediario1.id_imputacion7_fk != 0 %}
+										<td>{{ p2.item7 }}</td>
+									{% endif %}
+									{% if partediario1.id_imputacion8_fk != 0 %}
+										<td>{{ p2.item8 }}</td>
+									{% endif %}
+									{% if partediario1.id_imputacion9_fk != 0 %}
+										<td>{{ p2.item9 }}</td>
+									{% endif %}
+									{% if partediario1.id_imputacion10_fk != 0 %}
+										<td>{{ p2.item10 }}</td>
+									{% endif %}
+									{% if partediario1.id_imputacion11_fk != 0 %}
+										<td>{{ p2.item11 }}</td>
+									{% endif %}
+									{% if partediario1.id_imputacion12_fk != 0 %}
+										<td>{{ p2.item12 }}</td>
 									{% endif %}
 								</tr>
 							{% endfor %}

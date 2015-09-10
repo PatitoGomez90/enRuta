@@ -197,6 +197,43 @@
 					<td><input type="text" id="item6" name="item6" value="{{ partediario2.item6 }}" required class="form-control" onkeypress='validate(event)'></td>
 				</tr>
 			{% endif %}
+			{% if partediario1.id_imputacion7_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion7txt }} - {% for i in items%}{% if partediario1.id_imputacion7_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td><input type="text" id="item7" name="item7" value="{{ partediario2.item7 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+
+			{% if partediario1.id_imputacion8_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion8txt }} - {% for i in items%}{% if partediario1.id_imputacion8_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td><input type="text" id="item8" name="item8" value="{{ partediario2.item8 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion9_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion9txt }} - {% for i in items%}{% if partediario1.id_imputacion9_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td><input type="text" id="item9" name="item9" value="{{ partediario2.item9 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion10_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion10txt }} - {% for i in items%}{% if partediario1.id_imputacion10_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td><input type="text" id="item10" name="item10" value="{{ partediario2.item10 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion11_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion11txt }} - {% for i in items%}{% if partediario1.id_imputacion11_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td><input type="text" id="item11" name="item11" value="{{ partediario2.item11 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion12_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion12txt }} - {% for i in items%}{% if partediario1.id_imputacion12_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td><input type="text" id="item12" name="item12" value="{{ partediario2.item12 }}" required class="form-control" onkeypress='validate(event)'></td>
+				</tr>
+			{% endif %}
 		</table>
 	</div>
 	<div class="panel panel-default">

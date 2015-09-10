@@ -370,6 +370,139 @@
 					</select>
 				</td>
 			</tr>
+
+			<tr>
+				<td>Item N°7</td>
+				<td>
+					<select name="imputacion7" id="imputacion7" class="form-control">
+						{% if partediario1.id_imputacion7_fk == 0 %}
+							<option value="0" selected>Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						{% else %}
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								{% if partediario1.id_imputacion7_fk == i.id %}
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
+								{% else %}
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Item N°8</td>
+				<td>
+					<select name="imputacion8" id="imputacion8" class="form-control">
+						{% if partediario1.id_imputacion8_fk == 0 %}
+							<option value="0" selected>Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						{% else %}
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								{% if partediario1.id_imputacion8_fk == i.id %}
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
+								{% else %}
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Item N°9</td>
+				<td>
+					<select name="imputacion9" id="imputacion9" class="form-control">
+						{% if partediario1.id_imputacion9_fk == 0 %}
+							<option value="0" selected>Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						{% else %}
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								{% if partediario1.id_imputacion9_fk == i.id %}
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
+								{% else %}
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Item N°10</td>
+				<td>
+					<select name="imputacion10" id="imputacion10" class="form-control">
+						{% if partediario1.id_imputacion10_fk == 0 %}
+							<option value="0" selected>Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						{% else %}
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								{% if partediario1.id_imputacion10_fk == i.id %}
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
+								{% else %}
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Item N°11</td>
+				<td>
+					<select name="imputacion11" id="imputacion11" class="form-control">
+						{% if partediario1.id_imputacion11_fk == 0 %}
+							<option value="0" selected>Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						{% else %}
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								{% if partediario1.id_imputacion11_fk == i.id %}
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
+								{% else %}
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Item N°12</td>
+				<td>
+					<select name="imputacion12" id="imputacion12" class="form-control">
+						{% if partediario1.id_imputacion12_fk == 0 %}
+							<option value="0" selected>Sin Usar</option>
+							{% for i in imputaciones %}
+								<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+							{% endfor %}
+						{% else %}
+							<option value="0">Sin Usar</option>
+							{% for i in imputaciones %}
+								{% if partediario1.id_imputacion12_fk == i.id %}
+									<option value="{{ i.id }}" selected>{{ i.numero }} - {{ i.nombre }}</option>
+								{% else %}
+									<option value="{{ i.id }}">{{ i.numero }} - {{ i.nombre }}</option>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</select>
+				</td>
+			</tr>
 		</table>
 	</div>
 	<div class="panel panel-default">

@@ -74,8 +74,14 @@ function postAlta(req, res){
 	imputacion4 = params.imputacion4;
 	imputacion5 = params.imputacion5;
 	imputacion6 = params.imputacion6;
+	imputacion7 = params.imputacion7;
+	imputacion8 = params.imputacion8;
+	imputacion9 = params.imputacion9;
+	imputacion10 = params.imputacion10;
+	imputacion11 = params.imputacion11;
+	imputacion12 = params.imputacion12;
 
-	mPartediario1.insert(fecha, contrato, idsector, idlugar, turno, estado, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, function(){
+	mPartediario1.insert(fecha, contrato, idsector, idlugar, turno, estado, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, imputacion7, imputacion8, imputacion9, imputacion10, imputacion11, imputacion12, function(){
 		mPartediario1.getLastId(function (pdultimoid){
 			console.log(pdultimoid)
 			var ultimoid = pdultimoid[0].id;
@@ -152,7 +158,14 @@ function postModificar(req, res){
 	imputacion4 = params.imputacion4;
 	imputacion5 = params.imputacion5;
 	imputacion6 = params.imputacion6;
-	mPartediario1.update(id, fecha, contrato, idsector, idlugar, turno, estado, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, function(){
+	imputacion7 = params.imputacion7;
+	imputacion8 = params.imputacion8;
+	imputacion9 = params.imputacion9;
+	imputacion10 = params.imputacion10;
+	imputacion11 = params.imputacion11;
+	imputacion12 = params.imputacion12;
+
+	mPartediario1.update(id, fecha, contrato, idsector, idlugar, turno, estado, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, imputacion7, imputacion8, imputacion9, imputacion10, imputacion11, imputacion12, function(){
 		res.redirect('partediario1lista');
 	});
 }
