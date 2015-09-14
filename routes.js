@@ -279,8 +279,9 @@ module.exports = function(app) {
 	app.get('/partediario1modificar/:id', auth, cParteDiario1.getModificar);
 	app.post('/partediario1modificar', auth, cParteDiario1.postModificar);
 	app.get('/partediario1borrar/:id', auth, cParteDiario1.getDel);
-	app.get('/partediario1close/:idp1', auth, cParteDiario1.getClose);
-	app.get('/partediario1historial', auth, cPartediario1.getHistorial);
+	app.get('/partediario1close/:idpd1', auth, cParteDiario1.getClose);
+	app.get('/partediario1historial', auth, cParteDiario1.getHistorial);
+	app.get('/partediario1ver/:idpd1', auth, cParteDiario1.getVer);
 	//parte diario 2
 	app.get('/partediario2lista/:id', auth, cParteDiario2.getLista);
 	app.get('/partediario2alta/:id', auth, cParteDiario2.getAlta);

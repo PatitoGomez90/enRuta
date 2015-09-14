@@ -16,7 +16,9 @@ module.exports = {
 	getModificar: getModificar,
 	postModificar: postModificar,
 	getDel: getDel,
-	getClose: getClose
+	getClose: getClose,
+	getHistorial: getHistorial,
+	getVer: getVer
 };
 
 function changeDate(date){
@@ -183,13 +185,13 @@ function getDel(req, res){
 
 function getClose(req, res){
 	params = req.params;
-	idp1 = params.idp1;
+	idpd1 = params.idpd1;
 	// p1.estado
 	// 1 = abierto
 	// 0 = cerrado
 
-	mPartediario1.closeParteDiario(idp1, function (){
-		console.log("Parte Diario ID "+idp1+" cerrado.");
+	mPartediario1.closeParteDiario(idpd1, function (){
+		console.log("Parte Diario ID "+idpd1+" cerrado.");
 		res.redirect('partediario1lista');
 	});
 }
@@ -199,6 +201,24 @@ function getHistorial(req, res){
 		res.render('partediario1historial',{
 			pagename: "Historial de Partes Diarios",
 			partediario1s: partediario1s
+		});
+	});
+}
+
+function getVer(req, res){
+	params = req.params;
+	idpd1 = params.idpd1;
+
+	mPartediario1.getById(idpd1, function (partediario1){
+	//console.log(partediario1[0])
+		mPartediario2.getAllByPartediario1Id(idpd1, function (partediario2s){
+			res.render('partediario2ver', {
+	        	pagename: 'Lista de Empleados',
+	        	partediario2s: partediario2s,
+	        	partediario1: partediario1[0]//,
+	        	//tipohoras: tipohoras
+	        	//ayuda: ayuda[0]
+	      	}); 
 		});
 	});
 }
