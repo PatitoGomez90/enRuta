@@ -1,41 +1,41 @@
-var indexController = require('./controllers/cIndex');
-var usuarioController = require('./controllers/cUsuario');
-var adminController = require('./controllers/cAdmin');
-var empleController = require('./controllers/cEmple');
-var accesosController = require('./controllers/cAccesos');
-var cargoController = require('./controllers/cCargos');
-var umedController = require('./controllers/cUmed');
-var sectoresController = require('./controllers/cSectores');
-var maqController = require('./controllers/cMaquinarias');
-var familiaController = require('./controllers/cFamilia');
-var artController = require('./controllers/cArticulos');
-var valesController = require('./controllers/cVale');
+var cIndex = require('./controllers/cIndex');
+var cUsuario = require('./controllers/cUsuario');
+var cAdmin = require('./controllers/cAdmin');
+var cEmple = require('./controllers/cEmple');
+var cAccesos = require('./controllers/cAccesos');
+var cCargos = require('./controllers/cCargos');
+var cUmed = require('./controllers/cUmed');
+var cSectores = require('./controllers/cSectores');
+var cMaquinarias = require('./controllers/cMaquinarias');
+var cFamilia = require('./controllers/cFamilia');
+var cArticulos = require('./controllers/cArticulos');
+var cVales = require('./controllers/cVale');
 var test = require('./controllers/cTest');
-var chk1Controller = require('./controllers/cChk1');
-var chk2Controller = require('./controllers/cChk2');
+var cChk1 = require('./controllers/cChk1');
+var cChk2 = require('./controllers/cChk2');
 var mEventos = require('./models/mEventos');
-var otController = require('./controllers/cOt');
-var equipoController = require('./controllers/cEquipos');
-var tipoequipoController = require('./controllers/cTipoEquipo');
-var etiquetaController = require('./controllers/cEtiquetas');
-var tipotareaController = require('./controllers/cTipoTarea');
-var modelom1Controller = require('./controllers/cModeloMantenimiento');
-var modelom2Controller = require('./controllers/cModeloMantenimientoDetalle');
-var itemsController = require('./controllers/cItems');
-var tipohoraController = require('./controllers/cTipoHora');
-var codigohoraController = require('./controllers/cCodigoHora');
-var relojesController = require('./controllers/cRelojes');
+var cOt = require('./controllers/cOt');
+var cEquipos = require('./controllers/cEquipos');
+var cTipoEquipo = require('./controllers/cTipoEquipo');
+var cEtiquetas = require('./controllers/cEtiquetas');
+var cTipoTarea = require('./controllers/cTipoTarea');
+var cModeloM1 = require('./controllers/cModeloMantenimiento');
+var cModeloM2 = require('./controllers/cModeloMantenimientoDetalle');
+var cItems = require('./controllers/cItems');
+var cTipoHora = require('./controllers/cTipoHora');
+var cCodigoHora = require('./controllers/cCodigoHora');
+var cRelojes = require('./controllers/cRelojes');
 var cLugares = require('./controllers/cLugares');
-var clasificacionController = require('./controllers/cClasificacion');
+var cClasificacion = require('./controllers/cClasificacion');
 var cImputacion = require('./controllers/cImputacion');
-var partediario1Controller = require('./controllers/cPartediario1');
-var partediario2Controller = require('./controllers/cPartediario2');
+var cParteDiario1 = require('./controllers/cPartediario1');
+var cParteDiario2 = require('./controllers/cPartediario2');
 var cFichadas = require('./controllers/cFichadas');
 var cContratos = require('./controllers/cContratos');
 var cTurnos = require('./controllers/cTurnos');
 var cCategorias = require('./controllers/cCategorias');
 
-var pruebasqlController = require('./controllers/cPruebaSQL');
+var cPruebaSQL = require('./controllers/cPruebaSQL');
 var cRandom = require('./controllers/cRandom');
 
 function logout (req, res) {
@@ -63,189 +63,189 @@ function auth (req, res, next) {
 }
 
 module.exports = function(app) {
-	app.get('/', adminController.getLogin);
-	app.get('/login', adminController.getLogin)
-	app.post('/login', adminController.postLogin);
+	app.get('/', cAdmin.getLogin);
+	app.get('/login', cAdmin.getLogin)
+	app.post('/login', cAdmin.postLogin);
 	app.get('/logout', logout);
-	app.get('/inicio', auth, indexController.getInicio);
-	app.get('/error', indexController.getError);
+	app.get('/inicio', auth, cIndex.getInicio);
+	app.get('/error', cIndex.getError);
 	//ayuda
-	app.get('/ayuda', indexController.getAyuda);
-	app.get('/ayudaver/:id', indexController.AyudaVer);
+	app.get('/ayuda', cIndex.getAyuda);
+	app.get('/ayudaver/:id', cIndex.AyudaVer);
 	//novedades
-	app.get('/listanovedades', indexController.getNovedades);
+	app.get('/listanovedades', cIndex.getNovedades);
 	//usuarios
-	app.get('/usuarioslista', auth, usuarioController.getUsuarios);
-	app.get('/usuariosalta', auth, usuarioController.getUsuariosAlta);
-	app.post('/usuariosalta', auth, usuarioController.putUsuario);
-	app.get('/usuariosmodificar/:id', auth, usuarioController.getUsuarioModificar);
-	app.post('/usuariosmodificar', auth, usuarioController.postUsuarioModificar);
-	app.get('/usuariosborrar/:id', auth, usuarioController.getDelUsuario);
+	app.get('/usuarioslista', auth, cUsuario.getUsuarios);
+	app.get('/usuariosalta', auth, cUsuario.getUsuariosAlta);
+	app.post('/usuariosalta', auth, cUsuario.putUsuario);
+	app.get('/usuariosmodificar/:id', auth, cUsuario.getUsuarioModificar);
+	app.post('/usuariosmodificar', auth, cUsuario.postUsuarioModificar);
+	app.get('/usuariosborrar/:id', auth, cUsuario.getDelUsuario);
 	//configurar accesos
-	app.get('/accesoslista/:id', auth, accesosController.getAccesos);
-	app.post('/accesoslista', auth, accesosController.postAccesos);
+	app.get('/accesoslista/:id', auth, cAccesos.getAccesos);
+	app.post('/accesoslista', auth, cAccesos.postAccesos);
 	//empleados
-	app.get('/emplelista', auth, empleController.getEmpleados);
-	app.get('/emplealta', auth, empleController.getAlta);
-	app.post('/emplealta', auth, empleController.postAlta);
-	app.get('/emplemodificar/:codigo', auth, empleController.getModificar);
-	app.post('/emplemodificar', auth, empleController.postModificar);
-	app.get('/empleborrar/:codigo', auth, empleController.getDelEmple);
-	app.get('/emplever/:codigo', auth, empleController.getVer);
-	app.get('/getallemple', auth, empleController.getAllEmple);
-	app.get('/emplesexport', auth, empleController.getExport);
-	app.get('/emplefiltro', auth, empleController.getFiltro);
-	app.post('/emplefiltro', auth, empleController.postFiltro);
+	app.get('/emplelista', auth, cEmple.getEmpleados);
+	app.get('/emplealta', auth, cEmple.getAlta);
+	app.post('/emplealta', auth, cEmple.postAlta);
+	app.get('/emplemodificar/:codigo', auth, cEmple.getModificar);
+	app.post('/emplemodificar', auth, cEmple.postModificar);
+	app.get('/empleborrar/:codigo', auth, cEmple.getDelEmple);
+	app.get('/emplever/:codigo', auth, cEmple.getVer);
+	app.get('/getallemple', auth, cEmple.getAllEmple);
+	app.get('/emplesexport', auth, cEmple.getExport);
+	app.get('/emplefiltro', auth, cEmple.getFiltro);
+	app.post('/emplefiltro', auth, cEmple.postFiltro);
 	//cargos de empleados
-	app.get('/cargoslista', auth, cargoController.getAllCargos);
-	app.get('/cargosalta', auth, cargoController.getAlta);
-	app.post('/cargosalta', auth, cargoController.postAlta);
-	app.get('/cargosmodificar/:id', auth, cargoController.getModificar);
-	app.post('/cargosmodificar', auth, cargoController.postModificar);
-	app.get('/cargosborrar/:id', auth, cargoController.getDelCargo);
+	app.get('/cargoslista', auth, cCargos.getAllCargos);
+	app.get('/cargosalta', auth, cCargos.getAlta);
+	app.post('/cargosalta', auth, cCargos.postAlta);
+	app.get('/cargosmodificar/:id', auth, cCargos.getModificar);
+	app.post('/cargosmodificar', auth, cCargos.postModificar);
+	app.get('/cargosborrar/:id', auth, cCargos.getDelCargo);
 	//unidades de medida "umed"
-	app.get('/umedlista', auth, umedController.getAllUmed);
-	app.get('/umedalta', auth, umedController.getAlta);
-	app.post('/umedalta', auth, umedController.postAlta);
-	app.get('/umedmodificar/:id', auth, umedController.getModificar);
-	app.post('/umedactualizar', auth, umedController.postModificar);
-	app.get('/umedborrar/:id', auth, umedController.getDelUmed);
+	app.get('/umedlista', auth, cUmed.getAllUmed);
+	app.get('/umedalta', auth, cUmed.getAlta);
+	app.post('/umedalta', auth, cUmed.postAlta);
+	app.get('/umedmodificar/:id', auth, cUmed.getModificar);
+	app.post('/umedactualizar', auth, cUmed.postModificar);
+	app.get('/umedborrar/:id', auth, cUmed.getDelUmed);
 	//sectores
-	app.get('/sectoreslista', auth, sectoresController.getAll);
-	app.get('/sectoresalta', auth, sectoresController.getAlta);
-	app.post('/sectoresalta', auth, sectoresController.postAlta);
-	app.get('/sectoresmodificar/:id', auth, sectoresController.getModificar);
-	app.post('/sectoresmodificar', auth, sectoresController.postModificar);
-	app.get('/sectoresborrar/:id', auth, sectoresController.getDel);
+	app.get('/sectoreslista', auth, cSectores.getAll);
+	app.get('/sectoresalta', auth, cSectores.getAlta);
+	app.post('/sectoresalta', auth, cSectores.postAlta);
+	app.get('/sectoresmodificar/:id', auth, cSectores.getModificar);
+	app.post('/sectoresmodificar', auth, cSectores.postModificar);
+	app.get('/sectoresborrar/:id', auth, cSectores.getDel);
 	//maquinarias abm
-	app.get('/maqlista', auth, maqController.getAll);
-	app.get('/maqalta', auth, maqController.getAlta);
-	app.post('/maqalta', auth, maqController.postAlta);
-	app.get('/maqver/:id', auth, maqController.getVer);
-	app.get('/maqmodificar/:id', auth, maqController.getModificar);
-	app.post('/maqmodificar', auth, maqController.postModificar);
-	app.get('/maqborrar/:id', auth, maqController.getDel);
+	app.get('/maqlista', auth, cMaquinarias.getAll);
+	app.get('/maqalta', auth, cMaquinarias.getAlta);
+	app.post('/maqalta', auth, cMaquinarias.postAlta);
+	app.get('/maqver/:id', auth, cMaquinarias.getVer);
+	app.get('/maqmodificar/:id', auth, cMaquinarias.getModificar);
+	app.post('/maqmodificar', auth, cMaquinarias.postModificar);
+	app.get('/maqborrar/:id', auth, cMaquinarias.getDel);
 	//equipos/vehiculos abm
-	app.get('/equipolista', auth, equipoController.getAll);
-	app.get('/equipoalta', auth, equipoController.getAlta);
-	app.post('/equipoalta', auth, equipoController.postAlta);
-	app.get('/equipomodificar/:id', auth, equipoController.getModificar);
-	app.post('/equipomodificar', auth, equipoController.postModificar);
-	app.get('/equipoborrar/:id', auth, equipoController.getDel);
-	app.get('/equipover/:id', auth, equipoController.getVer);
+	app.get('/equipolista', auth, cEquipos.getAll);
+	app.get('/equipoalta', auth, cEquipos.getAlta);
+	app.post('/equipoalta', auth, cEquipos.postAlta);
+	app.get('/equipomodificar/:id', auth, cEquipos.getModificar);
+	app.post('/equipomodificar', auth, cEquipos.postModificar);
+	app.get('/equipoborrar/:id', auth, cEquipos.getDel);
+	app.get('/equipover/:id', auth, cEquipos.getVer);
 	//Familia de articulos
-	app.get('/familialista', auth, familiaController.getAll);
-	app.get('/familiaalta', auth, familiaController.getAlta);
-	app.post('/familiaalta', auth, familiaController.postAlta);
-	app.get('/familiamodificar/:id', auth, familiaController.getModificar);
-	app.post('/familiamodificar', auth, familiaController.postModificar);
-	app.get('/familiaborrar/:id', auth, familiaController.getDel);
+	app.get('/familialista', auth, cFamilia.getAll);
+	app.get('/familiaalta', auth, cFamilia.getAlta);
+	app.post('/familiaalta', auth, cFamilia.postAlta);
+	app.get('/familiamodificar/:id', auth, cFamilia.getModificar);
+	app.post('/familiamodificar', auth, cFamilia.postModificar);
+	app.get('/familiaborrar/:id', auth, cFamilia.getDel);
 	//Articulos
-	app.get('/articulosalta', auth, artController.getAlta);
-	app.post('/articulosalta', auth, artController.postAlta);
-	app.get('/articulosconsulta', auth, artController.getConsulta);
-	app.get('/articulosver/:id', auth, artController.getVerArt);
-	app.get('/articulosmodificar/:id', auth, artController.getModificar);
-	app.post('/articulosmodificar', auth, artController.postModificar);
-	app.get('/articulosborrar/:id', auth, artController.getDel); 
-	app.get('/:idart/costou', auth, artController.getCostou);
-	app.get('/buscarart/:columna/:busqueda', auth, artController.getBuscar);
-	app.get('/buscarartpornombre/:columna/:busqueda', auth, artController.getBuscarPorNombre);
-	app.get('/getartporcdfabrica/:cdfabrica', auth, artController.getArtporCdFabrica2);
+	app.get('/articulosalta', auth, cArticulos.getAlta);
+	app.post('/articulosalta', auth, cArticulos.postAlta);
+	app.get('/articulosconsulta', auth, cArticulos.getConsulta);
+	app.get('/articulosver/:id', auth, cArticulos.getVerArt);
+	app.get('/articulosmodificar/:id', auth, cArticulos.getModificar);
+	app.post('/articulosmodificar', auth, cArticulos.postModificar);
+	app.get('/articulosborrar/:id', auth, cArticulos.getDel); 
+	app.get('/:idart/costou', auth, cArticulos.getCostou);
+	app.get('/buscarart/:columna/:busqueda', auth, cArticulos.getBuscar);
+	app.get('/buscarartpornombre/:columna/:busqueda', auth, cArticulos.getBuscarPorNombre);
+	app.get('/getartporcdfabrica/:cdfabrica', auth, cArticulos.getArtporCdFabrica2);
 		//etiquetas
-	app.get('/addartaetiquetas/:id', auth, etiquetaController.addArt);
-	app.get('/articulosimprimir', auth, etiquetaController.getImprimir);
-	app.get('/articulosimprimirlimpiar', auth, etiquetaController.getListaImpresion);
+	app.get('/addartaetiquetas/:id', auth, cEtiquetas.addArt);
+	app.get('/articulosimprimir', auth, cEtiquetas.getImprimir);
+	app.get('/articulosimprimirlimpiar', auth, cEtiquetas.getListaImpresion);
 		//get borrar fila
-	app.get('/articulosimmprimirborrarfila/:id', auth, etiquetaController.getBorrarFila);
+	app.get('/articulosimmprimirborrarfila/:id', auth, cEtiquetas.getBorrarFila);
 		//get borrar todo
-	app.get('/articulosimprimirborrartodo', auth, etiquetaController.getBorrarTodo);
+	app.get('/articulosimprimirborrartodo', auth, cEtiquetas.getBorrarTodo);
 	//VALES
-	app.get('/valesalta', auth, valesController.getAlta);
-	app.post('/valesalta', auth, valesController.postAlta);
-	app.get('/valesconsulta', auth, valesController.getConsulta);
-	app.get('/buscarvales/:finicio/:ffin/:sector', auth, valesController.getVales);
-	app.get('/valesver/:id', auth, valesController.getVerVales);
-	app.get('/valesborrar/:id', auth, valesController.getDel);
-	app.get('/getayudaporid/:id', auth, valesController.getAyuda);
-	app.post('/printselection', auth, valesController.getPrintSelection);
+	app.get('/valesalta', auth, cVales.getAlta);
+	app.post('/valesalta', auth, cVales.postAlta);
+	app.get('/valesconsulta', auth, cVales.getConsulta);
+	app.get('/buscarvales/:finicio/:ffin/:sector', auth, cVales.getVales);
+	app.get('/valesver/:id', auth, cVales.getVerVales);
+	app.get('/valesborrar/:id', auth, cVales.getDel);
+	app.get('/getayudaporid/:id', auth, cVales.getAyuda);
+	app.post('/printselection', auth, cVales.getPrintSelection);
 	//prueba xls to json
 	app.get('/test', auth, test.getTest);
 	//checklist 1 02/07/2015-> ahora se llama Modelo de Checklist [ABM]
-	app.get('/chk1lista', auth, chk1Controller.getLista);
-	app.get('/chk1alta', auth, chk1Controller.getAlta);
-	app.post('/chk1alta', auth, chk1Controller.postAlta);
+	app.get('/chk1lista', auth, cChk1.getLista);
+	app.get('/chk1alta', auth, cChk1.getAlta);
+	app.post('/chk1alta', auth, cChk1.postAlta);
 	//chkborrar
 	//checklist 2
-	app.get('/chk2lista/:id', auth, chk2Controller.getLista);
-	app.get('/chk2alta/:id', auth, chk2Controller.getAlta);
-	app.post('/chk2alta', auth, chk2Controller.postAlta);
-	app.get('/chk2modificar/:id', auth, chk2Controller.getModificar);
-	app.post('/chk2modificar', auth, chk2Controller.postModificar);
-	app.get('/chk2borrar/:id', auth, chk2Controller.getDel);
+	app.get('/chk2lista/:id', auth, cChk2.getLista);
+	app.get('/chk2alta/:id', auth, cChk2.getAlta);
+	app.post('/chk2alta', auth, cChk2.postAlta);
+	app.get('/chk2modificar/:id', auth, cChk2.getModificar);
+	app.post('/chk2modificar', auth, cChk2.postModificar);
+	app.get('/chk2borrar/:id', auth, cChk2.getDel);
 	//ot
-	app.get('/otlista', auth, otController.getLista);
-	app.get('/otalta', auth, otController.getAlta);
-	app.post('/otalta', auth, otController.postAlta);
-	app.get('/otmodificar/:id', auth, otController.getModificar);
-	app.post('/otmodificar', auth, otController.postModificar);
+	app.get('/otlista', auth, cOt.getLista);
+	app.get('/otalta', auth, cOt.getAlta);
+	app.post('/otalta', auth, cOt.postAlta);
+	app.get('/otmodificar/:id', auth, cOt.getModificar);
+	app.post('/otmodificar', auth, cOt.postModificar);
 	//tipo equipos
-	app.get('/tipoequipolista', auth, tipoequipoController.getAll);
-	app.get('/tipoequipoalta', auth, tipoequipoController.getAlta);
-	app.post('/tipoequipoalta', auth, tipoequipoController.postAlta);
-	app.get('/tipoequipomodificar/:id', auth, tipoequipoController.getModificar);
-	app.post('/tipoequipomodificar', auth, tipoequipoController.postModificar);
-	app.get('/tipoequipoborrar/:id', auth, tipoequipoController.getDel);
+	app.get('/tipoequipolista', auth, cTipoEquipo.getAll);
+	app.get('/tipoequipoalta', auth, cTipoEquipo.getAlta);
+	app.post('/tipoequipoalta', auth, cTipoEquipo.postAlta);
+	app.get('/tipoequipomodificar/:id', auth, cTipoEquipo.getModificar);
+	app.post('/tipoequipomodificar', auth, cTipoEquipo.postModificar);
+	app.get('/tipoequipoborrar/:id', auth, cTipoEquipo.getDel);
 	//tipo tarea
-	app.get('/tipotarealista', auth, tipotareaController.getLista);
-	app.get('/tipotareaalta', auth, tipotareaController.getAlta);
-	app.post('/tipotareaalta', auth, tipotareaController.postAlta);
-	app.get('/tipotareamodificar/:id', auth, tipotareaController.getModificar);
-	app.post('/tipotareamodificar', auth, tipotareaController.postModificar);
-	app.get('/tipotareaborrar/:id', auth, tipotareaController.getDel);
+	app.get('/tipotarealista', auth, cTipoTarea.getLista);
+	app.get('/tipotareaalta', auth, cTipoTarea.getAlta);
+	app.post('/tipotareaalta', auth, cTipoTarea.postAlta);
+	app.get('/tipotareamodificar/:id', auth, cTipoTarea.getModificar);
+	app.post('/tipotareamodificar', auth, cTipoTarea.postModificar);
+	app.get('/tipotareaborrar/:id', auth, cTipoTarea.getDel);
 	//modelo m1
-	app.get('/modelomantenimientolista', auth, modelom1Controller.getLista);
-	app.get('/modelomantenimientoalta', auth, modelom1Controller.getAlta);
-	app.post('/modelomantenimientoalta', auth, modelom1Controller.postAlta);
-	app.get('/modelomantenimientomodificar/:id', auth, modelom1Controller.getModificar);
-	app.post('/modelomantenimientomodificar', auth, modelom1Controller.postModificar);
-	app.get('/modelomantenimientoborrar/:id', auth, modelom1Controller.getDel);
+	app.get('/modelomantenimientolista', auth, cModeloM1.getLista);
+	app.get('/modelomantenimientoalta', auth, cModeloM1.getAlta);
+	app.post('/modelomantenimientoalta', auth, cModeloM1.postAlta);
+	app.get('/modelomantenimientomodificar/:id', auth, cModeloM1.getModificar);
+	app.post('/modelomantenimientomodificar', auth, cModeloM1.postModificar);
+	app.get('/modelomantenimientoborrar/:id', auth, cModeloM1.getDel);
 	//modelo m2
-	app.get('/modelodetallelista/:id', auth, modelom2Controller.getLista);
-	app.get('/modelodetallealta/:id', auth, modelom2Controller.getAlta);
-	app.post('/modelodetallealta', auth, modelom2Controller.postAlta);
-	app.get('/modelodetallemodificar/:id', auth, modelom2Controller.getModificar);
-	app.post('/modelodetallemodificar', auth, modelom2Controller.postModificar);
-	app.get('/modelodetalleborrar/:idm1/:idm2', auth, modelom2Controller.getDel);
-	app.get('/modelodetallerepuestover/:id', auth, modelom2Controller.getVerRepuestos);
+	app.get('/modelodetallelista/:id', auth, cModeloM2.getLista);
+	app.get('/modelodetallealta/:id', auth, cModeloM2.getAlta);
+	app.post('/modelodetallealta', auth, cModeloM2.postAlta);
+	app.get('/modelodetallemodificar/:id', auth, cModeloM2.getModificar);
+	app.post('/modelodetallemodificar', auth, cModeloM2.postModificar);
+	app.get('/modelodetalleborrar/:idm1/:idm2', auth, cModeloM2.getDel);
+	app.get('/modelodetallerepuestover/:id', auth, cModeloM2.getVerRepuestos);
 	//items de trabajo
-	app.get('/itemslista', auth, itemsController.getLista);
-	app.get('/itemsalta', auth, itemsController.getAlta);
-	app.post('/itemsalta', auth, itemsController.postAlta);
-	app.get('/itemsmodificar/:id', auth, itemsController.getModificar);
-	app.post('/itemsmodificar', auth, itemsController.postModificar);
-	app.get('/itemsborrar/:id', auth, itemsController.getDel);
+	app.get('/itemslista', auth, cItems.getLista);
+	app.get('/itemsalta', auth, cItems.getAlta);
+	app.post('/itemsalta', auth, cItems.postAlta);
+	app.get('/itemsmodificar/:id', auth, cItems.getModificar);
+	app.post('/itemsmodificar', auth, cItems.postModificar);
+	app.get('/itemsborrar/:id', auth, cItems.getDel);
 	//tipos de hora
-	app.get('/tipohoralista', auth, tipohoraController.getLista);
-	app.get('/tipohoraalta', auth, tipohoraController.getAlta);
-	app.post('/tipohoraalta', auth, tipohoraController.postAlta);
-	app.get('/tipohoramodificar/:id', auth, tipohoraController.getModificar);
-	app.post('/tipohoramodificar', auth, tipohoraController.postModificar);
-	app.get('/tipohoraborrar/:id', auth, tipohoraController.getDel);
+	app.get('/tipohoralista', auth, cTipoHora.getLista);
+	app.get('/tipohoraalta', auth, cTipoHora.getAlta);
+	app.post('/tipohoraalta', auth, cTipoHora.postAlta);
+	app.get('/tipohoramodificar/:id', auth, cTipoHora.getModificar);
+	app.post('/tipohoramodificar', auth, cTipoHora.postModificar);
+	app.get('/tipohoraborrar/:id', auth, cTipoHora.getDel);
 	//codigo de hora
-	app.get('/codigohoralista', auth, codigohoraController.getLista);
-	app.get('/codigohoraalta', auth, codigohoraController.getAlta);
-	app.post('/codigohoraalta', auth, codigohoraController.postAlta);
-	app.get('/codigohoramodificar/:id', auth, codigohoraController.getModificar);
-	app.post('/codigohoramodificar', auth, codigohoraController.postModificar);
-	app.get('/codigohoraborrar/:id', auth, codigohoraController.getDel);
+	app.get('/codigohoralista', auth, cCodigoHora.getLista);
+	app.get('/codigohoraalta', auth, cCodigoHora.getAlta);
+	app.post('/codigohoraalta', auth, cCodigoHora.postAlta);
+	app.get('/codigohoramodificar/:id', auth, cCodigoHora.getModificar);
+	app.post('/codigohoramodificar', auth, cCodigoHora.postModificar);
+	app.get('/codigohoraborrar/:id', auth, cCodigoHora.getDel);
 	//relojes
-	app.get('/relojeslista', auth, relojesController.getLista);
-	app.get('/relojesalta', auth, relojesController.getAlta);
-	app.post('/relojesalta', auth, relojesController.postAlta);
-	app.get('/relojesmodificar/:id', auth, relojesController.getModificar);
-	app.post('/relojesmodificar', auth, relojesController.postModificar);
-	app.get('/relojesborrar/:id', auth, relojesController.getDel);
+	app.get('/relojeslista', auth, cRelojes.getLista);
+	app.get('/relojesalta', auth, cRelojes.getAlta);
+	app.post('/relojesalta', auth, cRelojes.postAlta);
+	app.get('/relojesmodificar/:id', auth, cRelojes.getModificar);
+	app.post('/relojesmodificar', auth, cRelojes.postModificar);
+	app.get('/relojesborrar/:id', auth, cRelojes.getDel);
 	//lugares
 	app.get('/lugareslista', auth, cLugares.getLista);
 	app.get('/lugaresalta', auth, cLugares.getAlta);
@@ -256,12 +256,12 @@ module.exports = function(app) {
 	app.get('/lugargetbysectorid/:sectorid', auth, cLugares.getBySectorId);
 	//clasificacion de horas
 	//24/07/2015 - desde ahora "clasificacion horas " es "adicionales"
-	app.get('/clasificacionlista', auth, clasificacionController.getLista);
-	app.get('/clasificacionalta', auth, clasificacionController.getAlta);
-	app.post('/clasificacionalta', auth, clasificacionController.postAlta);
-	app.get('/clasificacionmodificar/:id', auth, clasificacionController.getModificar);
-	app.post('/clasificacionmodificar', auth, clasificacionController.postModificar);
-	app.get('/clasificacionborrar/:id', auth, clasificacionController.getDel);
+	app.get('/clasificacionlista', auth, cClasificacion.getLista);
+	app.get('/clasificacionalta', auth, cClasificacion.getAlta);
+	app.post('/clasificacionalta', auth, cClasificacion.postAlta);
+	app.get('/clasificacionmodificar/:id', auth, cClasificacion.getModificar);
+	app.post('/clasificacionmodificar', auth, cClasificacion.postModificar);
+	app.get('/clasificacionborrar/:id', auth, cClasificacion.getDel);
 	//imputacion de horas 
 	//02/07/2015-> ahora se llama ITEMS
 	//los html y rutas son 'imputacion' y la base de datos es 'items'
@@ -273,21 +273,23 @@ module.exports = function(app) {
 	app.get('/imputacionborrar/:id', auth, cImputacion.getDel);
 	app.get('/getitemsgeneralesandbysector/:sectorid', auth, cImputacion.getItems)
 	//parte diario 1
-	app.get('/partediario1lista', auth, partediario1Controller.getLista);
-	app.get('/partediario1alta', auth, partediario1Controller.getAlta);
-	app.post('/partediario1alta', auth, partediario1Controller.postAlta);
-	app.get('/partediario1modificar/:id', auth, partediario1Controller.getModificar);
-	app.post('/partediario1modificar', auth, partediario1Controller.postModificar);
-	app.get('/partediario1borrar/:id', auth, partediario1Controller.getDel);
+	app.get('/partediario1lista', auth, cParteDiario1.getLista);
+	app.get('/partediario1alta', auth, cParteDiario1.getAlta);
+	app.post('/partediario1alta', auth, cParteDiario1.postAlta);
+	app.get('/partediario1modificar/:id', auth, cParteDiario1.getModificar);
+	app.post('/partediario1modificar', auth, cParteDiario1.postModificar);
+	app.get('/partediario1borrar/:id', auth, cParteDiario1.getDel);
+	app.get('/partediario1close/:idp1', auth, cParteDiario1.getClose);
+	app.get('/partediario1historial', auth, cPartediario1.getHistorial);
 	//parte diario 2
-	app.get('/partediario2lista/:id', auth, partediario2Controller.getLista);
-	app.get('/partediario2alta/:id', auth, partediario2Controller.getAlta);
-	app.post('/partediario2alta', auth, partediario2Controller.postAlta);
-	app.get('/partediario2modificar/:id', auth, partediario2Controller.getModificar);
-	app.post('/partediario2modificar', auth, partediario2Controller.postModificar);
-	app.get('/partediario2borrar/:id', auth, partediario2Controller.getDel);
-	app.get('/getemplesbysector/:id', auth, partediario2Controller.getEmples);
-	app.get('/getempleinpd2/:idp1/:idemple', auth, partediario2Controller.getEmpleInPartediario2);
+	app.get('/partediario2lista/:id', auth, cParteDiario2.getLista);
+	app.get('/partediario2alta/:id', auth, cParteDiario2.getAlta);
+	app.post('/partediario2alta', auth, cParteDiario2.postAlta);
+	app.get('/partediario2modificar/:id', auth, cParteDiario2.getModificar);
+	app.post('/partediario2modificar', auth, cParteDiario2.postModificar);
+	app.get('/partediario2borrar/:id', auth, cParteDiario2.getDel);
+	app.get('/getemplesbysector/:id', auth, cParteDiario2.getEmples);
+	app.get('/getempleinpd2/:idp1/:idemple', auth, cParteDiario2.getEmpleInPartediario2);
 	//fichadas
 	app.get('/fichadaslista', auth, cFichadas.getLista);
 	app.get('/buscarfichadas/:fecha', auth, cFichadas.getFichadas);
@@ -320,7 +322,7 @@ module.exports = function(app) {
 	app.get('/categoriasborrar/:id', auth, cCategorias.getDel);
 
 	//pruebasql
-	app.get('/pruebasql', auth, pruebasqlController.getPrueba);
+	app.get('/pruebasql', auth, cPruebaSQL.getPrueba);
 	//random
 	app.get('/random', auth, cRandom.getAsd);
 	app.post('/random', auth, cRandom.postAsd);

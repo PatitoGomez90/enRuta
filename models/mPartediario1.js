@@ -2,17 +2,32 @@ var conn = require('../config/db').conn;
 
 module.exports = {
 	getAll: getAll,
+	getAllAbiertos: getAllAbiertos,
+	getAllCerrados: getAllCerrados,
 	insert: insert,
 	getById: getById,
 	update: update,
 	del: del,
-	getLastId: getLastId
+	getLastId: getLastId,
+	closeParteDiario: closeParteDiario
 }
 
 function getAll(cb){
 	//sectortxt lugartxt fechaf
 	//select concat_ws(' ', contratos.nombre, contratos.numero) as contratotxt from partediario1 left join contratos on contratos.id = partediario1.id_contrato_fk
 	conn("select partediario1.*, DATE_FORMAT(partediario1.fecha, '%d/%m/%Y') as fechaf, lugares.nombre as lugartxt, sectores.nombre as sectortxt, turnos.codigo as turnotxt, concat_ws(' ', contratos.nombre, contratos.numero) as contratotxt from partediario1 left join lugares on lugares.id = partediario1.id_lugar_fk left join sectores on sectores.id = partediario1.id_sector_fk left join turnos on turnos.id = partediario1.id_turno_fk left join contratos on contratos.id = partediario1.id_contrato_fk", cb);
+}
+
+function getAllAbiertos(cb){
+	//sectortxt lugartxt fechaf
+	//select concat_ws(' ', contratos.nombre, contratos.numero) as contratotxt from partediario1 left join contratos on contratos.id = partediario1.id_contrato_fk
+	conn("select partediario1.*, DATE_FORMAT(partediario1.fecha, '%d/%m/%Y') as fechaf, lugares.nombre as lugartxt, sectores.nombre as sectortxt, turnos.codigo as turnotxt, concat_ws(' ', contratos.nombre, contratos.numero) as contratotxt from partediario1 left join lugares on lugares.id = partediario1.id_lugar_fk left join sectores on sectores.id = partediario1.id_sector_fk left join turnos on turnos.id = partediario1.id_turno_fk left join contratos on contratos.id = partediario1.id_contrato_fk where partediario1.estado = 1", cb);
+}
+
+function getAllCerrados(cb){
+	//sectortxt lugartxt fechaf
+	//select concat_ws(' ', contratos.nombre, contratos.numero) as contratotxt from partediario1 left join contratos on contratos.id = partediario1.id_contrato_fk
+	conn("select partediario1.*, DATE_FORMAT(partediario1.fecha, '%d/%m/%Y') as fechaf, lugares.nombre as lugartxt, sectores.nombre as sectortxt, turnos.codigo as turnotxt, concat_ws(' ', contratos.nombre, contratos.numero) as contratotxt from partediario1 left join lugares on lugares.id = partediario1.id_lugar_fk left join sectores on sectores.id = partediario1.id_sector_fk left join turnos on turnos.id = partediario1.id_turno_fk left join contratos on contratos.id = partediario1.id_contrato_fk where partediario1.estado = 0", cb);
 }
 
 function insert(fecha, contrato, idsector, idlugar, turno, estado, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, imputacion7, imputacion8, imputacion9, imputacion10, imputacion11, imputacion12, cb){
@@ -76,4 +91,10 @@ function del(id, cb){
 //para el partediario1 alta
 function getLastId(cb){
 	conn("select max(id) as id from partediario1", cb)
+}
+
+function closeParteDiario(idp1, cb){
+	// 1 = abierto
+	// 0 = cerrado
+	conn("update partediario1 set estado = 0 where partediario1.id = "+idp1, cb);
 }

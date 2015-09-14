@@ -15,7 +15,8 @@ module.exports = {
 	postAlta: postAlta,
 	getModificar: getModificar,
 	postModificar: postModificar,
-	getDel: getDel
+	getDel: getDel,
+	getClose: getClose
 };
 
 function changeDate(date){
@@ -28,7 +29,7 @@ function changeDate(date){
 function getLista(req, res) {
 	//req.session.nromenu = 5;
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
-	mPartediario1.getAll(function (partediario1s){
+	mPartediario1.getAllAbiertos(function (partediario1s){
 		res.render('partediario1lista', {
         	pagename: 'Lista de Partes Diarios',
         	partediario1s: partediario1s
@@ -180,3 +181,24 @@ function getDel(req, res){
 	});
 }
 
+function getClose(req, res){
+	params = req.params;
+	idp1 = params.idp1;
+	// p1.estado
+	// 1 = abierto
+	// 0 = cerrado
+
+	mPartediario1.closeParteDiario(idp1, function (){
+		console.log("Parte Diario ID "+idp1+" cerrado.");
+		res.redirect('partediario1lista');
+	});
+}
+
+function getHistorial(req, res){
+	mPartediario1.getAllCerrados(function (partediario1s){
+		res.render('partediario1historial',{
+			pagename: "Historial de Partes Diarios",
+			partediario1s: partediario1s
+		});
+	});
+}
