@@ -61,7 +61,7 @@ function SQLifIDexists(newerficid, cb){
 //para partediario2modificar
 	function getByTarjetayFechas(tarjeta, hoy, maniana, cb){
 		////
-		conn("SELECT fic_id, fic_reloj, fic_entsal, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, fic_hora FROM fichadas where fic_tarjeta = "+tarjeta+" and fic_fecha in ('2015-08-23', '2015-08-24') order by fic_id ", cb);
+		conn("SELECT fic_id, fic_reloj, fic_entsal, DATE_FORMAT(fichadas.fic_fecha, '%d/%m/%Y') as fic_fechaf, fic_hora FROM fichadas where fic_tarjeta = "+tarjeta+" and fic_fecha in ('"+hoy+"', '"+maniana+"') order by fic_id ", cb);
 	}
 
 //para fichadas por sector

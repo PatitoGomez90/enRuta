@@ -47,7 +47,7 @@ function insertNewEmpleado(idpartediario1, idempleado, numero, cb){
 		"values("+idpartediario1+", "+idempleado+", "+numero+")", cb);
 }
 
-function update(id, codigohora, entrada, salida, total, adicional1_n, adicional1_50, adicional1_100, adicional2_n, adicional2_50, adicional2_100, adicional3_n, adicional3_50, adicional3_100, adicional4_n, adicional4_50, adicional4_100, adicional5_n, adicional5_50, adicional5_100, adicional6_n, adicional6_50, adicional6_100, item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, cb){
+function update(id, codigohora, entrada, salida, total, adicional1_n, adicional1_50, adicional1_100, adicional2_n, adicional2_50, adicional2_100, adicional3_n, adicional3_50, adicional3_100, adicional4_n, adicional4_50, adicional4_100, adicional5_n, adicional5_50, adicional5_100, adicional6_n, adicional6_50, adicional6_100, item1_n, item1_50, item1_100, item2_n, item2_50, item2_100, item3_n, item3_50, item3_100, item4_n, item4_50, item4_100, item5_n, item5_50, item5_100, item6_n, item6_50, item6_100, item7_n, item7_50, item7_100, item8_n, item8_50, item8_100, item9_n, item9_50, item9_100, item10_n, item10_50, item10_100, item11_n, item11_50, item11_100, item12_n, item12_50, item12_100, cb){
 	conn("UPDATE `partediario2` SET `id_codigohora_fk`="+codigohora+", `hr_entrada`='"+entrada+"', `hr_salida`='"+salida+"', "+
 		"`hr_total`='"+total+"', `adicional1_n`="+adicional1_n+",`adicional1_50`="+adicional1_50+", `adicional1_100`="+adicional1_100+", "+
 		"`adicional2_n`="+adicional2_n+",`adicional2_50`="+adicional2_50+", `adicional2_100`="+adicional2_100+", "+
@@ -55,9 +55,19 @@ function update(id, codigohora, entrada, salida, total, adicional1_n, adicional1
 		"`adicional4_n`="+adicional4_n+",`adicional4_50`="+adicional4_50+", `adicional4_100`="+adicional4_100+", "+
 		"`adicional5_n`="+adicional5_n+",`adicional5_50`="+adicional5_50+", `adicional5_100`="+adicional5_100+", "+
 		"`adicional6_n`="+adicional6_n+",`adicional6_50`="+adicional6_50+", `adicional6_100`="+adicional6_100+", "+
-		"`item1`="+item1+", `item2`="+item2+", `item3`="+item3+", `item4`="+item4+", `item5`="+item5+", `item6`="+item6+", "+
-		"`item7`="+item7+", `item8`="+item8+", `item9`="+item9+", `item10`="+item10+", `item11`="+item11+", `item12`="+item12+
-		" WHERE partediario2.id ="+id, cb);
+		"item1_n="+item1_n+", item1_50="+item1_50+", item1_100="+item1_100+", "+ 
+		"item2_n="+item2_n+", item2_50="+item2_50+", item2_100="+item2_100+", "+
+		"item3_n="+item3_n+", item3_50="+item3_50+", item3_100="+item3_100+", "+
+		"item4_n="+item4_n+", item4_50="+item4_50+", item4_100="+item4_100+", "+
+		"item5_n="+item5_n+", item5_50="+item5_50+", item5_100="+item5_100+", "+ 
+		"item6_n="+item6_n+", item6_50="+item6_50+", item6_100="+item6_100+", "+ 
+		"item7_n="+item7_n+", item7_50="+item7_50+", item7_100="+item7_100+", "+ 
+		"item8_n="+item8_n+", item8_50="+item8_50+", item8_100="+item8_100+", "+ 
+		"item9_n="+item9_n+", item9_50="+item9_50+", item9_100="+item9_100+", "+ 
+		"item10_n="+item10_n+", item10_50="+item10_50+", item10_100="+item10_100+", "+ 
+		"item11_n="+item11_n+", item11_50="+item11_50+", item11_100="+item11_100+", "+ 
+		"item12_n="+item12_n+", item12_50="+item12_50+", item12_100="+item12_100+" "+
+		"WHERE partediario2.id ="+id, cb);
 }
 
 function del(id, cb){

@@ -86,10 +86,10 @@ function postAlta(req, res){
 
 	mPartediario1.insert(fecha, contrato, idsector, idlugar, turno, estado, clasificacion1, clasificacion2, clasificacion3, clasificacion4, clasificacion5, clasificacion6, imputacion1, imputacion2, imputacion3, imputacion4, imputacion5, imputacion6, imputacion7, imputacion8, imputacion9, imputacion10, imputacion11, imputacion12, function(){
 		mPartediario1.getLastId(function (pdultimoid){
-			console.log(pdultimoid)
+			//console.log(pdultimoid)
 			var ultimoid = pdultimoid[0].id;
 			mEmple.getByTurno(turno, function (emplesbyturno){
-				console.log(emplesbyturno.length)
+				//console.log(emplesbyturno.length)
 
 				var bandera = false;
 				for (var x = 0 ; x < emplesbyturno.length ; x++){
@@ -119,7 +119,7 @@ function getModificar(req, res){
 					mImputacion.getAllActivos(function (imputaciones){
 						mTurnos.getByIdSector(partediario1[0].id_sector_fk, function (turnos){
 							mContratos.getAll(function (contratos){
-								console.log(partediario1[0])
+								//console.log(partediario1[0])
 								res.render('partediario1modificar', {
 									pagename: "Modificar Parte Diario",
 									partediario1: partediario1[0],

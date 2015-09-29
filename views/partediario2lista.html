@@ -9,7 +9,7 @@
 <h2>{{ pagename }} en Parte Diario </h2>
 <b>Fecha:</b> {{ partediario1.fechaf }}<br>
 <b>Sector:</b> {{ partediario1.sectortxt }}<br>
-<b>Lugar:</b> {{ partediario1.lugartxt }}<br>
+<b>Lugar:</b> {% if partediario1.id_lugar_fk != 0 %}{{ partediario1.lugartxt }}{% endif %}<br>
 <b>Turno</b> {{ partediario1.turnotxt }}<br>
 <b>Contrato:</b>{{ partediario1.contratotxt }}<br>
 <div class="panel panel-default">
@@ -127,8 +127,7 @@
 												<td>100%</td>
 											</tr>
 										</table>
-									</td>
-							
+									</td>							
 									{% if partediario1.id_clasificacion1_fk != 0 %}
 										<td style="text-align: center;">
 											<table style="width: 100%;">
@@ -214,40 +213,184 @@
 										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion1_fk != 0 %}
-										<td>{{ p2.item1 }}</td>
+										<!-- <td>{{ p2.item1 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item1_n }}</td>
+												<tr>
+													<td>{{ p2.item1_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item1_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion2_fk != 0 %}
-										<td>{{ p2.item2 }}</td>
+										<!-- <td>{{ p2.item2 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item2_n }}</td>
+												<tr>
+													<td>{{ p2.item2_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item2_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion3_fk != 0 %}
-										<td>{{ p2.item3 }}</td>
+										<!-- <td>{{ p2.item3 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item3_n }}</td>
+												<tr>
+													<td>{{ p2.item3_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item3_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion4_fk != 0 %}
-										<td>{{ p2.item4 }}</td>
+										<!-- <td>{{ p2.item4 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item4_n }}</td>
+												<tr>
+													<td>{{ p2.item4_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item4_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion5_fk != 0 %}
-										<td>{{ p2.item5 }}</td>
+										<!-- <td>{{ p2.item5 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item5_n }}</td>
+												<tr>
+													<td>{{ p2.item5_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item5_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion6_fk != 0 %}
-										<td>{{ p2.item6 }}</td>
+										<!-- <td>{{ p2.item6 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item6_n }}</td>
+												<tr>
+													<td>{{ p2.item6_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item6_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion7_fk != 0 %}
-										<td>{{ p2.item7 }}</td>
+										<!-- <td>{{ p2.item7 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item7_n }}</td>
+												<tr>
+													<td>{{ p2.item7_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item7_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion8_fk != 0 %}
-										<td>{{ p2.item8 }}</td>
+										<!-- <td>{{ p2.item8 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item8_n }}</td>
+												<tr>
+													<td>{{ p2.item8_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item8_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion9_fk != 0 %}
-										<td>{{ p2.item9 }}</td>
+										<!-- <td>{{ p2.item9 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item9_n }}</td>
+												<tr>
+													<td>{{ p2.item9_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item9_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion10_fk != 0 %}
-										<td>{{ p2.item10 }}</td>
+										<!-- <td>{{ p2.item10 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item10_n }}</td>
+												<tr>
+													<td>{{ p2.item10_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item10_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion11_fk != 0 %}
-										<td>{{ p2.item11 }}</td>
+										<!-- <td>{{ p2.item11 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item11_n }}</td>
+												<tr>
+													<td>{{ p2.item11_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item11_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 									{% if partediario1.id_imputacion12_fk != 0 %}
-										<td>{{ p2.item12 }}</td>
+										<!-- <td>{{ p2.item12 }}</td> -->
+										<td style="text-align: center;">
+											<table style="width: 100%;">
+												<tr>
+													<td>{{ p2.item12_n }}</td>
+												<tr>
+													<td>{{ p2.item12_50 }}</td>
+												</tr>
+												<tr>
+													<td>{{ p2.item12_100 }}</td>
+												</tr>
+											</table>
+										</td>
 									{% endif %}
 								</tr>
 							{% endfor %}
