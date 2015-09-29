@@ -92,6 +92,17 @@
 				<td>Total:</td>
 				<td><input type="text" id="total" name="total" value="{{ partediario2.hr_total }}" class="form-control" onkeypress='validate(event)'></td>
 			</tr>
+			<tr>
+				<td colspan="2">
+					<table style="display: inline-block;">
+						<tr>
+							<td>Norm:<input type="text" class="hr_tot form-control" id="hr_total_n" name="hr_total_n" onkeypress='validate(event)' value="{{ partediario2.hr_total_n }}"></td>
+							<td>50%:<input type="text" class="hr_tot form-control" id="hr_total_50" name="hr_total_50" onkeypress='validate(event)' value="{{ partediario2.hr_total_50 }}"></td>
+							<td>100%:<input type="text" class="hr_tot form-control" id="hr_total_100" name="hr_total_100" onkeypress='validate(event)' value="{{ partediario2.hr_total_100 }}"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
 		</table>
 	</div>
 	<div class="panel panel-success">
@@ -288,24 +299,62 @@
 	    if(theEvent.preventDefault) theEvent.preventDefault();
 	  }
 	}
+	function convertToHHMM(info) {
+	  	var hrs = parseInt(Number(info));
+	 	var min = Math.round((Number(info)-hrs) * 60);
+	 	if (hrs < 10 )
+	 		hrss = "0"+hrs;
+	 	else
+	 		hrss = hrs;
+	 	if (min < 10)
+	 		mins = "0"+min;
+	 	else
+	 		mins = min;
+	  	return hrss+':'+mins;
+	}
+
+	// $(".hr_tot").on("change", function(){
+	// 	var total = $("#total").val();
+	// 	var hr_total_n = $("#hr_total_n").val();
+	// 	var hr_total_50 = $("#hr_total_50").val();
+	// 	var hr_total_100 = $("#hr_total_100").val();
+	// 	// if ( total.length > 0 && hr_total_n != 0 && hr_total_50 != 0 && hr_total_100 != 0 ){
+	// 	 	var hr_total_n_int = parseInt(hr_total_n);	
+
+	// 	 	res = convertToHHMM(hr_total_n_int)
+	// 		console.log(res)
+	// 		console
+	// });
 
 	$("#formty").submit(function(e){
-
 		var validationfails = true;
 		var codigohora = $("#codigohora").val();
 		var entrada = $("#entrada").val();
 		var salida = $("#salida").val();
-		// console.log(codigohora)
-		// console.log(entrada)
-		// console.log(entrada.length)
-		// console.log(salida)
-		// console.log(salida.length)
+
 		if (codigohora == 1 || codigohora == 18){
 			if (entrada.length == 0 || salida.length == 0){
 				validationfails = true;
 				alert("Si es Normal o Feriado Trabajado, DEBEN haber horarios cargados.")
 			}else{
-				validationfails = false;
+				var total = $("#total").val();
+				var hr_total_n = $("#hr_total_n").val();
+				var hr_total_50 = $("#hr_total_50").val();
+				var hr_total_100 = $("#hr_total_100").val();
+
+				var hr_total_n_int = parseInt(hr_total_n);		
+				var hr_total_50_int = parseInt(hr_total_50);
+				var hr_total_100_int = parseInt(hr_total_100);
+
+				var sum = hr_total_n_int + hr_total_50_int + hr_total_100_int;
+				res = convertToHHMM(sum);
+				console.log(res)
+				if (res > total){
+					validationfails = true;
+					alert("La suma de las horas no puede ser mayor al total de horas.")
+				}else{
+					validationfails = false;	
+				}				
 			}
 		}else{
 			if (entrada.length > 0 || salida.length > 0){
@@ -315,7 +364,6 @@
 				validationfails = false;
 			}
 		}
-
 
 	    if(validationfails){
 	    	e.preventDefault();
@@ -439,3 +487,9 @@
 
 </script>
 {% endblock %}
+
+date = "19:00"
+date.getHour() = 19
+date.getMinutes() = 00
+
+8 > 
