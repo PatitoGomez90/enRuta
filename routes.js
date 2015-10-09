@@ -34,6 +34,8 @@ var cFichadas = require('./controllers/cFichadas');
 var cContratos = require('./controllers/cContratos');
 var cTurnos = require('./controllers/cTurnos');
 var cCategorias = require('./controllers/cCategorias');
+var cReportes = require('./controllers/cReportes');
+
 
 var cPruebaSQL = require('./controllers/cPruebaSQL');
 var cRandom = require('./controllers/cRandom');
@@ -321,6 +323,9 @@ module.exports = function(app) {
 	app.get('/categoriasmodificar/:id', auth, cCategorias.getModificar);
 	app.post('/categoriasmodificar', auth, cCategorias.postModificar);
 	app.get('/categoriasborrar/:id', auth, cCategorias.getDel);
+	//reportes
+	app.get('/reportes', auth, cReportes.getInicio);
+	app.post('/reportesinicio', auth, cReportes.postInicio);
 
 	//pruebasql
 	app.get('/pruebasql', auth, cPruebaSQL.getPrueba);

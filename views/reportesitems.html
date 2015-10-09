@@ -1,0 +1,38 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/cargosalta.css" rel="stylesheet">
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="post" id="formalta" action="/cargosalta">
+		<table align="center" class="table table-striped">
+			<tr>
+				<th>ITEM</th>
+				<th>DESCRIPCION</th>
+				<th>HS NORMALES</th>
+				<th>HS al 50</th>
+				<th>HS al 100</th>
+				<th>HS TOTALES</th>
+			</tr>
+			{% for dato in datosItems %}
+			<tr>
+				<td>{{ dato.ITEM }}</td>
+				<td>{{ dato.DESCRIP }}</td>
+				<td>{{ dato.N }}</td>
+				<td>{{ dato.AL_50 }}</td>
+				<td>{{ dato.AL_100 }}</td>
+				<td>{{ dato.TOTAL }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+</script>
+
+{% endblock %}

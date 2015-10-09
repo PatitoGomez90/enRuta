@@ -47,3 +47,6 @@ function del(id, cb){
 function getUltimoNumero(cb){
 	conn("select max(numero) as numero from items", cb);
 }
+
+//para el reporte de items
+	//function getItemsEntreFechas(fechadesde, fechapara)
