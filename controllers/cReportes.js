@@ -24,49 +24,26 @@ function getInicio(req, res){
 	});
 }
 
-function sumarUno(iditem, aItems, aItemsCant){
-	var indice = 0;
-	if (aItems.length == aItemsCant.length){
-		for (x = 0 ; x < aItems.length ; x++){
-			if (aItems[x] == iditem){
-				aItemsCant[x] = aItemsCant[x] + 1;
-				break;
-			}
-		}
-	}
-
-
-}
-
 function postInicio(req, res){
 	params = req.body;
 	tiporeporte = params.tiporeporte;
 	fechadesde = params.fechadesde;
 	fechahasta = params.fechahasta;
 
-	fechadesde = changeDate(fechadesde);
-	fechahasta = changeDate(fechahasta);
-
-	// var connection = mysql.createConnection({
-	//     user: 'root',
-	//     password: '',
-	//     host: '127.0.0.1',
-	//     port: '3306',
-	//     database: 'Maresa',
-	//     dateStrings : true
-	//  });
-
-	// connection.connect();
-
+	fecha_desde = changeDate(fechadesde);
+	fecha_hasta = changeDate(fechahasta);
 
 	if (tiporeporte == 1){
 	//render reporte para items
-		var partesDiarios = [];
-
-		mParteDiario1.getEntreFechas(fechadesde, fechahasta, function (datos){
-			//console.log(datos)
-	      	res.render("reportesitems", {
-				datosItems: datos
+		
+		mParteDiario1.getSP_ItemsEntreFechas(fecha_desde, fecha_hasta, function (items){
+			cantidad = items[0].length;
+			res.render("reportesitems", {
+				pagename: "Reporte de items",
+				items: items[0],
+				fechadesde: fechadesde,
+				fechahasta: fechahasta,
+				cantidad: cantidad
 			});
 		});
 	} else if (tiporeporte == 2){

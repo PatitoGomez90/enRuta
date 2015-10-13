@@ -7,32 +7,55 @@
 {% block content %}
 <link href="/css/cargosalta.css" rel="stylesheet">
 <h2>{{ pagename }}</h2>
+<p>Reporte generado con informacion de los Partes Diarios recopilada entre los dias {{ fechadesde }} hasta el dia {{ fechahasta }}.<br>
+El reporte muestra la informacion de {{ cantidad }} items</p>
 <div class="panel panel-default">
-	<form method="post" id="formalta" action="/cargosalta">
-		<table align="center" class="table table-striped">
-			<tr>
-				<th>ITEM</th>
-				<th>DESCRIPCION</th>
-				<th>HS NORMALES</th>
-				<th>HS al 50</th>
-				<th>HS al 100</th>
-				<th>HS TOTALES</th>
-			</tr>
-			{% for dato in datosItems %}
-			<tr>
-				<td>{{ dato.ITEM }}</td>
-				<td>{{ dato.DESCRIP }}</td>
-				<td>{{ dato.N }}</td>
-				<td>{{ dato.AL_50 }}</td>
-				<td>{{ dato.AL_100 }}</td>
-				<td>{{ dato.TOTAL }}</td>
-			</tr>
-			{% endfor %}
+	<div class="panel-heading">
+  	<!-- Table -->
+		<table>
+		<tr>	
+			<td><button type="button" class="btn btn-primary" onclick="history.back()">Atras</button></a></td>
+			<td><button type="button" id="btnSave" class="btn btn-default"><span class="glyphicon glyphicon-save"></span></button></td>
+		</tr>	
 		</table>
-	</form>
+	</div>
+	<table align="center" class="table table-striped">
+		<tr>
+			<th>ITEM</th>
+			<th>DESCRIPCION</th>
+			<th>HS NORMALES</th>
+			<th>HS al 50</th>
+			<th>HS al 100</th>
+			<th>HS TOTALES</th>
+		</tr>
+		{% for i in items %}
+			<tr>
+				<td>{{ i.itemnum }}</td>
+				<td>{{ i.itemtxt }}</td>
+				<td>{{ i.normal }}</td>
+				<td>{{ i.Al50 }}</td>
+				<td>{{ i.Al100 }}</td>
+				<td><label id="lblTotal{{i.itemnum}}"><input hidden class="total" data-itemnum="{{i.itemnum}}" id="total{{i.itemnum}}" value="{{ i.normal + i.Al50 + i.Al100 }}"></td>
+			</tr>
+		{% endfor %}
+	</table>
 </div>
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
+	$(function() {
+	    $(".total").each(function (indice, element){
+	    	itemnum = $(element).data("itemnum");
+	    	tot = element.value;
+	    	total1decimal = parseFloat(tot).toFixed(1);
+	    	$("#lblTotal"+itemnum).text(total1decimal);
+	    })
+	});
+
+	$("#btnSave").click(function (){
+		alert("Estamos trabajando en la exportacion de este reporte a Excel")
+		// var url = "/itemsexport";
+		// window.location = url;
+	});
 </script>
 
 {% endblock %}

@@ -10,7 +10,7 @@ module.exports = {
 	del: del,
 	getLastId: getLastId,
 	closeParteDiario: closeParteDiario,
-	getEntreFechas: getEntreFechas
+	getSP_ItemsEntreFechas: getSP_ItemsEntreFechas
 }
 
 function getAll(cb){
@@ -128,24 +128,6 @@ function closeParteDiario(idp1, cb){
 }
 
 // Pal reporte 
-	function getEntreFechas(desde, hasta, cb){
-
-		var consulta = 
-		["SELECT",
-		"p2.`numero` as 'ITEM', items.`nombre` as 'DESCRIP', ",
-		"(SUM(p2.`item1_n`) + SUM(p2.`item2_n`) + SUM(p2.`item3_n`) + SUM(p2.`item4_n`) + SUM(p2.`item5_n`) + SUM(p2.`item6_n`) + SUM(p2.`item7_n`) + SUM(p2.`item8_n`) + SUM(p2.`item9_n`) + SUM(p2.`item10_n`) + SUM(p2.`item11_n`) + SUM(p2.`item12_n`)) as 'N' ,",
-		"(SUM(p2.`item1_50`) + SUM(p2.`item2_50`) + SUM(p2.`item3_50`) + SUM(p2.`item4_50`) + SUM(p2.`item5_50`) + SUM(p2.`item6_50`) + SUM(p2.`item7_50`) + SUM(p2.`item8_50`) + SUM(p2.`item9_50`) + SUM(p2.`item10_50`) + SUM(p2.`item11_50`) + SUM(p2.`item12_50`)) as 'AL_50' ,",
-		"(SUM(p2.`item1_100`) + SUM(p2.`item2_100`) + SUM(p2.`item3_100`) + SUM(p2.`item4_100`) + SUM(p2.`item5_100`) + SUM(p2.`item6_100`) + SUM(p2.`item7_100`) + SUM(p2.`item8_100`) + SUM(p2.`item9_100`) + SUM(p2.`item10_100`) + SUM(p2.`item11_100`) + SUM(p2.`item12_100`)) as 'AL_100',",
-		"((SUM(p2.item1_100) + SUM(p2.item2_100) + SUM(p2.item3_100) + SUM(p2.item4_100) + SUM(p2.item5_100) + SUM(p2.item6_100) + SUM(p2.item7_100) + SUM(p2.item8_100) + SUM(p2.item9_100) + SUM(p2.item10_100) + SUM(p2.item11_100) + SUM(p2.item12_100)) + (SUM(p2.item1_50) + SUM(p2.item2_50) + SUM(p2.item3_50) + SUM(p2.item4_50) + SUM(p2.item5_50) + SUM(p2.item6_50) + SUM(p2.item7_50) + SUM(p2.item8_50) + SUM(p2.item9_50) + SUM(p2.item10_50) + SUM(p2.item11_50) + SUM(p2.item12_50)) + (SUM(p2.item1_n) + SUM(p2.item2_n) + SUM(p2.item3_n) + SUM(p2.item4_n) + SUM(p2.item5_n) + SUM(p2.item6_n) + SUM(p2.item7_n) + SUM(p2.item8_n) + SUM(p2.item9_n) + SUM(p2.item10_n) + SUM(p2.item11_n) + SUM(p2.item12_n))) as 'TOTAL' ",
-		"FROM `partediario2` p2, `partediario1` p1, `items` items ",
-		"WHERE ",
-		"p1.fecha >= '" + desde + "' and fecha <= '" + hasta + "' ",
-		"and ",
-		"p1.id = p2.id_partediario1_fk ",
-		"and",
-		"p2.`numero` = items.numero",
-		"GROUP BY p2.numero"
-		].join("\n");
-
-		conn(consulta, cb);
+	function getSP_ItemsEntreFechas(fecha_desde, fecha_hasta, cb){
+		conn("call itemsEntreFechas('"+fecha_desde+"', '"+fecha_hasta+"')", cb);
 	}

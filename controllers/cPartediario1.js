@@ -18,7 +18,8 @@ module.exports = {
 	getDel: getDel,
 	getClose: getClose,
 	getHistorial: getHistorial,
-	getVer: getVer
+	getVer: getVer,
+	getExport: getExport
 };
 
 function changeDate(date){
@@ -221,4 +222,8 @@ function getVer(req, res){
 	      	}); 
 		});
 	});
+}
+
+function getExport(req, res){
+
 }

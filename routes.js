@@ -284,6 +284,8 @@ module.exports = function(app) {
 	app.get('/partediario1close/:idpd1', auth, cParteDiario1.getClose);
 	app.get('/partediario1historial', auth, cParteDiario1.getHistorial);
 	app.get('/partediario1ver/:idpd1', auth, cParteDiario1.getVer);
+		//para el reporte
+	app.get('/itemsexport', auth, cParteDiario1.getExport);
 	//parte diario 2
 	app.get('/partediario2lista/:id', auth, cParteDiario2.getLista);
 	app.get('/partediario2alta/:id', auth, cParteDiario2.getAlta);
