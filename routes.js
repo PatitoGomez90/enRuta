@@ -328,6 +328,7 @@ module.exports = function(app) {
 	//reportes
 	app.get('/reportes', auth, cReportes.getInicio);
 	app.post('/reportesinicio', auth, cReportes.postInicio);
+	app.get('/itemsexport/:desde/:hasta', auth, cReportes.getItemsExport)
 
 	//pruebasql
 	app.get('/pruebasql', auth, cPruebaSQL.getPrueba);

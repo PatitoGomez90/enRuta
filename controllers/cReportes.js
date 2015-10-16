@@ -5,10 +5,12 @@ mParteDiario2 = require('../models/mParteDiario2');
 
 var async = require('async');
 var mysql = require('mysql');
+var nodeExcel = require('excel-export');
 
 module.exports = {
 	getInicio: getInicio,
-	postInicio: postInicio
+	postInicio: postInicio,
+	getItemsExport: getItemsExport
 };
 
 function changeDate(date){
@@ -51,4 +53,64 @@ function postInicio(req, res){
 	}else{
 		//error
 	}
+}
+
+function getItemsExport(req, res){
+	console.log("go!")
+	//var cellData = "Give me something to believe";
+	params = req.params;
+	fecha_desde = params.desde;
+	fecha_hasta = params.hasta;
+
+	mParteDiario1.getSP_ItemsEntreFechas(fecha_desde, fecha_hasta, function (items){
+		//console.log(items[0])
+		items = items[0];
+		//console.log(items)
+		var conf = {};
+
+		conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
+		/*ITEM	
+		DESCRIPCION	
+		HS NORMALES	
+		HS al 50	
+		HS al 100	
+		HS TOTALES*/
+	    conf.cols = [{caption:'Item', type:'number'},
+	    {caption:'Descripcion', type:'string'},
+	    {caption:'Hrs Normales', type:'number'},
+	    {caption:'Hrs al 50', type:'number'},
+	    {caption:'Hrs al 100', type:'number'},
+	    {caption:'Total', type:'number'}];
+	
+		var arrItems = [];
+
+		for (var x = 0 ; x < items.length ; x++){
+	    	item = items[x].itemnum;
+	    	descripcion = items[x].itemtxt;
+	    	normales = items[x].normal;
+	    	hrs50 = items[x].Al50;
+	    	hrs100 = items[x].Al100;
+	    	hrstotales = items[x].Total;
+	    	
+	    	var items2 = [];
+
+	    	items2.push(item);
+	    	items2.push(descripcion);
+	    	items2.push(normales);
+	    	items2.push(hrs50);
+	    	items2.push(hrs100);
+	    	items2.push(hrstotales);
+
+	    	arrItems.push(items2);
+	    }
+
+	   	conf.rows = arrItems;
+	    var result = nodeExcel.execute(conf);
+	    res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+	    res.setHeader("Content-Disposition", "attachment; filename=" + "ReporteItems.xlsx");
+	    res.end(result, 'binary');
+	});
+	
+    
+    console.log("finished")
 }
