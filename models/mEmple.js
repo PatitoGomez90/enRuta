@@ -16,7 +16,8 @@ module.exports = {
 	delEmple: delEmple,
 	getEmpleBySector: getEmpleBySector,
 	getFiltrado: getFiltrado,
-	getByTurno: getByTurno
+	getByTurno: getByTurno,
+	getReporteEmplesEntreFechas: getReporteEmplesEntreFechas
 }
 
 function getAll(cb){
@@ -107,9 +108,6 @@ function getFiltrado(idsector, idcondicion, codigoturno, nrolegajomenor, nrolega
 	if (nrolegajomenor != "" && nrolegajomayor != "")
 		query = query + " emple.legajo > "+nrolegajomenor + " and emple.legajo < "+nrolegajomayor+" and";
 	
-	
-
-
 	querylength = query.length;
 	query = query.substr(0, querylength-3)
 	query = query + " order by nombre"
@@ -118,4 +116,21 @@ function getFiltrado(idsector, idcondicion, codigoturno, nrolegajomenor, nrolega
 //para el partediario1 alta
 function getByTurno(turnoid, cb){
 	conn("select emple.*, cargos.descripcion as cargotxt, sectores.nombre as sectortxt, DATE_FORMAT(emple.fecha_nac, '%d/%m/%Y') as fecha_nacf,	DATE_FORMAT(emple.fbaja, '%d/%m/%Y') as fbajaf,	DATE_FORMAT(emple.falta, '%d/%m/%Y') as faltaf,	contratos.nombre as contratotxt, turnos.codigo as turnotxt,	categorias.nombre as categoriatxt, condicion.nombre as condiciontxt from emple left join sectores on sectores.id = emple.id_sector_fk left join cargos on cargos.id = emple.cargo left join contratos on contratos.id = emple.id_contrato_fk left join turnos on turnos.id = emple.id_turno_fk	left join categorias on categorias.id = emple.id_categoria_fk left join condicion on condicion.id = emple.id_condicion_fk WHERE id_turno_fk ="+turnoid, cb);
+}
+
+function getReporteEmplesEntreFechas(fecha_desde, fecha_hasta, cb){
+	conn("SELECT id_emple_fk, emple.legajo, "+
+		"emple.nombre as empletxt, "+
+		"categorias.nombre as categoriatxt, "+
+		"sectores.nombre as sectortxt, "+ 
+		"sum(ifnull(partediario2.hr_total_n, 0)) hrs_n, "+
+		"sum(ifnull(partediario2.hr_total_50, 0)) hrs_50, "+
+		"sum(ifnull(partediario2.hr_total_100, 0)) hrs_100 "+
+		"FROM `partediario2` "+
+		"INNER JOIN emple ON emple.codigo = partediario2.id_emple_fk "+
+		"INNER JOIN sectores ON sectores.id = emple.id_sector_fk "+
+		"INNER JOIN categorias ON categorias.id = emple.id_categoria_fk "+
+		"INNER JOIN partediario1 ON partediario1.id = partediario2.id_partediario1_fk "+
+		"WHERE partediario1.fecha between '"+fecha_desde+"' and '"+fecha_hasta+"' "+
+		"GROUP BY partediario2.id_emple_fk", cb);
 }

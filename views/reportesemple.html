@@ -1,0 +1,78 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/cargosalta.css" rel="stylesheet">
+<h2>{{ pagename }}</h2>
+<p>Reporte de todos los empleados generado con informacion de los Partes Diarios recopilada desde el dia <label id="desde">{{ fechadesde }}</label> hasta el dia <label id="hasta">{{ fechahasta }}</label>.<br>
+El reporte muestra la informacion de {{ cantidad }} empleados</p>
+<div class="panel panel-default">
+	<div class="panel-heading">
+  	<!-- Table -->
+		<table>
+		<tr>	
+			<td><button type="button" class="btn btn-primary" onclick="history.back()">Atras</button></a></td>
+			<td><button type="button" id="btnSave" class="btn btn-default"><span class="glyphicon glyphicon-save"></span></button></td>
+		</tr>	
+		</table>
+	</div>
+	<table align="center" class="table table-striped">
+		<tr>
+			<th>LEGAJO</th>
+			<th>NOMBRE</th>
+			<th>SECTOR</th>
+			<th>CAT.</th>
+			<th>HS NORM.s</th>
+			<th>HS al 50</th>
+			<th>HS al 100</th>
+		</tr>
+		{% for e in emples %}
+			<tr>
+				<td>{{ e.legajo }}</td>
+				<td>{{ e.empletxt }}</td>
+				<td>{{ e.sectortxt }}</td>
+				<td>{{ e.categoriatxt }}</td>
+				<td>{{ e.hrs_n }}</td>
+				<td>{{ e.hrs_50 }}</td>
+				<td>{{ e.hrs_50 }}</td>
+					<!-- <label id="lblTotal{{i.itemnum}}"><input hidden class="total" data-itemnum="{{i.itemnum}}" id="total{{i.itemnum}}" value="{{ i.normal + i.Al50 + i.Al100 }}"> -->
+			</tr>
+		{% endfor %}
+	</table>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+	// $(function() {
+	//     $(".total").each(function (indice, element){
+	//     	itemnum = $(element).data("itemnum");
+	//     	tot = element.value;
+	//     	total1decimal = parseFloat(tot).toFixed(1);
+	//     	$("#lblTotal"+itemnum).text(total1decimal);
+	//     });
+	// });
+	function changeDate(date){
+		// input: dd/mm/yyyy
+		fechaus = date.substring(6,10) + "/" + date.substring(3,5) + "/" + date.substring(0,2);
+		return fechaus;
+		// output: yyyy/mm/dd
+	}
+
+	$("#btnSave").click(function (){
+		//fechas
+		desde = $("#desde").text();
+		hasta = $("#hasta").text();
+		
+		desde = changeDate(desde);
+		hasta = changeDate(hasta);
+
+		desde = encodeURIComponent(desde);
+		hasta = encodeURIComponent(hasta);
+		// var url = "/itemsexport/"+desde+"/"+hasta;
+		// window.location = url;
+	});
+</script>
+
+{% endblock %}

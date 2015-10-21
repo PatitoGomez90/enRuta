@@ -2,6 +2,7 @@
 mItems = require('../models/mItems');
 mParteDiario1 = require('../models/mParteDiario1');
 mParteDiario2 = require('../models/mParteDiario2');
+mEmple = require('../models/mEmple');
 
 var async = require('async');
 var mysql = require('mysql');
@@ -50,6 +51,17 @@ function postInicio(req, res){
 		});
 	} else if (tiporeporte == 2){
 	//render reporte para empleados
+		mEmple.getReporteEmplesEntreFechas(fecha_desde, fecha_hasta, function (emples){
+			console.log(emples.length)
+			cantidad = emples.length;
+			res.render("reportesemple", {
+				pagename: "Reporte de Empleados",
+				emples: emples,
+				fechadesde: fechadesde,
+				fechahasta: fechahasta,
+				cantidad: cantidad
+			});
+		});
 	}else{
 		//error
 	}
