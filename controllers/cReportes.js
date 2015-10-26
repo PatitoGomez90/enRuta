@@ -79,8 +79,8 @@ function getItemsExport(req, res){
 		items = items[0];
 		//console.log(items)
 		var conf = {};
-
-		conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
+			//este tiene una url acá pero en el server es otra....
+				conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
 		/*ITEM	
 		DESCRIPCION	
 		HS NORMALES	

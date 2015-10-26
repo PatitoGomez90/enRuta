@@ -38,8 +38,9 @@ function postAlta(req, res){
 	params = req.body;
 	codigo = params.codigo;
 	sector = params.sector;
+	turnicidad = params.turnicidad;
 
-	mTurnos.insert(codigo, sector, function (){
+	mTurnos.insert(codigo, sector, turnicidad, function (){
 		res.redirect('turnoslista');
 	});
 }
@@ -64,8 +65,9 @@ function postModificar(req, res){
 	id = params.id;
 	codigo = params.codigo;
 	sector = params.sector;
+	turnicidad = params.turnicidad;
 
-	mTurnos.update(id, codigo, sector, function (){
+	mTurnos.update(id, codigo, sector, turnicidad, function (){
 		res.redirect('turnoslista');
 	});
 }

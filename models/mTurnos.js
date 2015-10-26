@@ -18,12 +18,12 @@ function getById(id, cb){
 	conn("select * from turnos where id = "+id, cb);
 }
 
-function insert(codigo, sector, cb){
-	conn("insert into turnos(codigo, id_sector_fk) values('"+codigo+"', "+sector+")", cb);
+function insert(codigo, sector, turnicidad, cb){
+	conn("insert into turnos(codigo, id_sector_fk, turnicidad) values('"+codigo+"', "+sector+", "+turnicidad+")", cb);
 }
 
-function update(id, codigo, sector, cb){
-	conn("update turnos set codigo ='"+codigo+"', id_sector_fk ="+sector+" where id = "+id, cb);
+function update(id, codigo, sector, turnicidad, cb){
+	conn("update turnos set codigo ='"+codigo+"', id_sector_fk ="+sector+", turnicidad = "+turnicidad+" where id = "+id, cb);
 }
 
 function del(id, cb){

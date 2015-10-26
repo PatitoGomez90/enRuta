@@ -325,54 +325,57 @@
 	// 		console.log(res)
 	// 		console
 	// });
+	
 
-	$("#formty").submit(function(e){
-		var validationfails = true;
-		var codigohora = $("#codigohora").val();
-		var entrada = $("#entrada").val();
-		var salida = $("#salida").val();
+	//REHACER con las condicionales actualizadas segun feriados, etc q tengo explicado en la planilla
+	// $("#formty").submit(function(e){
+	// 	var validationfails = true;
+	// 	var codigohora = $("#codigohora").val();
+	// 	var entrada = $("#entrada").val();
+	// 	var salida = $("#salida").val();
 
-		if (codigohora == 1 || codigohora == 18){
-			if (entrada.length == 0 || salida.length == 0){
-				validationfails = true;
-				alert("Si es Normal o Feriado Trabajado, DEBEN haber horarios cargados.")
-			}else{
-				var total = $("#total").val();
-				var hr_total_n = $("#hr_total_n").val();
-				var hr_total_50 = $("#hr_total_50").val();
-				var hr_total_100 = $("#hr_total_100").val();
+	// 	if (codigohora == 1 || codigohora == 18){
+	// 		if (entrada.length == 0 || salida.length == 0){
+	// 			validationfails = true;
+	// 			alert("Si es Normal o Feriado Trabajado, DEBEN haber horarios cargados.")
+	// 		}else{
+	// 			var total = $("#total").val();
+	// 			var hr_total_n = $("#hr_total_n").val();
+	// 			var hr_total_50 = $("#hr_total_50").val();
+	// 			var hr_total_100 = $("#hr_total_100").val();
 
-				var hr_total_n_int = parseInt(hr_total_n);		
-				var hr_total_50_int = parseInt(hr_total_50);
-				var hr_total_100_int = parseInt(hr_total_100);
+	// 			var hr_total_n_int = parseInt(hr_total_n);		
+	// 			var hr_total_50_int = parseInt(hr_total_50);
+	// 			var hr_total_100_int = parseInt(hr_total_100);
 
-				var sum = hr_total_n_int + hr_total_50_int + hr_total_100_int;
-				res = convertToHHMM(sum);
-				console.log(res)
-				if (res > total){
-					validationfails = true;
-					alert("La suma de las horas no puede ser mayor al total de horas.")
-				}else{
-					validationfails = false;	
-				}				
-			}
-		}else{
-			if (entrada.length > 0 || salida.length > 0){
-				validationfails = true;
-				alert("Si NO son Normales o Feriado Trabajado, NO PUEDE haber horarios cargados.")
-			}else{
-				validationfails = false;
-			}
-		}
+	// 			var sum = hr_total_n_int + hr_total_50_int + hr_total_100_int;
+	// 			res = convertToHHMM(sum);
+	// 			console.log(res)
+	// 			if (res > total){
+	// 				validationfails = true;
+	// 				alert("La suma de las horas no puede ser mayor al total de horas.")
+	// 			}else{
+	// 				validationfails = false;	
+	// 			}				
+	// 		}
+	// 	}else{
+	// 		// COMENTADO X LOS CAMBIOS Q TRAJO FACUNDO SOBRE EL FERIADO Y LOS
+	// 		if (entrada.length > 0 || salida.length > 0){
+	// 			validationfails = true;
+	// 			alert("Si NO son Normales o Feriado Trabajado, NO PUEDE haber horarios cargados.")
+	// 		}else{
+	// 			validationfails = false;
+	// 		}
+	// 	}
 
-	    if(validationfails){
-	    	e.preventDefault();
-	        //return false;
-	    }else{
-	        $("#form").submit();
-	        return true;
-	    }
- 	});
+	//     if(validationfails){
+	//     	e.preventDefault();
+	//         //return false;
+	//     }else{
+	//         $("#form").submit();
+	//         return true;
+	//     }
+ // 	});
 
 	function changeDate(date){
 		// input: dd/mm/yyyy
