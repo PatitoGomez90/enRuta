@@ -11,7 +11,8 @@ var nodeExcel = require('excel-export');
 module.exports = {
 	getInicio: getInicio,
 	postInicio: postInicio,
-	getItemsExport: getItemsExport
+	getItemsExport: getItemsExport,
+	getEmplesExport: getEmplesExport
 };
 
 function changeDate(date){
@@ -51,12 +52,12 @@ function postInicio(req, res){
 		});
 	} else if (tiporeporte == 2){
 	//render reporte para empleados
-		mEmple.getReporteEmplesEntreFechas(fecha_desde, fecha_hasta, function (emples){
+		mEmple.getSP_EmplesEntreFechas(fecha_desde, fecha_hasta, function (emples){
 			console.log(emples.length)
-			cantidad = emples.length;
+			cantidad = emples[0].length;
 			res.render("reportesemple", {
 				pagename: "Reporte de Empleados",
-				emples: emples,
+				emples: emples[0],
 				fechadesde: fechadesde,
 				fechahasta: fechahasta,
 				cantidad: cantidad
@@ -120,6 +121,182 @@ function getItemsExport(req, res){
 	    var result = nodeExcel.execute(conf);
 	    res.setHeader('Content-Type', 'application/vnd.openxmlformats');
 	    res.setHeader("Content-Disposition", "attachment; filename=" + "ReporteItems.xlsx");
+	    res.end(result, 'binary');
+	});
+	
+    
+    console.log("finished")
+}
+
+function getEmplesExport(req, res){
+	console.log("go!")
+	//var cellData = "Give me something to believe";
+	params = req.params;
+	fecha_desde = params.desde;
+	fecha_hasta = params.hasta;
+
+	mEmple.getSP_EmplesEntreFechas(fecha_desde, fecha_hasta, function (emples){
+		//console.log(items[0])
+		emples = emples[0];
+		//console.log(items)
+		var conf = {};
+			//este tiene una url acá pero en el server es otra....
+				conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
+		/*<td style="text-align: center;">{{ e.legajo }}</td>
+		<td style="text-align: center;">{{ e.empletxt }}</td>
+		<td style="text-align: center;">{{ e.sectortxt }}</td>
+		<td style="text-align: center;">{{ e.categoriatxt }}</td>
+		<td style="text-align: center;">{{ e.hrs_normales }}</td>
+		<td style="text-align: center;">{{ e.hrs_al50 }}</td>
+		<td style="text-align: center;">{{ e.hrs_al100 }}</td>
+		<td style="text-align: center;">{{ e.hrs_feriado_trabajado }}</td>
+		<td style="text-align: center;">{{ e.hrs_feriado_no_trabajado }}</td>
+		<td style="text-align: center;">{{ e.calorias_n }}</td>
+		<td style="text-align: center;">{{ e.calorias_50 }}</td>
+		<td style="text-align: center;">{{ e.calorias_100 }}</td>
+		<td style="text-align: center;">{{ e.calorias_fer }}</td>
+		<td style="text-align: center;">{{ e.peligrosas_n }}</td>
+		<td style="text-align: center;">{{ e.peligrosas_50 }}</td>
+		<td style="text-align: center;">{{ e.peligrosas_100 }}</td>
+		<td style="text-align: center;">{{ e.peligrosas_fer }}</td>
+		<td style="text-align: center;">{{ e.polucion_n }}</td>
+		<td style="text-align: center;">{{ e.polucion_50 }}</td>
+		<td style="text-align: center;">{{ e.polucion_100 }}</td>
+		<td style="text-align: center;">{{ e.polucion_fer }}</td>
+		<td style="text-align: center;">{{ e.termo_n }}</td>
+		<td style="text-align: center;">{{ e.termo_50 }}</td>
+		<td style="text-align: center;">{{ e.termo_100 }}</td>
+		<td style="text-align: center;">{{ e.termo_fer }}</td>
+		<td style="text-align: center;">{{ e.insalubres_n }}</td>
+		<td style="text-align: center;">{{ e.insalubres_50 }}</td>
+		<td style="text-align: center;">{{ e.insalubres_100 }}</td>
+		<td style="text-align: center;">{{ e.insalubres_fer }}</td>
+		<td style="text-align: center;">{{ e.hrs_nocturnas_normales }}</td>				
+		<td style="text-align: center;">{{ e.hrs_nocturnas_100 }}</td>
+		<td style="text-align: center;">{{ e.hrs_nocturnas_feriado }}
+		<td style="text-align: center;">{{ e.emergencias }}</td>
+		<td style="text-align: center;">{{ e.hrs_reconocimiento }}</td>
+		<td style="text-align: center;">{{ e.turnicidad }}</td>*/
+	    conf.cols = [{caption:'Legajo', type:'number'},
+		    {caption:'Nombre', type:'string'},
+		    {caption:'Sector', type:'string'},
+		    {caption:'Categoria', type:'string'},
+		    {caption:'Hrs Normales', type:'number'},
+		    {caption:'Hrs al 50', type:'number'},
+		    {caption:'Hrs al 100', type:'number'},
+		    {caption:'Feriados Trabajado', type:'number'},
+		    {caption:'Feriados No Trabajado', type:'number'},
+		    {caption:'Hrs Calorias Normales', type:'number'},
+		    {caption:'Hrs Calorias al 50', type:'number'},
+		    {caption:'Hrs Calorias al 100', type:'number'},
+		    {caption:'Hrs Calorias Feriado', type:'number'},
+		    {caption:'Hrs Peligrosas Normales', type:'number'},
+		    {caption:'Hrs Peligrosas al 50', type:'number'},
+		    {caption:'Hrs Peligrosas al 100', type:'number'},
+		    {caption:'Hrs Peligrosas Feriado', type:'number'},
+		    {caption:'Hrs Polucion Normales', type:'number'},
+		    {caption:'Hrs Polucion al 50', type:'number'},
+		    {caption:'Hrs Polucion al 100', type:'number'},
+		    {caption:'Hrs Polucion Feriado', type:'number'},
+		    {caption:'Hrs Termo Normales', type:'number'},
+		    {caption:'Hrs Termo al 50', type:'number'},
+		    {caption:'Hrs Termo al 100', type:'number'},
+		    {caption:'Hrs Termo Feriado', type:'number'},
+		    {caption:'Hrs Insalubres Normales', type:'number'},
+		    {caption:'Hrs Insalubres al 50', type:'number'},
+		    {caption:'Hrs Insalubres al 100', type:'number'},
+		    {caption:'Hrs Insalubres Feriado', type:'number'},
+		    {caption:'Hrs Nocturnas Normales', type:'number'},
+		    {caption:'Hrs Nocturnas al 100', type:'number'},
+		    {caption:'Hrs Nocturnas Feriado', type:'number'},
+		    {caption:'Hrs Emergencia', type:'number'},
+		    {caption:'Hrs Rec. por Diagrama', type:'number'},
+			{caption:'Turnicidad', type:'number'}];
+	
+		var arrEmples = [];
+
+		for (var x = 0 ; x < emples.length ; x++){
+	    	legajo = emples[x].legajo;
+			empletxt = emples[x].empletxt;
+			sectortxt = emples[x].sectortxt;
+			categoriatxt = emples[x].categoriatxt;
+			hrs_normales = emples[x].hrs_normales;
+			hrs_al50 = emples[x].hrs_al50;
+			hrs_al100 = emples[x].hrs_al100;
+			hrs_feriado_trabajado = emples[x].hrs_feriado_trabajado;
+			hrs_feriado_no_trabajado = emples[x].hrs_feriado_no_trabajado;
+			calorias_n = emples[x].calorias_n;
+			calorias_50 = emples[x].calorias_50;
+			calorias_100 = emples[x].calorias_100;
+			calorias_fer = emples[x].calorias_fer;
+			peligrosas_n = emples[x].peligrosas_n;
+			peligrosas_50 = emples[x].peligrosas_50;
+			peligrosas_100 = emples[x].peligrosas_100;
+			peligrosas_fer = emples[x].peligrosas_fer;
+			polucion_n = emples[x].polucion_n;
+			polucion_50 = emples[x].polucion_50;
+			polucion_100 = emples[x].polucion_100;
+			polucion_fer = emples[x].polucion_fer;
+			termo_n = emples[x].termo_n;
+			termo_50 = emples[x].termo_50;
+			termo_100 = emples[x].termo_100;
+			termo_fer = emples[x].termo_fer;
+			insalubres_n = emples[x].insalubres_n;
+			insalubres_50 = emples[x].insalubres_50;
+			insalubres_100 = emples[x].insalubres_100;
+			insalubres_fer = emples[x].insalubres_fer;
+			hrs_nocturnas_normales = emples[x].hrs_nocturnas_normales;				
+			hrs_nocturnas_100 = emples[x].hrs_nocturnas_100;
+			hrs_nocturnas_feriado = emples[x].hrs_nocturnas_feriado;
+			emergencias = emples[x].emergencias;
+			hrs_reconocimiento = emples[x].hrs_reconocimiento;
+			turnicidad = emples[x].turnicidad;
+	    	
+	    	var emples2 = [];
+
+	    	emples2.push(legajo);
+	    	emples2.push(empletxt);
+	    	emples2.push(sectortxt);
+	    	emples2.push(categoriatxt);
+	    	emples2.push(hrs_normales);
+	    	emples2.push(hrs_al50);
+	    	emples2.push(hrs_al100);
+	    	emples2.push(hrs_feriado_trabajado);
+	    	emples2.push(hrs_feriado_no_trabajado);
+	    	emples2.push(calorias_n);
+	    	emples2.push(calorias_50);
+	    	emples2.push(calorias_100);
+	    	emples2.push(calorias_fer);
+	    	emples2.push(peligrosas_n);
+	    	emples2.push(peligrosas_50);
+	    	emples2.push(peligrosas_100);
+	    	emples2.push(peligrosas_fer);
+	    	emples2.push(polucion_n);
+	    	emples2.push(polucion_50);
+	    	emples2.push(polucion_100);
+	    	emples2.push(polucion_fer);
+	    	emples2.push(termo_n);
+	    	emples2.push(termo_50);
+	    	emples2.push(termo_100);
+	    	emples2.push(termo_fer);
+	    	emples2.push(insalubres_n);
+	    	emples2.push(insalubres_50);
+	    	emples2.push(insalubres_100);
+	    	emples2.push(insalubres_fer);
+	    	emples2.push(hrs_nocturnas_normales);
+	    	emples2.push(hrs_nocturnas_100);
+	    	emples2.push(hrs_nocturnas_feriado);
+	    	emples2.push(emergencias);
+	    	emples2.push(hrs_reconocimiento);
+	    	emples2.push(turnicidad);
+
+	    	arrEmples.push(emples2);
+	    }
+
+	   	conf.rows = arrEmples;
+	    var result = nodeExcel.execute(conf);
+	    res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+	    res.setHeader("Content-Disposition", "attachment; filename=" + "ReporteEmpleados.xlsx");
 	    res.end(result, 'binary');
 	});
 	

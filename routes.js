@@ -328,8 +328,8 @@ module.exports = function(app) {
 	//reportes
 	app.get('/reportes', auth, cReportes.getInicio);
 	app.post('/reportesinicio', auth, cReportes.postInicio);
-	app.get('/itemsexport/:desde/:hasta', auth, cReportes.getItemsExport)
-
+	app.get('/itemsexport/:desde/:hasta', auth, cReportes.getItemsExport);
+	app.get('/emplesexport/:desde/:hasta', auth, cReportes.getEmplesExport);
 	//pruebasql
 	app.get('/pruebasql', auth, cPruebaSQL.getPrueba);
 	//random

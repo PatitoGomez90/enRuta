@@ -55,7 +55,6 @@ El reporte muestra la informacion de {{ cantidad }} empleados</p>
 				<th style="text-align: center;">NOC N</th>
 				<th style="text-align: center;">NOC 100</th>
 				<th style="text-align: center;">NOC F</th>
-
 			<!-- <th colspan="3" style="text-align: center;">
 				<table border="1" style="text-align: center; width: 100%;">
 					<tr><td colspan="3" style="text-align: center;">Normales</td></tr>
@@ -152,7 +151,9 @@ El reporte muestra la informacion de {{ cantidad }} empleados</p>
 					</tr>
 				</table>
 			</th> -->
-				<th style="text-align: center;">Emergencias</th>
+				<th style="text-align: center;">HRS_EMER</th>
+				<th style="text-align: center;">HRS_REC</th>
+				<th style="text-align: center;">TURN.</th>
 			</tr>
 			{% for e in emples %}
 				<tr>
@@ -189,6 +190,8 @@ El reporte muestra la informacion de {{ cantidad }} empleados</p>
 					<td style="text-align: center;">{{ e.hrs_nocturnas_100 }}</td>
 					<td style="text-align: center;">{{ e.hrs_nocturnas_feriado }}
 					<td style="text-align: center;">{{ e.emergencias }}</td>
+					<td style="text-align: center;">{{ e.hrs_reconocimiento }}</td>
+					<td style="text-align: center;">{{ e.turnicidad }}</td>
 						<!-- <label id="lblTotal{{i.itemnum}}"><input hidden class="total" data-itemnum="{{i.itemnum}}" id="total{{i.itemnum}}" value="{{ i.normal + i.Al50 + i.Al100 }}"> -->
 				</tr>
 			{% endfor %}
@@ -222,8 +225,8 @@ El reporte muestra la informacion de {{ cantidad }} empleados</p>
 
 		desde = encodeURIComponent(desde);
 		hasta = encodeURIComponent(hasta);
-		// var url = "/itemsexport/"+desde+"/"+hasta;
-		// window.location = url;
+		var url = "/emplesexport/"+desde+"/"+hasta;
+		window.location = url;
 	});
 </script>
 
