@@ -33,7 +33,7 @@ function getLista(req, res) {
 function getAlta(req, res){
 	mSectores.getAll(function (sectores){
 		res.render('planti1alta', {
-			pagename: "Alta de sectores",
+			pagename: "Alta de Plantillas",
 			sectores: sectores
 		});
 	});
