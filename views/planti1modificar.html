@@ -1,0 +1,58 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/planti1modificar.css" rel="stylesheet">	
+<h2>{{ pagename }}</h2>
+<form method="POST" action="/planti1modificar">
+	<div class="panel panel-default">
+		<table align="center" class="table table-striped">
+			<input hidden id="id" name="id" value="{{ planti1.id }}">
+			<tr>
+				<td>Nombre: </td>
+				<td><input type="text" id="nombre" name="nombre" value="{{ planti1.nombre }}" class="form-control"></td>
+			</tr>	
+			<tr>
+				<td>Sector:</td>
+				<td>
+					<select class="form-control" id="sector" name="sector">
+						{% for s in sectores %}
+							{% if s.id == planti1.id_sector_fk %}
+								<option value="{{ s.id }}" selected>{{ s.nombre }}</option>
+							{% else %}
+								<option value="{{ s.id }}">{{ s.nombre }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr><!-- 	<input type="checkbox" id="activa" name="activa" checked> -->
+			<tr>
+				<td>Activo:</td>
+				<td>
+					{% if planti1.activa == 1 %}
+						<input type="checkbox" id="activa" name="activa" checked>
+					{% else %}
+						<input type="checkbox" id="activa" name="activa">
+					{% endif %}	
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Guardar"></td>
+			</tr>
+		</table>
+	</div>
+</form>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+	// function checkInput(ob) {
+	//   var invalidChars = /[^0-9]/gi
+	//   if(invalidChars.test(ob.value)) {
+	//             ob.value = ob.value.replace(invalidChars,"");
+	//       }
+	// }
+</script>
+{% endblock %}

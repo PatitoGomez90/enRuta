@@ -8,6 +8,7 @@ var mImputacion = require('../models/mImputacion');
 var mContratos = require('../models/mContratos');
 var mTurnos = require('../models/mTurnos');
 var mEmple = require('../models/mEmple');
+var mPlanti = require('../models/mPlantillas');
 
 module.exports = {
 	getLista: getLista,
@@ -46,11 +47,14 @@ function getAlta(req, res){
 	mSectores.getAllActivos(function (sectores){
 		mClasificacion.getAllActivos(function (clasificaciones){
 			mContratos.getAll(function (contratos){
-				res.render('partediario1alta', {
-					pagename: "Alta de Parte Diario",
-					clasificaciones: clasificaciones,
-					sectores: sectores,
-					contratos: contratos
+				mPlanti.getAll_planti1(function (plantillas){
+					res.render('partediario1alta', {
+						pagename: "Alta de Parte Diario",
+						clasificaciones: clasificaciones,
+						sectores: sectores,
+						contratos: contratos,
+						plantillas: plantillas
+					});
 				});
 			});
 		});
@@ -65,6 +69,7 @@ function postAlta(req, res){
 	idsector = params.sector;
 	idlugar = params.lugar;
 	turno = params.turno;
+	id_plantilla = params.plantilla;
 	estado = 1;
 	clasificacion1 = 9;
 	clasificacion2 = 10;
@@ -89,23 +94,34 @@ function postAlta(req, res){
 		mPartediario1.getLastId(function (pdultimoid){
 			//console.log(pdultimoid)
 			var ultimoid = pdultimoid[0].id;
-			mEmple.getByTurno(turno, function (emplesbyturno){
-				//console.log(emplesbyturno.length)
-
-				var bandera = false;
-				for (var x = 0 ; x < emplesbyturno.length ; x++){
-					//acá agregar la columna 'Numero' de empleado en los Partes Diarios
-					var y = x+1;
-					mPartediario2.insertNewEmpleado(ultimoid, emplesbyturno[x].codigo, y, function (){
-						bandera = true;
-					});
-				}
-				if (bandera)
-					console.log("Ingresados "+emplesbyturno.length+" empleados.");
-				console.log("Redirigiendo a ParteDiario1 Lista..")
-				res.redirect('partediario1lista');
-			});
-		});
+			if (id_plantilla != 0){
+				mPlanti.getAll_planti2(id_plantilla, function (planti2){
+					for (var x = 0 ; x < planti2.length ; x++){
+						//acá agregar la columna 'Numero' de empleado en los Partes Diarios
+						var y = x+1;
+						mPartediario2.insertNewEmpleado(ultimoid, planti2[x].id_emple_fk, y, function (){
+							bandera = true;
+						});
+					}
+				});
+			}else{			
+				mEmple.getByTurno(turno, function (emplesbyturno){
+					//console.log(emplesbyturno.length)
+					var bandera = false;
+					for (var x = 0 ; x < emplesbyturno.length ; x++){
+						//acá agregar la columna 'Numero' de empleado en los Partes Diarios
+						var y = x+1;
+						mPartediario2.insertNewEmpleado(ultimoid, emplesbyturno[x].codigo, y, function (){
+							bandera = true;
+						});
+					}
+				});
+			}
+			// if (bandera)
+			// 	console.log("Ingresados "+emplesbyturno.length+" empleados.");
+			console.log("Redirigiendo a ParteDiario1 Lista..")
+			res.redirect('partediario1lista');
+		});		
 	});
 }
 

@@ -35,6 +35,7 @@ var cContratos = require('./controllers/cContratos');
 var cTurnos = require('./controllers/cTurnos');
 var cCategorias = require('./controllers/cCategorias');
 var cReportes = require('./controllers/cReportes');
+var cPlanti = require('./controllers/cPlantillas');
 
 
 var cPruebaSQL = require('./controllers/cPruebaSQL');
@@ -330,6 +331,18 @@ module.exports = function(app) {
 	app.post('/reportesinicio', auth, cReportes.postInicio);
 	app.get('/itemsexport/:desde/:hasta', auth, cReportes.getItemsExport);
 	app.get('/emplesexport/:desde/:hasta', auth, cReportes.getEmplesExport);
+	//plantillas
+	app.get("/planti1lista", auth, cPlanti.getLista);
+	app.get("/planti1alta", auth, cPlanti.getAlta);
+	app.post('/planti1alta', auth, cPlanti.postAlta);
+	app.get('/planti1modificar/:id_planti1', auth, cPlanti.getModificar);
+	app.post('/planti1modificar', auth, cPlanti.postModificar);
+	app.get('/planti1borrar', auth, cPlanti.getDel);
+
+	app.get('/planti2lista/:id_planti1', auth, cPlanti.getListap2);
+	app.get('/planti2alta/:id_planti1', auth, cPlanti.getAltap2);
+	app.post('/planti2alta', auth, cPlanti.postAltap2);
+	app.get('/planti2borrar/:id_p2/:id_p1', auth, cPlanti.getDelp2)
 	//pruebasql
 	app.get('/pruebasql', auth, cPruebaSQL.getPrueba);
 	//random
