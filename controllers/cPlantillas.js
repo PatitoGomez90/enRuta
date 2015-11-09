@@ -81,11 +81,13 @@ function postModificar(req, res){
 
 function getDel(req, res){
 	params = req.params;
-	id = params.id;
+	id = params.id_planti1;
 
 	mPlanti.del(id, function(){
-		res.redirect('planti1lista');
-	})
+		mPlanti.del_allp2(id, function(){
+			res.redirect('planti1lista');
+		});
+	});
 }
 
 function getListap2(req, res){

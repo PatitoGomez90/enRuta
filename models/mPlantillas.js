@@ -11,7 +11,8 @@ module.exports = {
 	getUltimoCodigo: getUltimoCodigo,
 	getAll_planti2: getAll_planti2,
 	insertp2: insertp2,
-	delp2: delp2
+	delp2: delp2,
+	del_allp2: del_allp2
 }
 
 function getAll_planti1(cb){
@@ -52,4 +53,8 @@ function insertp2(id_planti1, id_emple, cb){
 
 function delp2(idp2, cb){
 	conn("delete from planti2 where id="+idp2, cb);
+}
+
+function del_allp2(p1, cb){
+	conn("delete from planti2 where id_planti1_fk = "+p1, cb);
 }

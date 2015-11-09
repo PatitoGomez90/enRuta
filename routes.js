@@ -337,7 +337,7 @@ module.exports = function(app) {
 	app.post('/planti1alta', auth, cPlanti.postAlta);
 	app.get('/planti1modificar/:id_planti1', auth, cPlanti.getModificar);
 	app.post('/planti1modificar', auth, cPlanti.postModificar);
-	app.get('/planti1borrar', auth, cPlanti.getDel);
+	app.get('/planti1borrar/:id_planti1', auth, cPlanti.getDel);
 
 	app.get('/planti2lista/:id_planti1', auth, cPlanti.getListap2);
 	app.get('/planti2alta/:id_planti1', auth, cPlanti.getAltap2);
