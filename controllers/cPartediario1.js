@@ -9,6 +9,8 @@ var mContratos = require('../models/mContratos');
 var mTurnos = require('../models/mTurnos');
 var mEmple = require('../models/mEmple');
 var mPlanti = require('../models/mPlantillas');
+var mFichadas = require('../models/mFichadas');
+var async = require('async');
 
 module.exports = {
 	getLista: getLista,
@@ -30,30 +32,101 @@ function changeDate(date){
 	// output: yyyy/mm/dd
 }
 
+//el update q corre antes de cargar las fichadas
+function updateFichadas(cb){
+	var mysql = require('mysql');
+
+	var connection = mysql.createConnection({
+		user: 'root',
+		password: '',
+		host: '127.0.0.1',
+		port: '3306',
+		database: 'Maresa',
+		dateStrings : true
+	});
+
+	var lastficid = 0;
+	mFichadas.getLastFicIdMySql(function (lastficidfrommysql){
+		console.log("lastficidfrommysql: "+lastficidfrommysql[0].maxfic_id)
+		if(lastficidfrommysql[0].maxfic_id == null)
+		lastficid = 0;
+		else
+		lastficid = lastficidfrommysql[0].maxfic_id;
+
+		console.log("last fic id (en mysql) antes de la request: "+lastficid);
+
+		mFichadas.getLatestFicSQL(lastficid, function (latestfic){
+			//console.log(latestfic[0])
+			console.log("length del obj latestfichadas: "+latestfic.length)//67
+			var i = 0;
+			var querys = [];
+			for (i = 0; i < latestfic.length; i++ ){
+				query = "select fic_id from fichadas where fic_id = "+latestfic[i].FIC_ID;
+				querys.push({query: query, id: i});
+			}
+
+			connection.connect();
+			async.eachSeries(querys, function (data, callback) {
+				console.log(data.query)
+				connection.query(data.query, function(err, rows, fields) {
+					if (err){
+						throw err;
+						console.log(err)
+					}else{
+						console.log("No errors in the query.")
+					}
+					console.log(rows.length)
+					if (rows.length == 0){
+						mFichadas.MySqlInsert(latestfic[data.id], function (){
+							console.log(data.id)
+							callback();
+						});
+					}else{
+						console.log("Registro fic_id = "+latestfic[data.id].FIC_ID+" existente en MySql");
+						callback();
+					}
+				});
+
+			}, function (err) {
+				//Esta parte se sejecuta cuando termina de recorrer el array
+				// acomode la funcion "callback" de Async, ya que sino nos queda el callback
+				// de 	mFichadas.MySqlInsert dando vueltas
+				if (err) { throw err; }
+				return cb();
+			});
+			//connection.end();
+		});//end mF getlatestficsql
+	});
+
+}
+
 function getLista(req, res) {
 	//req.session.nromenu = 5;
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
-	mPartediario1.getAllAbiertos(function (partediario1s){
-		res.render('partediario1lista', {
-        	pagename: 'Lista de Partes Diarios',
-        	partediario1s: partediario1s
-        	//ayuda: ayuda[0]
-      	}); 
-	});    
-	//});
+	updateFichadas(function () {
+		mPartediario1.getAllAbiertos(function (partediario1s){
+			res.render('partediario1lista', {
+	        	pagename: 'Lista de Partes Diarios',
+	        	partediario1s: partediario1s
+	        	//ayuda: ayuda[0]
+	      	}); 
+		});    
+	});
 };
 
 function getAlta(req, res){
-	mSectores.getAllActivos(function (sectores){
-		mClasificacion.getAllActivos(function (clasificaciones){
-			mContratos.getAll(function (contratos){
-				mPlanti.getAll_planti1(function (plantillas){
-					res.render('partediario1alta', {
-						pagename: "Alta de Parte Diario",
-						clasificaciones: clasificaciones,
-						sectores: sectores,
-						contratos: contratos,
-						plantillas: plantillas
+	updateFichadas(function () {
+		mSectores.getAllActivos(function (sectores){
+			mClasificacion.getAllActivos(function (clasificaciones){
+				mContratos.getAll(function (contratos){
+					mPlanti.getAll_planti1(function (plantillas){
+						res.render('partediario1alta', {
+							pagename: "Alta de Parte Diario",
+							clasificaciones: clasificaciones,
+							sectores: sectores,
+							contratos: contratos,
+							plantillas: plantillas
+						});
 					});
 				});
 			});

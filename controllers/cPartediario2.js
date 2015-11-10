@@ -8,6 +8,8 @@ var mImputacion = require('../models/mImputacion');
 var mEmple = require('../models/mEmple');
 var mTipoHora = require('../models/mTipoHora');
 var mCodigohora = require('../models/mCodigoHora');
+var mFichadas = require('../models/mFichadas');
+var async = require('async');
 
 module.exports = {
 	getLista: getLista,
@@ -27,26 +29,95 @@ function changeDate(date){
 	// output: yyyy/mm/dd
 }
 
+//el update q corre antes de cargar las fichadas
+function updateFichadas(cb){
+	var mysql = require('mysql');
+
+	var connection = mysql.createConnection({
+		user: 'root',
+		password: '',
+		host: '127.0.0.1',
+		port: '3306',
+		database: 'Maresa',
+		dateStrings : true
+	});
+
+	var lastficid = 0;
+	mFichadas.getLastFicIdMySql(function (lastficidfrommysql){
+		console.log("lastficidfrommysql: "+lastficidfrommysql[0].maxfic_id)
+		if(lastficidfrommysql[0].maxfic_id == null)
+		lastficid = 0;
+		else
+		lastficid = lastficidfrommysql[0].maxfic_id;
+
+		console.log("last fic id (en mysql) antes de la request: "+lastficid);
+
+		mFichadas.getLatestFicSQL(lastficid, function (latestfic){
+			//console.log(latestfic[0])
+			console.log("length del obj latestfichadas: "+latestfic.length)//67
+			var i = 0;
+			var querys = [];
+			for (i = 0; i < latestfic.length; i++ ){
+				query = "select fic_id from fichadas where fic_id = "+latestfic[i].FIC_ID;
+				querys.push({query: query, id: i});
+			}
+
+			connection.connect();
+			async.eachSeries(querys, function (data, callback) {
+				console.log(data.query)
+				connection.query(data.query, function(err, rows, fields) {
+					if (err){
+						throw err;
+						console.log(err)
+					}else{
+						console.log("No errors in the query.")
+					}
+					console.log(rows.length)
+					if (rows.length == 0){
+						mFichadas.MySqlInsert(latestfic[data.id], function (){
+							console.log(data.id)
+							callback();
+						});
+					}else{
+						console.log("Registro fic_id = "+latestfic[data.id].FIC_ID+" existente en MySql");
+						callback();
+					}
+				});
+
+			}, function (err) {
+				//Esta parte se sejecuta cuando termina de recorrer el array
+				// acomode la funcion "callback" de Async, ya que sino nos queda el callback
+				// de 	mFichadas.MySqlInsert dando vueltas
+				if (err) { throw err; }
+				return cb();
+			});
+			//connection.end();
+		});//end mF getlatestficsql
+	});
+
+}
+
 function getLista(req, res) {
 	params = req.params;
 	id = params.id;
 	//req.session.nromenu = 5;
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
-	mPartediario1.getById(id, function (partediario1){
-		//console.log(partediario1[0])
-		mPartediario2.getAllByPartediario1Id(id, function (partediario2s){
-			mTipoHora.getAllActivos(function (tipohoras){
-				res.render('partediario2lista', {
-		        	pagename: 'Lista de Empleados',
-		        	partediario2s: partediario2s,
-		        	partediario1: partediario1[0],
-		        	tipohoras: tipohoras
-		        	//ayuda: ayuda[0]
-		      	}); 
-			});		
-		}); 	
-	});	   
-	//});
+	updateFichadas(function () {
+		mPartediario1.getById(id, function (partediario1){
+			//console.log(partediario1[0])
+			mPartediario2.getAllByPartediario1Id(id, function (partediario2s){
+				mTipoHora.getAllActivos(function (tipohoras){
+					res.render('partediario2lista', {
+			        	pagename: 'Lista de Empleados',
+			        	partediario2s: partediario2s,
+			        	partediario1: partediario1[0],
+			        	tipohoras: tipohoras
+			        	//ayuda: ayuda[0]
+			      	}); 
+				});		
+			}); 	
+		});	   
+	});
 };
 
 
@@ -97,25 +168,27 @@ function getModificar(req, res){
 	params = req.params;
 	id = params.id;
 
-	mPartediario2.getById(id, function (partediario2){
-		mPartediario1.getById(partediario2[0].id_partediario1_fk, function (partediario1){
-			mLugares.getAllActivos(function (lugares){
-				mSectores.getAllActivos(function (sectores){
-					mClasificacion.getAllActivos(function (clasificaciones){
-						mImputacion.getAllActivos(function (items){
-							mCodigohora.getAll(function (codigoshora){
-								mTipoHora.getAll(function (tiposhora){
-									//console.log(partediario2)
-									res.render('partediario2modificar', {
-										pagename: "Modificar Parte Diario",
-										partediario2: partediario2[0],
-										partediario1: partediario1[0],
-										items: items,
-										clasificaciones: clasificaciones,
-										sectores: sectores,
-										lugares: lugares,
-										codigoshora: codigoshora,
-										tiposhora: tiposhora
+	updateFichadas(function () {
+		mPartediario2.getById(id, function (partediario2){
+			mPartediario1.getById(partediario2[0].id_partediario1_fk, function (partediario1){
+				mLugares.getAllActivos(function (lugares){
+					mSectores.getAllActivos(function (sectores){
+						mClasificacion.getAllActivos(function (clasificaciones){
+							mImputacion.getAllActivos(function (items){
+								mCodigohora.getAll(function (codigoshora){
+									mTipoHora.getAll(function (tiposhora){
+										//console.log(partediario2)
+										res.render('partediario2modificar', {
+											pagename: "Modificar Parte Diario",
+											partediario2: partediario2[0],
+											partediario1: partediario1[0],
+											items: items,
+											clasificaciones: clasificaciones,
+											sectores: sectores,
+											lugares: lugares,
+											codigoshora: codigoshora,
+											tiposhora: tiposhora
+										});
 									});
 								});
 							});
