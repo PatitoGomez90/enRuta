@@ -136,7 +136,7 @@ function getEmplesExport(req, res){
 	fecha_hasta = params.hasta;
 
 	mEmple.getSP_EmplesEntreFechas(fecha_desde, fecha_hasta, function (emples){
-		//console.log(items[0])
+		//console.log(emples[0])
 		emples = emples[0];
 		//console.log(items)
 		var conf = {};
@@ -176,7 +176,28 @@ function getEmplesExport(req, res){
 		<td style="text-align: center;">{{ e.hrs_nocturnas_feriado }}
 		<td style="text-align: center;">{{ e.emergencias }}</td>
 		<td style="text-align: center;">{{ e.hrs_reconocimiento }}</td>
-		<td style="text-align: center;">{{ e.turnicidad }}</td>*/
+		<td style="text-align: center;">{{ e.turnicidad }}</td>
+
+		<th style="text-align: center;">F No T</th>
+		<th style="text-align: center;">Ausentimos</th>
+		<th style="text-align: center;">compensatorios</th>
+		<th style="text-align: center;">hrs capacitacion</th>
+		<th style="text-align: center;">emergencias</th>
+		<th style="text-align: center;">hrs donacion sangre/th>
+		<th style="text-align: center;">hrs familiar enfermo</th>
+		<th style="text-align: center;">hrs citacion judicial</th>
+		<th style="text-align: center;">hrs lic fallecimiento</th>
+		<th style="text-align: center;">hrs lic nacimiento</th>
+		<th style="text-align: center;">hrs lic examen</th>
+		<th style="text-align: center;">hrs lic accidente</th>
+		<th style="text-align: center;">hrs lic mudanza</th>
+		<th style="text-align: center;">hrs lic matrimonio</th>
+		<th style="text-align: center;">hrs lic inundacion</th>
+		<th style="text-align: center;">hrs examen medico</th>
+		<th style="text-align: center;">enfermedades</th>
+		<th style="text-align: center;">horas reconocimiento</th>
+		<th style="text-align: center;">permiso gremial</th>
+		<th style="text-align: center;">CAL N</th>*/
 	    conf.cols = [{caption:'Legajo', type:'number'},
 		    {caption:'Nombre', type:'string'},
 		    {caption:'Sector', type:'string'},
@@ -186,6 +207,26 @@ function getEmplesExport(req, res){
 		    {caption:'Hrs al 100', type:'number'},
 		    {caption:'Feriados Trabajado', type:'number'},
 		    {caption:'Feriados No Trabajado', type:'number'},
+
+		    {caption:'Ausentismos', type:'number'},
+		    {caption:'Compensatorios', type:'number'},
+		    {caption:'Hrs Capacitacion', type:'number'},
+		    {caption:'Emergencias', type:'number'},
+			{caption:'Hrs Donacion Sangre', type:'number'},
+			{caption:'Hrs Familiar Enfermo', type:'number'},
+			{caption:'Hrs Citacion Judicial', type:'number'},
+			{caption:'Hrs Lic. Fallecimiento', type:'number'},
+			{caption:'Hrs Lic. Nacimiento', type:'number'},
+			{caption:'Hrs Lic. Examen', type:'number'},
+			{caption:'Hrs Lic. Accidente', type:'number'},
+			{caption:'Hrs Lic. Mudanza', type:'number'},
+			{caption:'Hrs Lic. Matrimonio', type:'number'},
+			{caption:'Hrs Lic. Inundacion', type:'number'},
+			{caption:'Hrs Examen Medico', type:'number'},
+			{caption:'Enfermedades', type:'number'},
+			{caption:'Hrs Reconocimiento', type:'number'},
+			{caption:'Permisos Gremiales', type:'number'},
+
 		    {caption:'Hrs Calorias Normales', type:'number'},
 		    {caption:'Hrs Calorias al 50', type:'number'},
 		    {caption:'Hrs Calorias al 100', type:'number'},
@@ -225,6 +266,26 @@ function getEmplesExport(req, res){
 			hrs_al100 = emples[x].hrs_al100;
 			hrs_feriado_trabajado = emples[x].hrs_feriado_trabajado;
 			hrs_feriado_no_trabajado = emples[x].hrs_feriado_no_trabajado;
+
+			ausentismo = emples[x].ausentismo;
+			compensatorio = emples[x].compensatorio;
+			capacitacion = emples[x].capacitacion;
+			emergencias = emples[x].emergencias;
+			donacion_sangre = emples[x].donacion_sangre;
+			familiar_enfermo = emples[x].familiar_enfermo;
+			citacion_judicial = emples[x].citacion_judicial;
+			lic_fallecimiento = emples[x].lic_fallecimiento;
+			lic_nacimiento = emples[x].lic_nacimiento;
+			lic_examen = emples[x].lic_examen;
+			lic_accidente = emples[x].lic_accidente;
+			lic_mudanza = emples[x].lic_mudanza;
+			lic_matrimonio = emples[x].lic_matrimonio;
+			lic_inundacion = emples[x].lic_inundacion;
+			examen_medico = emples[x].examen_medico;
+			enfermedad = emples[x].enfermedad;
+			horas_reconocimiento = emples[x].horas_reconocimiento;
+			permiso_gremial = emples[x].permiso_gremial;
+
 			calorias_n = emples[x].calorias_n;
 			calorias_50 = emples[x].calorias_50;
 			calorias_100 = emples[x].calorias_100;
@@ -263,6 +324,24 @@ function getEmplesExport(req, res){
 	    	emples2.push(hrs_al100);
 	    	emples2.push(hrs_feriado_trabajado);
 	    	emples2.push(hrs_feriado_no_trabajado);
+	    	emples2.push(ausentismo);
+	    	emples2.push(compensatorio);
+	    	emples2.push(capacitacion);
+	    	emples2.push(emergencias);
+	    	emples2.push(donacion_sangre);
+	    	emples2.push(familiar_enfermo);
+	    	emples2.push(citacion_judicial);
+	    	emples2.push(lic_fallecimiento);
+	    	emples2.push(lic_nacimiento);
+	    	emples2.push(lic_examen);
+	    	emples2.push(lic_accidente);
+	    	emples2.push(lic_mudanza);
+	    	emples2.push(lic_matrimonio);
+	    	emples2.push(lic_inundacion);
+	    	emples2.push(examen_medico);
+	    	emples2.push(enfermedad);
+	    	emples2.push(horas_reconocimiento);
+	    	emples2.push(permiso_gremial);
 	    	emples2.push(calorias_n);
 	    	emples2.push(calorias_50);
 	    	emples2.push(calorias_100);
