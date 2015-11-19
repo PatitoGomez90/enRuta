@@ -103,10 +103,13 @@ function getLista(req, res) {
 	//req.session.nromenu = 5;
 	//mAyuda.getAyudaTexto(req.session.nromenu, function (ayuda){
 	updateFichadas(function () {
-		mPartediario1.getById(id, function (partediario1){
-			//console.log(partediario1[0])
+		mPartediario1.getById(id, function (partediario1){			
 			mPartediario2.getAllByPartediario1Id(id, function (partediario2s){
+				// for (var i = 0; partediario2s.length < i ; i++) {
+				// 	partediario2s[i].push({next_id: 0})
+				// };
 				mTipoHora.getAllActivos(function (tipohoras){
+					// console.log(partediario2s)
 					res.render('partediario2lista', {
 			        	pagename: 'Lista de Empleados',
 			        	partediario2s: partediario2s,
@@ -170,24 +173,34 @@ function getModificar(req, res){
 
 	updateFichadas(function () {
 		mPartediario2.getById(id, function (partediario2){
-			mPartediario1.getById(partediario2[0].id_partediario1_fk, function (partediario1){
-				mLugares.getAllActivos(function (lugares){
-					mSectores.getAllActivos(function (sectores){
-						mClasificacion.getAllActivos(function (clasificaciones){
-							mImputacion.getAllActivos(function (items){
-								mCodigohora.getAll(function (codigoshora){
-									mTipoHora.getAll(function (tiposhora){
-										//console.log(partediario2)
-										res.render('partediario2modificar', {
-											pagename: "Modificar Parte Diario",
-											partediario2: partediario2[0],
-											partediario1: partediario1[0],
-											items: items,
-											clasificaciones: clasificaciones,
-											sectores: sectores,
-											lugares: lugares,
-											codigoshora: codigoshora,
-											tiposhora: tiposhora
+			mPartediario2.get_NextPd2(partediario2[0].id_partediario1_fk, partediario2[0].numero, function (siguiente_pd2){
+				//console.log(siguiente_pd2)
+				if (siguiente_pd2.length == 0)
+					siguienteid = 0;
+				else
+					siguienteid = siguiente_pd2[0].id;
+
+				//console.log("siguiente id "+siguienteid)
+				mPartediario1.getById(partediario2[0].id_partediario1_fk, function (partediario1){
+					mLugares.getAllActivos(function (lugares){
+						mSectores.getAllActivos(function (sectores){
+							mClasificacion.getAllActivos(function (clasificaciones){
+								mImputacion.getAllActivos(function (items){
+									mCodigohora.getAll(function (codigoshora){
+										mTipoHora.getAll(function (tiposhora){
+											//console.log(partediario2)
+											res.render('partediario2modificar', {
+												pagename: "Modificar Parte Diario",
+												partediario2: partediario2[0],
+												partediario1: partediario1[0],
+												items: items,
+												clasificaciones: clasificaciones,
+												sectores: sectores,
+												lugares: lugares,
+												codigoshora: codigoshora,
+												tiposhora: tiposhora,
+												nextid: siguienteid
+											});
 										});
 									});
 								});
@@ -385,6 +398,8 @@ function postModificar(req, res){
 	mPartediario2.update(id, codigohora, entrada, salida, total, hr_total_n, hr_total_50, hr_total_100, adicional1_n, adicional1_50, adicional1_100, adicional2_n, adicional2_50, adicional2_100, adicional3_n, adicional3_50, adicional3_100, adicional4_n, adicional4_50, adicional4_100, adicional5_n, adicional5_50, adicional5_100, adicional6_n, adicional6_50, adicional6_100, item1_n, item1_50, item1_100, item2_n, item2_50, item2_100, item3_n, item3_50, item3_100, item4_n, item4_50, item4_100, item5_n, item5_50, item5_100, item6_n, item6_50, item6_100, item7_n, item7_50, item7_100, item8_n, item8_50, item8_100, item9_n, item9_50, item9_100, item10_n, item10_50, item10_100, item11_n, item11_50, item11_100, item12_n, item12_50, item12_100, function(){
 		res.redirect('partediario2lista/'+idpartediario1);
 	});
+
+
 }
 
 function getEmples(req, res){

@@ -8,6 +8,7 @@
 <link href="/css/partediario2modificar.css" rel="stylesheet">	
 <h2>{{ pagename }}</h2>
 <form method="POST" id="formty" name="formty" action="/partediario2modificar">
+	<input hidden id="nextid" name="nextid" value="{{ nextid }}">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h4><b>Información General</b></h4>
@@ -282,7 +283,8 @@
 			<tr>
 				<td><input class="btn btn-default" type="button" value="Atras" onclick="history.back()"></td>
 				<td><input class="btn btn-default" type="submit" value="Guardar"></td>
-				<!-- <td><input class="btn btn-default" type="button" value="Guardar y Siguiente." id="SaveAndNext"></td> -->
+				<td><input class="btn btn-default" type="button" value="Guardar y Siguiente" id="SaveAndNext"></td>
+				<td><input class="btn btn-default" type="button" value="Siguiente" id="Next"></td>
 			</tr>
 		</table>
 	</div>
@@ -299,6 +301,7 @@
 	    if(theEvent.preventDefault) theEvent.preventDefault();
 	  }
 	}
+
 	function convertToHHMM(info) {
 	  	var hrs = parseInt(Number(info));
 	 	var min = Math.round((Number(info)-hrs) * 60);
@@ -399,7 +402,227 @@
 
 	$("#SaveAndNext").on("click", function(){
 		//hacer el guardar
+		console.log("SaveAndNext")
+		id = $("#id").val();
+		idpartediario1 = $('#idpartediario1').val();
+		codigohora = $('#codigohora').val();
+		entrada = $('#entrada').val();
+		salida = $('#salida').val();
+		total = $('#total').val();
+		hr_total_n = $('#hr_total_n').val();
+		if (!hr_total_n)
+			hr_total_n = 0;
+		hr_total_50 = $('#hr_total_50').val();
+		if (!hr_total_50)
+			hr_total_50 = 0;
+		hr_total_100 = $('#hr_total_100').val();
+		if (!hr_total_100)
+			hr_total_100 = 0;
+		//nuevos campos
+		adicional1_n = $('#adicional1_n').val();
+		adicional1_50 = $('#adicional1_50').val();
+		adicional1_100 = $('#adicional1_100').val();
+		if (!adicional1_n)
+			adicional1_n = 0;
+		if (!adicional1_50)
+			adicional1_50 = 0;
+		if (!adicional1_100)
+			adicional1_100 = 0;
+		adicional2_n = $('#adicional2_n').val();
+		adicional2_50 = $('#adicional2_50').val();
+		adicional2_100 = $('#adicional2_100').val();
+		if (!adicional2_n)
+			adicional2_n = 0;
+		if (!adicional2_50)
+			adicional2_50 = 0;
+		if (!adicional2_100)
+			adicional2_100 = 0;
+		adicional3_n = $('#adicional3_n').val();
+		adicional3_50 = $('#adicional3_50').val();
+		adicional3_100 = $('#adicional3_100').val();
+		if (!adicional3_n)
+			adicional3_n = 0;
+		if (!adicional3_50)
+			adicional3_50 = 0;
+		if (!adicional3_100)
+			adicional3_100 = 0;
+		adicional4_n = $('#adicional4_n').val();
+		adicional4_50 = $('#adicional4_50').val();
+		adicional4_100 = $('#adicional4_100').val();
+		if (!adicional4_n)
+			adicional4_n = 0;
+		if (!adicional4_50)
+			adicional4_50 = 0;
+		if (!adicional4_100)
+			adicional4_100 = 0;
+		adicional5_n = $('#adicional5_n').val();
+		adicional5_50 = $('#adicional5_50').val();
+		adicional5_100 = $('#adicional5_100').val();
+		if (!adicional5_n)
+			adicional5_n = 0;
+		if (!adicional5_50)
+			adicional5_50 = 0;
+		if (!adicional5_100)
+			adicional5_100 = 0;
+		adicional6_n = $('#adicional6_n').val();
+		adicional6_50 = $('#adicional6_50').val();
+		adicional6_100 = $('#adicional6_100').val();
+		if (!adicional6_n)
+			adicional6_n = 0;
+		if (!adicional6_50)
+			adicional6_50 = 0;
+		if (!adicional6_100)
+			adicional6_100 = 0;
+		//fin nuevos campos, actualizar "imputacion" por "items"
+		item1_n = $('#item1_n').val();
+		item1_50 = $('#item1_50').val();
+		item1_100 = $('#item1_100').val();
+		if (!item1_n)
+			item1_n = 0;
+		if (!item1_50)
+			item1_50 = 0;
+		if (!item1_100)
+			item1_100 = 0;
+		item2_n = $('#item2_n').val();
+		item2_50 = $('#item2_50').val();
+		item2_100 = $('#item2_100').val();
+		if (!item2_n)
+			item2_n = 0;
+		if (!item2_50)
+			item2_50 = 0;
+		if (!item2_100)
+			item2_100 = 0;
+		item3_n = $('#item3_n').val();
+		item3_50 = $('#item3_50').val();
+		item3_100 = $('#item3_100').val();
+		if (!item3_n)
+			item3_n = 0;
+		if (!item3_50)
+			item3_50 = 0;
+		if (!item3_100)
+			item3_100 = 0;
+		item4_n = $('#item4_n').val();
+		item4_50 = $('#item4_50').val();
+		item4_100 = $('#item4_100').val();
+		if (!item4_n)
+			item4_n = 0;
+		if (!item4_50)
+			item4_50 = 0;
+		if (!item4_100)
+			item4_100 = 0;
+		item5_n = $('#item5_n').val();
+		item5_50 = $('#item5_50').val();
+		item5_100 = $('#item5_100').val();
+		if (!item5_n)
+			item5_n = 0;
+		if (!item5_50)
+			item5_50 = 0;
+		if (!item5_100)
+			item5_100 = 0;
+		item6_n = $('#item6_n').val();
+		item6_50 = $('#item6_50').val();
+		item6_100 = $('#item6_100').val();
+		if (!item6_n)
+			item6_n = 0;
+		if (!item6_50)
+			item6_50 = 0;
+		if (!item6_100)
+			item6_100 = 0;
+		item7_n = $('#item7_n').val();
+		item7_50 = $('#item7_50').val();
+		item7_100 = $('#item7_100').val();
+		if (!item7_n)
+			item7_n = 0;
+		if (!item7_50)
+			item7_50 = 0;
+		if (!item7_100)
+			item7_100 = 0;
+		item8_n = $('#item8_n').val();
+		item8_50 = $('#item8_50').val();
+		item8_100 = $('#item8_100').val();
+		if (!item8_n)
+			item8_n = 0;
+		if (!item8_50)
+			item8_50 = 0;
+		if (!item8_100)
+			item8_100 = 0;
+		item9_n = $('#item9_n').val();
+		item9_50 = $('#item9_50').val();
+		item9_100 = $('#item9_100').val();
+		if (!item9_n)
+			item9_n = 0;
+		if (!item9_50)
+			item9_50 = 0;
+		if (!item9_100)
+			item9_100 = 0;
+		item10_n = $('#item10_n').val();
+		item10_50 = $('#item10_50').val();
+		item10_100 = $('#item10_100').val();
+		if (!item10_n)
+			item10_n = 0;
+		if (!item10_50)
+			item10_50 = 0;
+		if (!item10_100)
+			item10_100 = 0;
+		item11_n = $('#item11_n').val();
+		item11_50 = $('#item11_50').val();
+		item11_100 = $('#item11_100').val();
+		if (!item11_n)
+			item11_n = 0;
+		if (!item11_50)
+			item11_50 = 0;
+		if (!item11_100)
+			item11_100 = 0;
+		item12_n = $('#item12_n').val();
+		item12_50 = $('#item12_50').val();
+		item12_100 = $('#item12_100').val();
+		if (!item12_n)
+			item12_n = 0;
+		if (!item12_50)
+			item12_50 = 0;
+		if (!item12_100)
+			item12_100 = 0;
+
+		$.ajax({ 
+            url: '/partediario2modificar/',
+            type: 'POST',
+            cache: false, 
+            data: { id, idpartediario1,	codigohora, entrada, salida, total, hr_total_n, hr_total_50, hr_total_100, adicional1_n, adicional1_50, adicional1_100, adicional2_n, adicional2_50, adicional2_100, adicional3_n,adicional3_50, adicional3_100, adicional4_n,adicional4_50, adicional4_100, adicional5_n, adicional5_50, adicional5_100, adicional6_n, adicional6_50, adicional6_100, item1_n, item1_50, item1_100, item2_n, item2_50, item2_100, item3_n, item3_50, item3_100, item4_n, item4_50, item4_100, item5_n, item5_50, item5_100, item6_n, item6_50, item6_100, item7_n, item7_50, item7_100, item8_n, item8_50, item8_100, item9_n, item9_50, item9_100, item10_n, item10_50, item10_100, item11_n, item11_50, item11_100, item12_n, item12_50, item12_100 }, 
+           success: function(data){
+              	//alert('Success!')
+              	nextid = $("#nextid").val();
+				//alert("kglfjgklfjkgf  "+nextid)
+				if (nextid != 0){
+					asd = "/partediario2modificar/"+nextid;
+					//alert("kglfjgklfjkgf  "+asd)					
+				}else{
+					idp1 = $("#idpartediario1").val();
+					alert("No hay mas empleados en este Parte Diario. Se redirijirá a la Lista de Empleados de éste Parte.")
+					asd = "/partediario2lista/"+idp1;
+				}
+				window.location = asd;
+            }
+           , error: function(jqXHR, textStatus, err){
+               //alert('text status '+textStatus+', err '+err)
+               console.log(err);
+           }
+        });
 		//redirijir al proximo
+	});
+	
+	$("#Next").on("click", function(){
+		nextid = $("#nextid").val();
+		//alert("kglfjgklfjkgf  "+nextid)
+		if (nextid != 0){
+			asd = "/partediario2modificar/"+nextid;
+			//alert("kglfjgklfjkgf  "+asd)
+			
+		}else{
+			idp1 = $("#idpartediario1").val();
+			alert("No hay mas empleados en este Parte Diario. Se redirijirá a la Lista de Empleados de éste Parte.")
+			asd = "/partediario2lista/"+idp1;
+		}
+		window.location = asd;
 	});
 
 	function msToTime(duration) {
@@ -491,9 +714,3 @@
 
 </script>
 {% endblock %}
-
-date = "19:00"
-date.getHour() = 19
-date.getMinutes() = 00
-
-8 > 

@@ -9,7 +9,8 @@ module.exports = {
 	del: del,
 	delByIdpartediario1: delByIdpartediario1,
 	getEmpleInPartediario2: getEmpleInPartediario2,
-	getLastNumerobyPd1: getLastNumerobyPd1
+	getLastNumerobyPd1: getLastNumerobyPd1,
+	get_NextPd2: get_NextPd2
 }
 
 function getAll(cb){
@@ -36,6 +37,7 @@ function getById(id, cb){
 		"emple.nombre as nombre, "+
 		"emple.tarjeta as tarjeta, "+
 		"codigohora.nombre as codigohoratxt "+
+		// "(select )"+
 		"from partediario2 "+
 		"left join emple on emple.codigo = partediario2.id_emple_fk "+
 		"left join codigohora on codigohora.id = partediario2.id_codigohora_fk "+
@@ -86,4 +88,9 @@ function getEmpleInPartediario2(idp1, idemple, cb){
 //para el agregar de a 1 empleado
 	function getLastNumerobyPd1(idp1, cb){
 		conn("SELECT max(numero) as ultnumero FROM `partediario2` WHERE `id_partediario1_fk`="+idp1, cb);
+	}
+
+// para el boton siguiente
+	function get_NextPd2(idp1, num, cb){
+		conn("select * from partediario2 where id = (select min(id) from partediario2 where numero = "+num+"+1 and id_partediario1_fk = "+idp1+")", cb)
 	}

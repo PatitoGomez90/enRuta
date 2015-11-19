@@ -34,7 +34,7 @@
 								<th colspan="2"><div style="width: 70px">Opciones</div></th>
 								<th>ID</th>
 								<th><div style="width: 30px">N°</div></th>
-								<th>Legajo</th>
+								<th>Leg</th>
 								<th><div style="width: 100px">Nombre</div></th>
 								<th>Cod.</th>
 								<th>Entrada</th>
@@ -42,22 +42,22 @@
 								<th>Total</th>
 								<th>Tipo Hora</th>
 								{% if partediario1.id_clasificacion1_fk != 0 %}
-									<th>{{ partediario1.clasificacion1txt }}</th>
+									<th>Calo.</th>
 								{% endif %}
 								{% if partediario1.id_clasificacion2_fk != 0 %}
-									<th>{{ partediario1.clasificacion2txt }}</th>
+									<th>Peli.</th>
 								{% endif %}
 								{% if partediario1.id_clasificacion3_fk != 0 %}
-									<th>{{ partediario1.clasificacion3txt }}</th>
+									<th>Polu.</th>
 								{% endif %}
 								{% if partediario1.id_clasificacion4_fk != 0 %}
-									<th>{{ partediario1.clasificacion4txt }}</th>
+									<th>Termo</th>
 								{% endif %}
 								{% if partediario1.id_clasificacion5_fk != 0 %}
-									<th>{{ partediario1.clasificacion5txt }}</th>
+									<th>Insa</th>
 								{% endif %}
 								{% if partediario1.id_clasificacion6_fk != 0 %}
-									<th>{{ partediario1.clasificacion6txt }}</th>
+									<th>Noc</th>
 								{% endif %}
 								{% if partediario1.id_imputacion1_fk != 0 %}
 									<th>{{ partediario1.imputacion1txt }}</th>
@@ -99,10 +99,10 @@
 							{% for p2 in partediario2s %}
 								<tr>
 									<td>
-										<a href="/partediario2modificar/{{ p2.id }}" ><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-edit" aria-hidden="true" title="Modificar"></span></button></a>
+										<a href="/partediario2modificar/{{ p2.id }}" ><button type="button" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-edit" aria-hidden="true" title="Modificar"></span></button></a>
 									</td>
 									<td>
-										<a href='/partediario2borrar/{{ p2.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar"></span></button><a/>
+										<a href='/partediario2borrar/{{ p2.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar"></span></button><a/>
 									</td>
 									<td><input hidden name="idpartediario2" id="ipartediario2" value="{{ p2.id }}">{{ p2.id }}</td>
 									<td>{{ p2.numero }}</td>
