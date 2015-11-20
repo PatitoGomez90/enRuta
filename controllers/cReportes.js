@@ -81,6 +81,7 @@ function getItemsExport(req, res){
 		//console.log(items)
 		var conf = {};
 			//este tiene una url acá pero en el server es otra....
+			//conf.stylesXmlFile = "C:/Users/leandro/Documents/Maresa-master/style.xml";
 				conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
 		/*ITEM	
 		DESCRIPCION	
@@ -141,6 +142,7 @@ function getEmplesExport(req, res){
 		//console.log(items)
 		var conf = {};
 			//este tiene una url acá pero en el server es otra....
+			//conf.stylesXmlFile = "C:/Users/leandro/Documents/Maresa-master/style.xml";
 				conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
 		/*<td style="text-align: center;">{{ e.legajo }}</td>
 		<td style="text-align: center;">{{ e.empletxt }}</td>
