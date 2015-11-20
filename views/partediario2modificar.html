@@ -16,6 +16,7 @@
 		<table align="center" class="table table-striped">	
 			<input hidden name="idpartediario1" id="idpartediario1" value="{{ partediario2.id_partediario1_fk }}">
 			<input hidden name="fechapartediario1" id="fechapartediario1" value="{{ partediario1.fechaf }}">
+			<input hidden name="id_sector" id="id_sector" value="{{ partediario1.id_sector_fk }}">
 			<tr>
 				<td>ID:</td>
 				<td><input type="text" id="id" name="id" value="{{ partediario2.id }}" readonly="readonly" class="form-control"></td>
@@ -315,6 +316,38 @@
 	 		mins = min;
 	  	return hrss+':'+mins;
 	}
+
+	//aceria id 4
+	//- Calorías = HS x 0.75
+	//- Peligrosas = HS x 0.25
+	//- polución = HS
+	$(".hr_tot").on("change", function(){
+		var id_sector = $("#id_sector").val();
+
+		if (id_sector == 4){
+			//norm
+			var hrs_normales = $("#hr_total_n").val();
+			hrs_normales = parseInt(hrs_normales);
+			var hrs_cal = hrs_normales * 0.75;
+			$("#adicional1_n").val(hrs_cal);
+			$("#adicional2_n").val(hrs_cal);
+			$("#adicional3_n").val(hrs_normales);
+			//50
+			var hrs_50 = $("#hr_total_50").val();
+			hrs_50 = parseInt(hrs_50);
+			var hrs_cal_50 = hrs_50 * 0.75;
+			$("#adicional1_50").val(hrs_cal_50);
+			$("#adicional2_50").val(hrs_cal_50);
+			$("#adicional3_50").val(hrs_50);
+			//100
+			var hrs_100 = $("#hr_total_100").val();
+			hrs_100 = parseInt(hrs_100);
+			var hrs_cal_100 = hrs_100 * 0.75;
+			$("#adicional1_100").val(hrs_cal_100);
+			$("#adicional2_100").val(hrs_cal_100);
+			$("#adicional3_100").val(hrs_100);
+		}
+	});
 
 	// $(".hr_tot").on("change", function(){
 	// 	var total = $("#total").val();
