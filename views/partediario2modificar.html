@@ -331,7 +331,12 @@
 			var hrs_cal = hrs_normales * 0.75;
 			$("#adicional1_n").val(hrs_cal);
 			$("#adicional2_n").val(hrs_cal);
-			$("#adicional3_n").val(hrs_normales);
+			//suma de horas
+			var hr_n = $("#hr_total_n").val();
+			var hr_50 = $("#hr_total_50").val();
+			var hr_100 = $("#hr_total_100").val();
+			var sumatoria = parseInt(hr_n) + parseInt(hr_50) + parseInt(hr_100);
+			$("#adicional3_n").val(sumatoria);
 			//50
 			var hrs_50 = $("#hr_total_50").val();
 			hrs_50 = parseInt(hrs_50);
