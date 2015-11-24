@@ -110,15 +110,15 @@ function updateFichadas(cb){
 	mFichadas.getLastFicIdMySql(function (lastficidfrommysql){
 		console.log("lastficidfrommysql: "+lastficidfrommysql[0].maxfic_id)
 		if(lastficidfrommysql[0].maxfic_id == null)
-		lastficid = 0;
+			lastficid = 0;
 		else
-		lastficid = lastficidfrommysql[0].maxfic_id;
+			lastficid = lastficidfrommysql[0].maxfic_id;
 
 		console.log("last fic id (en mysql) antes de la request: "+lastficid);
 
 		mFichadas.getLatestFicSQL(lastficid, function (latestfic){
-			//console.log(latestfic[0])
-			console.log("length del obj latestfichadas: "+latestfic.length)//67
+			//console.log(latestfic)
+			//console.log("length del obj latestfichadas: "+latestfic.length)//67
 			var i = 0;
 			var querys = [];
 			for (i = 0; i < latestfic.length; i++ ){
@@ -129,15 +129,34 @@ function updateFichadas(cb){
 			connection.connect();
 			async.eachSeries(querys, function (data, callback) {
 				console.log(data.query)
-				connection.query(data.query, function(err, rows, fields) {
+				connection.query(data.query, function (err, rows, fields) {
 					if (err){
 						throw err;
 						console.log(err)
 					}else{
 						console.log("No errors in the query.")
 					}
-					console.log(rows.length)
+					//console.log(rows.length)
 					if (rows.length == 0){
+						//aca va el if para ver que no ingrese muchas fichadas del mismo empleado, con la misma E o S, misma fecha
+						// if (data.id == 0) {
+						// 	mFichadas.MySqlInsert(latestfic[data.id], function (){
+						// 		console.log(data.id)
+						// 		callback();
+						// 	});
+						// }else{
+						// 	if (latestfic[data.id-1].FIC_ENTSAL != latestfic[data.id].FIC_ENTSAL){
+						// 		mFichadas.MySqlInsert(latestfic[data.id], function (){
+						// 			console.log(data.id)
+						// 			callback();
+						// 		});
+						// 	}else{
+						// 		if (latestfic[data.id-1].FIC_RELOJ == latestfic[data.id].FIC_RELOJ && latestfic[data.id-1].LEG_TARJETA == latestfic[data.id].LEG_TARJETA) {
+						// 			console.log("No insertar fichada "+latestfic[data.id].FIC_ID);
+						// 			callback();
+						// 		}
+						// 	}
+						// }
 						mFichadas.MySqlInsert(latestfic[data.id], function (){
 							console.log(data.id)
 							callback();

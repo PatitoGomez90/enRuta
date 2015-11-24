@@ -250,23 +250,27 @@ function postModificar(req, res){
 	if (!adicional2_100)
 		adicional2_100 = 0;
 	adicional3_n = params.adicional3_n;
-	adicional3_50 = params.adicional3_50;
-	adicional3_100 = params.adicional3_100;
+	// adicional3_50 = params.adicional3_50;
+	// adicional3_100 = params.adicional3_100;
+	adicional3_50 = 0;
+	adicional3_100 = 0;
 	if (!adicional3_n)
 		adicional3_n = 0;
-	if (!adicional3_50)
-		adicional3_50 = 0;
-	if (!adicional3_100)
-		adicional3_100 = 0;
+	// if (!adicional3_50)
+	// 	adicional3_50 = 0;
+	// if (!adicional3_100)
+	// 	adicional3_100 = 0;
 	adicional4_n = params.adicional4_n;
-	adicional4_50 = params.adicional4_50;
-	adicional4_100 = params.adicional4_100;
+	// adicional4_50 = params.adicional4_50;
+	// adicional4_100 = params.adicional4_100;
+	adicional4_50 = 0;
+	adicional4_100 = 0;
 	if (!adicional4_n)
 		adicional4_n = 0;
-	if (!adicional4_50)
-		adicional4_50 = 0;
-	if (!adicional4_100)
-		adicional4_100 = 0;
+	// if (!adicional4_50)
+	// 	adicional4_50 = 0;
+	// if (!adicional4_100)
+	// 	adicional4_100 = 0;
 	adicional5_n = params.adicional5_n;
 	adicional5_50 = params.adicional5_50;
 	adicional5_100 = params.adicional5_100;
@@ -277,12 +281,13 @@ function postModificar(req, res){
 	if (!adicional5_100)
 		adicional5_100 = 0;
 	adicional6_n = params.adicional6_n;
-	adicional6_50 = params.adicional6_50;
+	// adicional6_50 = params.adicional6_50;
+	adicional6_50 = 0;
 	adicional6_100 = params.adicional6_100;
 	if (!adicional6_n)
 		adicional6_n = 0;
-	if (!adicional6_50)
-		adicional6_50 = 0;
+	// if (!adicional6_50)
+	// 	adicional6_50 = 0;
 	if (!adicional6_100)
 		adicional6_100 = 0;
 	//fin nuevos campos, actualizar "imputacion" por "items"

@@ -20,7 +20,18 @@ module.exports = {
 }
 
 function getFichadasFromSQL(fecha, cb){
-	SQLconn("select MAX(convert(varchar, fic_fecha, 103)) as fecha, fic_reloj as reloj, COUNT(DISTINCT FIC_TARJETA) as cant, (select COUNT(DISTINCT FIC_TARJETA) from FICHADA where FIC_FECHA='"+fecha+"' AND FIC_ENTSAL='E' ) as entraron, (select COUNT(DISTINCT FIC_TARJETA) from FICHADA where FIC_FECHA='"+fecha+"' AND FIC_ENTSAL='S' ) as salieron from fichada where fic_fecha='"+fecha+"' group by fic_reloj", cb);
+	SQLconn("select MAX(convert(varchar, fic_fecha, 103)) as fecha, "+
+		"fic_reloj as reloj, "+
+		"COUNT(DISTINCT FIC_TARJETA) as cant, "+
+		"(select COUNT(DISTINCT FIC_TARJETA) "+
+		"from FICHADA "+
+		"where FIC_FECHA='"+fecha+"' "+
+		"AND FIC_ENTSAL='E' ) as entraron, "+
+		"(select COUNT(DISTINCT FIC_TARJETA) "+
+			"from FICHADA where FIC_FECHA='"+fecha+"' AND FIC_ENTSAL='S' ) as salieron "+
+		"from fichada "+
+		"where fic_fecha='"+fecha+"' "+
+		"group by fic_reloj", cb);
 }
 
 function getFichada(reloj, fecha, cb){
@@ -36,7 +47,13 @@ function getLastFicIdMySql(cb){
 }
 
 function getLatestFicSQL(lastficid, cb){
-	SQLconn("select fichada.*, convert(varchar, fichada.fic_fecha, 111) as fic_fechafmysql from fichada where fic_reloj in (33, 34, 35, 36) and leg_legajo > 0 and fic_id > "+lastficid+" and fic_fecha >= '2015-07-01'", cb);
+	SQLconn("select fichada.*, convert(varchar, fichada.fic_fecha, 111) as fic_fechafmysql "+
+		"from fichada "+
+		"where fic_reloj in (33, 34, 35, 36) "+
+		"and leg_legajo > 0 "+
+		"and fic_id > "+lastficid+" "+
+		"and fic_fecha >= '2015-07-01' "+
+		"order by leg_legajo", cb);
 }
 
 function SQLinsert(latestfic, cb){
