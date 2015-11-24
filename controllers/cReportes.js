@@ -144,62 +144,6 @@ function getEmplesExport(req, res){
 			//este tiene una url acá pero en el server es otra....
 			conf.stylesXmlFile = "C:/Users/leandro/Documents/Maresa-master/style.xml";
 				//conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
-		/*<td style="text-align: center;">{{ e.legajo }}</td>
-		<td style="text-align: center;">{{ e.empletxt }}</td>
-		<td style="text-align: center;">{{ e.sectortxt }}</td>
-		<td style="text-align: center;">{{ e.categoriatxt }}</td>
-		<td style="text-align: center;">{{ e.hrs_normales }}</td>
-		<td style="text-align: center;">{{ e.hrs_al50 }}</td>
-		<td style="text-align: center;">{{ e.hrs_al100 }}</td>
-		<td style="text-align: center;">{{ e.hrs_feriado_trabajado }}</td>
-		<td style="text-align: center;">{{ e.hrs_feriado_no_trabajado }}</td>
-		<td style="text-align: center;">{{ e.calorias_n }}</td>
-		<td style="text-align: center;">{{ e.calorias_50 }}</td>
-		<td style="text-align: center;">{{ e.calorias_100 }}</td>
-		<td style="text-align: center;">{{ e.calorias_fer }}</td>
-		<td style="text-align: center;">{{ e.peligrosas_n }}</td>
-		<td style="text-align: center;">{{ e.peligrosas_50 }}</td>
-		<td style="text-align: center;">{{ e.peligrosas_100 }}</td>
-		<td style="text-align: center;">{{ e.peligrosas_fer }}</td>
-		<td style="text-align: center;">{{ e.polucion_n }}</td>
-		<td style="text-align: center;">{{ e.polucion_50 }}</td>
-		<td style="text-align: center;">{{ e.polucion_100 }}</td>
-		<td style="text-align: center;">{{ e.polucion_fer }}</td>
-		<td style="text-align: center;">{{ e.termo_n }}</td>
-		<td style="text-align: center;">{{ e.termo_50 }}</td>
-		<td style="text-align: center;">{{ e.termo_100 }}</td>
-		<td style="text-align: center;">{{ e.termo_fer }}</td>
-		<td style="text-align: center;">{{ e.insalubres_n }}</td>
-		<td style="text-align: center;">{{ e.insalubres_50 }}</td>
-		<td style="text-align: center;">{{ e.insalubres_100 }}</td>
-		<td style="text-align: center;">{{ e.insalubres_fer }}</td>
-		<td style="text-align: center;">{{ e.hrs_nocturnas_normales }}</td>				
-		<td style="text-align: center;">{{ e.hrs_nocturnas_100 }}</td>
-		<td style="text-align: center;">{{ e.hrs_nocturnas_feriado }}
-		<td style="text-align: center;">{{ e.emergencias }}</td>
-		<td style="text-align: center;">{{ e.hrs_reconocimiento }}</td>
-		<td style="text-align: center;">{{ e.turnicidad }}</td>
-
-		<th style="text-align: center;">F No T</th>
-		<th style="text-align: center;">Ausentimos</th>
-		<th style="text-align: center;">compensatorios</th>
-		<th style="text-align: center;">hrs capacitacion</th>
-		<th style="text-align: center;">emergencias</th>
-		<th style="text-align: center;">hrs donacion sangre/th>
-		<th style="text-align: center;">hrs familiar enfermo</th>
-		<th style="text-align: center;">hrs citacion judicial</th>
-		<th style="text-align: center;">hrs lic fallecimiento</th>
-		<th style="text-align: center;">hrs lic nacimiento</th>
-		<th style="text-align: center;">hrs lic examen</th>
-		<th style="text-align: center;">hrs lic accidente</th>
-		<th style="text-align: center;">hrs lic mudanza</th>
-		<th style="text-align: center;">hrs lic matrimonio</th>
-		<th style="text-align: center;">hrs lic inundacion</th>
-		<th style="text-align: center;">hrs examen medico</th>
-		<th style="text-align: center;">enfermedades</th>
-		<th style="text-align: center;">horas reconocimiento</th>
-		<th style="text-align: center;">permiso gremial</th>
-		<th style="text-align: center;">CAL N</th>*/
 	    conf.cols = [{caption:'Legajo', type:'number'},
 		    {caption:'Nombre', type:'string'},
 		    {caption:'Sector', type:'string'},
@@ -228,7 +172,6 @@ function getEmplesExport(req, res){
 			{caption:'Enfermedades', type:'number'},
 			{caption:'Hrs Reconocimiento', type:'number'},
 			{caption:'Permisos Gremiales', type:'number'},
-
 		    {caption:'Hrs Calorias Normales', type:'number'},
 		    {caption:'Hrs Calorias al 50', type:'number'},
 		    {caption:'Hrs Calorias al 100', type:'number'},
@@ -238,12 +181,8 @@ function getEmplesExport(req, res){
 		    {caption:'Hrs Peligrosas al 100', type:'number'},
 		    {caption:'Hrs Peligrosas Feriado', type:'number'},
 		    {caption:'Hrs Polucion Normales', type:'number'},
-		    {caption:'Hrs Polucion al 50', type:'number'},
-		    {caption:'Hrs Polucion al 100', type:'number'},
 		    {caption:'Hrs Polucion Feriado', type:'number'},
 		    {caption:'Hrs Termo Normales', type:'number'},
-		    {caption:'Hrs Termo al 50', type:'number'},
-		    {caption:'Hrs Termo al 100', type:'number'},
 		    {caption:'Hrs Termo Feriado', type:'number'},
 		    {caption:'Hrs Insalubres Normales', type:'number'},
 		    {caption:'Hrs Insalubres al 50', type:'number'},
@@ -297,12 +236,8 @@ function getEmplesExport(req, res){
 			peligrosas_100 = emples[x].peligrosas_100;
 			peligrosas_fer = emples[x].peligrosas_fer;
 			polucion_n = emples[x].polucion_n;
-			polucion_50 = emples[x].polucion_50;
-			polucion_100 = emples[x].polucion_100;
 			polucion_fer = emples[x].polucion_fer;
 			termo_n = emples[x].termo_n;
-			termo_50 = emples[x].termo_50;
-			termo_100 = emples[x].termo_100;
 			termo_fer = emples[x].termo_fer;
 			insalubres_n = emples[x].insalubres_n;
 			insalubres_50 = emples[x].insalubres_50;
@@ -353,12 +288,8 @@ function getEmplesExport(req, res){
 	    	emples2.push(peligrosas_100);
 	    	emples2.push(peligrosas_fer);
 	    	emples2.push(polucion_n);
-	    	emples2.push(polucion_50);
-	    	emples2.push(polucion_100);
 	    	emples2.push(polucion_fer);
 	    	emples2.push(termo_n);
-	    	emples2.push(termo_50);
-	    	emples2.push(termo_100);
 	    	emples2.push(termo_fer);
 	    	emples2.push(insalubres_n);
 	    	emples2.push(insalubres_50);
