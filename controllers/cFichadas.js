@@ -236,8 +236,10 @@ function getFichadasByQuery(req, res){
 
 //Para Fichadas por sector
 	function getFichadasPorSector(req, res){
-		res.render('fichadasporsector',{
-			pagename: "Fichadas por Sector"
+		updateFichadas(function (){
+			res.render('fichadasporsector',{
+				pagename: "Fichadas por Sector"
+			});
 		});
 	}
 

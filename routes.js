@@ -331,6 +331,14 @@ module.exports = function(app) {
 	app.post('/reportesinicio', auth, cReportes.postInicio);
 	app.get('/itemsexport/:desde/:hasta', auth, cReportes.getItemsExport);
 	app.get('/emplesexport/:desde/:hasta', auth, cReportes.getEmplesExport);
+	//resumen de empleado por dia
+	app.get("/resumeninicio", auth, cReportes.getResumenInicio);
+	app.post('/resumeninicio', auth, cReportes.postResumenInicio);
+	//app.get("/resumen_callsp/:desde/:hasta/:id_emple", auth, cReportes.get_callSP);
+	app.get('/resumenempleado/:id_emple/:desde/:hasta', auth, cReportes.getResumenEmpleado);
+	app.get("/resumendownload/:id_emple/:desde/:hasta", auth, cReportes.getResumenDownload);
+
+
 	//plantillas
 	app.get("/planti1lista", auth, cPlanti.getLista);
 	app.get("/planti1alta", auth, cPlanti.getAlta);

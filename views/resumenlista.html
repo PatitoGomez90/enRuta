@@ -1,0 +1,86 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<!-- <link href="/css/reportesinicio.css" rel="stylesheet"> -->
+<h2>{{ pagename }}</h2>
+<input hidden id="desde" value="{{desde}}">
+<input hidden id="hasta" value="{{hasta}}">
+<input hidden id="id_sector" value="{{id_sector}}">
+	{% for e in emplesxsector %}
+		<div class="panel panel-default">
+			<table style="width: 100%;">
+				<tr>
+					<td style="width: 100%;">
+						<button type="button" style="width: 100%;" class="btn btn-default btnverdetalle" data-idempleado="{{e.codigo}}" >{{e.legajo}} - {{e.nombre}}</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	{% endfor %}
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<!-- <script type="text/javascript" src="/js/mustache.js"></script>
+<script type="text/javascript" src="/js/mustache-wax.js"></script> -->
+<script type="text/javascript">
+	$(".datepicker").datepicker({
+		format: 'dd/mm/yyyy',
+		autoclose: true,
+		language: 'es'
+	});
+
+	function changeDate(date){
+		// input: dd/mm/yyyy
+		fechaus = date.substring(6,10) + "/" + date.substring(3,5) + "/" + date.substring(0,2);
+		return fechaus;
+		// output: yyyy/mm/dd
+	}
+
+	$(".btnverdetalle").click(function(){
+		var link = "/resumenempleado/"
+		var id_emple = $(this).data("idempleado");
+		link = link+id_emple;
+		var desde = $("#desde").val();
+		desde = changeDate(desde);	   
+	    desde = encodeURIComponent(desde);
+		var hasta = $("#hasta").val();
+		hasta = changeDate(hasta);
+	    hasta = encodeURIComponent(hasta);
+		link = link+"/"+desde+"/"+hasta;
+		//alert(link)
+		window.location = link;
+	});
+
+	// $('.accordion-toggle').click(function(){
+	//    console.log('clicked');
+	//    var id_emple = $(this).data("idemple");
+	//    console.log(id_emple);
+	//    var desde = $("#desde").val();
+	//    desde = changeDate(desde);	   
+	//    desde = encodeURIComponent(desde);
+	//    var hasta = $("#hasta").val();
+	//    hasta = changeDate(hasta);
+	//    hasta = encodeURIComponent(hasta);
+	//    //aca viene el ajax
+	//    $.getJSON('/resumen_callsp/'+desde+'/'+hasta+'/'+id_emple, function (data){
+	// 		console.log(data[0]);
+	// 		if (data != null){
+	// 			$('#tbodyarticuloslisto > tr').remove();
+	// 			var template = $('#tablaarticulos').html();
+	// 			Mustache.tags =['[[',']]'];
+	// 			var html = Mustache.to_html(template, data);
+	// 			//console.log(html);
+	// 			$('#tbodyarticuloslisto').html(html);
+	// 		}else{
+	// 			//hacer que aca muestre error de que no se encontro nada en la busqueda
+	// 		}
+	// 	});
+	// });
+
+	
+</script>
+{% endblock %}
