@@ -176,5 +176,38 @@
 		});
 	});
 
+	$("#btnSave").click(function (){
+		//  VERIFICAR QUE LA CONSULTA TRAIGA ALGO
+
+		alert("proximamente!")
+
+		var date = new Date();
+		day = date.getDate();
+		if (day<10)
+			day = "0" + day;
+		month = date.getMonth() +1;
+		if (month<10)
+			month = "0" + month;
+		hoy =  day+ '/' + month + '/' + date.getFullYear() ;
+
+		var fecha_desde = $("#fecha_desde").val();
+		var fecha_hasta = $("#fecha_hasta").val();
+		var id_sector = $("#cmbSector").val();
+		var id_emple = $("#cmbEmple").val();
+		//console.log(id_emple)
+
+		if (fecha_hasta == "")
+			fecha_hasta = hoy;
+			
+		if (fecha_desde == "")
+			fecha_desde = "01/07/2015";
+
+		fecha_desde  = encodeURIComponent(fecha_desde);
+		fecha_hasta = encodeURIComponent(fecha_hasta);
+
+		var url = "/fichadasexport/"+id_sector+'/'+fecha_desde+'/'+fecha_hasta+'/'+id_emple;
+		//window.location = url;
+	});
+
 </script>
 {% endblock %}

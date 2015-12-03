@@ -33,7 +33,7 @@
 					<select name="empleado" id="empleado" class="form-control">
 						<option selected value="0">Seleccione un empleado</option>
 						{% for e in empleados %}
-							<option value="{{ e.codigo }}">{{ e.nombre }}</option>
+							<option value="{{ e.codigo }}">{{ e.nombre }} - {{ e.legajo }}</option>
 						{% endfor %}
 					</select> 
 					<label name="aviso" id="aviso"></label>
@@ -88,7 +88,7 @@
 				}else{
 					$("#empleado").append("<option selected value=0>Seleccione un empleado.</option>")
 					for ( i = 0 ; i < data.length ; i++){
-						$("#empleado").append("<option value="+data[i].codigo+">"+data[i].nombre+"</option>");
+						$("#empleado").append("<option value="+data[i].codigo+">"+data[i].nombre+" - "+data[i].legajo+"</option>");
 					}
 				}
 			});
@@ -102,7 +102,7 @@
 				}else{
 					$("#empleado").append("<option selected value=0>Seleccione un empleado.</option>")
 					for ( i = 0 ; i < data.length ; i++){
-						$("#empleado").append("<option value="+data[i].codigo+">"+data[i].nombre+"</option>");
+						$("#empleado").append("<option value="+data[i].codigo+">"+data[i].nombre+" - "+data[i].legajo+"</option>");
 					}
 				}
 			});

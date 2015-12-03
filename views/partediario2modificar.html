@@ -323,14 +323,15 @@
 	//- polución = HS
 	$(".hr_tot").on("change", function(){
 		var id_sector = $("#id_sector").val();
-
 		if (id_sector == 4){
 			//norm
 			var hrs_normales = $("#hr_total_n").val();
 			hrs_normales = parseInt(hrs_normales);
-			var hrs_cal = hrs_normales * 0.75;
-			$("#adicional1_n").val(hrs_cal);
-			$("#adicional2_n").val(hrs_cal);
+			var hrs_cal075 = hrs_normales * 0.75;
+			var hrs_cal025 = hrs_normales * 0.25;
+			$("#adicional1_n").val(hrs_cal075);// x 0.75
+			$("#adicional2_n").val(hrs_cal025);// x 0.25
+			//me hizo borrar
 			//suma de horas
 			var hr_n = $("#hr_total_n").val();
 			var hr_50 = $("#hr_total_50").val();
@@ -340,16 +341,19 @@
 			//50
 			var hrs_50 = $("#hr_total_50").val();
 			hrs_50 = parseInt(hrs_50);
-			var hrs_cal_50 = hrs_50 * 0.75;
-			$("#adicional1_50").val(hrs_cal_50);
-			$("#adicional2_50").val(hrs_cal_50);
+			var hrs_cal_50_075 = hrs_50 * 0.75;
+			var hrs_cal_50_025 = hrs_50 * 0.25;
+
+			$("#adicional1_50").val(hrs_cal_50_075);// x 0.75
+			$("#adicional2_50").val(hrs_cal_50_025);// x 0.25
 			$("#adicional3_50").val(hrs_50);
 			//100
 			var hrs_100 = $("#hr_total_100").val();
 			hrs_100 = parseInt(hrs_100);
-			var hrs_cal_100 = hrs_100 * 0.75;
-			$("#adicional1_100").val(hrs_cal_100);
-			$("#adicional2_100").val(hrs_cal_100);
+			var hrs_cal_100_075 = hrs_100 * 0.75;
+			var hrs_cal_100_025 = hrs_100 * 0.25;
+			$("#adicional1_100").val(hrs_cal_100_075);
+			$("#adicional2_100").val(hrs_cal_100_025);
 			$("#adicional3_100").val(hrs_100);
 		}
 	});

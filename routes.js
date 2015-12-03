@@ -304,6 +304,7 @@ module.exports = function(app) {
 	app.get('/getbytarjetayfechas/:tarjeta/:fecha_hoy/:fecha_maniana', auth, cFichadas.getByTarjetayFechas);
 	app.get('/fichadasporsector', auth, cFichadas.getFichadasPorSector);
 	app.get('/getselectbyfechagroupbysector/:fecha', auth, cFichadas.getSelectCountByFechaGroupBySector);
+	app.get('/fichadasexport/:id_sector/:fecha_desde/:fecha_hasta/:id_emple', auth, cFichadas.getFichadasExport);
 	//contratos
 	app.get('/contratoslista', auth, cContratos.getLista);
 	app.get('/contratosalta', auth, cContratos.getAlta);
