@@ -340,16 +340,6 @@ function postResumenInicio(req, res){
 	fechadesde = changeDate(fecha_desde);
 	fechahasta = changeDate(fecha_hasta);
 
-	//hacer el pedido al sql de la info del resumen de hrs de empleados por dia.
-	var connection = mysql.createConnection({
-		user: 'root',
-		password: '',
-		host: '127.0.0.1',
-		port: '3306',
-		database: 'Maresa',
-		dateStrings : true
-	});
-
 	if (id_sector != 0){
 		mEmple.getEmpleBySector(id_sector, function (emplesxsector){
 			//console.log(emplesxsector.length);
@@ -370,8 +360,8 @@ function postResumenInicio(req, res){
 				desde: fecha_desde,
 				hasta: fecha_hasta,
 				id_sector: id_sector
-			})
-		})
+			});
+		});
 	}
 }
 
@@ -391,16 +381,54 @@ function getResumenEmpleado(req, res){
 	desde = params.desde;
 	hasta = params.hasta;
 	id_emple = params.id_emple;
+	id_sector = params.id_sector;
+	var index_en_obj_actual = 0;
+	var next_id = 0;
+	console.log("id_emple (p): "+id_emple)
 
+	if (id_sector != 0){
+		mEmple.getEmpleBySector(id_sector, function (emplesxsector){
+			for (var i = 0 ; i <= emplesxsector.length ; i++) {
+				if (id_emple == emplesxsector[i].codigo){
+					if (i == emplesxsector.length-1)
+						next_id = 0;
+					else
+						next_id = emplesxsector[i+1].codigo;
+					break;	
+				}else{
+					next_id = 0;
+				}
+			}
+		});			
+	}else{
+		mEmple.getAllActivos(function (emplesactivos){
+			for (var i = 0 ; i <= emplesactivos.length ; i++) {
+				if (id_emple == emplesactivos[i].codigo){
+					if (i == emplesactivos.length-1)
+						next_id = 0;
+					else
+						next_id = emplesactivos[i+1].codigo;
+					break;	
+				}else{
+					next_id = 0;
+				}
+			}
+		});
+	}
+
+	//console.log("proximo id (c): "+next_id);
 	mEmple.getSP_diasPorEmpleado(desde, hasta, id_emple, function (diasporempleado){
 		mEmple.getEmplePorCodigo(id_emple, function (emple){
 			mEmple.getSP_sumatoriasDiasPorEmpleado(desde, hasta, id_emple, function (sumatorias){
-				//console.log(sumatorias[0][0])
 				res.render("resumenempleado", {
 					pagename: "Resumen de Empleado",
 					diasporempleado: diasporempleado[0],
 					emple: emple[0],
-					sumatorias: sumatorias[0][0]
+					sumatorias: sumatorias[0][0],
+					next_id: next_id,
+					index: index_en_obj_actual,
+					desde: desde,
+					hasta: hasta
 				});
 			});
 		});

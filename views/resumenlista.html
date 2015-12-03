@@ -41,17 +41,23 @@
 	}
 
 	$(".btnverdetalle").click(function(){
-		var link = "/resumenempleado/"
+		var id_sector = $("#id_sector").val();
+		var link = "/resumenempleado/"+id_sector+"/";
 		var id_emple = $(this).data("idempleado");
+
 		link = link+id_emple;
+
 		var desde = $("#desde").val();
 		desde = changeDate(desde);	   
 	    desde = encodeURIComponent(desde);
+
 		var hasta = $("#hasta").val();
 		hasta = changeDate(hasta);
 	    hasta = encodeURIComponent(hasta);
+
 		link = link+"/"+desde+"/"+hasta;
 		//alert(link)
+
 		window.location = link;
 	});
 

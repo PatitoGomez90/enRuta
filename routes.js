@@ -335,7 +335,7 @@ module.exports = function(app) {
 	app.get("/resumeninicio", auth, cReportes.getResumenInicio);
 	app.post('/resumeninicio', auth, cReportes.postResumenInicio);
 	//app.get("/resumen_callsp/:desde/:hasta/:id_emple", auth, cReportes.get_callSP);
-	app.get('/resumenempleado/:id_emple/:desde/:hasta', auth, cReportes.getResumenEmpleado);
+	app.get('/resumenempleado/:id_sector/:id_emple/:desde/:hasta', auth, cReportes.getResumenEmpleado);
 	app.get("/resumendownload/:id_emple/:desde/:hasta", auth, cReportes.getResumenDownload);
 
 

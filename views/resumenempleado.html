@@ -9,8 +9,10 @@
 <h2>{{ emple.legajo }} - {{ emple.nombre }} - {{ emple.sectortxt }}</h2>
 <input hidden id="desde" value="{{desde}}">
 <input hidden id="hasta" value="{{hasta}}">
-<input hidden id="id_sector" value="{{id_sector}}">
-<input hidden id="id_emple" value="{{id_emple}}">
+<input hidden id="id_sector" name="id_sector" value="{{id_sector}}">
+<input hidden id="id_emple" name="id_emple" value="{{id_emple}}">
+<input hidden id="indexx" name="indexx" value="{{index}}">
+<input hidden id="next_id" name="next_id" value="{{next_id}}">
 	<div class="panel panel-default">
 	  	<div class="panel-heading">
 	  		<table>
@@ -179,15 +181,38 @@
 <!-- <script type="text/javascript" src="/js/mustache.js"></script>
 <script type="text/javascript" src="/js/mustache-wax.js"></script> -->
 <script type="text/javascript">
-$("#btnSave").on("click", function(){
-	var id_emple = $("#id_emple").val();
-	var desde = $("#desde").val();
-	//desde = changeDate(desde);	   
-    desde = encodeURIComponent(desde);
-	var hasta = $("#hasta").val();
-	//hasta = changeDate(hasta);
-    hasta = encodeURIComponent(hasta);
-	window.location="/resumendownload/"+id_emple+"/"+desde+"/"+hasta;
-});
+	$("#btnSave").on("click", function(){
+		var id_emple = $("#id_emple").val();
+		var desde = $("#desde").val();
+		//desde = changeDate(desde);	   
+	    desde = encodeURIComponent(desde);
+		var hasta = $("#hasta").val();
+		//hasta = changeDate(hasta);
+	    hasta = encodeURIComponent(hasta);
+		window.location="/resumendownload/"+id_emple+"/"+desde+"/"+hasta;
+	});
+
+	$("#btnSiguiente").on("click", function(){
+		var id_sector = $("#id_sector").val();
+		var next_id = $("#next_id").val();
+		console.log(next_id)
+		//alert(next_id)
+		var link = "/resumenempleado/"+id_sector+"/";
+		//var id_emple = $(this).data("idempleado");
+		var desde = $("#desde").val();
+		desde = encodeURIComponent(desde);
+		var hasta = $("#hasta").val();
+		hasta = encodeURIComponent(hasta);
+
+		if (next_id != 0){
+			window.location = "/resumenempleado/"+id_sector+"/"+next_id+"/"+desde+"/"+hasta;
+		}else{
+			console.log("next id = 0")
+			//armar para que redirija a la lista
+			alert("Ya no hay más empleados para recorrer!");
+		}		
+	});
+
+
 </script>
 {% endblock %}
