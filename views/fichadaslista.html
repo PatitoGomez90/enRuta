@@ -177,9 +177,7 @@
 	});
 
 	$("#btnSave").click(function (){
-		//  VERIFICAR QUE LA CONSULTA TRAIGA ALGO
-
-		alert("proximamente!")
+		//alert("proximamente!")
 
 		var date = new Date();
 		day = date.getDate();
@@ -204,9 +202,11 @@
 
 		fecha_desde  = encodeURIComponent(fecha_desde);
 		fecha_hasta = encodeURIComponent(fecha_hasta);
+		//alert(id_sector+" + "+fecha_desde+" + "+fecha_hasta+" + "+id_emple);
 
 		var url = "/fichadasexport/"+id_sector+'/'+fecha_desde+'/'+fecha_hasta+'/'+id_emple;
-		//window.location = url;
+		window.location = url;
+		console.log("Exportado ! :)");
 	});
 
 </script>

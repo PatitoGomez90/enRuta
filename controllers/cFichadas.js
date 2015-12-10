@@ -4,6 +4,7 @@ var mEmple = require('../models/mEmple');
 var mSectores = require('../models/mSectores');
 var mRelojes = require('../models/mRelojes');
 var async = require('async');
+var nodeExcel = require('excel-export');
 
 module.exports = {
 	getLista: getLista,
@@ -57,7 +58,7 @@ function getFichadas(req, res){
 	fecha = changeDate(fecha);
 
 	mFichadas.getFichadasFromSQL(fecha, function (fichadas){
-		console.log(fichadas)
+		//console.log(fichadas)
 		res.send(fichadas);
 	});
 }
@@ -304,6 +305,7 @@ function getFichadasExport(req, res){
 	//  VERIFICAR QUE LA CONSULTA TRAIGA ALGO
 
 	params = req.params;
+	console.log(params)
 	id_sector = params.id_sector;
 	id_emple = params.id_emple;
 	fecha_desde = params.fecha_desde;
@@ -336,137 +338,52 @@ function getFichadasExport(req, res){
 
 	mFichadas.getByQueryFromMySql(query, function (fichadas){
 		console.log(fichadas.length)
-
-		// <thead>
-  // 			<tr> 
-  // 				<th>Fecha:Hora</th>
-  // 				<th>E/S</th>
-  // 				<th>Reloj</th>
-  // 				<th>Sector</th>
-  // 				<th>Tarjeta</th>
-  // 				<th>Legajo</th>
-  // 				<th>Nombre</th>
-  				
-		// 	</tr>
-  // 		</thead>
-  // 		<tbody id="tbodylisto">
-  			
-  // 		</tbody>
-  // 		<script type="text/template" id="tablafichadas">
-		// [[#.]]
-		// 	<tr>
-		// 		<td>
-		// 			[[fic_fechaf]] [[fic_hora]]
-		// 		</td>
-		// 		<td>
-		// 			[[fic_entsal]]
-		// 		</td>
-		// 		<td>
-		// 			([[fic_reloj]]) [[relojtxt]]
-		// 		</td>
-		// 		<td>
-		// 			[[sectortxt]]
-		// 		</td>
-		// 		<td>
-		// 			[[fic_tarjeta]]
-		// 		</td>
-		// 		<td>
-		// 			[[legajotxt]]
-		// 		</td>
-		// 		<td>
-		// 			[[empletxt]]
-		// 		</td>
-		// 	</tr>	
-		// [[/.]]
 				
 		var conf = {};
 
-		conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
+		//este tiene una url acá pero en el server es otra....
+			conf.stylesXmlFile = "C:/Users/leandro/Documents/Maresa-master/style.xml";
+				//conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
 
-	    conf.cols = [{caption:'Codigo', type:'number'},
-	    {caption:'Legajo', type:'number'},
-	    {caption:'Nro Tarjeta', type:'number'},
-	    {caption:'Nombre', type:'string'},
-	    {caption:'Sector', type:'string'},
-	    {caption:'Turno', type:'string'},
-	    {caption:'Condicion', type:'string'},
-	    {caption:'Cargo', type:'string'},
-	    {caption:'Categoria', type:'string'},
-	    {caption:'Contrato', type:'string'},
-	    {caption:'CUIL', type:'string'},
-	    {caption:'Domicilio', type:'string'},
-	    {caption:'C.P.', type:'string'},
-	    {caption:'Telefono', type:'string'},
-	    {caption:'Fecha de Nacimiento', type:'date'},
-	    {caption:'Fecha de Alta', type:'date'},
-	    {caption:'Fecha de Baja', type:'date'},
-	    {caption:'Sexo', type:'string'},
-	    {caption:'Activo', type:'string'}];
-	
-		var arrEmple = [];
+	    conf.cols = [{caption:'Fecha', type:'string'},
+		    {caption:'Hora', type:'string'},
+		    {caption:'E/S', type:'string'},
+		    {caption:'Reloj', type:'string'},
+		    {caption:'Sector', type:'string'},
+		    {caption:'Tarjeta', type:'string'},
+		    {caption:'Legajo', type:'string'},
+		    {caption:'Nombre', type:'string'}];
 
-		for (var x = 0 ; x < emples.length ; x++){
-	    	//Codigo, Legajo, Tarjeta, Nombre, Sector, Turno, Condicion, Cargo, Categoria, Contrato, CUIL, Domicilio, C.P., Telefono, Fecha Nac., 
-	    	//Fecha Alta, Fecha Baja, Sexo,	Activo
-	    	cod = emples[x].codigo;
-	    	leg = emples[x].legajo;
-	    	tarj = emples[x].tarjeta;
-	    	nomb = emples[x].nombre;
-	    	sec = emples[x].sectortxt;
-	    	tur = emples[x].turnotxt;
-	    	cond = emples[x].condiciontxt;
-	    	cargo = emples[x].cargotxt;
-	    	cat = emples[x].categoriatxt;
-	    	cont = emples[x].contratotxt;
-	    	cuil = emples[x].cuil;
-	    	dom = emples[x].domicilio;
-	    	cp = emples[x].cp;
-	    	tel = emples[x].tel;
-	    	fnac = emples[x].fecha_nacf;
-	    	falta = emples[x].faltaf;
-	    	fbaja = emples[x].fbajaf;
-	    	if (fbaja == "00/00/0000")
-	    		fbaja = "";
-	    	else
-	    		fbaja = emples[x].fbajaf;
-	    	if (emples[x].sexo == 0)
-	    		sexo = "Masculino";
-	    	else
-	    		sexo = "Femenino";
-	    	if (emples[x].activo == 1)
-	    		act = "Activo";
-	    	else
-	    		act = "No Activo";
-	    	//console.log("Datos en emple")
-	    	var emple = [];
+		var arrFich = [];
 
-	    	emple.push(cod);
-	    	emple.push(leg);
-	    	emple.push(tarj);
-	    	emple.push(nomb);
-	    	emple.push(sec);
-	    	emple.push(tur);
-	    	emple.push(cond);
-	    	emple.push(cargo);
-	    	emple.push(cat);
-			emple.push(cont);
-			emple.push(cuil);
-			emple.push(dom);
-			emple.push(cp);
-	    	emple.push(tel);
-	    	emple.push(fnac);
-	    	emple.push(falta);
-	    	emple.push(fbaja);
-	    	emple.push(sexo);
-	    	emple.push(act);
+		for (var x = 0 ; x < fichadas.length ; x++){
+	    	fechaf = fichadas[x].fic_fechaf;
+	    	hora = fichadas[x].fic_hora;
+	    	entsal = fichadas[x].fic_entsal;
+	    	reloj = fichadas[x].fic_reloj +" - "+fichadas[x].relojtxt;
+	    	sector = fichadas[x].sectortxt;
+	    	tarj = fichadas[x].fic_tarjeta;
+	    	legajo = fichadas[x].legajotxt;
+	    	emple = fichadas[x].empletxt;
+	    	
+	    	var fich = [];
 
-	    	arrEmple.push(emple);
+	    	fich.push(fechaf);
+	    	fich.push(hora);
+	    	fich.push(entsal);
+	    	fich.push(reloj);
+	    	fich.push(sector);
+	    	fich.push(tarj);
+	    	fich.push(legajo);
+	    	fich.push(emple);
+
+	    	arrFich.push(fich);
 	    }
 
-	   	conf.rows = arrEmple;
+	   	conf.rows = arrFich;
 	    var result = nodeExcel.execute(conf);
 	    res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-	    res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
+	    res.setHeader("Content-Disposition", "attachment; filename=" + "Fichadas.xlsx");
 	    res.end(result, 'binary');
 
 	});

@@ -266,7 +266,9 @@ function getExport(req, res){
 	mEmple.getAllActivos(function (emples){
 		var conf = {};
 
-		conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
+		//este tiene una url acá pero en el server es otra....
+		conf.stylesXmlFile = "C:/Users/leandro/Documents/Maresa-master/style.xml";
+			//conf.stylesXmlFile = "C:/Users/Administrador/Documents/Proyectos/Maresa/style.xml";
 
 	    conf.cols = [{caption:'Codigo', type:'number'},
 	    {caption:'Legajo', type:'number'},
