@@ -1,0 +1,15 @@
+.form-control{
+	width: 50%;
+}
+
+#hr_salida{
+	width: 200px;
+}
+
+#hr_entrada{
+	width: 200px;
+}
+
+#hr_total{
+	width: 200px;
+}

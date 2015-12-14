@@ -1,0 +1,988 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/partediario2addall.css" rel="stylesheet">	
+<link href="/css/toastr.css" rel="stylesheet"/>
+<h2>{{ pagename }}</h2>
+<!-- <form method="POST" id="formty" name="formty" action="/partediario2addall"> -->
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4><b>Información General</b></h4>
+		</div>
+		<table align="center" class="table table-striped">	
+			<input hidden name="idpartediario1" id="idpartediario1" value="{{ id_prog1 }}">
+			<input hidden name="fechapartediario1" id="fechapartediario1" value="{{ partediario1.fechaf }}">
+			<input hidden name="id_sector" id="id_sector" value="{{ partediario1.id_sector_fk }}">
+			<tr>
+				<td>Codigo:</td>
+				<td>
+					<table style="display: inline-block;">
+						<tr>	
+							<td>
+								<select class="form-control" name="id_codigohora_fk" id="id_codigohora_fk" style="width: 100%;">
+									{% for ch in codigoshora %}
+										<option value="{{ ch.id }}">{{ ch.numero }} - {{ ch.nombre }}</option>
+									{% endfor %}
+								</select>
+							</td>
+							<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="id_codigohora_fk"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+						</tr>
+					</table>
+					 
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4><b>Horarios de Fichada</b></h4>
+		</div>
+		<!-- tabla de horarios de fichadas -->
+		<table class="table table-striped">
+			<tr>
+				<td>Entrada:</td>
+				<td>
+					<table>
+						<tr>
+							<td><input type="time" id="hr_entrada" name="hr_entrada" class="form-control" onkeypress='validate(event)'></td>
+							<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="hr_entrada"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							<td>&nbsp;&nbsp;</td>
+							<td><label id="lblEntrada"></label></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>Salida:</td>
+				<td>
+					<table>
+						<tr>
+							<td><input type="time" id="hr_salida" name="hr_salida" class="form-control" onkeypress='validate(event)'></td>
+							<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="hr_salida"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							<td>&nbsp;&nbsp;</td>
+							<td><label id="lblSalida"></label></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>Total:</td>
+				<td>
+					<table>
+						<tr>
+							<td><input type="text" id="hr_total" name="hr_total" class="form-control" value="0" onkeypress='validate(event)'></td>
+							<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="hr_total"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+						</tr>
+					</table>					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<table style="display: inline-block;">
+						<tr>
+							<td style="width: 160px">
+								<table>
+									<tr>
+										<td colspan="2">Norm:</td>
+									</tr>
+									<tr>
+										<td style="width: 85px;"><input style="width:100%" type="text" value="0" class="hr_tot form-control" id="hr_total_n" name="hr_total_n" onkeypress='validate(event)'></td>
+										<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="hr_total_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+									</tr>
+								</table>
+							</td>
+							<td style="width: 160px">
+								<table>
+									<tr>
+										<td colspan="2">50%:</td>
+									</tr>
+									<tr>
+										<td style="width: 85px;"><input style="width:100%" type="text" value="0" class="hr_tot form-control" id="hr_total_50" name="hr_total_50" onkeypress='validate(event)'></td>
+										<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="hr_total_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+									</tr>
+								</table>
+								
+							</td>
+							<td style="width: 160px">
+								<table>
+									<tr>
+										<td colspan="2">100%:</td>
+									</tr>
+									<tr>
+										<td style="width: 85px;"><input style="width:100%" type="text" value="0" class="hr_tot form-control" id="hr_total_100" name="hr_total_100" onkeypress='validate(event)'></td>
+										<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="hr_total_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h4><b>Horas Adicionales</b></h4>
+		</div>
+		<!-- tabla de adicionales -->
+		<table class="table table-striped">
+			<tr>
+				<td>Tipo Hora:</td>
+				<td>Norm.</td>
+				<td>50%</td>
+				<td>100%</td>
+			</tr>
+			{% if partediario1.id_clasificacion1_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion1txt }}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="adicional1_n" name="adicional1_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional1_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>						
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="adicional1_50" name="adicional1_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional1_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="adicional1_100" name="adicional1_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional1_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_clasificacion2_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion2txt }}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="adicional2_n" name="adicional2_n"  value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional2_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="adicional2_50" name="adicional2_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional2_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="adicional2_100" name="adicional2_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional2_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_clasificacion3_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion3txt }}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="adicional3_n" name="adicional3_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional3_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td></td>
+					<td></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_clasificacion4_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion4txt }}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="adicional4_n" name="adicional4_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional4_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td></td>
+					<td></td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_clasificacion5_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion5txt }}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="adicional5_n" name="adicional5_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional5_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="adicional5_50" name="adicional5_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional5_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="adicional5_100" name="adicional5_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional5_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+						
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_clasificacion6_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.clasificacion6txt }}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;"><input style="width:100%" type="text" id="adicional6_n" name="adicional6_n" value="0" required class="form-control" onkeypress='validate(event)'></td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional6_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>						
+					</td>
+					<td></td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;"><input style="width:100%" type="text" id="adicional6_100" name="adicional6_100" value="0" required class="form-control" onkeypress='validate(event)'></td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="adicional6_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+						
+					</td>
+				</tr>
+			{% endif %}
+		</table>
+	</div>
+	<!-- ahora guarda hasta 2 decimales -->
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h4><b>Items</b></h4>
+		</div>
+		<!-- tabla de items -->
+		<table class="table table-striped">
+			<tr>
+				<td>Tipo Hora:</td>
+				<td>Norm.</td>
+				<td>50%</td>
+				<td>100%</td>
+			</tr>
+			{% if partediario1.id_imputacion1_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion1txt }} - {% for i in items%}{% if partediario1.id_imputacion1_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item1_n" name="item1_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item1_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item1_50" name="item1_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item1_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>						
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item1_100" name="item1_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item1_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+						
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion2_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion2txt }} - {% for i in items%}{% if partediario1.id_imputacion2_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item2_n" name="item2_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item2_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+						
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item2_50" name="item2_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item2_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+						
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item2_100" name="item2_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item2_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+						
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion3_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion3txt }} - {% for i in items%}{% if partediario1.id_imputacion3_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item3_n" name="item3_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item3_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item3_50" name="item3_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item3_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+						
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item3_100" name="item3_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item3_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion4_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion4txt }} - {% for i in items%}{% if partediario1.id_imputacion4_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;"><input style="width:100%" type="text" id="item4_n" name="item4_n" value="0" required class="form-control" onkeypress='validate(event)'></td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item4_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;"><input style="width:100%" type="text" id="item4_50" name="item4_50" value="0" required class="form-control" onkeypress='validate(event)'></td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item4_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;"><input style="width:100%" type="text" id="item4_100" name="item4_100" value="0" required class="form-control" onkeypress='validate(event)'></td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item4_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>						
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion5_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion5txt }} - {% for i in items%}{% if partediario1.id_imputacion5_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item5_n" name="item5_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item5_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+						
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;"><input style="width:100%" type="text" id="item5_50" name="item5_50" value="0" required class="form-control" onkeypress='validate(event)'></td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item5_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+						
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;"><input style="width:100%" type="text" id="item5_100" name="item5_100" value="0" required class="form-control" onkeypress='validate(event)'></td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item5_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+						
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion6_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion6txt }} - {% for i in items%}{% if partediario1.id_imputacion6_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item6_n" name="item6_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item6_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item6_50" name="item6_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item6_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item6_100" name="item6_100" value="0" required class="form-control" onkeypress='	validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item6_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion7_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion7txt }} - {% for i in items%}{% if partediario1.id_imputacion7_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item7_n" name="item7_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item7_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item7_50" name="item7_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item7_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item7_100" name="item7_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item7_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			{% endif %}
+
+			{% if partediario1.id_imputacion8_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion8txt }} - {% for i in items%}{% if partediario1.id_imputacion8_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item8_n" name="item8_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>&nbsp;<button class="btn btn-default btnUpdate" data-name="item8_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item8_50" name="item8_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item8_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item8_100" name="item8_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item8_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion9_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion9txt }} - {% for i in items%}{% if partediario1.id_imputacion9_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item9_n" name="item9_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item9_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item9_50" name="item9_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item9_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item9_100" name="item9_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item9_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion10_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion10txt }} - {% for i in items%}{% if partediario1.id_imputacion10_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item10_n" name="item10_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item10_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item10_50" name="item10_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item10_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item10_100" name="item10_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item10_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion11_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion11txt }} - {% for i in items%}{% if partediario1.id_imputacion11_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item11_n" name="item11_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item11_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item11_50" name="item11_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item11_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item11_100" name="item11_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item11_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			{% endif %}
+			{% if partediario1.id_imputacion12_fk != 0 %}
+				<tr>
+					<td>{{ partediario1.imputacion12txt }} - {% for i in items%}{% if partediario1.id_imputacion12_fk == i.id %}{{ i.nombre }}{% endif %}{% endfor %}:</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item12_n" name="item12_n" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item12_n"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item12_50" name="item12_50" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item12_50"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td style="width: 85px;">
+									<input style="width:100%" type="text" id="item12_100" name="item12_100" value="0" required class="form-control" onkeypress='validate(event)'>
+								</td>
+								<td>
+									&nbsp;<button class="btn btn-default btnUpdate" data-name="item12_100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			{% endif %}
+		</table>
+	</div>
+	<div class="panel panel-default">
+		<table class="table">
+			<tr>
+				<!-- HACER QUE REDIRIJA A LA LISTA DE PARTEDIARIO (ya redirije)-->
+
+				<td><button class="btn btn-default" onclick="send2List();">Listo!</button></td>
+				<!-- <td><input class="btn btn-default" type="submit" value="Guardar"></td> -->
+			</tr>
+		</table>
+	</div>
+<!-- </form> -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/toastr.js"></script>
+<script type="text/javascript">
+
+	function send2List(){
+		idp1 = $("#idpartediario1").val();
+		window.location = "/partediario2lista/"+idp1;
+	}
+
+	function validate(evt) {
+	  var theEvent = evt || window.event;
+	  var key = theEvent.keyCode || theEvent.which;
+	  key = String.fromCharCode( key );
+	  var regex = /[0-9]|\./;
+	  if( !regex.test(key) ) {
+	    theEvent.returnValue = false;
+	    if(theEvent.preventDefault) theEvent.preventDefault();
+	  }
+	}
+
+	function convertToHHMM(info) {
+	  	var hrs = parseInt(Number(info));
+	 	var min = Math.round((Number(info)-hrs) * 60);
+	 	if (hrs < 10 )
+	 		hrss = "0"+hrs;
+	 	else
+	 		hrss = hrs;
+	 	if (min < 10)
+	 		mins = "0"+min;
+	 	else
+	 		mins = min;
+	  	return hrss+':'+mins;
+	}
+
+	//aceria id 4
+	//- Calorías = HS x 0.75
+	//- Peligrosas = HS x 0.25
+	//- polución = HS
+	$(".hr_tot").on("change", function(){
+		var id_sector = $("#id_sector").val();
+		if (id_sector == 4){
+			//norm
+			var hrs_normales = $("#hr_total_n").val();
+			hrs_normales = parseInt(hrs_normales);
+			var hrs_cal075 = hrs_normales * 0.75;
+			var hrs_cal025 = hrs_normales * 0.25;
+			$("#adicional1_n").val(hrs_cal075);// x 0.75
+			$("#adicional2_n").val(hrs_cal025);// x 0.25
+			//me hizo borrar
+			//suma de horas
+			var hr_n = $("#hr_total_n").val();
+			var hr_50 = $("#hr_total_50").val();
+			var hr_100 = $("#hr_total_100").val();
+			var sumatoria = parseInt(hr_n) + parseInt(hr_50) + parseInt(hr_100);
+			$("#adicional3_n").val(sumatoria);
+			//50
+			var hrs_50 = $("#hr_total_50").val();
+			hrs_50 = parseInt(hrs_50);
+			var hrs_cal_50_075 = hrs_50 * 0.75;
+			var hrs_cal_50_025 = hrs_50 * 0.25;
+
+			$("#adicional1_50").val(hrs_cal_50_075);// x 0.75
+			$("#adicional2_50").val(hrs_cal_50_025);// x 0.25
+			$("#adicional3_50").val(hrs_50);
+			//100
+			var hrs_100 = $("#hr_total_100").val();
+			hrs_100 = parseInt(hrs_100);
+			var hrs_cal_100_075 = hrs_100 * 0.75;
+			var hrs_cal_100_025 = hrs_100 * 0.25;
+			$("#adicional1_100").val(hrs_cal_100_075);
+			$("#adicional2_100").val(hrs_cal_100_025);
+			$("#adicional3_100").val(hrs_100);
+		}
+	});
+
+	function changeDate(date){
+		// input: dd/mm/yyyy
+		fechaus = date.substring(6,10) + "/" + date.substring(3,5) + "/" + date.substring(0,2);
+		return fechaus;
+		// output: yyyy/mm/dd
+	}
+
+	$('#hr_entrada').on('change', function(){
+		salida = $('#hr_salida').val()
+		if (salida.length > 0){
+			calculo();
+		}
+	});
+
+	$('#hr_salida').on('change', function(){
+		var entrada = $("#hr_entrada").val();
+		if (entrada.length != 0)
+			calculo();
+	});
+
+	function msToTime(duration) {
+        var milliseconds = parseInt((duration%1000)/100)
+            , seconds = parseInt((duration/1000)%60)
+            , minutes = parseInt((duration/(1000*60))%60)
+            , hours = parseInt((duration/(1000*60*60))%24);
+
+        hours = (hours < 10) ? "0" + hours : hours;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+        return hours + ":" + minutes;
+    }
+
+	function calculo(){
+
+		var entrada = $('#hr_entrada').val();
+	    var salida = $('#hr_salida').val();
+
+	    if (entrada <= salida){
+	    	var startDate = new Date("1/1/1900 " + entrada);
+			var endDate = new Date("1/1/1900 " + salida );
+		}else{
+			var startDate = new Date("1/1/1900 " + entrada);
+			var endDate = new Date("2/1/1900 " + salida );			
+		}
+		var diff = endDate - startDate;
+
+		diff = msToTime(diff);
+
+	    $('#hr_total').val(diff);
+	}
+
+	$(".btnUpdate").on("click", function (){
+		idp1 = $("#idpartediario1").val();
+		nombrecampo = $(this).data("name");
+		//console.log(typeof(nombrecampo))
+		valor = $("#"+nombrecampo).val();
+		//alert(nombrecampo+" "+valor+" asd");
+
+		$.ajax({ 
+            url: '/partediario2addall/',
+            type: 'POST',
+            cache: false, 
+            data: { idp1, nombrecampo, valor }, 
+           success: function(data){
+              	//alert('Success!');              	
+              	toastr.options = {
+				  "closeButton": false,
+				  "debug": false,
+				  "newestOnTop": false,
+				  "progressBar": true,
+				  "positionClass": "toast-top-right",
+				  "preventDuplicates": false,
+				  "onclick": null,
+				  "showDuration": "650",
+				  "hideDuration": "1000",
+				  "timeOut": "1800",
+				  "extendedTimeOut": "1000",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+				}
+				toastr.success('Campo '+nombrecampo+' actualizado correctamente a todos los registros de este Parte Diario.', "Mensaje del sistema");
+				if (nombrecampo == "id_codigohora_fk"){
+					$("#id_codigohora_fk")[0].selectedIndex = 0;
+				}else{
+					$("#"+nombrecampo).val('0');
+				}
+
+			}, error: function(jqXHR, textStatus, err){
+               alert('text status '+textStatus+', err '+err)
+               console.log(err);
+           }
+        });
+
+	});
+</script>
+{% endblock %}

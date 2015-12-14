@@ -296,6 +296,8 @@ module.exports = function(app) {
 	app.get('/partediario2borrar/:id', auth, cParteDiario2.getDel);
 	app.get('/getemplesbysector/:id', auth, cParteDiario2.getEmples);
 	app.get('/getempleinpd2/:idp1/:idemple', auth, cParteDiario2.getEmpleInPartediario2);
+	app.get("/partediario2addall/:idp1", auth, cParteDiario2.getAddAll);
+	app.post("/partediario2addall", auth, cParteDiario2.postAddAll);
 	//fichadas
 	app.get('/fichadaslista', auth, cFichadas.getLista);
 	app.get('/buscarfichadas/:fecha', auth, cFichadas.getFichadas);
