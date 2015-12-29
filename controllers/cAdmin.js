@@ -25,7 +25,7 @@ function changeDate2(date){
 function getLogin(req, res){
 	//console.log('ADENTRO DE GET LOGIN')
 	res.render('login',{
-		pagename: 'Maresa Login',
+		pagename: 'Evhsa Login',
 		errors: req.session.errors,
 	});
 }
