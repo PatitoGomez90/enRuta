@@ -22,7 +22,21 @@
 			</tr>
 			<tr>
 				<td>Codigo:</td>
-				<td><input type="text" id="codigo" name="codigo" required class="form-control"><div class="aviso">Quedan <span id="charsLeftCodigo"></span> caraceteres.</div></td>
+				<td>
+					<table style="display: inline-block">
+						<tr>
+							<td>
+								<input type="text" id="codigo1" name="codigo1" readonly class="form-control" style="width: 50px;">
+							</td>
+							<td style="width: 105px;">
+								<input type="text" id="codigo2" name="codigo2" required class="form-control" style="width: 100px;">
+							</td>
+							<td style="text-align: left;">
+								<div class="aviso">Quedan <span id="charsLeftCodigo"></span> caraceteres.</div>
+							</td>
+						</tr>
+					</table>					
+				</td>
 			</tr>
 			<tr>
 				<td>Nombre:</td>
@@ -38,7 +52,7 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.limit-1.2.js"></script>
 <script type="text/javascript">
-	$('#codigo').limit('4','#charsLeftCodigo');
+	$('#codigo2').limit('3','#charsLeftCodigo');
 	$('#nombre').limit('45','#charsLeftNombre');
 	$(function() {
 
@@ -65,7 +79,8 @@
 
 			// console.log(asd)
 			cantidad_rubros = cantidad_rubros+1;
-    		$("#codigo").val(codigo+asd+cantidad_rubros);
+			$("#codigo1").val(codigo);
+    		$("#codigo2").val(asd+cantidad_rubros);
 
 		});
 
@@ -87,7 +102,8 @@
 				}
 
 				cantidad_rubros = cantidad_rubros+1;
-	    		$("#codigo").val(codigo+asd+cantidad_rubros);
+				$("#codigo1").val(codigo);
+	    		$("#codigo2").val(asd+cantidad_rubros);
 			});			
     	});
 	});

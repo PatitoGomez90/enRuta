@@ -37,9 +37,11 @@ function getAlta(req, res){
 
 function postAlta(req, res){
 	params = req.body;
-	codigo= params.codigo;
+	codigo1 = params.codigo1;
+	codigo2 = params.codigo2;
 	nombre = params.nombre;
 	grupo = params.grupo;
+	codigo = codigo1+codigo2;
 
 	mRubros.getByCodigo(codigo, function (rubrosporcodigo){
 		if (rubrosporcodigo[0]==null){
@@ -59,10 +61,15 @@ function getModificar(req, res){
 	id = params.id;
 	mRubrosGrupos.getAll(function (grupos){
 		mRubros.getById(id, function (rubro){
+			codigo = rubro[0].codigo;
+			codigo1 = codigo.substring(0, 1);
+			codigo2 = codigo.substring(1, 4);
 			res.render('rubrosmodificar',{
 				pagename: 'Modificar Rubro',
 				rubro: rubro[0],
-				grupos: grupos
+				grupos: grupos,
+				codigo1: codigo1,
+				codigo2: codigo2
 			});
 		});
 	});
@@ -71,13 +78,23 @@ function getModificar(req, res){
 function postModificar(req, res){
 	params = req.body;
 	id = params.id;
-	codigo = params.codigo;
+	codigo1 = params.codigo1;
+	codigo2 = params.codigo2;
 	nombre = params.nombre;
 	grupo = params.grupo;
+	codigo = codigo1+codigo2;
 
-	mRubros.update(id, codigo, nombre, grupo, function(){
-		res.redirect('rubroslista');
-	});
+	mRubros.getByCodigo(codigo, function (rubrosporcodigo){
+		if (rubrosporcodigo[0]==null){
+			mRubros.update(id, codigo, nombre, grupo, function(){
+				res.redirect('rubroslista');
+			});
+		}else{
+			res.render('error', {
+      			error: "Codigo de Rubro existente. Intente con otro Codigo."
+      		});
+      	}
+	});	
 }
 
 function getDel(req, res){

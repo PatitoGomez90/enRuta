@@ -30,7 +30,22 @@
 			</tr>
 			<tr>
 				<td>Codigo:</td>
-				<td><input type="text" id="codigo" name="codigo" value="{{ rubro.codigo }}" class="form-control" required><div class="aviso">Quedan <span id="charsLeftCodigo"></span> caraceteres.</div></td>
+				<td>
+					<table style="display: inline-block">
+						<tr>
+							<td>
+								<input type="text" id="codigo1" name="codigo1" readonly class="form-control" style="width: 50px;" value="{{ codigo1 }}">
+							</td>
+							<td style="width: 105px;">
+								<input type="text" id="codigo2" name="codigo2" required class="form-control" style="width: 100px;" value="{{ codigo2 }}">
+							</td>
+							<td style="text-align: left;">
+								<div class="aviso">Quedan <span id="charsLeftCodigo"></span> caraceteres.</div>
+							</td>
+						</tr>
+					</table>					
+				</td>
+				<!-- <td><input type="text" id="codigo" name="codigo" value="{{ rubro.codigo }}" class="form-control" required><div class="aviso">Quedan <span id="charsLeftCodigo"></span> caraceteres.</div></td> -->
 			</tr>
 			<tr>
 				<td>Nombre:</td>
@@ -46,36 +61,37 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.limit-1.2.js"></script>
 <script type="text/javascript">
-	$('#codigo').limit('4','#charsLeftCodigo');
+	$('#codigo2').limit('3','#charsLeftCodigo');
 	$('#nombre').limit('45','#charsLeftNombre');
 	$(function() {
 
-		// var codigo = $(this).find(':selected').data('codigo')
-		// // var id_grupo = $(this).val();
-		// var cantidad_rubros = 0;
-		// //console.log(id_grupo)
-		// //console.log(codigo)
+	// var codigo = $(this).find(':selected').data('codigo')
+	// 	// var id_grupo = $(this).val();
+	// 	var cantidad_rubros = 0;
+	// 	//console.log(id_grupo)
+	// 	//console.log(codigo)
 
-		// $.getJSON("/getRubrosPorGrupo/"+1, function (rubros){
-		// 	cantidad_rubros = rubros.length;	
-		// 	// console.log('len '+rubros.length)			
-		// 	//console.log(rubros)
-		// 	var asd = '';
-		// 	// console.log('cant rub: '+cantidad_rubros)
+	// 	$.getJSON("/getRubrosPorGrupo/"+1, function (rubros){
+	// 		cantidad_rubros = rubros.length;	
+	// 		// console.log('len '+rubros.length)			
+	// 		//console.log(rubros)
+	// 		var asd = '';
+	// 		// console.log('cant rub: '+cantidad_rubros)
 
-		// 	if (cantidad_rubros < 10){
-		// 	        asd = '00';
-		// 	} else if (cantidad_rubros > 9){
-		// 	        asd = '0';
-		// 	} else {
-		// 	        asd = '';
-		// 	}
+	// 		if (cantidad_rubros < 10){
+	// 		        asd = '00';
+	// 		} else if (cantidad_rubros > 9){
+	// 		        asd = '0';
+	// 		} else {
+	// 		        asd = '';
+	// 		}
 
-		// 	// console.log(asd)
-		// 	cantidad_rubros = cantidad_rubros+1;
-  //   		$("#codigo").val(codigo+asd+cantidad_rubros);
+	// 		// console.log(asd)
+	// 		cantidad_rubros = cantidad_rubros+1;
+	// 		$("#codigo1").val(codigo);
+ //    		$("#codigo2").val(asd+cantidad_rubros);
 
-		// });
+	// 	});
 
     	$("#grupo").on('change', function(){
     		var codigo = $(this).find(':selected').data('codigo')
@@ -95,9 +111,10 @@
 				}
 
 				cantidad_rubros = cantidad_rubros+1;
-	    		$("#codigo").val(codigo+asd+cantidad_rubros);
+				$("#codigo1").val(codigo);
+	    		$("#codigo2").val(asd+cantidad_rubros);
 			});			
-    	});
+    	});    	
 	});
 </script>
 {% endblock %}
