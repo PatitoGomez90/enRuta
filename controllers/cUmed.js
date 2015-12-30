@@ -19,7 +19,7 @@ function getAllUmed(req, res) {
 	  	mUmed.getAll(function(docs){
 	  		console.log(docs)
 	  		res.render('umedlista', {
-				pagename: 'Unidades de Medida',
+				pagename: 'Archivo de Unidades de Medida',
 				umeds: docs,
 				ayuda: ayuda[0]
 			});

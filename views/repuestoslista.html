@@ -64,13 +64,13 @@
 							<td>{{ r.codigo }}</td>
 							<td>{{ r.nombre }}</td>
 							<td>{{ r.valor }}</td>
-							<td>{{ r.stock }}</td>
+							<td>{{ r.stock_actual }}</td>
 							<td>{{ r.minimo }}</td>
 							<td>{{ r.punto_pedido }}</td>
 							<td>{{ r.maximo }}</td>
 							<td> faltante </td>
-							<td>{{ r.calle }} - {{ r.modulo }} - {{ r.estante }}</td>
-							<td>{{ r.marca }}</td>
+							<td style="width:125px;">{{ r.calle }} - {{ r.modulo }} - {{ r.estante }}</td>
+							<td>{% if r.marca == 1 %}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}{% endif %}</td>
 							<td>{{ r.coche }}</td>
 							<td>{{ r.observaciones }}</td>
 							<td><a href="/repuestosmodificar/{{ r.id }}"><button class="btn btn-warning">Modificar</button></a></td>

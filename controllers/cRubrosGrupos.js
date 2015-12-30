@@ -17,7 +17,7 @@ function getLista(req, res) {
 	req.session.nromenu = 3;
   	mRubrosGrupos.getAll(function (rubros){
   		res.render('rubrosgruposlista', {
-			pagename: 'Lista de Grupos de Rubros',
+			pagename: 'Archivo de Grupos de Rubros',
 			rubros: rubros
 		});
   	});

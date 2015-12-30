@@ -15,7 +15,7 @@ function getAccesos(req, res){
         console.log(accesosxusuario.length)
         res.render('accesoslista', {
           idUsuario: idusuario,
-          pagename: 'Lista de Accesos',
+          pagename: 'Archivo de Accesos',
           menues: menues,
           accesos: accesos,
           usuario_accesos: accesosxusuario

@@ -19,7 +19,7 @@ function getLista(req, res) {
 	req.session.nromenu = 3;
   	mRubros.getAll(function (rubros){
   		res.render('rubroslista', {
-			pagename: 'Lista de Rubros',
+			pagename: 'Archivo de Rubros',
 			rubros: rubros
 		});
   	});
@@ -85,14 +85,42 @@ function postModificar(req, res){
 	codigo = codigo1+codigo2;
 
 	mRubros.getByCodigo(codigo, function (rubrosporcodigo){
-		if (rubrosporcodigo[0]==null){
+		if (rubrosporcodigo.length == 0){
 			mRubros.update(id, codigo, nombre, grupo, function(){
 				res.redirect('rubroslista');
 			});
 		}else{
-			res.render('error', {
-      			error: "Codigo de Rubro existente. Intente con otro Codigo."
-      		});
+			if (rubrosporcodigo.length == 1){
+				if (rubrosporcodigo[0].id == id){
+					mRubros.update(id, codigo, nombre, grupo, function(){
+						res.redirect('rubroslista');
+					});
+				}else{				
+					res.render('error', {
+		      			error: "Codigo de Rubro existente. Intente con otro Codigo."
+		      		});
+		      	}
+			}else{
+				var aparece = false;
+				for (var i = 0 ; i < rubrosporcodigo.length ; i++) {
+					if (rubrosporcodigo[i].id == id){
+						console.log(i+": aca está!")
+						aparece = true;
+						break;
+					}else{
+						console.log(i+": aca no está.")
+					}
+				}
+				if (aparece) {
+					res.render('error', {
+		      			error: "Codigo de Rubro existente. Intente con otro Codigo."
+		      		});
+				}else{
+					res.render('error', {
+		      			error: "Codigo de Rubro existente. Intente con otro Codigo.."
+		      		});
+				}
+			}			
       	}
 	});	
 }

@@ -83,6 +83,12 @@ module.exports = function(app) {
 	app.get('/rubrosgruposborrar/:id', auth, cRubrosGrupos.getDel);
 	//repuestos
 	app.get('/repuestoslista', auth, cRepuestos.getLista);
+	app.get('/repuestosalta', auth, cRepuestos.getAlta);
+	app.post('/repuestosalta', auth, cRepuestos.postAlta);
+	app.get('/repuestosmodificar/:id', auth, cRepuestos.getModificar);
+	app.post('/repuestosmodificar', auth, cRepuestos.postModificar);
+	app.get('/repuestosborrar/:id', auth, cRepuestos.getDel);
+	app.get('/getCantRepuestosEnRubro/:id_rubro', auth, cRepuestos.getCantRepuestosEnRubroById);
 	//pruebasql
 	// app.get('/pruebasql', auth, cPruebaSQL.getPrueba);
 	// //random

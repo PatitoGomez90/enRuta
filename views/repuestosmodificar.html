@@ -1,0 +1,113 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/repuestosmodificar.css" rel="stylesheet">
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="post" id="form" action="/repuestosmodificar">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>ID:</td>
+				<td><input type="text" id="id" name="id" value="{{ repuesto.id }}" required readonly class="form-control"></td>
+			</tr>
+			<tr>
+				<td>Codigo:</td>
+				<td><input type="text" id="codigo" name="codigo" value="{{ repuesto.codigo }}" required class="form-control"></td>
+			</tr>
+			<tr>
+				<td>Nombre:</td>
+				<td><input type="text" id="nombre" name="nombre" value="{{ repuesto.nombre }}" required class="form-control"><div class="aviso">Quedan <span id="charsLeftNombre"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Descripcion:</td>
+				<td><input type="text" id="descripcion" name="descripcion" required class="form-control" value="{{ repuesto.descripcion }}"><div class="aviso">Quedan <span id="charsLeftDescripcion"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Valor:</td>
+				<td><input type="text" id="valor" name="valor" required class="form-control" value="{{ repuesto.valor }}"><div class="aviso">Quedan <span id="charsLeftValor"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Stock:</td>
+				<td><input type="text" id="stock" name="stock" required class="form-control" value="{{ repuesto.stock_actual }}"><div class="aviso">Quedan <span id="charsLeftStock"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Minimo:</td>
+				<td><input type="text" id="minimo" name="minimo" required class="form-control" value="{{ repuesto.minimo }}"><div class="aviso">Quedan <span id="charsLeftMinimo"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Punto Pedido:</td>
+				<td><input type="text" id="puntopedido" name="puntopedido" required class="form-control" value="{{ repuesto.punto_pedido }}"><div class="aviso">Quedan <span id="charsLeftPuntoPedido"></span> caraceteres.</div></td>
+			</tr>
+
+			<tr>
+				<td>Maximo:</td>
+				<td><input type="text" id="maximo" name="maximo" required class="form-control" value="{{ repuesto.maximo }}"><div class="aviso">Quedan <span id="charsLeftMaximo"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Faltante:</td>
+				<td><input type="text" id="faltante" name="faltante" required class="form-control"><!-- <div class="aviso">Quedan <span id="charsLeftFaltante"></span> caraceteres.</div> --></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<table style="width: 100%;">
+						<tr style="width: 100%;">
+							<td style="width: 33%;text-align: center;">
+								Calle
+							</td>
+							<td style="width: 33%;text-align: center;">
+								Modulo
+							</td>
+							<td style="width: 33%;text-align: center;">
+								Estante
+							</td>
+						</tr>
+						<tr style="width: 100%;">
+							<td style="width: 33%;">
+								<center><input type="text" id="calle" name="calle" required class="form-control" style="width: 80%;" value="{{ repuesto.calle }}"></center><div class="aviso" style="text-align: center;">Quedan <span id="charsLeftCalle"></span> caraceteres.</div>
+							</td>
+							<td style="width: 33%;">
+								<center><input type="text" id="modulo" name="modulo" required class="form-control" style="width: 80%;" value="{{ repuesto.modulo }}"></center><div class="aviso" style="text-align: center;">Quedan <span id="charsLeftModulo"></span> caraceteres.</div>
+							</td>
+							<td style="width: 33%;">
+								<center><input type="text" id="estante" name="estante" required class="form-control" style="width: 80%;" value="{{ repuesto.estante }}"></center><div class="aviso" style="text-align: center;">Quedan <span id="charsLeftEstante"></span> caraceteres.</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>Marca:</td>
+				<td>
+					{% if repuesto.marca == 1 %}
+						<input type="checkbox" name="marca" id="marca" checked>
+					{% else %}
+						<input type="checkbox" name="marca" id="marca">
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<td>Coche:</td>
+				<td><input type="text" id="coche" name="coche" required class="form-control" value="{{ repuesto.coche }}"><div class="aviso">Quedan <span id="charsLeftCoche"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Observaciones:</td>
+				<td><input type="text" id="observaciones" name="observaciones" required class="form-control" value="{{ repuesto.observaciones }}"><div class="aviso">Quedan <span id="charsLeftObservaciones"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Guardar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<script type="text/javascript">
+	$('#nombre').limit('15','#charsLeftNombre');
+</script>
+
+{% endblock %}
