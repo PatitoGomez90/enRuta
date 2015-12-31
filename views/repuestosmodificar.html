@@ -9,12 +9,13 @@
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
 	<form method="post" id="form" action="/repuestosmodificar">
+		<input hidden id="rubro" name="rubro" value="{{ repuesto.id_rubro_fk }}">
 		<table align="center" class="table table-striped">
 			<tr>
 				<td>ID:</td>
 				<td><input type="text" id="id" name="id" value="{{ repuesto.id }}" required readonly class="form-control"></td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td>Rubro:</td>
 				<td>
 					<select class="form-control" id="rubro" name="rubro">
@@ -27,15 +28,15 @@
 						{% endfor %}
 					</select>
 				</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td>Codigo:</td>
 				<td>
 					<table>
 						<tr>	
 							<td style="width: 90px;"><input type="text" id="codigo1" name="codigo1" readonly class="form-control" style="width:60px;" value="{{ codigo1 }}"></td>
-							<td><input type="text" id="codigo2" name="codigo2" required class="form-control" onKeyPress="return soloNumeros(event)" value="{{ codigo2 }}"></td>
-							<td><div class="aviso">Quedan <span id="charsLeftCodigo"></span> caraceteres.</div></td>
+							<td><input type="text" id="codigo2" name="codigo2" readonly class="form-control" onKeyPress="return soloNumeros(event)" value="{{ codigo2 }}" style="width: 100px;"></td>
+							<!-- <td><div class="aviso">Quedan <span id="charsLeftCodigo"></span> caraceteres.</div></td> -->
 						</tr>
 					</table>					
 				</td>
@@ -51,24 +52,24 @@
 			</tr>
 			<tr>
 				<td>Valor:</td>
-				<td><input type="text" id="valor" name="valor" required class="form-control" value="{{ repuesto.valor }}"><div class="aviso">Quedan <span id="charsLeftValor"></span> caraceteres.</div></td>
+				<td><input type="text" id="valor" name="valor" required class="form-control" value="{{ repuesto.valor }}" onkeypress="return Numy1Punto(event, this)"><div class="aviso">Quedan <span id="charsLeftValor"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Stock:</td>
-				<td><input type="text" id="stock" name="stock" required class="form-control" value="{{ repuesto.stock_actual }}"><div class="aviso">Quedan <span id="charsLeftStock"></span> caraceteres.</div></td>
+				<td><input type="text" id="stock" name="stock" required class="form-control" value="{{ repuesto.stock_actual }}" onkeypress="return Numy1Punto(event, this)"><div class="aviso">Quedan <span id="charsLeftStock"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Minimo:</td>
-				<td><input type="text" id="minimo" name="minimo" required class="form-control" value="{{ repuesto.minimo }}"><div class="aviso">Quedan <span id="charsLeftMinimo"></span> caraceteres.</div></td>
+				<td><input type="text" id="minimo" name="minimo" required class="form-control" value="{{ repuesto.minimo }}" onkeypress="return Numy1Punto(event, this)"><div class="aviso">Quedan <span id="charsLeftMinimo"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Punto Pedido:</td>
-				<td><input type="text" id="puntopedido" name="puntopedido" required class="form-control" value="{{ repuesto.punto_pedido }}"><div class="aviso">Quedan <span id="charsLeftPuntoPedido"></span> caraceteres.</div></td>
+				<td><input type="text" id="puntopedido" name="puntopedido" required class="form-control" value="{{ repuesto.punto_pedido }}" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftPuntoPedido"></span> caraceteres.</div></td>
 			</tr>
 
 			<tr>
 				<td>Maximo:</td>
-				<td><input type="text" id="maximo" name="maximo" required class="form-control" value="{{ repuesto.maximo }}"><div class="aviso">Quedan <span id="charsLeftMaximo"></span> caraceteres.</div></td>
+				<td><input type="text" id="maximo" name="maximo" required class="form-control" value="{{ repuesto.maximo }}" onkeypress="return Numy1Punto(event, this)"><div class="aviso">Quedan <span id="charsLeftMaximo"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -89,7 +90,7 @@
 								<center><input type="text" id="calle" name="calle" required class="form-control" style="width: 80%;" value="{{ repuesto.calle }}"></center><div class="aviso" style="text-align: center;">Quedan <span id="charsLeftCalle"></span> caraceteres.</div>
 							</td>
 							<td style="width: 33%;">
-								<center><input type="text" id="modulo" name="modulo" required class="form-control" style="width: 80%;" value="{{ repuesto.modulo }}"></center><div class="aviso" style="text-align: center;">Quedan <span id="charsLeftModulo"></span> caraceteres.</div>
+								<center><input type="text" id="modulo" name="modulo" required class="form-control" style="width: 80%;" value="{{ repuesto.modulo }}" onKeyPress="return soloNumeros(event)"></center><div class="aviso" style="text-align: center;">Quedan <span id="charsLeftModulo"></span> caraceteres.</div>
 							</td>
 							<td style="width: 33%;">
 								<center><input type="text" id="estante" name="estante" required class="form-control" style="width: 80%;" value="{{ repuesto.estante }}"></center><div class="aviso" style="text-align: center;">Quedan <span id="charsLeftEstante"></span> caraceteres.</div>
@@ -110,7 +111,7 @@
 			</tr>
 			<tr>
 				<td>Coche:</td>
-				<td><input type="text" id="coche" name="coche" required class="form-control" value="{{ repuesto.coche }}"><div class="aviso">Quedan <span id="charsLeftCoche"></span> caraceteres.</div></td>
+				<td><input type="text" id="coche" name="coche" required class="form-control" value="{{ repuesto.coche }}" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftCoche"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
 				<td>Observaciones:</td>
@@ -141,24 +142,24 @@
 	$('#observaciones').limit('50','#charsLeftObservaciones');
 
 	$(function() {
-		$("#rubro").on("change", function (){
-   			var codigo = $(this).find(':selected').data('codigo');
-   			var id = $(this).find(':selected').data('id');
-   			$.getJSON("/getCantRepuestosEnRubro/"+id, function (CantRep){
-   				cant = CantRep[0].cant;
-   				cant = cant+1;
-   				$("#codigo1").val(codigo+'.');
-   				var codigo2 = '001';
-   				if (cant < 10){
-   					codigo2 = '00'+cant;
-   				}else if (cant > 9){
-   					codigo2 = '0'+cant;
-   				} else{
-   					codigo2 = cant;
-   				}
-   				$("#codigo2").val(codigo2);
-   			});
-   		});
+		// $("#rubro").on("change", function (){
+  //  			var codigo = $(this).find(':selected').data('codigo');
+  //  			var id = $(this).find(':selected').data('id');
+  //  			$.getJSON("/getCantRepuestosEnRubro/"+id, function (CantRep){
+  //  				cant = CantRep[0].cant;
+  //  				cant = cant+1;
+  //  				$("#codigo1").val(codigo+'.');
+  //  				var codigo2 = '001';
+  //  				if (cant < 10){
+  //  					codigo2 = '00'+cant;
+  //  				}else if (cant > 9){
+  //  					codigo2 = '0'+cant;
+  //  				} else{
+  //  					codigo2 = cant;
+  //  				}
+  //  				$("#codigo2").val(codigo2);
+  //  			});
+  //  		});
    	});
 </script>
 
