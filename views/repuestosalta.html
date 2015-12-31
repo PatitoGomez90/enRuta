@@ -29,8 +29,7 @@
 							<td><input type="text" id="codigo2" name="codigo2" required class="form-control" onKeyPress="return soloNumeros(event)"></td>
 							<td><div class="aviso">Quedan <span id="charsLeftCodigo"></span> caraceteres.</div></td>
 						</tr>
-					</table>
-					
+					</table>					
 				</td>
 			</tr>
 			<tr>
@@ -103,8 +102,8 @@
 				<td><input type="text" id="observaciones" name="observaciones" required class="form-control"><div class="aviso">Quedan <span id="charsLeftObservaciones"></span> caraceteres.</div></td>
 			</tr>
 			<tr>
-				<td><input type="button" value="Atras" onclick="history.back()"></td>
-				<td><input type="submit" value="Agregar"></td>
+				<td><input type="button" class="btn btn-primary" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" class="btn btn-success" value="Agregar"></td>
 			</tr>
 		</table>
 	</form>
@@ -161,8 +160,7 @@
    				}
    				$("#codigo2").val(codigo2);
    			});
-   			
-   		})			   
+   		});	   
 	});
 </script>
 
