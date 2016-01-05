@@ -7,11 +7,12 @@ module.exports = {
 	getCantRepuestosEnRubroById: getCantRepuestosEnRubroById,
 	getByCodigo: getByCodigo,
 	update: update,
-	del: del
+	del: del,
+	getRubroEnRepById: getRubroEnRepById
 }
 
 function getAll(cb){
-	conn('select * from repuestos', cb);
+	conn('select *, if (stock_actual <= punto_pedido, maximo-stock_actual,0) as faltante from repuestos', cb);
 }
 
 function insert(codigo, nombre, stock, valor, calle, modulo, estante, minimo, maximo, descripcion, marca, observaciones, puntopedido, coche, id_rubro, cb){
@@ -40,4 +41,8 @@ function update(id_repuesto, codigo, nombre, stock, valor, calle, modulo, estant
 
 function del(id_repuesto, cb){
 	conn("delete from repuestos where id = "+id_repuesto, cb);
+}
+
+function getRubroEnRepById(id_rubro, cb){
+	conn("select * from repuestos where id_rubro_fk = "+id_rubro, cb);
 }

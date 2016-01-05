@@ -15,20 +15,6 @@
 				<td><input type="text" id="id" name="id" value="{{ rubrogrupo.id }}" readonly class="form-control"></td>
 			</tr>
 			<tr>
-				<td>Grupo al que pertenece:</td>
-				<td>
-					<select id="grupo" name="grupo" class="form-control">
-						{% for g in grupos %}
-							{% if g.id == rubrogrupo.id_grupo_fk %}
-								<select value="{{ g.id }}" selected>{{ g.codigo }} - {{ g.nombre }}</select>
-							{% else %}
-								<select value="{{ g.id }}">{{ g.codigo }} - {{ g.nombre }}</select>
-							{% endif %}
-						{% endfor %}
-					</select>
-				</td>
-			</tr>
-			<tr>
 				<td>Codigo:</td>
 				<td><input type="text" id="codigo" name="codigo" value="{{ rubrogrupo.codigo }}" class="form-control" required><div class="aviso">Quedan <span id="charsLeftCodigo"></span> caraceteres.</div></td>
 			</tr>

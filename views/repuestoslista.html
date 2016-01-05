@@ -68,11 +68,11 @@
 							<td>{{ r.minimo }}</td>
 							<td>{{ r.punto_pedido }}</td>
 							<td>{{ r.maximo }}</td>
-							<td>- hacer cuenta acá -</td>
+							<td>{{ r.faltante }}</td>
 							<td style="text-align:center;">{{ r.calle }} - {{ r.modulo }} - {{ r.estante }}</td>
 							<td>{% if r.marca == 1 %}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% else %}{% endif %}</td>
 							<td>{{ r.coche }}</td>
-							<td>{{ r.observaciones }}</td>
+							<td style="text-align:center;"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" title="{{ r.observaciones }}"></span></td>
 							<td><a href="/repuestosmodificar/{{ r.id }}"><button class="btn btn-warning">Modificar</button></a></td>
 							<td><a href='/repuestosborrar/{{ r.id }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
 						</tr>

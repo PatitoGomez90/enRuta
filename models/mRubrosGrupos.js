@@ -10,7 +10,7 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn('select * from rubros_grupos', cb);
+	conn('select * from rubros_grupos order by codigo', cb);
 }
 
 function getById(id, cb){

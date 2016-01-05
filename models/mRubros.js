@@ -11,7 +11,7 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn('select rubros.*, rubros_grupos.codigo as codigogrupo, rubros_grupos.nombre as grupotxt from rubros left join rubros_grupos on rubros_grupos.id = rubros.id_grupo_fk', cb);
+	conn('select rubros.*, rubros_grupos.codigo as codigogrupo, rubros_grupos.nombre as grupotxt from rubros left join rubros_grupos on rubros_grupos.id = rubros.id_grupo_fk order by codigo', cb);
 }
 
 function getById(id, cb){

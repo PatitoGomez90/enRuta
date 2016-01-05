@@ -4,6 +4,7 @@ var mBorro = require('../models/mBorro');
 // var mVerificacion = require('../models/mVerificacion');
 var mAyuda = require('../models/mAyuda');
 var mRubrosGrupos = require('../models/mRubrosGrupos');
+var mRepuestos = require('../models/mRepuestos');
 
 module.exports = {
 	getLista: getLista,
@@ -130,11 +131,20 @@ function getDel(req, res){
 	var id = params.id;
 	mRubros.getById(id, function (rubro){
 	  	rubro = rubro[0];
-		mBorro.add(req.session.user.usuario,"Rubro", "Borra. Nombre Rubro: "+ rubro.nombre + ", id: " + id ,function(){
-	  		mRubros.del(id, function(){
-	    		res.redirect('/rubroslista'); 
-	  		});
-		});
+	  	mRepuestos.getRubroEnRepById(id, function (rubroEnRep){
+	  		// console.log(rubroEnRep.length)
+	  		if (rubroEnRep.length == 0){
+	  			mBorro.add(req.session.user.usuario,"Rubro", "Borra. Nombre Rubro: "+ rubro.nombre + ", id: " + id ,function(){
+			  		mRubros.del(id, function(){
+			    		res.redirect('/rubroslista'); 
+			  		});
+				});
+	  		}else{
+	  			res.render('error', {
+	      			error: "No se puede eliminar este Rubro. Posee registros en la base de datos 'Repuestos'."
+	      		});
+	  		}
+	  	});
 	}); 
 }
 
