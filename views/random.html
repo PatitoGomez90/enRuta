@@ -1,0 +1,32 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  	<div class="panel-heading">
+  	<!-- Table -->
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<table class="table table-striped">
+		  		<tr>
+		  			<td><button class="btn btn-default" onclick="actualizarRepuestosConIdRubroFk();">accion secreta 1</button></td>
+		  		</tr>
+			</table>				
+		</div><!--div col xs12 -->
+	</div><!--div row -->
+</div>
+<script type="text/javascript">
+	function actualizarRepuestosConIdRubroFk(){
+		$.getJSON("/updateRepuestosConIdRubroFk", function (obj){
+			console.log(obj)
+		});
+
+	}
+</script>
+{% endblock %}

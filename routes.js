@@ -11,7 +11,7 @@ var cRepuestos = require('./controllers/cRepuestos');
 
 var mEventos = require('./models/mEventos');
 // var cPruebaSQL = require('./controllers/cPruebaSQL');
-// var cRandom = require('./controllers/cRandom');
+var cRandom = require('./controllers/cRandom');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -92,7 +92,8 @@ module.exports = function(app) {
 	//pruebasql
 	// app.get('/pruebasql', auth, cPruebaSQL.getPrueba);
 	// //random
-	// app.get('/random', auth, cRandom.getAsd);
+	app.get('/random', auth, cRandom.getRandom);
+	app.get('/updateRepuestosConIdRubroFk', auth, cRandom.updateRepuestosConIdRubroFk);
 	// app.post('/random', auth, cRandom.postAsd);
 	// app.get('/random2', auth, cRandom.getr2);
 	// app.post('/random2', auth, cRandom.postr2);
