@@ -1,0 +1,107 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/vehiculosalta.css" rel="stylesheet">
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="post" id="formalta" action="/vehiculosalta">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>Numero:</td>
+				<td><input type="text" id="numero" name="numero" required class="form-control" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftNumero"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Marca:</td>
+				<td><input type="text" id="marca" name="marca" required class="form-control"><div class="aviso">Quedan <span id="charsLeftMarca"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Modelo:</td>
+				<td><input type="text" id="modelo" name="modelo" required class="form-control" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftModelo"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Dominio:</td>
+				<td><input type="text" id="dominio" name="dominio" required class="form-control"><div class="aviso">Quedan <span id="charsLeftDominio"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Tipo:</td>
+				<td>
+					<select id="tipo" name="tipo" class="form-control">
+						<option value="C">Colectivo</option>
+						<option value="O">Otro</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Fecha de Alta:</td>
+				<td><input type="text" id="fecha_alta" name="fecha_alta" readonly class="datepicker form-control"></td>
+			</tr>
+			<tr>
+				<td>Chasis:</td>
+				<td><input type="text" id="chasis" name="chasis" class="form-control"><div class="aviso">Quedan <span id="charsLeftChasis"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Fecha:</td>
+				<td><input type="text" id="chasis_fecha" name="chasis_fecha" readonly class="datepicker form-control"></td>
+			</tr>
+			<tr>
+				<td>Precio Chasis en Dolares:</td>
+				<td><input type="text" id="chasis_dlls" name="chasis_dlls" class="form-control" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftChasisDlls"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Precio Chasis en Pesos:</td>
+				<td><input type="text" id="chasis_pesos" name="chasis_pesos" class="form-control" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftChasisPesos"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Carroceria:</td>
+				<td><input type="text" id="carro" name="carro" class="form-control"><div class="aviso">Quedan <span id="charsLeftCarro"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Fecha:</td>
+				<td><input type="text" id="carro_fecha" name="carro_fecha" class="datepicker form-control"></td>
+			</tr>
+			<tr>
+				<td>Precio Carroceria en Dolares:</td>
+				<td><input type="text" id="carro_dlls" name="carro_dlls" class="form-control" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftCarroDlls"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Precio Carroceria en Pesos:</td>
+				<td><input type="text" id="carro_pesos" name="carro_pesos" class="form-control" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftCarroPesos"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Año:</td>
+				<td><input type="text" id="ano" name="ano" class="form-control" onKeyPress="return soloNumeros(event)"><div class="aviso">Quedan <span id="charsLeftAno"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Agregar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<script type="text/javascript">
+	$('#numero').limit('3','#charsLeftNumero');
+	$('#marca').limit('15','#charsLeftMarca');
+	$('#modelo').limit('4','#charsLeftModelo');
+	$('#dominio').limit('8','#charsLeftDominio');
+	$('#chasis').limit('33','#charsLeftChasis');
+	$('#chasis_dlls').limit('6','#charsLeftChasisDlls');
+	$('#chasis_pesos').limit('6','#charsLeftChasisPesos');
+	$('#carro').limit('33','#charsLeftCarro');
+	$('#carro_dlls').limit('6','#charsLeftCarroDlls');
+	$('#carro_pesos').limit('6','#charsLeftCarroPesos');
+	$('#ano').limit('4','#charsLeftAno');
+
+	$(".datepicker").datepicker({
+		format: 'dd/mm/yyyy',
+		autoclose: true,
+		language: 'es'
+	});
+</script>
+{% endblock %}

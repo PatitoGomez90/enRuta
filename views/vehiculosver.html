@@ -1,0 +1,126 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/vehiculosmodificar.css" rel="stylesheet">
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<table align="center" class="table table-striped">
+		<tr>
+			<td>Numero:</td>
+			<td>{{ vehiculo.numero }}</td>
+		</tr>
+		<tr>
+			<td>Marca:</td>
+			<td>{{ vehiculo.marca }}</td>
+		</tr>
+		<tr>
+			<td>Modelo:</td>
+			<td>{{ vehiculo.modelo }}</td>
+		</tr>
+		<tr>
+			<td>Dominio:</td>
+			<td>{{ vehiculo.dominio }}</td>
+		</tr>
+		<tr>
+			<td>Tipo:</td>
+			<td>
+				{% if vehiculo.tipo == 'C' %}
+					Colectivo
+				{% else %}
+					Otro
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Fecha de Alta:</td>
+			<td>
+				{% if vehiculo.fecha_alta != '0000-00-00' %}
+					{{ vehiculo.fecha_alta_f }}
+				{% else %}
+					
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Chasis:</td>
+			<td>{{ vehiculo.chasis }}</td>
+		</tr>
+		<tr>
+			<td>Fecha:</td>
+			<td>
+				{% if vehiculo.chasis_fecha != '0000-00-00' %}
+					{{ vehiculo.chasis_fecha_f }}
+				{% else %}
+					
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Precio Chasis en Dolares:</td>
+			<td>
+				{% if vehiculo.chasis_dlls != 0 %}
+					{{ vehiculo.chasis_dlls }}
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Precio Chasis en Pesos:</td>
+			<td>
+				{% if vehiculo.chasis_pesos != 0 %}
+					{{ vehiculo.chasis_pesos }}
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Carroceria:</td>
+			<td>{{ vehiculo.carro }}</td>
+		</tr>
+		<tr>
+			<td>Fecha:</td>
+			<td>
+				{% if vehiculo.carro_fecha != '0000-00-00' %}
+					{{ vehiculo.carro_fecha_f }}
+				{% else %}
+
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Precio Carroceria en Dolares:</td>
+			<td>
+				{% if vehiculo.carro_dlls != 0 %}
+					{{ vehiculo.carro_dlls }}
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Precio Carroceria en Pesos:</td>
+			<td>
+				{% if vehiculo.carro_pesos != 0 %}
+					{{ vehiculo.carro_pesos }}
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>Año:</td>
+			<td>
+				{% if vehiculo.ano != 0 %}
+					{{ vehiculo.ano }}
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td><input type="button" value="Atras" onclick="history.back()"></td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+
+</script>
+{% endblock %}

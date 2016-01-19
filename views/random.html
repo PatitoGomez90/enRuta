@@ -17,6 +17,9 @@
 		  		<tr>
 		  			<td><button class="btn btn-default" onclick="actualizarRepuestosConIdRubroFk();">accion secreta 1</button></td>
 		  		</tr>
+		  		<tr>
+		  			<td><button class="btn" onclick="actualizarTablaVehiculos();">Actualizar Tabla Vehiculos con Datos de "Five"</button></td>
+		  		</tr>
 			</table>				
 		</div><!--div col xs12 -->
 	</div><!--div row -->
@@ -24,9 +27,14 @@
 <script type="text/javascript">
 	function actualizarRepuestosConIdRubroFk(){
 		$.getJSON("/updateRepuestosConIdRubroFk", function (obj){
-			console.log(obj)
+			console.log(obj);
 		});
+	}
 
+	function actualizarTablaVehiculos(){
+		$.getJSON("/updateTablaVehiculosConFive", function (obj){
+			console.log(obj);
+		})
 	}
 </script>
 {% endblock %}

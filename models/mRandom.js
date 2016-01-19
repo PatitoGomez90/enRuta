@@ -2,7 +2,9 @@ var conn = require('../config/db').conn;
 
 module.exports = {
 	getAllRepuestos: getAllRepuestos,
-	getAllRubros: getAllRubros
+	getAllRubros: getAllRubros,
+	getVehiculos: getVehiculos,
+	getFive: getFive
 }	
 
 function getAllRepuestos(cb){
@@ -12,4 +14,12 @@ function getAllRepuestos(cb){
 
 function getAllRubros(cb){
 	conn("select * from rubros", cb);
+}
+
+function getVehiculos(cb){
+	conn("select * from vehiculos", cb);
+}
+
+function getFive(cb){
+	conn("select * from five_temp", cb);
 }

@@ -7,7 +7,7 @@ var cUmed = require('./controllers/cUmed');
 var cRubros = require('./controllers/cRubros');
 var cRubrosGrupos = require('./controllers/cRubrosGrupos');
 var cRepuestos = require('./controllers/cRepuestos');
-
+var cVehiculos =require('./controllers/cVehiculos');
 
 var mEventos = require('./models/mEventos');
 // var cPruebaSQL = require('./controllers/cPruebaSQL');
@@ -89,11 +89,20 @@ module.exports = function(app) {
 	app.post('/repuestosmodificar', auth, cRepuestos.postModificar);
 	app.get('/repuestosborrar/:id', auth, cRepuestos.getDel);
 	app.get('/getCantRepuestosEnRubro/:id_rubro', auth, cRepuestos.getCantRepuestosEnRubroById);
+	//vehiculos
+	app.get('/vehiculoslista', auth, cVehiculos.getLista);
+	app.get('/vehiculosalta', auth, cVehiculos.getAlta);
+	app.post('/vehiculosalta', auth, cVehiculos.postAlta);
+	app.get('/vehiculosmodificar/:id', auth, cVehiculos.getModificar);
+	app.post('/vehiculosmodificar', auth, cVehiculos.postModificar);
+	app.get('/vehiculosborrar/:id', auth, cVehiculos.getDel);
+	app.get('/vehiculosver/:id', auth, cVehiculos.getVer);
 	//pruebasql
 	// app.get('/pruebasql', auth, cPruebaSQL.getPrueba);
 	// //random
 	app.get('/random', auth, cRandom.getRandom);
 	app.get('/updateRepuestosConIdRubroFk', auth, cRandom.updateRepuestosConIdRubroFk);
+	app.get("/updateTablaVehiculosConFive", auth, cRandom.updateTablaVehiculosConFive);
 	// app.post('/random', auth, cRandom.postAsd);
 	// app.get('/random2', auth, cRandom.getr2);
 	// app.post('/random2', auth, cRandom.postr2);
