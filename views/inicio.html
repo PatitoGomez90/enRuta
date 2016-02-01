@@ -18,10 +18,15 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
-          <h2><b>Novedades</b></h2>
-          <p>{{ novedades.fecha|date('d/m/Y') }} - {{ novedades.descripcion }}</p>
-          <p><a class="btn btn-default" href="/listanovedades" role="button">Ver completo »</a></p>
-          <p>(*) Los menúes que tiene un asterisco es porque están en construcción.</p>
+          <h4><b>Agenda de hoy:</b></h4>
+          {% if itemslength == 1 %}
+            <p>{{ items.fechaf }} {{ a.horaf }} - {{ items.descripcion_corta }}</p>
+          {% else %}
+            {% for a in items %}
+              <p>{{ a.fechaf }} {{ a.horaf }} - {{ a.descripcion_corta }}</p>
+            {% endfor %}
+          {% endif %}
+          <p><a class="btn btn-default" href="/agendalista" role="button">Ver completo »</a></p>          
         </div>
         <div class="col-md-4">
           

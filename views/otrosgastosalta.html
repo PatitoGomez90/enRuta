@@ -1,0 +1,113 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<link href="/css/otrosgastosalta.css" rel="stylesheet">
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="post" id="formalta" action="/otrosgastosalta">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>Fecha:</td>
+				<td><input type="text" class="datepicker form-control" id="fecha" name="fecha" readonly>
+				</td>
+			</tr>
+			<tr>
+				<td>Descripcion:</td>
+				<td><input type="text" class="form-control" id="descripcion" name="descripcion"><div class="aviso">Quedan <span id="charsLeftDescripcion"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Cantidad:</td><!-- decimal -->
+				<td><input type="text" id="cantidad" name="cantidad" required class="form-control" ></td>
+			</tr>
+			<tr>
+				<td>Destino:</td>
+				<td>
+					<select id="destino" name="destino" class="form-control">
+						{% for d in destinos %}
+							<option value="{{ d.id }}">{{ d.descripcion }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Coche:</td>
+				<td>
+					<select id="coche" name="coche" class="form-control">
+						<option value="0">Ninguno, destino no es coche.</option>
+						{% for c in coches %}
+							<option value="{{ c.numero }}">{{ c.numero }} - {{ c.marca }} - {{ c.dominio }} - {{ c.modelo }}</option>
+							{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Total:</td><!-- decimal -->
+				<td><input type="text" id="total" name="total" required class="form-control"></td>
+			</tr>
+			<tr>
+				<td>Operario:</td>
+				<td>
+					<select id="operario" name="operario" class="form-control">
+						{% for u in usuarios %}
+							<option value="{{ u.unica }}">{{ u.usuario }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Memo:</td>
+				<td><textarea type="text" id="memo" name="memo" class="form-control" rows="4"></textarea><div class="aviso">Quedan <span id="charsLeftMemo"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Empresa:</td>
+				<td>
+					<select id="empresa" name="empresa" class="form-control">
+						<option value="E">Evhsa</option>
+						<option value="T">Tanhsa</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Agregar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<script type="text/javascript">
+	$('#descripcion').limit('40','#charsLeftDescripcion');
+	$('#memo').limit('45','#charsLeftMemo');
+
+	$(".datepicker").datepicker({
+		format: 'dd/mm/yyyy',
+		autoclose: true,
+		language: 'es'
+	});
+
+	$(function() {
+		$("#coche").val(1);
+
+    	$("#destino").on("change", function (){
+    		if (this.value != 1){
+    			$("#coche").val(0);
+    		}else{
+    			$("#coche").val(1);
+    		}
+    	});
+
+    	$("#coche").on("change", function (){
+    		id_destino = $("#destino").val();
+    		if (id_destino != 1)
+    			$("#coche").val(0);
+    	});
+	});
+</script>
+
+{% endblock %}

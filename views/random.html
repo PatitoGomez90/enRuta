@@ -20,6 +20,12 @@
 		  		<tr>
 		  			<td><button class="btn" onclick="actualizarTablaVehiculos();">Actualizar Tabla Vehiculos con Datos de "Five"</button></td>
 		  		</tr>
+		  		<tr>
+		  			<td><button class="btn" onclick="actualizarTablaSecr();">Actualizar Tabla Secr con Datos de "Operarios_temp"</button></td>
+		  		</tr>
+		  		<tr>
+		  			<td><button class="btn" onclick="actualizarOtrosGastos();">Actualizar Tabla Otros Gastos con Datos de "OtrosGastos_temp"</button></td>
+		  		</tr>
 			</table>				
 		</div><!--div col xs12 -->
 	</div><!--div row -->
@@ -35,6 +41,18 @@
 		$.getJSON("/updateTablaVehiculosConFive", function (obj){
 			console.log(obj);
 		})
+	}
+
+	function actualizarTablaSecr(){
+		$.getJSON("/updateTablaSecr", function (obj){
+			console.log(obj);
+		});
+	}
+
+	function actualizarOtrosGastos(){
+		$.getJSON("/actualizarOtrosGastos", function (obj){
+			console.log(obj);
+		});
 	}
 </script>
 {% endblock %}

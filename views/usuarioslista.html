@@ -47,28 +47,28 @@
 		<td>Activo</td>
 		<td>Opciones</td>
 	</tr>
-	{% for Usuario in usuarios %}
+	{% for u in usuarios %}
 	<tr>
-		<td>{{ Usuario.unica }}</td>
-		<td>{{ Usuario.usuario }}</td>
-		<td>{{ Usuario.clave }}</td>
-		<td>{{ Usuario.mail }}</td>
-		<td>{{ Usuario.niveles }}</td>
-		<td>{{ Usuario.alta|date('d/m/Y') }}</td>
-		<td>{{ Usuario.baja|date('d/m/Y') }}</td>
-		{% if Usuario.activa == 1 %}
+		<td>{{ u.unica }}</td>
+		<td>{{ u.usuario }}</td>
+		<td>{{ u.clave }}</td>
+		<td>{{ u.mail }}</td>
+		<td>{% if u.niveles != null %}{{ u.niveles }}{% endif %}</td>
+		<td>{{ u.alta|date('d/m/Y') }}</td>
+		<td>{{ u.baja|date('d/m/Y') }}</td>
+		{% if u.activa == 1 %}
 			<td><span>Activo</span></td>
 		{% else %}
 			<td><span>No Activo</span></td>
 		{% endif %}	
 		<td>
-			<a href="/usuariosmodificar/{{ Usuario.unica }}"><button class="btn btn-warning">Modificar</button></a>
+			<a href="/usuariosmodificar/{{ u.unica }}"><button class="btn btn-warning">Modificar</button></a>
 		</td>
 		<td>
-			<a href='/usuariosborrar/{{ Usuario.unica }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
+			<a href='/usuariosborrar/{{ u.unica }}' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/>
 		</td>
 		<td>
-			<a href="/accesoslista/{{ Usuario.unica }}"><button class="btn btn-success">Configurar accesos</button></a>
+			<a href="/accesoslista/{{ u.unica }}"><button class="btn btn-success">Configurar accesos</button></a>
 		</td>
 	</tr>
 	{% endfor %}	 

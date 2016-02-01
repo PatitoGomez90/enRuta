@@ -1,6 +1,6 @@
 var conn = require('../config/db').conn;
 var mEventos = require('../models/mEventos');
-var mNovedades = require('../models/mNovedades');
+var mAgenda = require('../models/mAgenda');
 
 module.exports = {
 	getLogin: getLogin,
@@ -38,7 +38,7 @@ function postLogin(req, res){
 	//console.log('ADENTRO DE POST LOGIN')
 	var form = req.body;
 	if (form.email && form.password){
-		conn("select * from secr where mail='"+ form.email +"'", function(user){
+		conn("select * from secr where mail='"+ form.email +"'", function (user){
 			user = user[0];
 			console.log(user)
 			if (user) {
@@ -60,12 +60,45 @@ function postLogin(req, res){
 							req.session.user.horaLogin = date;
 
 							mEventos.add(req.session.user.unica, date, "Login", "", function(){
-								mNovedades.getLast(function(novedad){
-									res.render('inicio', {
-										usuario: req.session.user,
-										novedades: novedad[0]
-									});
-									return;
+								// mNovedades.getLast(function (novedad){
+								// 	res.render('inicio', {
+								// 		usuario: req.session.user,
+								// 		novedades: novedad[0]
+								// 	});
+								// 	return;
+								// });
+								// mAgenda.getLast3(function (items){
+								    // console.log(items)
+							   	var today = new Date();
+							    var dd = today.getDate();
+							    var mm = today.getMonth()+1; //January is 0!
+							    var yyyy = today.getFullYear();
+
+							    if(dd<10) {
+							        dd='0'+dd
+							    } 
+
+							    if(mm<10) {
+							        mm='0'+mm
+							    } 
+
+							    hoy = yyyy+'/'+mm+'/'+dd;
+
+							    mAgenda.getTodayAgenda(hoy, function (items){
+								    var itemslength = items.length;
+								    if (items.length == 1){
+								     	res.render('inicio', {
+								    		pagename: 'Evhsa',
+								    		itemslength: itemslength,
+								    		items: items[0]
+								    	});
+								    }else{
+								      	res.render('inicio', {
+								        	pagename: 'Evhsa',
+								        	itemslength: itemslength,
+								        	items: items
+								      	});
+								    }
 								});
 							});
 						}else{

@@ -7,7 +7,12 @@ var cUmed = require('./controllers/cUmed');
 var cRubros = require('./controllers/cRubros');
 var cRubrosGrupos = require('./controllers/cRubrosGrupos');
 var cRepuestos = require('./controllers/cRepuestos');
-var cVehiculos =require('./controllers/cVehiculos');
+var cVehiculos = require('./controllers/cVehiculos');
+var cProveedores = require('./controllers/cProveedores');
+var cAgenda = require('./controllers/cAgenda');
+var cOtrosGastos = require('./controllers/cOtrosGastos');
+var cPlanillaDiaria = require('./controllers/cPlanillaDiaria');
+
 
 var mEventos = require('./models/mEventos');
 // var cPruebaSQL = require('./controllers/cPruebaSQL');
@@ -97,12 +102,47 @@ module.exports = function(app) {
 	app.post('/vehiculosmodificar', auth, cVehiculos.postModificar);
 	app.get('/vehiculosborrar/:id', auth, cVehiculos.getDel);
 	app.get('/vehiculosver/:id', auth, cVehiculos.getVer);
+	//proveedores
+	app.get('/proveedoreslista', auth, cProveedores.getLista);
+	app.get('/proveedoresalta', auth, cProveedores.getAlta);
+	app.post('/proveedoresalta', auth, cProveedores.postAlta);
+	app.get('/proveedoresmodificar/:id', auth, cProveedores.getModificar);
+	app.post('/proveedoresmodificar', auth, cProveedores.postModificar);
+	app.get('/proveedoresborrar/:id', auth, cProveedores.getDel);
+	app.get('/proveedoresver/:id', auth, cProveedores.getVer);
+	//agenda
+	app.get('/agendalista', auth, cAgenda.getLista);
+	app.get('/agendaalta', auth, cAgenda.getAlta);
+	app.post('/agendaalta', auth, cAgenda.postAlta);
+	app.get('/agendamodificar/:id', auth, cAgenda.getModificar);
+	app.post('/agendamodificar', auth, cAgenda.postModificar);
+	app.get('/agendaborrar/:id', auth, cAgenda.getDel);
+	app.get('/agendaupdatehecho/:id/:valor', auth, cAgenda.updateHecho);
+	//otrosgastos
+	app.get("/otrosgastoslista", auth, cOtrosGastos.getLista);
+	app.get("/otrosgastosalta", auth, cOtrosGastos.getAlta),
+	app.post("/otrosgastosalta", auth, cOtrosGastos.postAlta);
+	app.get("/otrosgastosmodificar/:id", auth, cOtrosGastos.getModificar);
+	app.post("/otrosgastosmodificar", auth, cOtrosGastos.postModificar);
+	app.get("/otrosgastosborrar/:id", auth, cOtrosGastos.getDel);
+	//combustibles - planilla diaria
+	app.get("/planilladiarialista", auth, cPlanillaDiaria.getLista);
+	app.get("/planilladiariaalta", auth, cPlanillaDiaria.getAlta);
+	app.post("/planilladiariaalta", auth, cPlanillaDiaria.postAlta);
+	app.get("/planilladiariamodificar/:id", auth, cPlanillaDiaria.getModificar);
+	app.post("/planilladiariamodificar", auth, cPlanillaDiaria.postModificar);
+	app.get("/planilladiariaborrar/:id", auth, cPlanillaDiaria.getDel);
+	app.get("/getplanilladiariabyfecha/:fecha", auth, cPlanillaDiaria.getByFecha);
+
+
 	//pruebasql
 	// app.get('/pruebasql', auth, cPruebaSQL.getPrueba);
 	// //random
 	app.get('/random', auth, cRandom.getRandom);
 	app.get('/updateRepuestosConIdRubroFk', auth, cRandom.updateRepuestosConIdRubroFk);
 	app.get("/updateTablaVehiculosConFive", auth, cRandom.updateTablaVehiculosConFive);
+	app.get("/updateTablaSecr", auth, cRandom.updateTablaSecrConOperariosTemp);
+	app.get("/actualizarOtrosGastos", auth, cRandom.updateOtrosGastos);
 	// app.post('/random', auth, cRandom.postAsd);
 	// app.get('/random2', auth, cRandom.getr2);
 	// app.post('/random2', auth, cRandom.postr2);
@@ -114,4 +154,4 @@ module.exports = function(app) {
 	// app.post('/random5', auth, cRandom.postRandom5);
 	// app.get('/random6', auth, cRandom.getRandom6);
 	// app.post('/random6', auth, cRandom.postRandom6);
-}; 
+};

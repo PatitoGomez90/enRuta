@@ -1,0 +1,134 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<!-- <link href="/css/planilladiariamodificar.css" rel="stylesheet"> -->
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="post" id="formalta" action="/planilladiariamodificar">
+		<input hidden name="id" id="id" value="{{ planilla.id }}">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>Fecha:</td>
+				<td><input type="text" id="fecha" name="fecha" class="datepicker form-control" value="{{ planilla.fechaf }}"></td>
+			</tr>
+			<tr>
+				<td>Operario:</td> <!-- legajo usuario / carga realizada por-->
+				<td>	
+					<select id="cargarealizadopor" name="cargarealizadopor" class="form-control">
+						{% for u in usuarios %}
+							{% if planilla.id_usuario_fk == u.unica %}
+								<option selected value="{{ u.unica }}">{{ u.unica }} - {{ u.usuario }}</option>
+							{% else %}
+								<option value="{{ u.unica }}">{{ u.unica }} - {{ u.usuario }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Articulo:</td>
+				<td>	
+					<select class="form-control" name="articulo" id="articulo">
+						{% for a in articulos %}
+							{% if planilla.id_repuesto_fk == a.id %}
+								<option selected value="{{ a.id }}">{{ a.codigo }} - {{ a.nombre }}</option>
+							{% else %}
+								<option value="{{ a.id }}">{{ a.codigo }} - {{ a.nombre }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Coche:</td>
+				<td>
+					<select id="coche" name="coche" class="form-control">
+						{% for c in coches %}
+							{% if planilla.id_vehiculo_fk == c.numero %}
+								<option selected value="{{ c.numero }}">{{ c.numero }} - {{ c.marca }} ({{ c.dominio }})</option>
+							{% else %}
+								<option value="{{ c.numero }}">{{ c.numero }} - {{ c.marca }} ({{ c.dominio }})</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Linea:</td>
+				<td>	
+					<select id="linea" name="linea" class="form-control">
+						{% for l in lineas %}
+							{% if planilla.id_linea_fk == l.id %}
+								<option selected value="{{ l.id }}">{{ l.descripcion }}</option>
+							{% else %}
+								<option value="{{ l.id }}">{{ l.descripcion }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Hora de Carga:</td>
+				<td><input type="time" name="horacarga" id="horacarga" class="form-control" value="{{ planilla.horaf }}"></td>
+			</tr>
+			<tr>
+				<td>Litros de Gas Oil:</td> <!-- poner onclick -->
+				<td><input type="text" name="lt_gasoil" id="lt_gasoil" class="form-control" onKeyPress="return soloNumeros(event)" value="{{ planilla.gas }}"></td>
+			</tr>
+			<tr>
+				<td>Litros de Aceite:</td> <!-- poner onclick -->
+				<td><input type="text" name="lt_aceite" id="lt_aceite" class="form-control" onkeypress="return Numy1Punto(event, this)" value="{{ planilla.oil }}"></td>
+			</tr>
+			<tr>
+				<td>Litros de Agua:</td>
+				<td><input type="text" id="lt_agua" name="lt_agua" class="form-control" onKeyPress="return soloNumeros(event)" value="{{ planilla.agua }}"></td>
+			</tr>
+			<tr>
+				<td>Valor Gas Oil/Lt:</td>
+				<td><input type="text" id="val_gasoil" name="val_gasoil" class="form-control" onkeypress="return Numy1Punto(event, this)"  value="{{ planilla.valgas }}"></td>
+			</tr>
+			<tr>
+				<td>Valor Aceite/Lt:</td>
+				<td><input type="text" id="val_aceite" name="val_aceite" class="form-control" onkeypress="return Numy1Punto(event, this)" value="{{ planilla.valoil }}"></td>
+			</tr>			
+			<tr>
+				<td>Tanque:</td>
+				<td>
+					<select class="form-control" id="tanque" name="tanque">
+						{% for t in tanques %}
+							{% if planilla.id_tanque_fk == t.id %}
+								<option selected value="{{ t.id }}">{{ t.nombre }}</option>
+							{% else %}
+								<option value="{{ t.id }}">{{ t.nombre }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Gaurdar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+	$(".datepicker").datepicker({
+		format: 'dd/mm/yyyy',
+		autoclose: true,
+		language: 'es'
+	});
+	
+	$(function() {
+
+	});
+</script>
+
+{% endblock %}

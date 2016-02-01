@@ -6,7 +6,9 @@ var async = require('async');
 module.exports = {
 	getRandom: getRandom,
 	updateRepuestosConIdRubroFk: updateRepuestosConIdRubroFk,
-	updateTablaVehiculosConFive: updateTablaVehiculosConFive
+	updateTablaVehiculosConFive: updateTablaVehiculosConFive,
+	updateTablaSecrConOperariosTemp: updateTablaSecrConOperariosTemp,
+	updateOtrosGastos: updateOtrosGastos
 }
 
 function getRandom(req, res){
@@ -146,4 +148,128 @@ function updateTablaVehiculosConFive(req, res){
 			});		
 		});
 	});		
+}
+
+function updateTablaSecrConOperariosTemp(req, res){
+	var connection = mysql.createConnection({
+	    user: 'root',
+	    password: '',
+	    host: '127.0.0.1',
+	    port: '3306',
+	    database: 'Evhsa',
+	    dateStrings : true
+ 	});
+
+	connection.connect();
+
+	mRandom.getOperariosTemp(function (ops){
+		console.log("inside");
+		console.log(ops.length);
+
+		async.eachSeries(ops, function (op, callback) {
+			var legajo = op.legajo;
+			var nombre = op.nombre;
+
+			query = "INSERT INTO secr(unica, usuario, clave, alta, baja, activa) VALUES("+legajo+",'"+nombre+"', '"+legajo+"', '2016-01-07', '2100-01-01', 1)"
+			connection.query(query, function (err, rows, fields) {
+				if (err) {
+					throw err;
+			    	console.log(err);
+				}else{
+					// cb(rows);
+					callback();
+					console.log(query);
+					console.log("updated !");
+				}					    
+			});
+		}, function (err) {
+			if (err) { 
+				throw err; 
+			}else{
+				res.send("finished");
+				connection.end();
+				// return cb();
+			}				
+		});
+	});
+}
+
+function updateOtrosGastos(req, res){
+	var connection = mysql.createConnection({
+	    user: 'root',
+	    password: '',
+	    host: '127.0.0.1',
+	    port: '3306',
+	    database: 'Evhsa',
+	    dateStrings : true
+ 	});
+
+	connection.connect();
+
+	mRandom.getOtrosGastos_Temp(function (otrosgastos_temp){
+		console.log(otrosgastos_temp.length);
+
+		async.eachSeries(otrosgastos_temp, function (ot_temp, callback) {
+			var temp_fecha = ot_temp.fecha;
+			var temp_descripcion = ot_temp.descripcion;
+			var temp_cantidad = ot_temp.cantidad;
+			var temp_destino = ot_temp.destino;
+			var temp_coche = ot_temp.coche;
+			var temp_total = ot_temp.total;
+			var temp_operario = ot_temp.operario;
+			var temp_memo = ot_temp.memo;
+			var temp_empresa = ot_temp.empresa;
+
+			var id_usuario_fk = 0;
+
+			switch(temp_operario) {
+			    case '169':
+			    	id_usuario_fk = 169;
+			        break;
+			    case '182':
+			    	id_usuario_fk = 182;
+			        break;
+			    case '189':
+			    	id_usuario_fk = 189;
+			        break;
+			    case '333':
+			    	id_usuario_fk = 333;
+			        break;
+			    case '363':
+			    	id_usuario_fk = 363;
+			        break;
+			    case '9':
+			    	id_usuario_fk = 9;
+			        break;
+			    case '99':
+			    	id_usuario_fk = 99;
+			        break;
+			    // default:
+			    // 	id_usuario_fk = 0;
+			}
+
+			query = "INSERT INTO otrosgastos(`fecha`, `descripcion`, `cantidad`, `id_destino_fk`, `id_vehiculo_fk`, `total`, `id_usuario_fk`, `memo`, `empresa`) VALUES('"+temp_fecha+"','"+temp_descripcion+"', "+temp_cantidad+", "+temp_destino+", "+temp_coche+", "+temp_total+", "+id_usuario_fk+", '"+temp_memo+"', '"+temp_empresa+"')"
+			connection.query(query, function (err, rows, fields) {
+				if (err) {
+					throw err;
+			    	console.log(err);
+				}else{
+					// cb(rows);					
+					console.log(query);
+					console.log("updated !");
+					callback();
+				}					    
+			});
+
+		}, function (err) {
+			if (err) { 
+				throw err; 
+			}else{
+				res.send("finished");
+				connection.end();
+				// return cb();
+			}				
+		});
+	});
+
 }

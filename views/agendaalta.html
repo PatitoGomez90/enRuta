@@ -1,0 +1,54 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<!-- <link href="/css/agendaalta.css" rel="stylesheet"> -->
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="post" id="formalta" action="/agendaalta">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>Fecha:</td>
+				<td><input type="text" required class="datepicker form-control" readonly id="fecha" name="fecha" style="width:100px"></td>
+			</tr>
+			<tr>
+				<td>Hora:</td>
+				<td><input type="time" class="form-control" id="hora" name="hora" style="width:130px"></td>
+			</tr>
+			<tr>
+				<td>Descripcion Corta:</td>
+				<td><input type="text" id="corta" name="corta" required class="form-control"><div class="aviso">Quedan <span id="charsLeftCorta"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Descripcion Larga:</td>
+				<td><textarea id="larga" name="larga" class="form-control" rows="7"></textarea><div class="aviso">Quedan <span id="charsLeftLarga"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Agregar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<script type="text/javascript">
+	$('#corta').limit('80','#charsLeftCorta');
+	$('#larga').limit('5000','#charsLeftLarga');
+
+	$(".datepicker").datepicker({
+		format: 'dd/mm/yyyy',
+		autoclose: true,
+		language: 'es'
+	});
+
+	$(function() {
+
+	});
+</script>
+
+{% endblock %}

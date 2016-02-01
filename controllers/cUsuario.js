@@ -26,7 +26,7 @@ function getUsuarios(req, res){
   mAyuda.getAyudaTexto(req.session.nromenu, function(ayuda){
     mUsuarios.getAllUsuarios(function(docs){
       res.render('usuarioslista', {
-        pagename: 'Archivo de Usuarios',
+        pagename: 'Archivo de Usuarios/Operarios',
         usuarios: docs,
         ayuda: ayuda[0]
       });
@@ -37,7 +37,7 @@ function getUsuarios(req, res){
 function getUsuariosAlta(req, res){
   mUsuarios.getAllUsuarios(function(docs){
     res.render('usuariosalta', {
-      pagename: 'Alta de Usuarios',
+      pagename: 'Alta de Usuarios/Operario',
       usuarios: docs
     });
   });
@@ -50,7 +50,7 @@ function getUsuarioModificar(req, res){
   mUsuarios.getUsuarioPorID(id, function(docs){
     //console.log(docs[0])
     res.render('usuariosmodificar', {
-      pagename: 'Modificar Usuario',
+      pagename: 'Modificar Usuario/Operario',
       usuario: docs[0]
     });
   });
@@ -103,7 +103,7 @@ function putUsuario(req, res){
     if (resultado[0] != null){
       //si existe el usuario
       res.render('error', {
-          error: "Usuario existente. Intente nuevamente con otro usuario."
+          error: "Usuario/Operario existente. Intente nuevamente con otro usuario."
         });
     }else{
       //si no existe el usuario
@@ -148,12 +148,12 @@ function getDelUsuario(req, res){
   mVerificacion.getUsuarioFromMovi(id, function(usuarioFromMovi){
     if (usuarioFromMovi[0] != null){
       res.render('error', {
-        error: "No puede eliminar este usuario, posee movimientos."
+        error: "No puede eliminar este usuario/operario, posee movimientos."
       });
     }else{
     mUsuarios.getUsuarioPorID(id, function(usu){
         usu = usu[0];
-        mBorro.add(req.session.user.usuario,"Usuarios", "Borra Nombre Usuario: "+ usu.usuario + ", id: " + id ,function(){
+        mBorro.add(req.session.user.usuario,"Usuarios", "Borra Nombre Usuario/op: "+ usu.usuario + ", id: " + id ,function(){
           mUsuarios.delUsuario(id, function(){
             res.redirect('/usuarioslista'); 
           });

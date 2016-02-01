@@ -1,0 +1,170 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  	<div class="panel-heading">
+  	<!-- Table -->
+		<table>
+		<tr>	
+			<td><button type="button" class="btn btn-primary" onclick="history.back();">Atras</button></td>
+			<td><a href="/planilladiariaalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
+			<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
+			<td style="float: right;">
+				<table>
+					<tr>
+						<td><input type="text" style="width: 150px" name="fecha" id="fecha" class="datepicker form-control" readonly></td>
+						<td><button id="filtrar" name="filtrar" class="btn btn-default">Filtrar</button></td>
+					</tr>
+				</table>
+			</td>
+		</tr>	
+		</table>
+	</div>
+	<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        <h4 class="modal-title" id="myModalLabel">{{ ayuda.titulo }}</h4>
+		      </div>
+		      <div class="modal-body">
+		        {{ ayuda.texto }}
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	<!-- Fin Modal -->
+	<div class="row">
+		<div class="col-xs-12">
+			<table class="table table-striped">
+		  		<thead>
+		  			<tr>
+						<th>Operario</th>
+						<th>N° Coche</th>
+						<th>Linea</th>
+						<th>Hora</th>
+						<th>Cant. Gasoil</th>
+						<th>Valor Gasoil/Lt</th>
+						<th>Total Gasoil</th>
+						<th>Cant. Aceite</th>
+						<th>Valor Aceite/Lt</th>
+						<th>Total Aceite</th>
+						<th>Agua</th>
+						<th>Total</th>
+						<th>Tanque</th>
+						<th colspan="2">Opciones</th>
+					</tr>
+		  		</thead>
+		  		<tbody id="tbodylisto">
+		
+				</tbody>
+				<script type="text/template" id="tablaplanilladiaria"/>
+					[[#.]]
+						<tr>
+							<td>
+								[[operariotxt]]
+							</td>
+							<td>
+								[[id_vehiculo_fk]]
+							</td>
+							<td>
+								[[lineatxt]]			  					
+							</td>
+							<td>
+								[[horaf]]	
+							</td>
+							<td>
+								[[gas]]	Lt.
+							</td>
+							<td>
+								$ [[valgas]]	
+							</td>
+							<td>
+								$ [[val_total_gas]]
+							</td>
+							<td>
+								[[oil]]	Lt.
+							</td>
+							<td>
+								$ [[valoil]]	
+							</td>
+							<td>
+								$ [[val_total_oil]]
+							</td>
+							<td>
+								[[agua]] Lt.
+							</td>
+							<td>
+								$ [[val_total]]
+							</td>
+							<td>
+								[[tanquetxt]]	
+							</td>
+							<td>
+								<a href="/planilladiariamodificar/[[id]]" class="btn btn-warning"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+							</td>
+							<td>
+								<a href="/planilladiariaborrar/[[id]]" class="btn btn-danger" onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+							</td>
+						</tr>	
+					[[/.]]						
+				</script>		  		
+			</table>				
+		</div>
+	</div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<script type="text/javascript" src="/js/mustache.js"></script>
+<script type="text/javascript" src="/js/mustache-wax.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+	$(".datepicker").datepicker({
+		format: 'dd/mm/yyyy',
+		autoclose: true,
+		language: 'es'
+	});
+	
+	$(function() {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+		    dd='0'+dd
+		} 
+
+		if(mm<10) {
+		    mm='0'+mm
+		} 
+
+		today = dd+'/'+mm+'/'+yyyy;
+		$("#fecha").val(today);
+		var today_encoded = encodeURIComponent(today);
+		$.getJSON('/getplanilladiariabyfecha/'+today_encoded, function (data){
+			if (data != null){
+				$('#tbodylisto > tr').remove();
+				var template = $('#tablaplanilladiaria').html();
+				Mustache.tags =['[[',']]'];
+				var html = Mustache.to_html(template, data);
+				//console.log(html);
+				$('#tbodylisto').html(html);
+			}else{
+				//hacer que aca muestre error de que no se encontro nada en la busqueda
+			}
+		});
+	});
+</script>
+
+{% endblock %}

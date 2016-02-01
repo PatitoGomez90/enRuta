@@ -12,7 +12,7 @@ module.exports = {
 
 function getAll(cb){
 	conn("select *, DATE_FORMAT(vehiculos.fecha_alta, '%d/%m/%Y') as fecha_alta_f, DATE_FORMAT(vehiculos.chasis_fecha, '%d/%m/%Y') as chasis_fecha_f, "+
-		"DATE_FORMAT(vehiculos.carro_fecha, '%d/%m/%Y') as carro_fecha_f from vehiculos", cb);
+		"DATE_FORMAT(vehiculos.carro_fecha, '%d/%m/%Y') as carro_fecha_f from vehiculos order by numero", cb);
 }
 
 function insert(numero, marca, modelo, dominio, tipo, fecha_alta, chasis, chasis_fecha, chasis_dlls, chasis_pesos, carro, carro_fecha, carro_dlls, carro_pesos, ano, cb){
