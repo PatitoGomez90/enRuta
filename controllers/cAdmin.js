@@ -37,8 +37,9 @@ function getAdmin(req, res){
 function postLogin(req, res){
 	//console.log('ADENTRO DE POST LOGIN')
 	var form = req.body;
+	console.log(form)
 	if (form.email && form.password){
-		conn("select * from secr where mail='"+ form.email +"'", function (user){
+		conn("select * from secr where mail = rtrim('"+ form.email +"')", function (user){
 			user = user[0];
 			console.log(user)
 			if (user) {
