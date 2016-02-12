@@ -6,19 +6,22 @@
 
 {% block content %}
 <link href="/css/planilladiariaalta.css" rel="stylesheet">
+<!-- <link href="/css/bootstrap.css" rel="stylesheet"> -->
+<!-- <link href="/css/datepicker.css" rel="stylesheet"> -->
+<!-- <link href="/css/bootstrap.min.css" rel="stylesheet"> -->
 <h2>{{ pagename }}</h2>
 <div class="panel panel-default">
 	<form method="post" id="formalta" action="/planilladiariaalta">
 		<table align="center" class="table table-striped">
 			<tr>
 				<td>Fecha:</td>
-				<td><input type="text" id="fecha" name="fecha" class="datepicker form-control"></td>
+				<td><input type="text" id="fecha" name="fecha" class="datepicker form-control" readonly required></td>
 			</tr>
 			<tr>
 				<td>Operario:</td> <!-- legajo usuario / carga realizada por-->
 				<td>	
 					<select id="cargarealizadopor" name="cargarealizadopor" class="form-control">
-						{% for u in usuarios %}
+						{% for u in usuarios %}<!-- SWIG -->
 							<option value="{{ u.unica }}">{{ u.unica }} - {{ u.usuario }}</option>
 						{% endfor %}
 					</select>
@@ -29,7 +32,11 @@
 				<td>	
 					<select class="form-control" name="articulo" id="articulo">
 						{% for a in articulos %}
-							<option value="{{ a.id }}">{{ a.codigo }} - {{ a.nombre }}</option>
+							{% if a.id == ultimoaceite %}
+								<option selected value="{{ a.id }}">{{ a.codigo }} - {{ a.nombre }}</option>
+							{% else %}
+								<option value="{{ a.id }}">{{ a.codigo }} - {{ a.nombre }}</option>
+							{% endif %}
 						{% endfor %}
 					</select>
 				</td>
@@ -102,11 +109,25 @@
 	$(".datepicker").datepicker({
 		format: 'dd/mm/yyyy',
 		autoclose: true,
-		language: 'es'
+		language: 'es',
+		defaultDate: 'today'
 	});
-	
-	$(function() {
 
+	
+
+
+	$(function() {
+		var myDate = new Date(); 
+		myDate.setFullYear(myDate.getFullYear());
+		year = myDate.getFullYear();
+		month = myDate.getMonth()+1;
+		day = myDate.getDate();
+		if (month<10)
+			month = "0"+month;
+		if (day<10)
+			day = "0"+day;
+		myDate =  day +"/"+month+"/"+year;
+		$("#fecha").val(myDate)
 	});
 </script>
 

@@ -8,11 +8,13 @@ module.exports = {
 	getByCodigo: getByCodigo,
 	update: update,
 	del: del,
-	getRubroEnRepById: getRubroEnRepById
+	getRubroEnRepById: getRubroEnRepById,
+    getAllAceites: getAllAceites,
+    getLastAceite: getLastAceite
 }
 
 function getAll(cb){
-	conn('select *, if (stock_actual <= punto_pedido, maximo-stock_actual,0) as faltante from repuestos', cb);
+	conn('select *, if (stock_actual <= punto_pedido, maximo-stock_actual, 0) as faltante from repuestos', cb);
 }
 
 function insert(codigo, nombre, stock, valor, calle, modulo, estante, minimo, maximo, descripcion, marca, observaciones, puntopedido, coche, id_rubro, cb){
@@ -45,4 +47,12 @@ function del(id_repuesto, cb){
 
 function getRubroEnRepById(id_rubro, cb){
 	conn("select * from repuestos where id_rubro_fk = "+id_rubro, cb);
+}
+
+function getAllAceites(cb){
+	conn("select *, if (stock_actual <= punto_pedido, maximo-stock_actual,0) as faltante from repuestos where nombre like '%aceite%' order by codigo", cb);
+}
+
+function getLastAceite(cb){
+	conn("SELECT id_repuesto_fk FROM evhsa.comb_planilladiaria  order by fecha desc LIMIT 1", cb);
 }

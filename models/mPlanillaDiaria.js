@@ -6,7 +6,8 @@ module.exports = {
 	insert: insert,
 	update: update,
 	del: del,
-	getByFecha: getByFecha
+	getByFecha: getByFecha,
+	getFechasConDatos: getFechasConDatos
 }
 
 function getAll(cb){
@@ -28,8 +29,9 @@ function getById(id, cb){
 
 function insert(fecha, legajo, articulo, coche, linea, hora, gas, oil, agua, valgas, valoil, tanque, noper, cb){
 	conn("INSERT INTO `evhsa`.`comb_planilladiaria` (`fecha`, `id_vehiculo_fk`, `id_usuario_fk`, `oil`, `gas`, `hora`, `id_linea_fk`, "+
-		"`agua`, `valgas`, `valoil`, `operario`, `id_repuesto_fk`, `id_tanque_fk`) VALUES ('"+fecha+"', "+coche+", "+legajo+", "+
-		oil+", "+gas+", '"+hora+"', "+linea+", "+agua+", "+valgas+", "+valoil+", "+noper+", "+articulo+", "+tanque+");", cb);
+		"`agua`, `valgas`, `valoil`, `operario`, `id_repuesto_fk`, `id_tanque_fk`) "
+		+"VALUES ('"+fecha+"', "+coche+", "+legajo+", "+oil+", "+gas+", '"+hora+"', "+linea+", "+agua+", "+valgas+", "+valoil+", "
+			+noper+", "+articulo+", "+tanque+");", cb);
 }
 
 function update(id, fecha, legajo, articulo, coche, linea, hora, gas, oil, agua, valgas, valoil, tanque, noper, cb){
@@ -56,4 +58,8 @@ function getByFecha(fecha, cb){
 		"left join lineas on lineas.id = comb_planilladiaria.id_linea_fk "+
 		"left join tanques on tanques.id = comb_planilladiaria.id_tanque_fk "+
 		"where fecha = '"+fecha+"'", cb);
+}
+
+function getFechasConDatos(desde, hasta, cb){
+	conn("select max(DATE_FORMAT(comb_planilladiaria.fecha, '%d/%m/%Y')) as fechaf from comb_planilladiaria where fecha >= '"+desde+"' and fecha <= '"+hasta+"' group by fecha order by fecha", cb);
 }

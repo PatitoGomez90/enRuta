@@ -16,7 +16,9 @@ module.exports = {
 	getModificar: getModificar,
 	postModificar: postModificar,
 	getDel: getDel,
-	getByFecha: getByFecha
+	getByFecha: getByFecha,
+	getVerFechasConDatos: getVerFechasConDatos,
+	getFechasConDatos: getFechasConDatos
 }
 
 function changeDate(date){
@@ -44,17 +46,21 @@ function getAlta(req, res){
 	mUsuarios.getAllUsuarios(function (usuarios){
 		mVehiculos.getAll(function (vehiculos){
 			mLineas.getAll(function (lineas){
-				mRepuestos.getAll(function (repuestos){
-					mTanques.getAll(function (tanques){
-						res.render('planilladiariaalta', {
-							pagename: 'Alta en Planilla Diaria de Combustibles',
-							usuarios: usuarios,
-							coches: vehiculos,
-							lineas: lineas,
-							articulos: repuestos,
-							tanques: tanques
+				mRepuestos.getAllAceites(function (repuestos){
+					mRepuestos.getLastAceite(function (ultimoaceite){
+						console.log(ultimoaceite[0].id_repuesto_fk)
+						mTanques.getAll(function (tanques){
+							res.render('planilladiariaalta', {
+								pagename: 'Alta en Planilla Diaria de Combustibles',
+								usuarios: usuarios,
+								coches: vehiculos,
+								lineas: lineas,
+								articulos: repuestos,
+								tanques: tanques,
+								ultimoaceite: ultimoaceite[0].id_repuesto_fk
+							});
 						});
-					});
+					});					
 				});
 			});
 		});
@@ -65,17 +71,34 @@ function getAlta(req, res){
 function postAlta(req, res){
 	params = req.body;
 	// console.log(params)
+	// console.log(req.session.user.unica)
 	fecha = params.fecha;
 	legajo = params.cargarealizadopor;
 	articulo = params.articulo;
 	coche = params.coche;
 	linea = params.linea;
 	hora = params.horacarga;
+	if (hora == ''){
+		var d = new Date(); // for now
+		hr = d.getHours(); // => 9
+		min = d.getMinutes(); // =>  30
+		hora = hr +":"+min;
+	}
 	gas = params.lt_gasoil;
+	if (gas == '')
+		gas = 0;
 	oil = params.lt_aceite;
+	if (oil == '')
+		oil = 0;
 	agua = params.lt_agua;
+	if (agua == '')
+		agua = 0;
 	valgas = params.val_gasoil;
+	if (valgas == '')
+		valgas = 0;
 	valoil = params.val_aceite;
+	if (valoil == '')
+		valoil = 0;
 	tanque = params.tanque;
 	noper = req.session.user.unica;
 
@@ -92,7 +115,7 @@ function getModificar(req, res){
 	mUsuarios.getAllUsuarios(function (usuarios){
 		mVehiculos.getAll(function (vehiculos){
 			mLineas.getAll(function (lineas){
-				mRepuestos.getAll(function (repuestos){
+				mRepuestos.getAllAceites(function (repuestos){
 					mTanques.getAll(function (tanques){
 						mPlanillaDiaria.getById(id, function (planilla){
 							res.render('planilladiariamodificar', {
@@ -152,5 +175,27 @@ function getByFecha(req, res){
 
 	mPlanillaDiaria.getByFecha(fecha, function (planilladiria){
 		res.send(planilladiria);
+	});
+}
+
+function getVerFechasConDatos(req, res){
+	res.render("planilladiriaverfechascondatos", {
+		pagename: "Buscar Fechas con Datos"
+	});
+}
+
+function getFechasConDatos(req, res){
+	params = req.params;
+	desde = params.desde;
+	hasta = params.hasta;
+
+	desde_decoded = decodeURIComponent(desde);
+	hasta_decoded = decodeURIComponent(hasta);
+
+	desde_decoded = changeDate(desde_decoded);
+	hasta_decoded = changeDate(hasta_decoded);
+	
+	mPlanillaDiaria.getFechasConDatos(desde_decoded, hasta_decoded, function (fechascondatos){
+		res.send(fechascondatos);
 	});
 }

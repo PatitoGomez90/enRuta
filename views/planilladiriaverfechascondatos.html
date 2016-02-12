@@ -11,20 +11,22 @@
   	<div class="panel-heading">
   	<!-- Table -->
 		<table>
-		<tr>	
-			<td><button type="button" class="btn btn-primary" onclick="history.back();">Atras</button></td>
-			<td><a href="/planilladiariaalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
-			<td><a href="/planilladiariaverfechascondatos"><button type="button" class="btn btn-default">Buscar fechas con datos</button></a></td>
-			<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
-			<td style="float: right;">
-				<table>
-					<tr>
-						<td><input type="text" style="width: 150px" name="fecha" id="fecha" class="datepicker form-control" readonly></td>
-						<td><button id="filtrar" name="filtrar" class="btn btn-default">Filtrar</button></td>
-					</tr>
-				</table>
-			</td>
-		</tr>	
+			<tr>	
+				<td><button type="button" class="btn btn-primary" onclick="history.back();">Atras</button></td>
+				<td><a href="/planilladiariaalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
+				<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
+				<td style="width: 100%;text-align: right;">
+					<table style="text-align: right;">
+						<tr style="text-align: right;">
+							<td>Fecha desde:</td>
+							<td><input style="display: inline-block !important;" type="text" style="width: 150px" name="fechadesde" id="fechadesde" class="datepicker form-control" readonly></td>
+							<td>Fecha hasta:</td>
+							<td><input style="display: inline-block !important;" type="text" style="width: 150px" name="fechahasta" id="fechahasta" class="datepicker form-control" readonly></td>
+							<td><button id="filtrar" name="filtrar" class="btn btn-default">Filtrar</button></td>
+						</tr>
+					</table>
+				</td>
+			</tr>	
 		</table>
 	</div>
 	<!-- Modal -->
@@ -50,11 +52,11 @@
 			<table class="table table-striped">
 		  		<thead>
 		  			<tr>
-						<th>Operario</th>
+						<!-- <th>Operario</th>
 						<th>N° Coche</th>
-						<th>Linea</th>
-						<th>Hora</th>
-						<th>Cant. Gasoil</th>
+						<th>Linea</th> -->
+						<th>Fechas</th>
+						<!-- <th>Cant. Gasoil</th>
 						<th>Valor Gasoil/Lt</th>
 						<th>Total Gasoil</th>
 						<th>Cant. Aceite</th>
@@ -63,7 +65,7 @@
 						<th>Agua</th>
 						<th>Total</th>
 						<th>Tanque</th>
-						<th colspan="2">Opciones</th>
+						<th colspan="2">Opciones</th> -->
 					</tr>
 		  		</thead>
 		  		<tbody id="tbodylisto">
@@ -72,11 +74,11 @@
 				<script type="text/template" id="tablaplanilladiaria"/>
 					[[#.]]
 						<tr>
-							<td>[[operariotxt]]</td>
+							<!-- <td>[[operariotxt]]</td>
 							<td>[[id_vehiculo_fk]]</td>
-							<td>[[lineatxt]]</td>
-							<td>[[horaf]]</td>
-							<td>[[gas]]	Lt.</td>
+							<td>[[lineatxt]]</td> -->
+							<td>[[fechaf]]</td>
+							<!-- <td>[[gas]]	Lt.</td>
 							<td>$ [[valgas]]</td>
 							<td>$ [[val_total_gas]]</td>
 							<td>[[oil]]	Lt.</td>
@@ -84,13 +86,7 @@
 							<td>$ [[val_total_oil]]</td>
 							<td>[[agua]] Lt.</td>
 							<td>$ [[val_total]]</td>
-							<td>[[tanquetxt]]</td>
-							<td>
-								<a href="/planilladiariamodificar/[[id]]" class="btn btn-warning"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-							</td>
-							<td>
-								<a href="/planilladiariaborrar/[[id]]" class="btn btn-danger" onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-							</td>
+							<td>[[tanquetxt]]</td> -->
 						</tr>	
 					[[/.]]						
 				</script>		  		
@@ -125,10 +121,20 @@
 		} 
 
 		today = dd+'/'+mm+'/'+yyyy;
-		$("#fecha").val(today);
-		var today_encoded = encodeURIComponent(today);
-		$.getJSON('/getplanilladiariabyfecha/'+today_encoded, function (data){
-			if (data != null){
+		first = '01/'+mm+'/'+yyyy;
+
+		$("#fechadesde").val(first);
+		$("#fechahasta").val(today);
+
+		var desde = $("#fechadesde").val();
+		var hasta = $("#fechahasta").val();
+
+		var desde = encodeURIComponent(desde);
+		var hasta = encodeURIComponent(hasta);
+
+		$.getJSON('/getplanilladiariadfechascondatos/'+desde+'/'+hasta, function (data){
+			console.log(data.length)
+			if (data.length != 0){
 				$('#tbodylisto > tr').remove();
 				var template = $('#tablaplanilladiaria').html();
 				Mustache.tags =['[[',']]'];
@@ -140,11 +146,17 @@
 			}
 		});
 
-		$("#filtrar").on("click", function(){
-			var fecha = $("#fecha").val();
-			var today_encoded = encodeURIComponent(fecha);
-			$.getJSON('/getplanilladiariabyfecha/'+today_encoded, function (data){
-				if (data != null){
+		$("#filtrar").on("click", function (){
+			var desde = $("#fechadesde").val();
+			var hasta = $("#fechahasta").val();
+
+			var desde = encodeURIComponent(desde);
+			var hasta = encodeURIComponent(hasta);
+
+			$.getJSON('/getplanilladiariadfechascondatos/'+desde+'/'+hasta, function (data){
+				console.log(data)
+				console.log(data.length)
+				if (data.length != 0){
 					$('#tbodylisto > tr').remove();
 					var template = $('#tablaplanilladiaria').html();
 					Mustache.tags =['[[',']]'];
@@ -152,6 +164,14 @@
 					//console.log(html);
 					$('#tbodylisto').html(html);
 				}else{
+					$('#tbodylisto > tr').remove();
+					var template = $('#tablaplanilladiaria').html();
+					Mustache.tags =['[[',']]'];
+					data = [{'fechaf': "no se han encontrado resultados"}];
+					console.log(data)
+					var html = Mustache.to_html(template, data);
+					//console.log(html);
+					$('#tbodylisto').html(html);
 					//hacer que aca muestre error de que no se encontro nada en la busqueda
 				}
 			});

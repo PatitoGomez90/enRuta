@@ -133,8 +133,8 @@ module.exports = function(app) {
 	app.post("/planilladiariamodificar", auth, cPlanillaDiaria.postModificar);
 	app.get("/planilladiariaborrar/:id", auth, cPlanillaDiaria.getDel);
 	app.get("/getplanilladiariabyfecha/:fecha", auth, cPlanillaDiaria.getByFecha);
-
-
+	app.get("/planilladiariaverfechascondatos", auth, cPlanillaDiaria.getVerFechasConDatos);
+	app.get("/getplanilladiariadfechascondatos/:desde/:hasta", auth, cPlanillaDiaria.getFechasConDatos);
 	//pruebasql
 	// app.get('/pruebasql', auth, cPruebaSQL.getPrueba);
 	// //random
