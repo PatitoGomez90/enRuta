@@ -61,6 +61,7 @@
 				<td>Linea:</td>
 				<td>	
 					<select id="linea" name="linea" class="form-control">
+						<option value="0">Sin Linea</option>
 						{% for l in lineas %}
 							{% if planilla.id_linea_fk == l.id %}
 								<option selected value="{{ l.id }}">{{ l.descripcion }}</option>

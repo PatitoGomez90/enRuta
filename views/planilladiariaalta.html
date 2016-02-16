@@ -55,6 +55,7 @@
 				<td>Linea:</td>
 				<td>	
 					<select id="linea" name="linea" class="form-control">
+						<option value="0">Sin Linea</option>
 						{% for l in lineas %}
 							<option value="{{ l.id }}">{{ l.descripcion }}</option>
 						{% endfor %}

@@ -15,6 +15,7 @@
     <!-- <link href="/css/datepicker.css" rel="stylesheet"> -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/signin.css" rel="stylesheet">
+    <link href="/css/bootstrap-submenu.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
     <!-- Custom styles for this template-->
     <link href="/css/jumbotron.css" rel="stylesheet">
@@ -33,30 +34,82 @@
       </button>
       <a class="navbar-brand" href="/inicio" style="padding-top: 3px;margin-left: 5px;"><img src="/uploads/evhsalogochico.jpg"></a>
     </div>
-
+    <!-- 
+        PARA LOS USUARIOS QUE NO TIENEN PERMISO PONERLE "CLASS=DISABLED" EN EL <li> MENU
+    -- >
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Archivo<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-submenu="">Repuestos<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/usuarioslista">Usuarios/Operarios [ABM]</a></li>
-            <li class="divider"></li>
-            <li><a href="/umedlista">Unidades de Medida [ABM]</a></li>
-            <li class="divider"></li>
+            <li><a href="/repuestoslista">Repuestos [ABM]</a></li>
+            <li class="dropdown-submenu">
+                <a tabindex="0">Listados Consultas</a>
+                <ul class="dropdown-menu">
+                    <li><a tabindex="0">Completo</a></li>
+                    <li><a tabindex="1">Rubro 1</a></li>
+                    <li><a tabindex="2">Rubro 2</a></li>
+                    <li><a tabindex="3">Calle</a></li>
+                    <li><a tabindex="4">Modulo </a></li>
+                    <li><a tabindex="5">Estante</a></li>
+                    <li><a tabindex="6">Marcados con *</a></li>
+                    <li><a tabindex="7">Rubro resumido</a></li>
+                    <li><a tabindex="8">Faltantes</a></li>
+                </ul>
+            </li>
             <li><a href="/rubroslista">Rubros [ABM]</a></li>
             <li><a href="/rubrosgruposlista">Grupo de Rubros [ABM]</a></li>
-            <li class="divider"></li>
-            <li><a href="/repuestoslista">Repuestos [ABM]</a></li>
-            <li><a href="/vehiculoslista">Vehiculos [ABM]</a></li>
-            <li class="divider"></li>
-            <li><a href="/proveedoreslista">Proveedores [ABM]</a></li>
-            <li class="divider"></li>
-            <li><a href="/agendalista">Agenda [ABM]</a></li>
-            <li class="divider"></li>
-            <li><a href="/otrosgastoslista">Otros Gastos [ABM]</a></li>
-            <li class="divider"></li>
-            <li><a href="/planilladiarialista">Comb. Planilla Diaria [ABM]</a></li>
+            <li><a href="/inicio">Control de Stock</a></li>
+            <li class="divider"></li> 
+            <li><a href="/umedlista">Unidades de Medida [ABM]</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-submenu="">Movimientos<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/inicio">Vales de Pañol</a></li>
+            <li><a href="/inicio">Ficha de Conjuntos</a></li>
+            <li class="dropdown-submenu">
+                <a href="/inicio">Combustibles</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/planilladiarialista" tabindex="0">Planilla Diaria</a></li>
+                    <li><a tabindex="1">Cargas de Gas Oil a Tanque/s</a></li>
+                    <li><a tabindex="2">Stock de Gas Oil en Tanque/s</a></li>
+                    <li><a tabindex="3">Consumos x Fecha</a></li>
+                </ul>
+            </li>
+            <li><a href="/inicio">Herramientas</a></li>
+            <li><a href="/inicio">Remitos</a></li>
+            <li><a href="/inicio">Repuestos en Sereno</a></li>
+            <li><a href="/inicio">Equipos</a></li>
+            <li><a href="/inicio">Ordenes de Trabajo</a></li>
+            <li><a href="/inicio">Reparaciones de Emergencia</a></li>
+            <li><a href="/inicio">Novedades de Coches</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/inicio">Carpetas x Coche</a></li>
+            <li><a href="/inicio">Consumos x Coches</a></li>
+            <li><a href="/inicio">Kilometros x Coches</a></li>
+            <li><a href="/inicio">Mto. de Conjuntos</a></li>
+            <li><a href="/inicio">Stock de Conjuntos</a></li>
+            <li><a href="/inicio">Fichas de Vehiculos</a></li>
+            <li><a href="/inicio">Informes Contador</a></li>
+            <li><a href="/inicio">Hs. & Consumos x Coches</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Datos<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/proveedoreslista">Proveedores</a></li>
+            <li><a href="/agendalista">Agenda Diaria</a></li>
+            <li><a href="/otrosgastoslista">Otros Gastos</a></li>
+            <li><a href="/vehiculoslista">Vehículos</a></li>
+            <li><a href="/inicio">Operarios/Usuarios</a></li>
+            <li><a href="/inicio">Abreviaturas</a></li>
           </ul>
         </li>
         <li class="dropdown"><a href="/random">Interno</a></li>
@@ -85,11 +138,13 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/js/main.js"></script>
     <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap-submenu.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/bootstrap-datepicker.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/js/ie10-viewport-bug-workaround.js"></script>
     <script type="text/javascript">
+        $('[data-submenu]').submenupicker();
     </script>
 </body>
 </html>
