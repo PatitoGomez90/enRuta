@@ -37,6 +37,16 @@
 				<td><input type="text" name="valor_litro" id="valor_litro" class="form-control" onkeypress="return Numy1Punto(event, this)"></td>
 			</tr>
 			<tr>
+				<td>Tanque:</td>
+				<td>
+					<select class="form-control" name="tanque" id="tanque">
+						{% for t in tanques %}
+							<option value="{{ t.id }}">{{ t.nombre }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td><input type="button" value="Atras" onclick="history.back()"></td>
 				<td><input type="submit" value="Agregar"></td>
 			</tr>

@@ -127,6 +127,7 @@
 		today = dd+'/'+mm+'/'+yyyy;
 		$("#fecha").val(today);
 		var today_encoded = encodeURIComponent(today);
+		
 		$.getJSON('/getplanilladiariabyfecha/'+today_encoded, function (data){
 			if (data != null){
 				$('#tbodylisto > tr').remove();

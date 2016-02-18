@@ -13,6 +13,8 @@ var cAgenda = require('./controllers/cAgenda');
 var cOtrosGastos = require('./controllers/cOtrosGastos');
 var cPlanillaDiaria = require('./controllers/cPlanillaDiaria');
 var cTank = require('./controllers/cTank');
+var cStockGasoilEnTanque = require('./controllers/cStockGasoilEnTanque');
+
 
 var mEventos = require('./models/mEventos');
 // var cPruebaSQL = require('./controllers/cPruebaSQL');
@@ -142,6 +144,12 @@ module.exports = function(app) {
 	app.get("/tankmodificar/:id", auth, cTank.getModificar);
 	app.post("/tankmodificar", auth, cTank.postModificar);
 	app.get("/tankborrar/:id", auth, cTank.getDel);
+	app.get("/gettankentrefechas/:desde/:hasta", auth, cTank.getTankEntreFechas);
+	//consulta stock gasoil en tanque
+	app.get("/stockgasoilentanque", auth, cStockGasoilEnTanque.getIndex);
+	app.get("/getstock/:id_tanque/:fecha", auth, cStockGasoilEnTanque.getStock);
+
+
 	//pruebasql
 	// app.get('/pruebasql', auth, cPruebaSQL.getPrueba);
 	// //random
