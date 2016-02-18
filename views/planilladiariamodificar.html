@@ -13,7 +13,7 @@
 		<table align="center" class="table table-striped">
 			<tr>
 				<td>Fecha:</td>
-				<td><input type="text" id="fecha" name="fecha" class="datepicker form-control" value="{{ planilla.fechaf }}" readonly></td>
+				<td><input type="text" id="fecha" name="fecha" class="form-control" value="{{ planilla.fechaf }}" readonly></td>
 			</tr>
 			<tr>
 				<td>Operario:</td> <!-- legajo usuario / carga realizada por-->
@@ -121,11 +121,11 @@
 <script src="/js/jquery.limit-1.2.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
-	$(".datepicker").datepicker({
-		format: 'dd/mm/yyyy',
-		autoclose: true,
-		language: 'es'
-	});
+	// $(".datepicker").datepicker({
+	// 	format: 'dd/mm/yyyy',
+	// 	autoclose: true,
+	// 	language: 'es'
+	// });
 	
 	$(function() {
 
