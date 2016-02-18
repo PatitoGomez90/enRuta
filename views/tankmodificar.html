@@ -1,0 +1,68 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<!-- <link href="/css/tankalta.css" rel="stylesheet"> -->
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+	<form method="post" id="formalta" action="/tankmodificar">
+		<input hidden name="id" id="id" value="{{ tank.id }}">
+		<table align="center" class="table table-striped">
+			<tr>
+				<td>Fecha:</td>
+				<td><input type="text" class="datepicker form-control" id="fecha" name="fecha" readonly value="{{ tank.fechaf }}"></td>
+			</tr>
+			<tr>
+				<td>Proveedor:</td>
+				<td><input type="text" id="proveedor" name="proveedor" required class="form-control" value="{{ tank.proveedor }}"><div class="aviso">Quedan <span id="charsLeftProveedor"></span> caraceteres.</div></td>
+			</tr>
+			<tr>
+				<td>Operario:</td>
+				<td>
+					<select class="form-control" name="operario" id="operario">
+						{% for o in operarios %}
+							{% if o.unica == tank.id_operario_fk %}
+								<option selected value="{{ o.unica }}">{{ o.usuario }}</option>
+							{% else %}
+								<option value="{{ o.unica }}">{{ o.usuario }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</td>	
+			</tr>
+			<tr>
+				<td>Litros</td>
+				<td><input type="text" name="litros" id="litros" class="form-control" onKeyPress="return soloNumeros(event)" value="{{ tank.litros }}"></td>
+			</tr>
+			<tr>
+				<td>Valor Litro</td>
+				<td><input type="text" name="valor_litro" id="valor_litro" class="form-control" value="{{ tank.valor_litro }}" onkeypress="return Numy1Punto(event, this)"></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Atras" onclick="history.back()"></td>
+				<td><input type="submit" value="Agregar"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.limit-1.2.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+	$(".datepicker").datepicker({
+		format: 'dd/mm/yyyy',
+		autoclose: true,
+		language: 'es'
+	});
+
+	$('#proveedor').limit('25','#charsLeftProveedor');
+
+	$(function() {
+
+	});
+</script>
+
+{% endblock %}

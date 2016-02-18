@@ -10,19 +10,19 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn('select tank.* from tank', cb);
+	conn("select tank.*, DATE_FORMAT(tank.fecha, '%d/%m/%Y') as fechaf, secr.usuario as operariotxt from tank left join secr on secr.unica = tank.id_operario_fk", cb);
 }
 
 function getById(id, cb){
-	conn("select * from tank where id = "+id, cb);
+	conn("select *, DATE_FORMAT(tank.fecha, '%d/%m/%Y') as fechaf from tank where id = "+id, cb);
 }
 
-function insert(codigo, sector, id_grupo, cb){
-	conn("insert into tank(codigo, nombre, id_grupo_fk) values('"+codigo+"', '"+nombre+"', "+id_grupo+")", cb);
+function insert(fecha, proveedor, operario, litros, valor_litro, cb){
+	conn("insert into tank(fecha, proveedor, id_operario_fk, litros, valor_litro) values('"+fecha+"', '"+proveedor+"', "+operario+", "+litros+", "+valor_litro+")", cb);
 }
 
-function update(id, codigo, nombre, id_grupo, cb){
-	conn("update tank set codigo = '"+codigo+"', nombre = '"+nombre+"', id_grupo_fk="+id_grupo+" where id = "+id, cb);
+function update(id, fecha, proveedor, operario, litros, valor_litro, cb){
+	conn("update tank set fecha = '"+fecha+"', proveedor = '"+proveedor+"', id_operario_fk = "+operario+", litros="+litros+", valor_litro = "+valor_litro+" where id = "+id, cb);
 }
 
 function del(id, cb){

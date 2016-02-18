@@ -12,7 +12,7 @@ var cProveedores = require('./controllers/cProveedores');
 var cAgenda = require('./controllers/cAgenda');
 var cOtrosGastos = require('./controllers/cOtrosGastos');
 var cPlanillaDiaria = require('./controllers/cPlanillaDiaria');
-
+var cTank = require('./controllers/cTank');
 
 var mEventos = require('./models/mEventos');
 // var cPruebaSQL = require('./controllers/cPruebaSQL');
@@ -135,6 +135,13 @@ module.exports = function(app) {
 	app.get("/getplanilladiariabyfecha/:fecha", auth, cPlanillaDiaria.getByFecha);
 	app.get("/planilladiariaverfechascondatos", auth, cPlanillaDiaria.getVerFechasConDatos);
 	app.get("/getplanilladiariadfechascondatos/:desde/:hasta", auth, cPlanillaDiaria.getFechasConDatos);
+	//Tank - Carga gas oil a tanque
+	app.get("/tanklista", auth, cTank.getLista);
+	app.get("/tankalta", auth, cTank.getAlta);
+	app.post("/tankalta", auth, cTank.postAlta);
+	app.get("/tankmodificar/:id", auth, cTank.getModificar);
+	app.post("/tankmodificar", auth, cTank.postModificar);
+	app.get("/tankborrar/:id", auth, cTank.getDel);
 	//pruebasql
 	// app.get('/pruebasql', auth, cPruebaSQL.getPrueba);
 	// //random
