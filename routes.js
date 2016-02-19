@@ -14,6 +14,8 @@ var cOtrosGastos = require('./controllers/cOtrosGastos');
 var cPlanillaDiaria = require('./controllers/cPlanillaDiaria');
 var cTank = require('./controllers/cTank');
 var cStockGasoilEnTanque = require('./controllers/cStockGasoilEnTanque');
+var cConsumoxFechas = require('./controllers/cConsumoxFechas');
+
 
 
 var mEventos = require('./models/mEventos');
@@ -148,6 +150,9 @@ module.exports = function(app) {
 	//consulta stock gasoil en tanque
 	app.get("/stockgasoilentanque", auth, cStockGasoilEnTanque.getIndex);
 	app.get("/getstock/:id_tanque/:fecha", auth, cStockGasoilEnTanque.getStock);
+	//consulta consumo x fechas
+	app.get("/consumoxfechas", auth, cConsumoxFechas.getIndex);
+	app.get("/getconsumoentrefechas/:desde/:hasta", auth, cConsumoxFechas.getConsumoEntreFechas);
 
 
 	//pruebasql

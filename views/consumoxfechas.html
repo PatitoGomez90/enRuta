@@ -13,7 +13,6 @@
 		<table>
 		<tr>	
 			<td><button type="button" class="btn btn-primary" onclick="history.back();">Atras</button></td>
-			<td><a href="/tankalta"><button type="button" class="btn btn-success">Agregar Nuevo</button></a></td>
 			<td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Ayuda</button></td>
 			<td style="width:50px;"></td>
 			<td>Desde:</td>
@@ -23,6 +22,7 @@
 			<td><input type="text" class="datepicker form-control" name="hasta" id="hasta" style="width: 100px;" readonly></td>
 			<td style="width:5px;"></td>
 			<td><button type="button" name="filtrar" id="filtrar" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></td>
+			<!-- <td><button type="button" name="imprimir" id="imprimir" class="btn btn-default"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></td> -->
 		</tr>	
 		</table>
 	</div>
@@ -49,15 +49,12 @@
 			<div id="mainHolder" style="overflow: scroll; max-height: 600px;">
 				<table class="table table-striped">
 			  		<thead>
-			  			<tr> 
-							<th>ID</th>
+			  			<tr>
 							<th>Fecha</th>
-							<th>Proveedor</th>
-							<th>Operario</th>
-							<th>Litros</th>
-							<th>Valor</th>
-							<th>Tanque</th>
-							<th colspan="2">Opciones</th>
+							<th>Dia</th>
+							<th>Gas-Oil</th>
+							<th>Aceite</th>
+							<th>Agua</th>
 						</tr>
 			  		</thead>
 			  		<tbody  id="tbodylisto">
@@ -66,17 +63,24 @@
 			  		<script type="text/template" id="tablap"/>
 						[[#.]]
 							<tr>
-								<td>[[ id ]]</td>
 								<td>[[ fechaf ]]</td>
-								<td>[[ proveedor ]]</td>
-								<td>[[ operariotxt ]]</td>
-								<td>[[ litros ]]</td>
-								<td>[[ valor_litro ]]</td>
-								<td>[[ tanquetxt ]]</td>
-								<td><a href="/tankmodificar/[[ id ]]"><button class="btn btn-warning">Modificar</button></a></td>
-								<td><a href='/tankborrar/[[ id ]]' onclick="if (!confirm('¿Seguro desea eliminar?')) return false;"><button type="button" class="btn btn-danger">Eliminar</button><a/></td>
+								<td>[[ dia ]]</td>
+								<td>[[ gasoil ]]</td>
+								<td>[[ aceite ]]</td>
+								<td>[[ agua ]]</td>
 							</tr>
-						[[/.]]						
+						[[/.]]					
+					</script>
+					<tfoot id="asd">
+
+					</tfoot>
+					<script type="text/template" id="tablatotales"/>
+						<tr>
+							<td colspan="2" style="text-align:center;"><b>Totales:</b></td>
+							<td><b>[[gasoil]]</b></td>
+							<td><b>[[aceite]]</b></td>
+							<td><b>[[agua]]</b></td>
+						</tr>
 					</script>
 				</table>
 			</div>			
@@ -118,17 +122,33 @@
 		var hasta2 = changeDate(hasta);
 		var hastaf = encodeURIComponent(hasta2);
 
-		$.getJSON('/gettankentrefechas/'+desdef+"/"+hastaf, function (data){
+		//ARMAR BIEN EL JSON
+		$.getJSON('/getconsumoentrefechas/'+desdef+"/"+hastaf, function (data){
 			// console.log(data)
-			if (data != null){
+			if (data[0].length != 0){
+				//para consumos
+					$('#tbodylisto > tr').remove();
+					var template = $('#tablap').html();
+					Mustache.tags =['[[',']]'];
+					var html = Mustache.to_html(template, data[0].consumos);
+					//console.log(html);
+					$('#tbodylisto').html(html);
+				//para totales
+					// $('#tbodylisto > tr').remove();
+					var template = $('#tablatotales').html();
+					Mustache.tags =['[[',']]'];
+					var html2 = Mustache.to_html(template, data[1].totales[0]);
+					// console.log(html2);
+					$('#asd').html(html2);
+			}else{
+				//hacer que aca muestre error de que no se encontro nada en la busqueda
+				data = [{'fecha': 'No se encontraron resultados para esta búsqueda.'}]
 				$('#tbodylisto > tr').remove();
 				var template = $('#tablap').html();
 				Mustache.tags =['[[',']]'];
 				var html = Mustache.to_html(template, data);
 				//console.log(html);
 				$('#tbodylisto').html(html);
-			}else{
-				//hacer que aca muestre error de que no se encontro nada en la busqueda
 			}
 		});
 	});
@@ -142,19 +162,39 @@
 		var hasta2 = changeDate(hasta);
 		var hastaf = encodeURIComponent(hasta2);
 
-		$.getJSON('/gettankentrefechas/'+desdef+"/"+hastaf, function (data){
+		//ARMAR BIEN EL JSON
+		$.getJSON('/getconsumoentrefechas/'+desdef+"/"+hastaf, function (data){
 			// console.log(data)
-			if (data != null){
+			if (data[0].length != 0){
+				//para consumos
+					$('#tbodylisto > tr').remove();
+					var template = $('#tablap').html();
+					Mustache.tags =['[[',']]'];
+					var html = Mustache.to_html(template, data[0].consumos);
+					//console.log(html);
+					$('#tbodylisto').html(html);
+				//para totales
+					// $('#tbodylisto > tr').remove();
+					var template = $('#tablatotales').html();
+					Mustache.tags =['[[',']]'];
+					var html2 = Mustache.to_html(template, data[1].totales[0]);
+					// console.log(html2);
+					$('#asd').html(html2);
+			}else{
+				//hacer que aca muestre error de que no se encontro nada en la busqueda
+				data = [{'fecha': 'No se encontraron resultados para esta búsqueda.'}]
 				$('#tbodylisto > tr').remove();
 				var template = $('#tablap').html();
 				Mustache.tags =['[[',']]'];
 				var html = Mustache.to_html(template, data);
 				//console.log(html);
 				$('#tbodylisto').html(html);
-			}else{
-				//hacer que aca muestre error de que no se encontro nada en la busqueda
 			}
 		});
 	});	
+
+	// $("#imprimir").on("click", function (){
+	// 	alert("imprimir!!!")
+	// });
 </script>
 {% endblock %}
