@@ -1,0 +1,58 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<h2>{{ pagename }}</h2>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  	<div class="panel-heading">
+  	<!-- Table -->
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<table class="table table-striped">
+		  		<tr>
+		  			<td><button class="btn btn-default" onclick="actualizarRepuestosConIdRubroFk();">accion secreta 1</button></td>
+		  		</tr>
+		  		<tr>
+		  			<td><button class="btn" onclick="actualizarTablaVehiculos();">Actualizar Tabla Vehiculos con Datos de "Five"</button></td>
+		  		</tr>
+		  		<tr>
+		  			<td><button class="btn" onclick="actualizarTablaSecr();">Actualizar Tabla Secr con Datos de "Operarios_temp"</button></td>
+		  		</tr>
+		  		<tr>
+		  			<td><button class="btn" onclick="actualizarOtrosGastos();">Actualizar Tabla Otros Gastos con Datos de "OtrosGastos_temp"</button></td>
+		  		</tr>
+			</table>				
+		</div><!--div col xs12 -->
+	</div><!--div row -->
+</div>
+<script type="text/javascript">
+	function actualizarRepuestosConIdRubroFk(){
+		$.getJSON("/updateRepuestosConIdRubroFk", function (obj){
+			console.log(obj);
+		});
+	}
+
+	function actualizarTablaVehiculos(){
+		$.getJSON("/updateTablaVehiculosConFive", function (obj){
+			console.log(obj);
+		})
+	}
+
+	function actualizarTablaSecr(){
+		$.getJSON("/updateTablaSecr", function (obj){
+			console.log(obj);
+		});
+	}
+
+	function actualizarOtrosGastos(){
+		$.getJSON("/actualizarOtrosGastos", function (obj){
+			console.log(obj);
+		});
+	}
+</script>
+{% endblock %}
