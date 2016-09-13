@@ -55,22 +55,4 @@ module.exports = function(app) {
 	
 	
 
-
-	// //random
-	// app.get('/random', auth, cRandom.getRandom);
-	// app.get('/updateRepuestosConIdRubroFk', auth, cRandom.updateRepuestosConIdRubroFk);
-	// app.get("/updateTablaVehiculosConFive", auth, cRandom.updateTablaVehiculosConFive);
-	// app.get("/updateTablaSecr", auth, cRandom.updateTablaSecrConOperariosTemp);
-	// app.get("/actualizarOtrosGastos", auth, cRandom.updateOtrosGastos);
-	// app.post('/random', auth, cRandom.postAsd);
-	// app.get('/random2', auth, cRandom.getr2);
-	// app.post('/random2', auth, cRandom.postr2);
-	// app.get('/random3', auth, cRandom.getRandom3);
-	// app.post('/random3', auth, cRandom.postRandom3);
-	// app.get('/random4', auth, cRandom.getRandom4);
-	// app.post('/random4', auth, cRandom.postRandom4);
-	// app.get('/random5', auth, cRandom.getRandom5);
-	// app.post('/random5', auth, cRandom.postRandom5);
-	// app.get('/random6', auth, cRandom.getRandom6);
-	// app.post('/random6', auth, cRandom.postRandom6);
 };
