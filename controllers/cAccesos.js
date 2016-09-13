@@ -2,27 +2,27 @@
 var mAccesos = require('../models/mAccesos');
 
 module.exports = {
-  getAccesos: getAccesos,
-  postAccesos: postAccesos
+    getAccesos: getAccesos,
+    postAccesos: postAccesos
 }
 function getAccesos(req, res){
-  params = req.params;
-  idusuario = params.id;  
-  mAccesos.getMenues(function (menues){
-    console.log(menues.length)
-    mAccesos.getAccesos(function (accesos){
-      mAccesos.getAccesosPorUsuario(idusuario, function (accesosxusuario){
-        console.log(accesosxusuario.length)
-        res.render('accesoslista', {
-          idUsuario: idusuario,
-          pagename: 'Archivo de Accesos',
-          menues: menues,
-          accesos: accesos,
-          usuario_accesos: accesosxusuario
+    params = req.params;
+    idusuario = params.id;  
+    mAccesos.getMenues(function (menues){
+        // console.log(menues.length)
+        mAccesos.getAccesos(function (accesos){
+            mAccesos.getAccesosPorUsuario(idusuario, function (accesosxusuario){
+                // console.log(accesosxusuario.length)
+                res.render('accesoslista', {
+                    pagename: 'Archivo de Accesos',
+                    idUsuario: idusuario,                    
+                    menues: menues,
+                    accesos: accesos,
+                    usuario_accesos: accesosxusuario
+                });
+            });
         });
-      });
     });
-  });
 }
 
 
@@ -83,24 +83,24 @@ function getAccesos(req, res){
 // }
 
 function postAccesos(req, res){
-  var idUsuario = req.body.idUsuario;
-  var accesos = {};
-  mAccesos.getMenues(function (docs){
-    mAccesos.getAccesos(function (accesos){
-      docs.forEach(function (menu, idx) {
-        accesos[menu.id] = [];
-          accesos.forEach(function (acceso, idx2) {
-            if (req.body[menu.id+'-'+acceso.descripcion] == 'on') {
-              accesos[menu.id].push({ acceso: acceso.descripcion, checked: true });
-            } else {
-              accesos[menu.id].push({ acceso: acceso.descripcion, checked: false });
-            }
-          });
-      });
-      //console.log(accesos);
-      mAccesos.addAccesos(idUsuario, accesos, function() {
-        res.redirect('/usuarioslista')
-      })
+    var idUsuario = req.body.idUsuario;
+    var accesos = {};
+    mAccesos.getMenues(function (docs){
+        mAccesos.getAccesos(function (accesos){
+            docs.forEach(function (menu, idx) {
+                accesos[menu.id] = [];
+                accesos.forEach(function (acceso, idx2) {
+                    if (req.body[menu.id+'-'+acceso.descripcion] == 'on') {
+                        accesos[menu.id].push({ acceso: acceso.descripcion, checked: true });
+                    } else {
+                        accesos[menu.id].push({ acceso: acceso.descripcion, checked: false });
+                    }
+                });
+            });
+            //console.log(accesos);
+            mAccesos.addAccesos(idUsuario, accesos, function() {
+                res.redirect('/usuarioslista')
+            });
+        });
     });
-  });
 }

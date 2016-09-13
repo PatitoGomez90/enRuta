@@ -1,6 +1,5 @@
 var conn = require('../config/db').conn;
 var mEventos = require('../models/mEventos');
-var mAgenda = require('../models/mAgenda');
 
 module.exports = {
 	getLogin: getLogin,
@@ -25,7 +24,7 @@ function changeDate2(date){
 function getLogin(req, res){
 	//console.log('ADENTRO DE GET LOGIN')
 	res.render('login',{
-		pagename: 'Evhsa Login',
+		pagename: 'enRuta Login',
 		errors: req.session.errors,
 	});
 }
@@ -61,46 +60,7 @@ function postLogin(req, res){
 							req.session.user.horaLogin = date;
 
 							mEventos.add(req.session.user.unica, date, "Login", "", function(){
-								// mNovedades.getLast(function (novedad){
-								// 	res.render('inicio', {
-								// 		usuario: req.session.user,
-								// 		novedades: novedad[0]
-								// 	});
-								// 	return;
-								// });
-								// mAgenda.getLast3(function (items){
-								    // console.log(items)
-							   	var today = new Date();
-							    var dd = today.getDate();
-							    var mm = today.getMonth()+1; //January is 0!
-							    var yyyy = today.getFullYear();
-
-							    if(dd<10) {
-							        dd='0'+dd
-							    } 
-
-							    if(mm<10) {
-							        mm='0'+mm
-							    } 
-
-							    hoy = yyyy+'/'+mm+'/'+dd;
-
-							    mAgenda.getTodayAgenda(hoy, function (items){
-								    var itemslength = items.length;
-								    if (items.length == 1){
-								     	res.render('inicio', {
-								    		pagename: 'Evhsa',
-								    		itemslength: itemslength,
-								    		items: items[0]
-								    	});
-								    }else{
-								      	res.render('inicio', {
-								        	pagename: 'Evhsa',
-								        	itemslength: itemslength,
-								        	items: items
-								      	});
-								    }
-								});
+						      	res.redirect('inicio');
 							});
 						}else{
 							res.redirect('/')

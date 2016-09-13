@@ -104,8 +104,6 @@ function updateTablaVehiculosConFive(req, res){
 
 	mRandom.getVehiculos(function (vehiculos){
 		mRandom.getFive(function (five_temp){
-
-
 			async.eachSeries(vehiculos, function (vehi, callback) {
 				for (var i = 0; i < five_temp.length; i++) {
 					if (five_temp[i].nro_coche == vehi.numero ){
