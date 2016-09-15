@@ -37,4 +37,4 @@ function del(id, cb){
 }
 
 // id, patente, marca, modelo, tipo_tractor_fk, anio, activo
-}
+
