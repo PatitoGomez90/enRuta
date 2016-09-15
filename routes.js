@@ -7,6 +7,8 @@ var cEmpresas = require('./controllers/cEmpresas');
 var cTractores = require('./controllers/cTractores');
 var mEventos = require('./models/mEventos');
 var cRandom = require('./controllers/cRandom');
+var cSemis = require('./controllers/cSemis');
+var cTipoTractor = require('./controllers/cTipoTractor');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -74,6 +76,19 @@ module.exports = function(app) {
 		app.get('/choferes/modificar/:id', cChoferes.getModificar);
 		app.post('/choferes/modificar', cChoferes.postModificar);
 		app.get('/choferes/eliminar/:id', cChoferes.getEliminar);
-	
+	// SEMIS
+		app.get('/semis/lista', cSemis.getLista);
+		app.get('/semis/alta', cSemis.getAlta);
+		app.post('/semis/alta', cSemis.postAlta);
+		app.get('/semis/modificar/:id', cSemis.getModificar);
+		app.post('/semis/modificar', cSemis.postModificar)
+		app.get('/semis/eliminar/:id', cSemis.getEliminar);
+	// TIPO TRACTOR
+		app.get('/tipotractor/lista', cTipoTractor.getLista);
+		app.get('/tipotractor/alta', cTipoTractor.getAlta);
+		app.post('/tipotractor/alta', cTipoTractor.postAlta);
+		app.get('/tipotractor/modificar/:id', cTipoTractor.getModificar);
+		app.post('/tipotractor/modificar', cTipoTractor.postModificar)
+		app.get('/tipotractor/eliminar/:id', cTipoTractor.getEliminar);
 
 };

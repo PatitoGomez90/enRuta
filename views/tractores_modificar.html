@@ -1,0 +1,76 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<div class="ui basic segment">
+    <h1 class="ui dividing blue header">{{ pagename }}</h1>
+</div>  
+<table class="ui celled striped table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <form class="ui form" id="formalta" method="post" action="/tractores/modificar">
+                    <input hidden name="id" id="id" value="{{ tractor.id }}">
+                    <div class="fields">
+                        <div class="six wide field">
+                            <label>Patente</label> 
+                            <div class="field">
+                                <input type="text" name="patente" id="patente" placeholder="Patente" value="{{ tractor.patente }}">
+                            </div>
+                        </div>
+                        <div class="six wide field">
+                            <label>Marca</label>
+                            <div class="field">
+                                <input type="text" name="marca" id="marca" placeholder="Marca" value="{{ tractor.marca }}">
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Modelo</label>
+                            <div class="field">
+                                <input type="text" name="modelo" id="modelo" placeholder="Modelo" value="{{ tractor.modelo }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="six wide field">
+                            <label>Año</label>
+                            <div class="field">
+                                <input type="text" name="anio" id="anio" placeholder="Año" value="{{ tractor.anio }}">
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Tipo</label>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="tipo_tractor">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Tipo de Tractor</div>
+                                <div class="menu">
+                                    {% for t in tipos_tractor %}
+                                        <div class="item" data-value="{{ t.id }}">{{ t.descripcion }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="four wide center aligned field">                            
+                            <label>Activo?</label>
+                              <div class="ui toggle checkbox">
+                                <input type="checkbox" name="activo" id="activo" tabindex="0" class="hidden">
+                                <!-- <label>No</label> -->
+                              </div>                         
+                        </div>
+                    </div>
+                    <button class="ui basic submit button" tabindex="0" type="submit">Submitn</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
