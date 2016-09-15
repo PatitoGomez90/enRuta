@@ -17,25 +17,21 @@ function getById(id, cb){
 }
 
 function insert(patente, marca, modelo, tipo_tractor, anio, cb){
-	conn("INSERT INTO tractores(nombre, razon_social, cuit, domicilio, telefono, mail, fax, contacto) "+
-		"VALUES('"+nombre+"', '"+razon_social+"', '"+cuit+"', '"+domicilio+"', '"+telefono+"', '"+email+"', '"+fax+"', '"+contacto+"')", cb)
+	conn("INSERT INTO tractores(patente, marca, modelo, tipo_tractor_fk, anio, activo) "+
+		"VALUES('"+patente+"', '"+marca+"', '"+modelo+"', '"+tipo_tractor+"', '"+anio+"', '1')", cb)
 }
 
-function update(id, patente, marca, modelo, tipo_tractor, anio, cb){
+function update(id, patente, marca, modelo, tipo_tractor, anio, activo, cb){
 	conn("UPDATE tractores SET "+
-		"nombre = '"+nombre+"', "+
-		"razon_social = '"+razon_social+"', "+
-		"cuit = '"+cuit+"', "+
-		"domicilio = '"+domicilio+"', "+
-		"telefono = '"+telefono+"', "+
-		"mail = '"+email+"', "+
-		"fax = '"+fax+"', "+
-		"contacto = '"+contacto+"' "+
-		"WHERE id = "+id, cb);
+		"patente = '"+patente+"', "+
+		"marca = '"+marca+"', "+
+		"modelo = '"+modelo+"', "+
+		"tipo_tractor_fk = '"+tipo_tractor+"', "+
+		"anio = '"+anio+"', "+
+		"activo = '"+activo+"' "+
+		"WHERE id ="+ id, cb);
 }
 
 function del(id, cb){
 	conn("DELETE FROM tractores WHERE id = "+id, cb);
 }
-
-// id, patente, marca, modelo, tipo_tractor_fk, anio, activo

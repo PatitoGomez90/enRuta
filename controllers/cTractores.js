@@ -12,7 +12,7 @@ module.exports = {
 function getLista(req, res) {
   	mTractores.getAll(function (tractores){
   		res.render('tractores_lista', {
-			pagename: 'Lista de tractores',
+			pagename: 'Lista de Tractores',
 			tractores: tractores
 		});
   	});
@@ -26,17 +26,15 @@ function getAlta(req, res){
 
 function postAlta(req, res){
 	const params = req.body;
-	console.log(params)
-	const nombre = params.nombre;
-	const razon_social = params.razon_social;
-	const cuit = params.cuit;
-	const domicilio = params.domicilio;
-	const telefono = params.telefono;
-	const email = params.email;
-	const fax = params.fax;
-	const contacto = params.contacto;
+	// console.log(params)
+	const patente = params.patente;
+	const marca = params.marca;
+	const modelo = params.modelo;
+	const tipo_tractor = params.tipo_tractor;
+	const anio = params.anio;
 
-	mTractores.insert(nombre, razon_social, cuit, domicilio, telefono, email, fax, contacto, function(){
+
+	mTractores.insert(patente, marca, modelo, tipo_tractor, anio, function(){
 		res.redirect('/tractores/lista');
 	});
 }
@@ -57,16 +55,18 @@ function postModificar(req, res){
 	const params = req.body;
 	console.log(params);
 	const id = params.id;
-	const nombre = params.nombre;
-	const razon_social = params.razon_social;
-	const cuit = params.cuit;
-	const domicilio = params.domicilio;
-	const telefono = params.telefono;
-	const email = params.email;
-	const fax = params.fax;
-	const contacto = params.contacto;
-
-	mTractores.update(id, nombre, razon_social, cuit, domicilio, telefono, email, fax, contacto, function(){
+	const patente = params.patente;
+	const marca = params.marca;
+	const modelo = params.modelo;
+	const tipo_tractor = params.tipo_tractor;
+	const anio = params.anio;
+	var activo = params.activo;
+	if (activo == 'on')
+		activo = '1';
+	else
+		activo = '0';
+	
+	mTractores.update(id, patente, marca, modelo, tipo_tractor, anio, activo, function(){
 		res.redirect('/tractores/lista');
 	});
 }

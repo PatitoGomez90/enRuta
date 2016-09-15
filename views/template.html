@@ -38,37 +38,40 @@
                 padding: 5em 0em;
             }
         </style>
-    </head>
-<body>
-    <div class="ui fixed inverted menu">
-        <div class="ui container">
-            <a href="/" class="header item">
-                <!-- <img class="logo" src="/css/assets/images/logo.png"> -->
-                EnRuta
-            </a>
-            <a href="/" class="item">Home</a>
-            <div class="ui simple dropdown item">
-                Dropdown <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="#">Link Item</a>
-                    <a class="item" href="#">Link Item</a>
-                    <div class="divider"></div>
-                    <div class="header">Header Item</div>
-                    <div class="item">
-                        <i class="dropdown icon"></i>
-                        Sub Menu
+        <div class="ui grid" style="padding-bottom: 70px !important;">
+            <div class="ui fixed inverted menu">
+                <div class="ui container">
+                    <a href="/" class="header item">
+                        <!-- <img class="logo" src="/css/assets/images/logo.png"> -->
+                        EnRuta
+                    </a>
+                    <a href="/" class="item">Home</a>
+                    <div class="ui simple dropdown item">
+                        Dropdown <i class="dropdown icon"></i>
                         <div class="menu">
                             <a class="item" href="#">Link Item</a>
                             <a class="item" href="#">Link Item</a>
+                            <div class="divider"></div>
+                            <div class="header">Header Item</div>
+                            <div class="item">
+                                <i class="dropdown icon"></i>
+                                Sub Menu
+                                <div class="menu">
+                                    <a class="item" href="#">Link Item</a>
+                                    <a class="item" href="#">Link Item</a>
+                                </div>
+                            </div>
+                            <a class="item" href="#">Link Item</a>
                         </div>
                     </div>
-                    <a class="item" href="#">Link Item</a>
+                    <a href="/empresas/lista" class="item">Empresas</a>
+                    <a href="/tractores/lista" class="item">Tractores</a>
                 </div>
-            </div>
-            <a href="/empresas/lista" class="item">Empresas</a>
-        </div>
-    </div>    
-    <div class="ui container" style="margin-top: 50px !important;">
+            </div>     
+        </div>        
+    </head>
+<body>       
+    <div class="ui fixed container">
         {% block content %}
         {% endblock %}
     </div>
@@ -79,7 +82,9 @@
 <script src="/js/ie10-viewport-bug-workaround.js"></script>
 <script type="text/javascript">
     $(function() {
-        $('#tabla_empresas').tablesort()
+        $('#tabla_empresas').tablesort();
+        $('.ui.checkbox').checkbox();
+        $('select.dropdown').dropdown();
     });
 </script>
 </body>

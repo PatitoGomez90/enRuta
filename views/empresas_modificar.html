@@ -5,10 +5,13 @@
 {% endblock %}
 
 {% block content %}
+<div class="ui basic segment">
+    <h1 class="ui dividing blue header">{{ pagename }}</h1>
+</div>  
 <table class="ui celled striped table">
     <thead>
         <tr>
-            <th>Formulario para Modificar datos de Empresa</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -63,13 +66,18 @@
                         </div> 
                     </div>                 
                     <div class="fields">
-                        <label>Contacto</label>
-                        <div class="eigth wide field">
-                            <input type="text" class="field" name="contacto" id="contacto" placeholder="Contacto de la empresa" value="{{ empresa.contacto }}">
+                        <div class="eight wide field">
+                            <label>Contacto</label>
+                            <div class="field">
+                                <input type="text" class="field" name="contacto" id="contacto" placeholder="Contacto de la empresa" value="{{ empresa.contacto }}">
+                            </div>
                         </div>
-                        <label>Activo?</label>
-                        <div class="eigth wide field">
-                            <input type="text" class="field" name="contacto" id="contacto" placeholder="Contacto de la empresa" value="{{ empresa.contacto }}">
+                        <div class="four wide center aligned field">                            
+                            <label>Activo?</label>
+                              <div class="ui toggle checkbox">
+                                <input type="checkbox" name="activo" id="activo" tabindex="0" class="hidden">
+                                <!-- <label>No</label> -->
+                              </div>                         
                         </div>
                     </div>
                     <button class="ui basic submit button" tabindex="0" type="submit">Submitn</button>
