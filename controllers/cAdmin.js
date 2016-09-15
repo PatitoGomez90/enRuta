@@ -89,20 +89,13 @@ function postLogin(req, res){
 }
 
 function entreFechas (alta, baja) {
-
 	if ( new Date(alta).getTime() < new Date().getTime() ) {
-
 		if ( new Date(baja).getTime() > new Date().getTime() ) {
-
 			return true;
-
 		} else {
-
 			return false;
 		}
-
 	} else {
 		return false;
 	}
-
 }

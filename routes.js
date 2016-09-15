@@ -3,9 +3,8 @@ var cUsuarios = require('./controllers/cUsuarios');
 var cAdmin = require('./controllers/cAdmin');
 var cAccesos = require('./controllers/cAccesos');
 var cChoferes = require('./controllers/cChoferes');
-// var cCargos = require('./controllers/cCargos');
-
-
+var cEmpresas = require('./controllers/cEmpresas');
+var cTractores = require('./controllers/cTractores');
 var mEventos = require('./models/mEventos');
 var cRandom = require('./controllers/cRandom');
 
@@ -41,18 +40,34 @@ module.exports = function(app) {
 	app.get('/inicio', auth, cIndex.getInicio);
 	app.get('/error', cIndex.getError);
 	//ayuda
-	app.get('/ayuda', cIndex.getAyuda);
-	app.get('/ayudaver/:id', cIndex.AyudaVer);
+		app.get('/ayuda', cIndex.getAyuda);
+		app.get('/ayudaver/:id', cIndex.AyudaVer);
 	//usuarios
-	app.get('/usuarioslista', auth, cUsuarios.getUsuarios);
-	app.get('/usuariosalta', auth, cUsuarios.getUsuariosAlta);
-	app.post('/usuariosalta', auth, cUsuarios.putUsuario);
-	app.get('/usuariosmodificar/:id', auth, cUsuarios.getUsuarioModificar);
-	app.post('/usuariosmodificar', auth, cUsuarios.postUsuarioModificar);
-	app.get('/usuariosborrar/:id', auth, cUsuarios.getDelUsuario);
-	//configurar accesos CREO QUE ESTO NO LO VAMOS A USAR
-	// app.get('/accesoslista/:id', auth, cAccesos.getAccesos);
-	// app.post('/accesoslista', auth, cAccesos.postAccesos);	
+		app.get('/usuarioslista', auth, cUsuarios.getUsuarios);
+		app.get('/usuariosalta', auth, cUsuarios.getUsuariosAlta);
+		app.post('/usuariosalta', auth, cUsuarios.putUsuario);
+		app.get('/usuariosmodificar/:id', auth, cUsuarios.getUsuarioModificar);
+		app.post('/usuariosmodificar', auth, cUsuarios.postUsuarioModificar);
+		app.get('/usuariosborrar/:id', auth, cUsuarios.getDelUsuario);
+		//configurar accesos CREO QUE ESTO NO LO VAMOS A USAR
+		// app.get('/accesoslista/:id', auth, cAccesos.getAccesos);
+		// app.post('/accesoslista', auth, cAccesos.postAccesos);	
 	
 	app.get('/choferesalta', cChoferes.getLista);
+	// EMPRESAS
+		app.get('/empresas/lista', cEmpresas.getLista);
+		app.get('/empresas/alta', cEmpresas.getAlta);
+		app.post('/empresas/alta', cEmpresas.postAlta);
+		app.get('/empresas/modificar/:id', cEmpresas.getModificar);
+		app.post('/empresas/modificar', cEmpresas.postModificar)
+		app.get('/empresas/eliminar/:id', cEmpresas.getEliminar);
+	// TRACTORES
+		app.get('/tractores/lista', cTractores.getLista);
+		app.get('/tractores/alta', cTractores.getAlta);
+		app.post('/tractores/alta', cTractores.postAlta);
+		app.get('/tractores/modificar/:id', cTractores.getModificar);
+		app.post('/tractores/modificar', cTractores.postModificar)
+		app.get('/tractores/eliminar/:id', cTractores.getEliminar);
+	
+
 };

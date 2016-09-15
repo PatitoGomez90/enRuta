@@ -1,0 +1,81 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<table class="ui celled striped table">
+    <thead>
+        <tr>
+            <th>Formulario para Modificar datos de Empresa</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <form class="ui form" id="formalta" method="post" action="/empresas/modificar">
+                    <input hidden name="id" id="id" value="{{ empresa.id }}">
+                    <div class="fields">
+                        <div class="six wide field">
+                            <label>Nombre</label> 
+                            <div class="field">
+                                <input type="text" name="nombre" id="nombre" placeholder="Nombre Completo" value="{{ empresa.nombre }}">
+                            </div>
+                        </div>
+                        <div class="six wide field">
+                            <label>Razon Social</label>
+                            <div class="field">
+                                <input type="text" name="razon_social" id="razon_social" placeholder="Razon Social" value="{{ empresa.razon_social }}">
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>C.U.I.T.</label>
+                            <div class="field">
+                                <input type="text" name="cuit" id="cuit" placeholder="C.U.I.T." value="{{ empresa.cuit }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="six wide field">
+                            <label>Domicilio</label>
+                            <div class="field">
+                                <input type="text" name="domicilio" id="domicilio" placeholder="Dirección completa" value="{{ empresa.domicilio }}">
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Telefono</label>
+                            <div class="field">
+                                <input type="text" name="telefono" id="telefono" placeholder="Telefono" value="{{ empresa.telefono }}">
+                            </div>
+                        </div>
+                        <div class="six wide field">
+                            <label>E-Mail</label>
+                            <div class="field">
+                                <input type="text" name="email" id="email" placeholder="direccion@mail.com" value="{{ empresa.mail }}">
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Fax</label>
+                            <div class="field">
+                                <input type="text" name="fax" id="fax" placeholder="Nro completo de Fax" value="{{ empresa.fax }}">
+                            </div>
+                        </div> 
+                    </div>                 
+                    <div class="fields">
+                        <label>Contacto</label>
+                        <div class="eigth wide field">
+                            <input type="text" class="field" name="contacto" id="contacto" placeholder="Contacto de la empresa" value="{{ empresa.contacto }}">
+                        </div>
+                        <label>Activo?</label>
+                        <div class="eigth wide field">
+                            <input type="text" class="field" name="contacto" id="contacto" placeholder="Contacto de la empresa" value="{{ empresa.contacto }}">
+                        </div>
+                    </div>
+                    <button class="ui basic submit button" tabindex="0" type="submit">Submitn</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
