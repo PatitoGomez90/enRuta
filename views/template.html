@@ -73,12 +73,14 @@
         {% endblock %}
     </div>
 <!-- <script src="/js/main.js"></script> -->
-<!-- <script src="/js/jquery.min.js"></script> -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-tablesort.js"></script>
 <script src="/js/semantic.js"></script>
-<!-- <script src="/js/bootstrap-datepicker.js"></script> -->
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="/js/ie10-viewport-bug-workaround.js"></script>
 <script type="text/javascript">
+    $(function() {
+        $('#tabla_empresas').tablesort()
+    });
 </script>
 </body>
 </html>

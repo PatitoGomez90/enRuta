@@ -3,7 +3,7 @@ var cUsuarios = require('./controllers/cUsuarios');
 var cAdmin = require('./controllers/cAdmin');
 var cAccesos = require('./controllers/cAccesos');
 var cEmpresas = require('./controllers/cEmpresas');
-
+var cTractores = require('./controllers/cTractores');
 var mEventos = require('./models/mEventos');
 var cRandom = require('./controllers/cRandom');
 
@@ -59,7 +59,13 @@ module.exports = function(app) {
 		app.get('/empresas/modificar/:id', cEmpresas.getModificar);
 		app.post('/empresas/modificar', cEmpresas.postModificar)
 		app.get('/empresas/eliminar/:id', cEmpresas.getEliminar);
-
+	// TRACTORES
+		app.get('/tractores/lista', cTractores.getLista);
+		app.get('/tractores/alta', cTractores.getAlta);
+		app.post('/tractores/alta', cTractores.postAlta);
+		app.get('/tractores/modificar/:id', cTractores.getModificar);
+		app.post('/tractores/modificar', cTractores.postModificar)
+		app.get('/tractores/eliminar/:id', cTractores.getEliminar);
 	
 
 };

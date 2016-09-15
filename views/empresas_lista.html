@@ -30,20 +30,8 @@
             <tr>
                 <td>
                     <div class="ui icon buttons">
-                        <<!-- div class="ui vertical animated button" tabindex="0">
-                            <div class="hidden content">Eliminar</div>
-                            <div class="visible content">
-                                <i class="remove circle icon"></i>
-                            </div>
-                        </div> -->
-                        <a href="/empresas/eliminar/{{ e.id }}"><button class="ui primary button"><i class="remove circle icon"></i></button></a>
-                        <!-- <div class="ui vertical animated button" tabindex="0">
-                            <div class="hidden content">Modificar</div>
-                            <div class="visible content">
-                                <i class="edit icon"></i>
-                            </div>
-                        </div> -->
-                        <a href="/empresas/modificar/{{ e.id }}"><button class="ui secondary button"><i class="edit icon"></i></button></a>
+                        <a href="/empresas/eliminar/{{ e.id }}" title="Eliminar"><div class="ui secondary icon button"><i class="large remove circle icon"></i></div></a>
+                        <a href="/empresas/modificar/{{ e.id }}" title="Modificar"><div class="ui primary icon button"><i class="large edit icon"></i></div></a>
                     </div>
                 </td>
                 <td>{{ e.nombre }}</td>
@@ -58,11 +46,4 @@
         {% endfor %}
     </tbody>
 </table>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/jquery-tablesort.js"></script>
-<script type="text/javascript">
-    $(function() {
-        $('#tabla_empresas').tablesort()
-    });
-</script>
 {% endblock %}
