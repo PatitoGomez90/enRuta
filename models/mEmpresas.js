@@ -31,7 +31,7 @@ function update(id, nombre, razon_social, cuit, domicilio, telefono, email, fax,
 		"mail = '"+email+"', "+
 		"fax = '"+fax+"', "+
 		"contacto = '"+contacto+"', "+
-		"activo = '"+activo+"' "
+		"activo = '"+activo+"' "+
 		"WHERE id = "+id, cb);
 }
 

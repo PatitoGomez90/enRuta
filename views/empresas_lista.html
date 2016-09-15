@@ -5,16 +5,22 @@
 {% endblock %}
 
 {% block content %}
-<div class="ui basic buttons">
-    <a href="/empresas/alta"><div class="ui button">Nueva Empresa</div></a>
-    <div class="ui button">Ayuda</div>
+<div class="ui grid">
+    <div class="left floated left aligned ten wide column">
+        <h1 class="ui dividing blue header">{{ pagename }}</h1>
+    </div>
+    <div class="right floated right aligned six wide column">
+        <div class="ui buttons">
+            <a href="/empresas/alta" class="ui green button inverted" data-tooltip="Nuevo" data-position="bottom center"><i class="large plus icon"></i></a>
+            <div class="ui blue button inverted" data-tooltip="Ayuda" data-position="bottom center"><i class="large idea icon"></i></div>
+        </div>
+    </div>
 </div>
-<div class="ui divider"></div>
-<!-- {{ pagename }} -->
+<!-- <div class="ui blue divider"></div> -->
+
 <table class="ui sortable celled striped table" id="tabla_empresas">
     <thead>
-        <tr>
-            <th>Opciones</th>
+        <tr>            
             <th>Nombre</th>
             <th>Razon Social</th>
             <th>C.U.I.T.</th>
@@ -23,17 +29,12 @@
             <th>E-Mail</th>
             <th>Fax</th>
             <th>Contacto</th>
+            <th>Opciones</th>
         </tr>
     </thead>
     <tbody>
         {% for e in empresas %}
-            <tr>
-                <td>
-                    <div class="ui icon buttons">
-                        <a href="/empresas/eliminar/{{ e.id }}" title="Eliminar"><div class="ui secondary icon button"><i class="large remove circle icon"></i></div></a>
-                        <a href="/empresas/modificar/{{ e.id }}" title="Modificar"><div class="ui primary icon button"><i class="large edit icon"></i></div></a>
-                    </div>
-                </td>
+            <tr>                
                 <td>{{ e.nombre }}</td>
                 <td>{{ e.razon_social }}</td>
                 <td>{{ e.cuit }}</td>
@@ -42,6 +43,12 @@
                 <td>{{ e.mail }}</td>
                 <td>{{ e.fax }}</td>
                 <td>{{ e.contacto }}</td>
+                <td>
+                    <div class="ui icon buttons">
+                        <a href="/empresas/eliminar/{{ e.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
+                        <a href="/empresas/modificar/{{ e.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
     </tbody>
