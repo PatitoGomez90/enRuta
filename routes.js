@@ -2,6 +2,7 @@ var cIndex = require('./controllers/cIndex');
 var cUsuarios = require('./controllers/cUsuarios');
 var cAdmin = require('./controllers/cAdmin');
 var cAccesos = require('./controllers/cAccesos');
+var cChoferes = require('./controllers/cChoferes');
 // var cCargos = require('./controllers/cCargos');
 
 
@@ -53,6 +54,5 @@ module.exports = function(app) {
 	// app.get('/accesoslista/:id', auth, cAccesos.getAccesos);
 	// app.post('/accesoslista', auth, cAccesos.postAccesos);	
 	
-	
-
+	app.get('/choferesalta', cChoferes.getLista);
 };
