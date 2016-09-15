@@ -8,6 +8,7 @@ var mEventos = require('./models/mEventos');
 var cRandom = require('./controllers/cRandom');
 var cSemis = require('./controllers/cSemis');
 var cTipoTractor = require('./controllers/cTipoTractor');
+var cTipoSemi = require('./controllers/cTipoSemi');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -82,5 +83,11 @@ module.exports = function(app) {
 		app.get('/tipotractor/modificar/:id', cTipoTractor.getModificar);
 		app.post('/tipotractor/modificar', cTipoTractor.postModificar)
 		app.get('/tipotractor/eliminar/:id', cTipoTractor.getEliminar);
-
+	// TIPO SEMI
+		app.get('/tiposemi/lista', cTipoSemi.getLista);
+		app.get('/tiposemi/alta', cTipoSemi.getAlta);
+		app.post('/tiposemi/alta', cTipoSemi.postAlta);
+		app.get('/tiposemi/modificar/:id', cTipoSemi.getModificar);
+		app.post('/tiposemi/modificar', cTipoSemi.postModificar)
+		app.get('/tiposemi/eliminar/:id', cTipoSemi.getEliminar);
 };

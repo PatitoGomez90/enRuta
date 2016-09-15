@@ -1,0 +1,48 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="left floated left aligned ten wide column">
+        <h1 class="ui dividing blue header">{{ pagename }}</h1>
+    </div>
+    <div class="right floated right aligned six wide column">
+        <div class="ui buttons">
+            <a href="/tiposemi/alta" class="ui green button inverted" data-tooltip="Nuevo" data-position="bottom center"><i class="large plus icon"></i></a>
+            <div class="ui blue button inverted" data-tooltip="Ayuda" data-position="bottom center"><i class="large idea icon"></i></div>
+        </div>
+    </div>
+</div>
+<table class="ui sortable celled striped table" id="tabla">
+    <thead>
+        <tr>            
+            <th>Nro.</th>
+            <th>Descripcion</th>
+            <th>Ejes</th>
+            <th>Capacidad</th>
+            <th>Activo</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in tiposemi %}
+            <tr>                
+                <td>{{ t.id }}</td>
+                <td>{{ t.descripcion }}</td>
+                <td>{{ t.ejes }}</td>
+                <td>{{ t.capacidad }}</td>
+                <td>{{ t.activo }}</td>
+                <td>
+                    <div class="ui icon buttons">
+                        <a href="/tiposemi/eliminar/{{ t.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
+                        <a href="/tiposemi/modificar/{{ t.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
