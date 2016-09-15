@@ -4,17 +4,99 @@
 	{{ pagename }}
 {% endblock %}
 
-{% block content %}	
-        <!-- Main jumbotron for a primary marketing message or call to action -->
-    <!-- <div class="jumbotron"> -->
-        <div class="ui container">
-            <h1>Evhsa</h1>
-            <p>Esta es la pagina principal del sistema para Enrutaaaaaaaaaaaaa</p>
-        </div>
-    <!-- </div> -->
+{% block content %}
+    <div class="ui basic segment">
+        <h2>En Ruta?</h2>
+    </div>	
     <div class="ui container">
-        <main>  
-        <!-- Example row of columns -->
-        </main> 
-    </div>    
+        <div class="ui grid">
+            <!-- Truck List -->
+            <div class="three wide column">
+                <div class="ui segment" style="height: 70%;">
+                    Truck List
+                    <div class="ui divider"></div>
+                    <div class="ui divided list">
+                        <div class="item">
+                            <i class="shipping icon"></i>
+                            <div class="content">
+                                <a class="header">Krowlewskie Jadlo</a>
+                                <!-- <div class="description">An excellent polish restaurant, quick delivery and hearty, filling meals.</div> -->
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class="shipping icon"></i>
+                            <div class="content">
+                                <a class="header">Xian Famous Foods</a>
+                                 <!-- <div class="description">A taste of Shaanxi's delicious culinary traditions, with delights like spicy cold noodles and lamb burgers.</div> -->
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class="shipping icon"></i>
+                            <div class="content">
+                                <a class="header">Sapporo Haru</a>
+                                <!-- <div class="description">Greenpoint's best choice for quick and delicious sushi.</div> -->
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class="shipping icon"></i>
+                            <div class="content">
+                                <a class="header">Enid's</a>
+                                <!-- <div class="description">At night a bar, during the day a delicious brunch spot.</div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Map -->
+            <div class="nine wide column">
+                <div class="ui segment" style="height: 70%;">
+                    Google Map
+                    <div class="ui divider"></div>
+                    <!-- <iframe src=""> -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d13331.476590983788!2d-60.20528625!3d-33.348368199999996!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1473897549032" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    <!-- </iframe> -->
+                </div>
+            </div>
+            <!-- Notification Feed -->
+            <div class="four wide column">
+                <div class="ui segment" style="height: 70%;">
+                    Notification Feed
+                    <div class="ui divider"></div>
+                    <div class="ui feed">
+                        <div class="event">
+                            <div class="label">
+                                <i class="pencil icon"></i>
+                            </div>
+                            <div class="content">
+                                <div class="summary">
+                                    You posted on your friend <a>Stevie Feliciano's</a> wall.
+                                    <div class="date">Today</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="ui feed">
+                      <div class="event">
+                        <div class="label">
+                          <i class="warning icon"></i>
+                        </div>
+                        <div class="content">
+                          <div class="summary">
+                            You added <a>Jenny Hess</a> to your <a>coworker</a> group.
+                            <div class="date">
+                              3 days ago
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+    
+</script>
 {% endblock %}

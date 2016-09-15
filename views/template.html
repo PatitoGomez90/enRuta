@@ -5,7 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <!-- Site Properties -->
-        <title>EnRuta</title>
+        <title>Enruta</title>
+        <link rel="icon" href="/uploads/camion.png">
         <link rel="stylesheet" type="text/css" href="/css/semantic.css">
         <link rel="stylesheet" type="text/css" href="/css/components/reset.css">
         <link rel="stylesheet" type="text/css" href="/css/components/site.css">
@@ -41,11 +42,11 @@
 <body>
     <div class="ui fixed inverted menu">
         <div class="ui container">
-            <a href="#" class="header item">
-            <!-- <img class="logo" src="/css/assets/images/logo.png"> -->
-            EnRuta
+            <a href="/" class="header item">
+                <!-- <img class="logo" src="/css/assets/images/logo.png"> -->
+                EnRuta
             </a>
-            <a href="#" class="item">Home</a>
+            <a href="/" class="item">Home</a>
             <div class="ui simple dropdown item">
                 Dropdown <i class="dropdown icon"></i>
                 <div class="menu">
@@ -64,17 +65,16 @@
                     <a class="item" href="#">Link Item</a>
                 </div>
             </div>
+            <a href="/empresas/lista" class="item">Empresas</a>
         </div>
-    </div>
-    
-    <div class="ui container">
+    </div>    
+    <div class="ui container" style="margin-top: 50px !important;">
         {% block content %}
         {% endblock %}
     </div>
 <!-- <script src="/js/main.js"></script> -->
-<script src="/js/jquery.min.js"></script>
+<!-- <script src="/js/jquery.min.js"></script> -->
 <script src="/js/semantic.js"></script>
-
 <!-- <script src="/js/bootstrap-datepicker.js"></script> -->
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="/js/ie10-viewport-bug-workaround.js"></script>

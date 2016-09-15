@@ -1,0 +1,76 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<table class="ui celled striped table">
+    <thead>
+        <tr>
+            <th>Formulario de Alta de Empresa</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <form class="ui form" id="formalta" method="post" action="/empresas/alta">
+                    <div class="fields">
+                        <div class="six wide field">
+                            <label>Nombre</label> 
+                            <div class="field">
+                                <input type="text" name="nombre" id="nombre" placeholder="Nombre Completo">
+                            </div>
+                        </div>
+                        <div class="six wide field">
+                            <label>Razon Social</label>
+                            <div class="field">
+                                <input type="text" name="razon_social" id="razon_social" placeholder="Razon Social">
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>C.U.I.T.</label>
+                            <div class="field">
+                                <input type="text" name="cuit" id="cuit" placeholder="C.U.I.T.">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="six wide field">
+                            <label>Domicilio</label>
+                            <div class="field">
+                                <input type="text" name="domicilio" id="domicilio" placeholder="Dirección completa">
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Telefono</label>
+                            <div class="field">
+                                <input type="text" name="telefono" id="telefono" placeholder="Telefono">
+                            </div>
+                        </div>
+                        <div class="six wide field">
+                            <label>E-Mail</label>
+                            <div class="field">
+                                <input type="text" name="email" id="email" placeholder="direccion@mail.com">
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Fax</label>
+                            <div class="field">
+                                <input type="text" name="fax" id="fax" placeholder="Nro completo de Fax">
+                            </div>
+                        </div> 
+                    </div>                 
+                    <div class="field">
+                        <label>Contacto</label>
+                        <div class="eigth wide field">
+                            <input type="text" class="field" name="contacto" id="contacto" placeholder="Contacto de la empresa">
+                        </div>
+                    </div>
+                    <button class="ui basic button" tabindex="0" type="submit">Submitn</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

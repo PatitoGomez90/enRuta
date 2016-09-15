@@ -1,0 +1,49 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<div class="ui basic buttons">
+    <a href="/empresas/alta"><div class="ui button">Nueva Empresa</div></a>
+    <div class="ui button">Ayuda</div>
+</div>
+<div class="ui divider"></div>
+<!-- {{ pagename }} -->
+<table class="ui sortable celled striped table" id="tabla_empresas">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Razon Social</th>
+            <th>C.U.I.T.</th>
+            <th>Domicilio</th>
+            <th>Telefono</th>
+            <th>E-Mail</th>
+            <th>Fax</th>
+            <th>Contacto</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for e in empresas %}
+            <tr>
+                <td>{{ e.nombre }}</td>
+                <td>{{ e.razon_social }}</td>
+                <td>{{ e.cuit }}</td>
+                <td>{{ e.domicilio }}</td>
+                <td>{{ e.telefono }}</td>
+                <td>{{ e.mail }}</td>
+                <td>{{ e.fax }}</td>
+                <td>{{ e.contacto }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-tablesort.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#tabla_empresas').tablesort()
+    });
+</script>
+{% endblock %}
