@@ -1,0 +1,54 @@
+{% extends 'template.html' %}
+
+{% block title %}
+    {{ pagename }}
+{% endblock %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="left floated left aligned ten wide column">
+        <h1 class="ui dividing blue header">{{ pagename }}</h1>
+    </div>
+    <div class="right floated right aligned six wide column">
+        <div class="ui buttons">
+            <a href="/semis/alta" class="ui green button inverted" data-tooltip="Nuevo" data-position="bottom center"><i class="large plus icon"></i></a>
+            <div class="ui blue button inverted" data-tooltip="Ayuda" data-position="bottom center"><i class="large idea icon"></i></div>
+        </div>
+    </div>
+</div>
+<!-- <div class="ui blue divider"></div> -->
+
+<table class="ui sortable celled striped table" id="tabla_empresas">
+    <thead>
+        <tr>            
+            <th>Nro.</th>
+            <th>Patente</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Año</th>
+            <th>Tipo</th>
+            <th>Activo</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in semi %}
+            <tr>                
+                <td>{{ s.id }}</td>
+                <td>{{ s.patente }}</td>
+                <td>{{ s.marca }}</td>
+                <td>{{ s.modelo }}</td>
+                <td>{{ s.anio }}</td>
+                <td>{{ s.tiposemitxt }}</td>
+                <td>{{ s.activo }}</td>
+                <td>
+                    <div class="ui icon buttons">
+                        <a href="/semis/eliminar/{{ t.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
+                        <a href="/semis/modificar/{{ t.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
