@@ -26,7 +26,7 @@ function getAlta(req, res){
 
 function postAlta(req, res){
 	const params = req.body;
-	console.log(params)
+	// console.log(params)
 	const nombre = params.nombre;
 	const razon_social = params.razon_social;
 	const cuit = params.cuit;
@@ -55,7 +55,7 @@ function getModificar(req, res){
 
 function postModificar(req, res){
 	const params = req.body;
-	console.log(params);
+	// console.log(params);
 	const id = params.id;
 	const nombre = params.nombre;
 	const razon_social = params.razon_social;
@@ -66,7 +66,12 @@ function postModificar(req, res){
 	const fax = params.fax;
 	const contacto = params.contacto;
 	var activo = params.activo;
-
+	// console.log(activo)
+	if (activo == 'on')
+		activo = '1';
+	else
+		activo = '0';
+	
 	mEmpresas.update(id, nombre, razon_social, cuit, domicilio, telefono, email, fax, contacto, activo, function(){
 		res.redirect('/empresas/lista');
 	});
