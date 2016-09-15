@@ -56,6 +56,9 @@ module.exports = function(app) {
 		app.get('/empresas/lista', cEmpresas.getLista);
 		app.get('/empresas/alta', cEmpresas.getAlta);
 		app.post('/empresas/alta', cEmpresas.postAlta);
+		app.get('/empresas/modificar/:id', cEmpresas.getModificar);
+		app.post('/empresas/modificar', cEmpresas.postModificar)
+		app.get('/empresas/eliminar/:id', cEmpresas.getEliminar);
 
 	
 

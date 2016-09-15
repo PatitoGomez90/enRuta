@@ -14,6 +14,7 @@
 <table class="ui sortable celled striped table" id="tabla_empresas">
     <thead>
         <tr>
+            <th>Opciones</th>
             <th>Nombre</th>
             <th>Razon Social</th>
             <th>C.U.I.T.</th>
@@ -27,6 +28,24 @@
     <tbody>
         {% for e in empresas %}
             <tr>
+                <td>
+                    <div class="ui icon buttons">
+                        <<!-- div class="ui vertical animated button" tabindex="0">
+                            <div class="hidden content">Eliminar</div>
+                            <div class="visible content">
+                                <i class="remove circle icon"></i>
+                            </div>
+                        </div> -->
+                        <a href="/empresas/eliminar/{{ e.id }}"><button class="ui primary button"><i class="remove circle icon"></i></button></a>
+                        <!-- <div class="ui vertical animated button" tabindex="0">
+                            <div class="hidden content">Modificar</div>
+                            <div class="visible content">
+                                <i class="edit icon"></i>
+                            </div>
+                        </div> -->
+                        <a href="/empresas/modificar/{{ e.id }}"><button class="ui secondary button"><i class="edit icon"></i></button></a>
+                    </div>
+                </td>
                 <td>{{ e.nombre }}</td>
                 <td>{{ e.razon_social }}</td>
                 <td>{{ e.cuit }}</td>
