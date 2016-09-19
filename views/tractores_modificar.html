@@ -23,7 +23,7 @@
                         <div class="six wide field">
                             <label>Patente</label> 
                             <div class="field">
-                                <input type="text" name="patente" id="patente" placeholder="Patente" value="{{ tractor.patente }}">
+                                <input type="text" name="patente" id="patente" placeholder="Patente" value="{{ tractor.patente }}" required>
                             </div>
                         </div>
                         <div class="six wide field">
@@ -48,16 +48,15 @@
                         </div>
                         <div class="four wide field">
                             <label>Tipo</label>
-                            <div class="ui selection dropdown">
-                                <input type="hidden" name="tipo_tractor">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Tipo de Tractor</div>
-                                <div class="menu">
-                                    {% for t in tipos_tractor %}
-                                        <div class="item" data-value="{{ t.id }}">{{ t.descripcion }}</div>
-                                    {% endfor %}
-                                </div>
-                            </div>
+                            <select class="ui fluid dropdown" name="tipo_tractor" id="tipo_tractor">
+                                {% for t in tipos_tractor %}
+                                    {% if t.id == tractor.id_tipo_tractor_fk %}
+                                        <option value="{{ t.id }}" selected>{{ t.descripcion }}</option>
+                                    {% else %}
+                                        <option value="{{ t.id }}">{{ t.descripcion }}</option>
+                                    {% endif %}                                    
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="four wide center aligned field">
                             <label>Activo?</label>

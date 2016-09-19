@@ -9,20 +9,20 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn("select *, IF(activo = '1', 'Si', 'No') as activotxt from empresas", cb);
+	conn("select *, IF(activo = '1', 'Si', 'No') as activotxt from productos", cb);
 }
 
 function getById(id, cb){
-	conn("select * from empresas where id = "+id, cb);
+	conn("select * from productos where id = "+id, cb);
 }
 
 function insert(nombre, razon_social, cuit, domicilio, telefono, email, fax, contacto, cb){
-	conn("INSERT INTO empresas(nombre, razon_social, cuit, domicilio, telefono, mail, fax, contacto, activo) "+
+	conn("INSERT INTO productos(nombre, razon_social, cuit, domicilio, telefono, mail, fax, contacto, activo) "+
 		"VALUES('"+nombre+"', '"+razon_social+"', '"+cuit+"', '"+domicilio+"', '"+telefono+"', '"+email+"', '"+fax+"', '"+contacto+"', '1')", cb)
 }
 
 function update(id, nombre, razon_social, cuit, domicilio, telefono, email, fax, contacto, activo, cb){
-	conn("UPDATE empresas SET "+
+	conn("UPDATE productos SET "+
 		"nombre = '"+nombre+"', "+
 		"razon_social = '"+razon_social+"', "+
 		"cuit = '"+cuit+"', "+
@@ -36,5 +36,5 @@ function update(id, nombre, razon_social, cuit, domicilio, telefono, email, fax,
 }
 
 function del(id, cb){
-	conn("DELETE FROM empresas WHERE id = "+id, cb);
+	conn("DELETE FROM productos WHERE id = "+id, cb);
 }

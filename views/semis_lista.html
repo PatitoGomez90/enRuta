@@ -32,7 +32,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for s in semi %}
+        {% for s in semis %}
             <tr>                
                 <td>{{ s.id }}</td>
                 <td>{{ s.patente }}</td>
@@ -40,11 +40,11 @@
                 <td>{{ s.modelo }}</td>
                 <td>{{ s.anio }}</td>
                 <td>{{ s.tiposemitxt }}</td>
-                <td>{{ s.activo }}</td>
+                <td>{{ s.activotxt }}</td>
                 <td>
                     <div class="ui icon buttons">
-                        <a href="/semis/eliminar/{{ t.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
-                        <a href="/semis/modificar/{{ t.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
+                        <a href="/semis/eliminar/{{ s.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
+                        <a href="/semis/modificar/{{ s.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
                     </div>
                 </td>
             </tr>

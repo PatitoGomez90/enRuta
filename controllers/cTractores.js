@@ -1,4 +1,5 @@
-var mTractores = require('../models/mTractores');
+const mTractores = require('../models/mTractores');
+const mTipoTractor = require('../models/mTipoTractor');
 
 module.exports = {
 	getLista: getLista,
@@ -19,9 +20,12 @@ function getLista(req, res) {
 }
 
 function getAlta(req, res){
-	res.render("tractores_alta", {
-		pagename: "Alta de Tractor"
-	});
+	mTipoTractor.getAll(function(tipos_tractor){
+		res.render("tractores_alta", {
+			pagename: "Alta de Tractor",
+			tipos_tractor: tipos_tractor
+		});
+	});	
 }
 
 function postAlta(req, res){
@@ -33,7 +37,6 @@ function postAlta(req, res){
 	const tipo_tractor = params.tipo_tractor;
 	const anio = params.anio;
 
-
 	mTractores.insert(patente, marca, modelo, tipo_tractor, anio, function(){
 		res.redirect('/tractores/lista');
 	});
@@ -44,9 +47,12 @@ function getModificar(req, res){
 	const id = params.id;
 
 	mTractores.getById(id, function(tractor){
-		res.render('tractores_modificar', {
-			pagename: 'Modificar Informacion de Tractor',
-			tractor: tractor[0]
+		mTipoTractor.getAll(function(tipos_tractor){
+			res.render('tractores_modificar', {
+				pagename: 'Modificar Informacion de Tractor',
+				tractor: tractor[0],
+				tipos_tractor: tipos_tractor
+			});
 		});
 	});
 }

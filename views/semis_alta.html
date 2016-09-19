@@ -47,16 +47,11 @@
                         </div>
                         <div class="four wide field">
                             <label>Tipo</label>
-                            <div class="ui selection dropdown">
-                                <input type="hidden" name="tipo_semi">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Tipo de Semi</div>
-                                <div class="menu">
-                                    {% for s in tipos_semis %}
-                                        <div class="item" data-value="{{ s.id }}">{{ s.descripcion }}</div>
-                                    {% endfor %}
-                                </div>
-                            </div>
+                            <select class="ui fluid dropdown" name="tipo_semi" id="tipo_semi">
+                                {% for t in tipos_semis %}
+                                    <option value="{{ t.id }}">{{ t.descripcion }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                     <button class="ui basic submit button" tabindex="0" type="submit">Submit</button>

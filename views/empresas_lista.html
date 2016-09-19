@@ -29,6 +29,7 @@
             <th>E-Mail</th>
             <th>Fax</th>
             <th>Contacto</th>
+            <th>Activo</th>
             <th>Opciones</th>
         </tr>
     </thead>
@@ -43,6 +44,7 @@
                 <td>{{ e.mail }}</td>
                 <td>{{ e.fax }}</td>
                 <td>{{ e.contacto }}</td>
+                <td>{{ e.activotxt }}</td>
                 <td>
                     <div class="ui icon buttons">
                         <a href="/empresas/eliminar/{{ e.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>

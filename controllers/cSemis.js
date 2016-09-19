@@ -1,4 +1,5 @@
 var mSemis = require('../models/mSemis');
+const mTipoSemi = require('../models/mTipoSemi');
 
 module.exports = {
 	getLista: getLista,
@@ -19,8 +20,11 @@ function getLista(req, res) {
 }
 
 function getAlta(req, res){
-	res.render("semis_alta", {
-		pagename: "Alta de Semi"
+	mTipoSemi.getAll(function(tipos_semis){
+		res.render("semis_alta", {
+			pagename: "Alta de Semi",
+			tipos_semis: tipos_semis
+		});
 	});
 }
 
@@ -32,7 +36,6 @@ function postAlta(req, res){
 	const tipo_semi = params.tipo_semi;
 	const anio = params.anio;
 
-
 	mSemis.insert(patente, marca, modelo, tipo_semi, anio, function(){
 		res.redirect('/semis/lista');
 	});
@@ -43,9 +46,12 @@ function getModificar(req, res){
 	const id = params.id;
 
 	mSemis.getById(id, function(semi){
-		res.render('semis_modificar', {
-			pagename: 'Modificar Informacion de Semi',
-			semi: semi[0]
+		mTipoSemi.getAll(function(tipos_semis){
+			res.render('semis_modificar', {
+				pagename: 'Modificar Informacion de Semi',
+				semi: semi[0],
+				tipos_semis: tipos_semis
+			});
 		});
 	});
 }

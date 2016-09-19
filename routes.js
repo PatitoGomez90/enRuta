@@ -9,6 +9,8 @@ var cRandom = require('./controllers/cRandom');
 var cSemis = require('./controllers/cSemis');
 var cTipoTractor = require('./controllers/cTipoTractor');
 var cTipoSemi = require('./controllers/cTipoSemi');
+var cTipoCuenta = require('./controllers/cTipoCuenta');
+var cProductos = require('./controllers/cProductos');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -53,7 +55,7 @@ module.exports = function(app) {
 		app.get('/usuariosborrar/:id', auth, cUsuarios.getDelUsuario);
 		//configurar accesos CREO QUE ESTO NO LO VAMOS A USAR
 		// app.get('/accesoslista/:id', auth, cAccesos.getAccesos);
-		// app.post('/accesoslista', auth, cAccesos.postAccesos);	
+		// app.post('/accesoslista', auth, cAccesos.postAccesos);
 	
 	// EMPRESAS
 		app.get('/empresas/lista', cEmpresas.getLista);
@@ -90,4 +92,18 @@ module.exports = function(app) {
 		app.get('/tiposemi/modificar/:id', cTipoSemi.getModificar);
 		app.post('/tiposemi/modificar', cTipoSemi.postModificar)
 		app.get('/tiposemi/eliminar/:id', cTipoSemi.getEliminar);
+	// TIPO CUENTA
+		app.get('/tipocuenta/lista', cTipoCuenta.getLista);
+		app.get('/tipocuenta/alta', cTipoCuenta.getAlta);
+		app.post('/tipocuenta/alta', cTipoCuenta.postAlta);
+		app.get('/tipocuenta/modificar/:id', cTipoCuenta.getModificar);
+		app.post('/tipocuenta/modificar', cTipoCuenta.postModificar)
+		app.get('/tipocuenta/eliminar/:id', cTipoCuenta.getEliminar);
+	// PRODUCTOS
+		app.get('/productos/lista', cProductos.getLista);
+		app.get('/productos/alta', cProductos.getAlta);
+		app.post('/productos/alta', cProductos.postAlta);
+		app.get('/productos/modificar/:id', cProductos.getModificar);
+		app.post('/productos/modificar', cProductos.postModificar)
+		app.get('/productos/eliminar/:id', cProductos.getEliminar);
 };

@@ -1,0 +1,54 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="left floated left aligned ten wide column">
+        <h1 class="ui dividing blue header">{{ pagename }}</h1>
+    </div>
+    <div class="right floated right aligned six wide column">
+        <div class="ui buttons">
+            <a href="/productos/alta" class="ui green button inverted" data-tooltip="Nuevo" data-position="bottom center"><i class="large plus icon"></i></a>
+            <div class="ui blue button inverted" data-tooltip="Ayuda" data-position="bottom center"><i class="large idea icon"></i></div>
+        </div>
+    </div>
+</div>
+<!-- <div class="ui blue divider"></div> -->
+
+<table class="ui sortable celled striped table" id="tabla_productos">
+    <thead>
+        <tr>            
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Empresa</th>
+            <th>Tipo</th>
+            <th>Peligroso</th>
+            <th>U. Med.</th>
+            <th>Activo</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in productos %}
+            <tr>                
+                <td>{{ p.id }}</td>
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.id_empresa_fk }}</td>
+                <td>{{ p.id_tipo_producto_fk }}</td>
+                <td>{{ p.peligroso }}</td>
+                <td>{{ p.id_umed_fk }}</td>
+                <td>{{ p.activo }}</td>
+                <td>
+                    <div class="ui icon buttons">
+                        <a href="/productos/eliminar/{{ p.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
+                        <a href="/productos/modificar/{{ p.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

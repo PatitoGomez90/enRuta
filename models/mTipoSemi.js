@@ -9,7 +9,7 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn('select * from tipo_semi', cb);
+	conn("select *, IF(activo = '1', 'Si', 'No') as activotxt from tipo_semi", cb);
 }
 
 function getById(id, cb){
