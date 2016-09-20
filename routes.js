@@ -1,16 +1,17 @@
-var cIndex = require('./controllers/cIndex');
-var cUsuarios = require('./controllers/cUsuarios');
-var cAdmin = require('./controllers/cAdmin');
-var cAccesos = require('./controllers/cAccesos');
-var cEmpresas = require('./controllers/cEmpresas');
-var cTractores = require('./controllers/cTractores');
-var mEventos = require('./models/mEventos');
-var cRandom = require('./controllers/cRandom');
-var cSemis = require('./controllers/cSemis');
-var cTipoTractor = require('./controllers/cTipoTractor');
-var cTipoSemi = require('./controllers/cTipoSemi');
-var cTipoCuenta = require('./controllers/cTipoCuenta');
-var cProductos = require('./controllers/cProductos');
+const cIndex = require('./controllers/cIndex');
+const cUsuarios = require('./controllers/cUsuarios');
+const cAdmin = require('./controllers/cAdmin');
+const cAccesos = require('./controllers/cAccesos');
+const cEmpresas = require('./controllers/cEmpresas');
+const cTractores = require('./controllers/cTractores');
+const mEventos = require('./models/mEventos');
+const cRandom = require('./controllers/cRandom');
+const cSemis = require('./controllers/cSemis');
+const cTipoTractor = require('./controllers/cTipoTractor');
+const cTipoSemi = require('./controllers/cTipoSemi');
+const cTipoCuenta = require('./controllers/cTipoCuenta');
+const cProductos = require('./controllers/cProductos');
+const cTipoProductos = require('./controllers/cTipoProductos');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -106,4 +107,11 @@ module.exports = function(app) {
 		app.get('/productos/modificar/:id', cProductos.getModificar);
 		app.post('/productos/modificar', cProductos.postModificar)
 		app.get('/productos/eliminar/:id', cProductos.getEliminar);
+	// TIPO PRODUCTOS
+		app.get('/tipoproducto/lista', cTipoProductos.getLista);
+		app.get('/tipoproducto/alta', cTipoProductos.getAlta);
+		app.post('/tipoproducto/alta', cTipoProductos.postAlta);
+		app.get('/tipoproducto/modificar/:id', cTipoProductos.getModificar);
+		app.post('/tipoproducto/modificar', cTipoProductos.postModificar)
+		app.get('/tipoproducto/eliminar/:id', cTipoProductos.getEliminar);
 };

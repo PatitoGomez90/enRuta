@@ -1,4 +1,7 @@
 var mProductos = require('../models/mProductos');
+const mTipoProductos = require('../models/mTipoProductos');
+const mEmpresas = require('../models/mEmpresas');
+const mUmed = require('../models/mUmed');
 
 module.exports = {
 	getLista: getLista,
@@ -19,25 +22,36 @@ function getLista(req, res) {
 }
 
 function getAlta(req, res){
-	res.render("productos_alta", {
-		pagename: "Alta de Productos"
+	mTipoProductos.getAll(function (tipos_producto){
+		mEmpresas.getAll(function (empresas){
+			mUmed.getAll(function (umed){
+				res.render("productos_alta", {
+					pagename: "Alta de Productos",
+					tipos_producto: tipos_producto,
+					empresas: empresas,
+					umed: umed
+				});
+			});
+		});
 	});
+	
 }
 
 function postAlta(req, res){
 	const params = req.body;
 	// console.log(params)
 	const nombre = params.nombre;
-	const razon_social = params.razon_social;
-	const cuit = params.cuit;
-	const domicilio = params.domicilio;
-	const telefono = params.telefono;
-	const email = params.email;
-	const fax = params.fax;
-	const contacto = params.contacto;
+	const empresa = params.empresa;
+	var peligroso = params.peligroso;
+	const tipo_producto = params.tipo_producto;
+	const umed = params.umed;
+	if (peligroso == 'on')
+		peligroso = '1';
+	else
+		peligroso = '0';
 
-	mProductos.insert(nombre, razon_social, cuit, domicilio, telefono, email, fax, contacto, function(){
-		res.redirect('/empresas/lista');
+	mProductos.insert(nombre, empresa, peligroso, tipo_producto, umed, function(){
+		res.redirect('/productos/lista');
 	});
 }
 
@@ -45,10 +59,19 @@ function getModificar(req, res){
 	const params = req.params;
 	const id = params.id;
 
-	mProductos.getById(id, function(empresa){
-		res.render('empresas_modificar', {
-			pagename: 'Modificar Informacion de Empresa',
-			empresa: empresa[0]
+	mProductos.getById(id, function(producto){
+		mTipoProductos.getAll(function (tipos_producto){
+			mEmpresas.getAll(function (empresas){
+				mUmed.getAll(function (umed){
+					res.render('productos_modificar', {
+						pagename: 'Modificar Informacion de Producto',
+						producto: producto[0],
+						tipos_producto: tipos_producto,
+						empresas: empresas,
+						umed: umed
+					});
+				});
+			});
 		});
 	});
 }
@@ -58,22 +81,24 @@ function postModificar(req, res){
 	// console.log(params);
 	const id = params.id;
 	const nombre = params.nombre;
-	const razon_social = params.razon_social;
-	const cuit = params.cuit;
-	const domicilio = params.domicilio;
-	const telefono = params.telefono;
-	const email = params.email;
-	const fax = params.fax;
-	const contacto = params.contacto;
+	const empresa = params.empresa;
+	var peligroso = params.peligroso;
+	const tipo_producto = params.tipo_producto;
+	const umed = params.umed;
 	var activo = params.activo;
 	// console.log(activo)
 	if (activo == 'on')
 		activo = '1';
 	else
 		activo = '0';
-	
-	mProductos.update(id, nombre, razon_social, cuit, domicilio, telefono, email, fax, contacto, activo, function(){
-		res.redirect('/empresas/lista');
+
+	if (peligroso == 'on')
+		peligroso = '1';
+	else
+		peligroso = '0';
+
+	mProductos.update(id, nombre, empresa, peligroso, tipo_producto, umed, activo, function(){
+		res.redirect('/productos/lista');
 	});
 }
 
@@ -82,6 +107,6 @@ function getEliminar(req, res){
 	const id = params.id;
 
 	mProductos.del(id, function(){
-		res.redirect('/empresas/lista');
+		res.redirect('/productos/lista');
 	});
 }

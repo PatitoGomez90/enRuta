@@ -34,10 +34,13 @@
                         </div>
                         <div class="four wide center aligned field">
                             <label>Activo?</label>
-                              <div class="ui toggle checkbox">
-                                <input type="checkbox" name="activo" id="activo" tabindex="0" class="hidden">
-                                <!-- <label>No</label> -->
-                              </div>
+                            <div class="ui toggle checkbox">
+                                {% if tipotractor.activo == 1 %}
+                                    <input type="checkbox" name="activo" id="activo" tabindex="0" class="hidden" checked>
+                                {% else %}
+                                    <input type="checkbox" name="activo" id="activo" tabindex="0" class="hidden">
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                     <button class="ui basic submit button" tabindex="0" type="submit">Submit</button>

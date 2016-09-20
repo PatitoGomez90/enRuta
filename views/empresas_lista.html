@@ -20,7 +20,8 @@
 
 <table class="ui sortable celled striped table" id="tabla_empresas">
     <thead>
-        <tr>            
+        <tr>
+            <th>#</th>      
             <th>Nombre</th>
             <th>Razon Social</th>
             <th>C.U.I.T.</th>
@@ -35,7 +36,8 @@
     </thead>
     <tbody>
         {% for e in empresas %}
-            <tr>                
+            <tr>
+                <td>{{ e.id }}</td>     
                 <td>{{ e.nombre }}</td>
                 <td>{{ e.razon_social }}</td>
                 <td>{{ e.cuit }}</td>
