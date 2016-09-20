@@ -1,0 +1,96 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<div class="ui basic segment">
+    <h1 class="ui dividing blue header">{{ pagename }}</h1>
+</div>  
+<table class="ui celled striped table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <form class="ui form" id="formalta" method="post" action="/productos/modificar">
+                    <input hidden name="id" id="id" value="{{ producto.id }}">
+                    <div class="fields">
+                        <div class="six wide field">
+                            <label>Nombre</label> 
+                            <div class="field">
+                                <input type="text" name="nombre" id="nombre" placeholder="Nombre" value="{{ producto.nombre }}">
+                            </div>
+                        </div>
+                        <div class="six wide field">
+                            <label>Empresa</label>
+                            <select class="ui fluid dropdown" name="empresa" id="empresa">
+                                {% for e in empresas %}
+                                    {% if e.id == producto.id_empresa_fk %}
+                                        <option value="{{ e.id }}" selected>{{ e.nombre }}</option>
+                                    {% else %}
+                                        <option value="{{ e.id }}">{{ e.nombre }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="four wide field">
+                            <label>Tipo</label>
+                            <select class="ui fluid dropdown" name="tipo_producto" id="tipo_producto">
+                                {% for t in tipos_producto %}
+                                    {% if t.id == producto.id_tipo_producto_fk %}
+                                        <option value="{{ t.id }}" selected>{{ t.descripcion }}</option>
+                                    {% else %}
+                                        <option value="{{ t.id }}">{{ t.descripcion }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="four wide center aligned field">                            
+                            <label>Peligroso?</label>
+                            <div class="ui toggle checkbox">
+                                {% if producto.peligroso == 1 %}
+                                    <input type="checkbox" name="peligroso" id="peligroso" tabindex="0" class="hidden" checked>
+                                {% else %}
+                                    <input type="checkbox" name="peligroso" id="peligroso" tabindex="0" class="hidden">
+                                {% endif %}                                    
+                                <!-- <label>No</label> -->
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Unidad de Medida</label>
+                            <select class="ui fluid dropdown" name="umed" id="umed">
+                                {% for u in umed %}
+                                    {% if u.id == producto.id_umed_fk %}
+                                        <option value="{{ u.id }}" selected>{{ u.abreviacion }}</option>
+                                    {% else %}
+                                        <option value="{{ u.id }}">{{ u.abreviacion }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="four wide center aligned field">
+                            <label>Activo?</label>
+                              <div class="ui toggle checkbox">
+                                {% if producto.activo == 1 %}
+                                    <input type="checkbox" name="activo" id="activo" tabindex="0" class="hidden" checked>
+                                {% else %}
+                                    <input type="checkbox" name="activo" id="activo" tabindex="0" class="hidden">
+                                {% endif %}
+                                <!-- <label>No</label> -->
+                              </div>
+                        </div>
+                    </div>
+                    <button class="ui basic submit button" tabindex="0" type="submit">Submitn</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

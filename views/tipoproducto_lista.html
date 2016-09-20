@@ -1,0 +1,44 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="left floated left aligned ten wide column">
+        <h1 class="ui dividing blue header">{{ pagename }}</h1>
+    </div>
+    <div class="right floated right aligned six wide column">
+        <div class="ui buttons">
+            <a href="/tipoproducto/alta" class="ui green button inverted" data-tooltip="Nuevo" data-position="bottom center"><i class="large plus icon"></i></a>
+            <div class="ui blue button inverted" data-tooltip="Ayuda" data-position="bottom center"><i class="large idea icon"></i></div>
+        </div>
+    </div>
+</div>
+<table class="ui sortable celled striped table" id="tabla">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Descripcion</th>
+            <th>Activo</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in tipoproductos %}
+            <tr>
+                <td>{{ t.id }}</td>
+                <td>{{ t.descripcion }}</td>
+                <td>{{ t.activotxt }}</td>
+                <td>
+                    <div class="ui icon buttons">
+                        <a href="/tipoproducto/eliminar/{{ t.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
+                        <a href="/tipoproducto/modificar/{{ t.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

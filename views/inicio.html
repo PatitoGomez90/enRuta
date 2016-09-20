@@ -12,36 +12,62 @@
     <!-- Truck List -->
     <div class="three wide column">
         <div class="ui segment" style="height: 70%;">
-            Truck List
+            <b>Truck List</b>
             <div class="ui divider"></div>
-            <div class="ui divided list">
-                <div class="item">
+            <!-- <div class="ui divided list">
+                <div class="item viaje" style="position: relative;">
                     <i class="shipping icon"></i>
-                    <div class="content">
-                        <a class="header">Krowlewskie Jadlo</a>
-                        <!-- <div class="description">An excellent polish restaurant, quick delivery and hearty, filling meals.</div> -->
+                    <div class="content">                        
+                        <a class="left floated header">Krowlewskie</a>
                     </div>
                 </div>
-                <div class="item">
+                <div class="item viaje" style="position: relative;">
                     <i class="shipping icon"></i>
                     <div class="content">
-                        <a class="header">Xian Famous Foods</a>
-                         <!-- <div class="description">A taste of Shaanxi's delicious culinary traditions, with delights like spicy cold noodles and lamb burgers.</div> -->
+                        <a class="left floated header">XianFamous</a>
                     </div>
                 </div>
-                <div class="item">
+                <div class="item viaje" style="position: relative;">
                     <i class="shipping icon"></i>
                     <div class="content">
-                        <a class="header">Sapporo Haru</a>
-                        <!-- <div class="description">Greenpoint's best choice for quick and delicious sushi.</div> -->
+                        <a class="left floated header">Sapporo</a>
                     </div>
                 </div>
-                <div class="item">
+                <div class="item viaje" style="position: relative;">
                     <i class="shipping icon"></i>
                     <div class="content">
-                        <a class="header">Enid's</a>
-                        <!-- <div class="description">At night a bar, during the day a delicious brunch spot.</div> -->
+                        <a class="left floated header">Enids</a>
                     </div>
+                </div>
+            </div> -->
+            <div class="ui styled accordion">
+                <div class="title" style="position: relative;">
+                    <i class="left floated shipping icon"></i>                      
+                    <span class="left floated header">Krowlewskie</span>             
+                </div>
+                <div class="content">
+                    <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness.</p>
+                </div>
+                <div class="title" style="position: relative;">
+                    <i class="shipping icon"></i>                      
+                    <span class="left floated header">ASD 468</span>             
+                </div>
+                <div class="content">
+                    <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness.</p>
+                </div>
+                <div class="title" style="position: relative;">
+                    <i class="shipping icon"></i>                      
+                    <span class="left floated header">Tuco Salamanca</span>             
+                </div>
+                <div class="content">
+                    <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness.</p>
+                </div>
+                <div class="title" style="position: relative;">
+                    <i class="shipping icon"></i>                      
+                    <span class="left floated header">SayMyName</span>             
+                </div>
+                <div class="content">
+                    <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness.</p>
                 </div>
             </div>
         </div>
@@ -49,7 +75,7 @@
     <!-- Map -->
     <div class="nine wide column">
         <div class="ui segment" style="height: 70%;">
-            Google Map
+            <b>Google Map</b>
             <div class="ui divider"></div>
             <!-- <iframe src=""> -->
                 <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d13331.476590983788!2d-60.20528625!3d-33.348368199999996!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1473897549032" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
@@ -59,7 +85,7 @@
     <!-- Notification Feed -->
     <div class="four wide column">
         <div class="ui segment" style="height: 70%;">
-            Notification Feed
+            <b>Notification Feed</b>
             <div class="ui divider"></div>
             <div class="ui feed">
                 <div class="event">
@@ -106,8 +132,13 @@
         </div>
     </div>
 </div>
-<!-- <script src="/js/jquery.min.js"></script> -->
+<script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
-    
+    // $(".title").hover(function (){
+    //     $(this).append("<i class='right floated add circle icon' style='position: absolute; top: 2px; right: 0px;'></i>")
+    // }, function(){
+    //     $(this).children("i.right.floated.add.circle.icon").remove();
+    // });
 </script>
 {% endblock %}
+
