@@ -12,6 +12,8 @@ const cTipoSemi = require('./controllers/cTipoSemi');
 const cTipoCuenta = require('./controllers/cTipoCuenta');
 const cProductos = require('./controllers/cProductos');
 const cTipoProductos = require('./controllers/cTipoProductos');
+const cViajes = require('./controllers/cViajes');
+const cLocalidades = require('./controllers/cLocalidades');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -114,4 +116,13 @@ module.exports = function(app) {
 		app.get('/tipoproducto/modificar/:id', cTipoProductos.getModificar);
 		app.post('/tipoproducto/modificar', cTipoProductos.postModificar)
 		app.get('/tipoproducto/eliminar/:id', cTipoProductos.getEliminar);
+	// VIAJES
+		app.get('/viajes/lista', cViajes.getLista);
+		app.get('/viajes/alta', cViajes.getAlta);
+		app.post('/viajes/alta', cViajes.postAlta);
+		app.get('/viajes/modificar/:id', cViajes.getModificar);
+		app.post('/viajes/modificar', cViajes.postModificar)
+		app.get('/viajes/eliminar/:id', cViajes.getEliminar);
+	//LOCALIDADES
+		app.get('/localidades/all', cLocalidades.getAll);
 };

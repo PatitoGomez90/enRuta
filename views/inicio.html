@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="ui basic segment">
-    <h1 class="ui dividing blue header">En Ruta?</h1>
+    <h1 class="ui dividing blue header">Landing Page</h1>
 </div>	
 <div class="ui grid">
     <!-- Truck List -->
@@ -41,34 +41,34 @@
                 </div>
             </div> -->
             <div class="ui styled accordion">
-                <div class="title" style="position: relative;">
-                    <i class="left floated shipping icon"></i>                      
-                    <span class="left floated header">Krowlewskie</span>             
-                </div>
-                <div class="content">
-                    <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness.</p>
-                </div>
-                <div class="title" style="position: relative;">
-                    <i class="shipping icon"></i>                      
-                    <span class="left floated header">ASD 468</span>             
-                </div>
-                <div class="content">
-                    <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness.</p>
-                </div>
-                <div class="title" style="position: relative;">
-                    <i class="shipping icon"></i>                      
-                    <span class="left floated header">Tuco Salamanca</span>             
-                </div>
-                <div class="content">
-                    <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness.</p>
-                </div>
-                <div class="title" style="position: relative;">
-                    <i class="shipping icon"></i>                      
-                    <span class="left floated header">SayMyName</span>             
-                </div>
-                <div class="content">
-                    <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness.</p>
-                </div>
+                {% for v in viajes %}
+                    <div class="title" style="position: relative;">
+                        <i class="left floated shipping icon"></i>                      
+                        <span class="left floated header">{{ v.apodo }}</span>             
+                    </div>
+                    <div class="content">
+                        <div class="field">
+                            <div class=" sixteen wide field">
+                                <span class="left floated">Chofer:</span> <!-- {{ v.chofertxt }} -->
+                                <span class="right floated">Juan Perez</span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class=" sixteen wide field">
+                                <span class="left floated">Tractor:</span>
+                                <span class="right floated">{{ v.tractortxt }}</span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class=" sixteen wide field">
+                                <span class="left floated">Semi:</span>
+                                <span class="right floated">{{ v.semitxt }}</span>
+                            </div>
+                        </div>
+                        <!-- <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness.</p> -->
+                    </div>
+                {% endfor %}
+                
             </div>
         </div>
     </div>

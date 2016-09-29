@@ -1,4 +1,5 @@
 var conn = require('../config/db').conn;
+var mongoose = require('mongoose');
 
 module.exports = {
 	getAll: getAll,
