@@ -131,6 +131,13 @@ module.exports = function(app) {
 		app.get('/viajes/modificar/:id', cViajes.getModificar);
 		app.post('/viajes/modificar', cViajes.postModificar)
 		app.get('/viajes/eliminar/:id', cViajes.getEliminar);
-	//LOCALIDADES
+	// LOCALIDADES
 		app.get('/localidades/all', cLocalidades.getAll);
+	// PING
+		app.post('/ping', function(req, res){
+			var lat = req.body.lat;
+			var long = req.body.long;
+			res.send('La: '+lat+'; Lo:'+long);
+			console.log('La: '+lat+'; Lo:'+long);
+		});
 };
