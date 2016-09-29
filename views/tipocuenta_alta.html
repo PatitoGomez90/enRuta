@@ -1,0 +1,41 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<div class="ui basic segment">
+    <h1 class="ui dividing blue header">{{ pagename }}</h1>
+</div>  
+<table class="ui celled striped table">
+    <thead>
+        <tr>
+            <th><h1></h1></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <form class="ui form" id="formalta" method="post" action="/tipocuenta/alta">
+                    <div class="fields">                        
+                        <div class="six wide field">
+                            <label>Nombre</label>
+                            <div class="field">
+                                <input type="text" name="nombre" id="nombre" placeholder="Nombre">
+                            </div>
+                        </div>
+                        <div class="six wide field">
+                            <label>Descripcion</label> 
+                            <div class="field">
+                                <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="ui basic submit button" tabindex="0" type="submit">Submit</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

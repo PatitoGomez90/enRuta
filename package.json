@@ -1,14 +1,14 @@
 {
-  "name": "Evhsa",
+  "name": "Enruta",
   "version": "0.1.0",
-  "description": "This project is for Evhsa.",
+  "description": "This project is for Enruta.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jane-doe/node-example.git"
+    "url": "https://github.com/markkos/enruta.git"
   },
   "dependencies": {
     "async": "^1.4.2",
@@ -19,6 +19,8 @@
     "express-session": "^1.1.0",
     "logfmt": "^1.1.2",
     "method-override": "^1.0.0",
+    "mongodb": "^2.2.10",
+    "mongoose": "^4.6.1",
     "mysql": "^2.4.3",
     "swig": "^1.3.2",
     "toastr": "^2.1.2",

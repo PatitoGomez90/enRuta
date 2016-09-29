@@ -10,6 +10,9 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var methodoverride = require('method-override');
 var validator = require("validator");
+// var mongoose = require('mongoose');
+
+// mongoose.connect('mongodb://localhost/enruta');
 
 app.use(logfmt.requestLogger());
 app.engine('html', cons.swig);

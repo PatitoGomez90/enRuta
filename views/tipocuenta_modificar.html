@@ -17,29 +17,29 @@
     <tbody>
         <tr>
             <td>
-                <form class="ui form" id="formalta" method="post" action="/tipotractor/modificar">
-                    <input hidden name="id" id="id" value="{{ tipotractor.id }}">
+                <form class="ui form" id="formalta" method="post" action="/tipocuenta/modificar">
+                    <input hidden name="id" id="id" value="{{ tipocuenta.id }}">
                     <div class="fields">
-                        <div class="six wide field">
-                            <label>Descripcion</label> 
+                        <div class="three wide field">
+                            <label>Nombre</label>
                             <div class="field">
-                                <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion" value="{{ tipotractor.descripcion }}">
+                                <input type="text" name="nombre" id="nombre" placeholder="Nombre" value="{{ tipocuenta.nombre }}">
                             </div>
                         </div>
                         <div class="six wide field">
-                            <label>Ejes</label>
+                            <label>Descripcion</label> 
                             <div class="field">
-                                <input type="text" name="ejes" id="ejes" placeholder="Ejes" value="{{ tipotractor.ejes }}">
+                                <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion" value="{{ tipocuenta.descripcion }}">
                             </div>
                         </div>
                         <div class="four wide center aligned field">
                             <label>Activo?</label>
                             <div class="ui toggle checkbox">
-                                {% if tipotractor.activo == 1 %}
+                                {% if tipocuenta.activo == 1 %}
                                     <input type="checkbox" name="activo" id="activo" tabindex="0" class="hidden" checked>
-                                {% else %}
+                                {% else %
                                     <input type="checkbox" name="activo" id="activo" tabindex="0" class="hidden">
-                                {% endif %}
+                                {% endif %} 
                             </div>
                         </div>
                     </div>

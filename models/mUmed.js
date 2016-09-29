@@ -5,5 +5,5 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn('select * from provincias', cb);
+	conn("select * from umed", cb);
 }

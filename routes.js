@@ -1,15 +1,19 @@
-var cIndex = require('./controllers/cIndex');
-var cUsuarios = require('./controllers/cUsuarios');
-var cAdmin = require('./controllers/cAdmin');
-var cAccesos = require('./controllers/cAccesos');
-var cChoferes = require('./controllers/cChoferes');
-var cEmpresas = require('./controllers/cEmpresas');
-var cTractores = require('./controllers/cTractores');
-var mEventos = require('./models/mEventos');
-var cRandom = require('./controllers/cRandom');
-var cSemis = require('./controllers/cSemis');
-var cTipoTractor = require('./controllers/cTipoTractor');
-
+const cIndex = require('./controllers/cIndex');
+const cUsuarios = require('./controllers/cUsuarios');
+const cAdmin = require('./controllers/cAdmin');
+const cAccesos = require('./controllers/cAccesos');
+const cEmpresas = require('./controllers/cEmpresas');
+const cTractores = require('./controllers/cTractores');
+const mEventos = require('./models/mEventos');
+const cRandom = require('./controllers/cRandom');
+const cSemis = require('./controllers/cSemis');
+const cTipoTractor = require('./controllers/cTipoTractor');
+const cTipoSemi = require('./controllers/cTipoSemi');
+const cTipoCuenta = require('./controllers/cTipoCuenta');
+const cProductos = require('./controllers/cProductos');
+const cTipoProductos = require('./controllers/cTipoProductos');
+const cViajes = require('./controllers/cViajes');
+const cLocalidades = require('./controllers/cLocalidades');
 function logout (req, res) {
 	fecha = new Date();
 	day = fecha.getDate();
@@ -53,7 +57,7 @@ module.exports = function(app) {
 		app.get('/usuariosborrar/:id', auth, cUsuarios.getDelUsuario);
 		//configurar accesos CREO QUE ESTO NO LO VAMOS A USAR
 		// app.get('/accesoslista/:id', auth, cAccesos.getAccesos);
-		// app.post('/accesoslista', auth, cAccesos.postAccesos);	
+		// app.post('/accesoslista', auth, cAccesos.postAccesos);
 	
 	// EMPRESAS
 		app.get('/empresas/lista', cEmpresas.getLista);
@@ -90,5 +94,41 @@ module.exports = function(app) {
 		app.get('/tipotractor/modificar/:id', cTipoTractor.getModificar);
 		app.post('/tipotractor/modificar', cTipoTractor.postModificar)
 		app.get('/tipotractor/eliminar/:id', cTipoTractor.getEliminar);
-
+	// TIPO SEMI
+		app.get('/tiposemi/lista', cTipoSemi.getLista);
+		app.get('/tiposemi/alta', cTipoSemi.getAlta);
+		app.post('/tiposemi/alta', cTipoSemi.postAlta);
+		app.get('/tiposemi/modificar/:id', cTipoSemi.getModificar);
+		app.post('/tiposemi/modificar', cTipoSemi.postModificar)
+		app.get('/tiposemi/eliminar/:id', cTipoSemi.getEliminar);
+	// TIPO CUENTA
+		app.get('/tipocuenta/lista', cTipoCuenta.getLista);
+		app.get('/tipocuenta/alta', cTipoCuenta.getAlta);
+		app.post('/tipocuenta/alta', cTipoCuenta.postAlta);
+		app.get('/tipocuenta/modificar/:id', cTipoCuenta.getModificar);
+		app.post('/tipocuenta/modificar', cTipoCuenta.postModificar)
+		app.get('/tipocuenta/eliminar/:id', cTipoCuenta.getEliminar);
+	// PRODUCTOS
+		app.get('/productos/lista', cProductos.getLista);
+		app.get('/productos/alta', cProductos.getAlta);
+		app.post('/productos/alta', cProductos.postAlta);
+		app.get('/productos/modificar/:id', cProductos.getModificar);
+		app.post('/productos/modificar', cProductos.postModificar)
+		app.get('/productos/eliminar/:id', cProductos.getEliminar);
+	// TIPO PRODUCTOS
+		app.get('/tipoproducto/lista', cTipoProductos.getLista);
+		app.get('/tipoproducto/alta', cTipoProductos.getAlta);
+		app.post('/tipoproducto/alta', cTipoProductos.postAlta);
+		app.get('/tipoproducto/modificar/:id', cTipoProductos.getModificar);
+		app.post('/tipoproducto/modificar', cTipoProductos.postModificar)
+		app.get('/tipoproducto/eliminar/:id', cTipoProductos.getEliminar);
+	// VIAJES
+		app.get('/viajes/lista', cViajes.getLista);
+		app.get('/viajes/alta', cViajes.getAlta);
+		app.post('/viajes/alta', cViajes.postAlta);
+		app.get('/viajes/modificar/:id', cViajes.getModificar);
+		app.post('/viajes/modificar', cViajes.postModificar)
+		app.get('/viajes/eliminar/:id', cViajes.getEliminar);
+	//LOCALIDADES
+		app.get('/localidades/all', cLocalidades.getAll);
 };

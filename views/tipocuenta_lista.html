@@ -11,34 +11,32 @@
     </div>
     <div class="right floated right aligned six wide column">
         <div class="ui buttons">
-            <a href="/tipotractor/alta" class="ui green button inverted" data-tooltip="Nuevo" data-position="bottom center"><i class="large plus icon"></i></a>
+            <a href="/tipocuenta/alta" class="ui green button inverted" data-tooltip="Nuevo" data-position="bottom center"><i class="large plus icon"></i></a>
             <div class="ui blue button inverted" data-tooltip="Ayuda" data-position="bottom center"><i class="large idea icon"></i></div>
         </div>
     </div>
 </div>
-<!-- <div class="ui blue divider"></div> -->
-
 <table class="ui sortable celled striped table" id="tabla">
     <thead>
-        <tr>            
-            <th>Nro.</th>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
             <th>Descripcion</th>
-            <th>Ejes</th>
             <th>Activo</th>
             <th>Opciones</th>
         </tr>
     </thead>
     <tbody>
-        {% for t in tipotractores %}
-            <tr>                
+        {% for t in tipocuenta %}
+            <tr>
                 <td>{{ t.id }}</td>
+                <td>{{ t.nombre }}</td>
                 <td>{{ t.descripcion }}</td>
-                <td>{{ t.ejes }}</td>
                 <td>{{ t.activotxt }}</td>
                 <td>
                     <div class="ui icon buttons">
-                        <a href="/tipotractor/eliminar/{{ t.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
-                        <a href="/tipotractor/modificar/{{ t.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
+                        <a href="/tipocuenta/eliminar/{{ t.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
+                        <a href="/tipocuenta/modificar/{{ t.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
                     </div>
                 </td>
             </tr>

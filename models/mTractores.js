@@ -9,7 +9,10 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn('select * from tractores', cb);
+	conn("select *, IF(tractores.activo = '1', 'Si', 'No') as activotxt, "+
+		"tipo_tractor.descripcion as tipotractortxt "+
+		"from tractores "+
+		"LEFT JOIN tipo_tractor ON tipo_tractor.id = tractores.id_tipo_tractor_fk", cb);
 }
 
 function getById(id, cb){
@@ -17,8 +20,8 @@ function getById(id, cb){
 }
 
 function insert(patente, marca, modelo, tipo_tractor, anio, cb){
-	conn("INSERT INTO tractores(patente, marca, modelo, tipo_tractor_fk, anio, activo) "+
-		"VALUES('"+patente+"', '"+marca+"', '"+modelo+"', '"+tipo_tractor+"', '"+anio+"', '1')", cb)
+	conn("INSERT INTO tractores(patente, marca, modelo, id_tipo_tractor_fk, anio, activo) "+
+		"VALUES('"+patente+"', '"+marca+"', '"+modelo+"', "+tipo_tractor+", '"+anio+"', '1')", cb)
 }
 
 function update(id, patente, marca, modelo, tipo_tractor, anio, activo, cb){
@@ -26,7 +29,7 @@ function update(id, patente, marca, modelo, tipo_tractor, anio, activo, cb){
 		"patente = '"+patente+"', "+
 		"marca = '"+marca+"', "+
 		"modelo = '"+modelo+"', "+
-		"tipo_tractor_fk = '"+tipo_tractor+"', "+
+		"id_tipo_tractor_fk = "+tipo_tractor+", "+
 		"anio = '"+anio+"', "+
 		"activo = '"+activo+"' "+
 		"WHERE id ="+ id, cb);

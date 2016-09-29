@@ -20,7 +20,8 @@
 
 <table class="ui sortable celled striped table" id="tabla_empresas">
     <thead>
-        <tr>            
+        <tr>
+            <th>#</th>      
             <th>Nombre</th>
             <th>Razon Social</th>
             <th>C.U.I.T.</th>
@@ -29,12 +30,14 @@
             <th>E-Mail</th>
             <th>Fax</th>
             <th>Contacto</th>
+            <th>Activo</th>
             <th>Opciones</th>
         </tr>
     </thead>
     <tbody>
         {% for e in empresas %}
-            <tr>                
+            <tr>
+                <td>{{ e.id }}</td>     
                 <td>{{ e.nombre }}</td>
                 <td>{{ e.razon_social }}</td>
                 <td>{{ e.cuit }}</td>
@@ -43,6 +46,7 @@
                 <td>{{ e.mail }}</td>
                 <td>{{ e.fax }}</td>
                 <td>{{ e.contacto }}</td>
+                <td>{{ e.activotxt }}</td>
                 <td>
                     <div class="ui icon buttons">
                         <a href="/empresas/eliminar/{{ e.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>

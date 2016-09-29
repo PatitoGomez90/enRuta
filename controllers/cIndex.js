@@ -2,6 +2,7 @@
 var mUsuarios = require('../models/mUsuarios');
 var mAyuda = require('../models/mAyuda');
 //requiriendo la conection string
+var mViajes = require('../models/mViajes');
 
 module.exports = {
 	getInicio: getInicio,
@@ -11,8 +12,12 @@ module.exports = {
 }
 
 function getInicio(req, res){
-    res.render('inicio', {
-        pagename: 'enRuta'
+    mViajes.getAll(function(viajes){
+        // console.log(viajes)
+        res.render('inicio', {
+            pagename: 'enRuta',
+            viajes: viajes
+        });
     });
 }
 

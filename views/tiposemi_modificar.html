@@ -17,25 +17,31 @@
     <tbody>
         <tr>
             <td>
-                <form class="ui form" id="formalta" method="post" action="/tipotractor/modificar">
-                    <input hidden name="id" id="id" value="{{ tipotractor.id }}">
+                <form class="ui form" id="formalta" method="post" action="/tiposemi/modificar">
+                    <input hidden name="id" id="id" value="{{ tiposemi.id }}">
                     <div class="fields">
                         <div class="six wide field">
                             <label>Descripcion</label> 
                             <div class="field">
-                                <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion" value="{{ tipotractor.descripcion }}">
+                                <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion" value="{{ tiposemi.descripcion }}">
                             </div>
                         </div>
-                        <div class="six wide field">
+                        <div class="three wide field">
                             <label>Ejes</label>
                             <div class="field">
-                                <input type="text" name="ejes" id="ejes" placeholder="Ejes" value="{{ tipotractor.ejes }}">
+                                <input type="text" name="ejes" id="ejes" placeholder="Ejes" value="{{ tiposemi.ejes }}">
+                            </div>
+                        </div>
+                        <div class="three wide field">
+                            <label>Capacidad</label>
+                            <div class="field">
+                                <input type="text" name="capacidad" id="capacidad" placeholder="Capacidad" value="{{ tiposemi.capacidad }}">
                             </div>
                         </div>
                         <div class="four wide center aligned field">
                             <label>Activo?</label>
                             <div class="ui toggle checkbox">
-                                {% if tipotractor.activo == 1 %}
+                                {% if tiposemi.activo == 1 %}
                                     <input type="checkbox" name="activo" id="activo" tabindex="0" class="hidden" checked>
                                 {% else %}
                                     <input type="checkbox" name="activo" id="activo" tabindex="0" class="hidden">

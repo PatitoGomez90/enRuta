@@ -11,40 +11,34 @@
     </div>
     <div class="right floated right aligned six wide column">
         <div class="ui buttons">
-            <a href="/tractores/alta" class="ui green button inverted" data-tooltip="Nuevo" data-position="bottom center"><i class="large plus icon"></i></a>
+            <a href="/tiposemi/alta" class="ui green button inverted" data-tooltip="Nuevo" data-position="bottom center"><i class="large plus icon"></i></a>
             <div class="ui blue button inverted" data-tooltip="Ayuda" data-position="bottom center"><i class="large idea icon"></i></div>
         </div>
     </div>
 </div>
-<!-- <div class="ui blue divider"></div> -->
-
-<table class="ui sortable celled striped table" id="tabla_empresas">
+<table class="ui sortable celled striped table" id="tabla">
     <thead>
         <tr>            
             <th>Nro.</th>
-            <th>Patente</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Año</th>
-            <th>Tipo</th>
+            <th>Descripcion</th>
+            <th>Ejes</th>
+            <th>Capacidad</th>
             <th>Activo</th>
             <th>Opciones</th>
         </tr>
     </thead>
     <tbody>
-        {% for t in tractores %}
+        {% for t in tiposemi %}
             <tr>                
                 <td>{{ t.id }}</td>
-                <td>{{ t.patente }}</td>
-                <td>{{ t.marca }}</td>
-                <td>{{ t.modelo }}</td>
-                <td>{{ t.anio }}</td>
-                <td>{{ t.tipotractortxt }}</td>
+                <td>{{ t.descripcion }}</td>
+                <td>{{ t.ejes }}</td>
+                <td>{{ t.capacidad }}</td>
                 <td>{{ t.activotxt }}</td>
                 <td>
                     <div class="ui icon buttons">
-                        <a href="/tractores/eliminar/{{ t.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
-                        <a href="/tractores/modificar/{{ t.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
+                        <a href="/tiposemi/eliminar/{{ t.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
+                        <a href="/tiposemi/modificar/{{ t.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
                     </div>
                 </td>
             </tr>

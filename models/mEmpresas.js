@@ -1,4 +1,5 @@
 var conn = require('../config/db').conn;
+var mongoose = require('mongoose');
 
 module.exports = {
 	getAll: getAll,
@@ -9,7 +10,7 @@ module.exports = {
 }
 
 function getAll(cb){
-	conn('select * from empresas', cb);
+	conn("select *, IF(activo = '1', 'Si', 'No') as activotxt from empresas", cb);
 }
 
 function getById(id, cb){

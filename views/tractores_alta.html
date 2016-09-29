@@ -22,7 +22,7 @@
                         <div class="six wide field">
                             <label>Patente</label> 
                             <div class="field">
-                                <input type="text" name="patente" id="patente" placeholder="Patente">
+                                <input type="text" name="patente" id="patente" placeholder="Patente" required>
                             </div>
                         </div>
                         <div class="six wide field">
@@ -47,16 +47,12 @@
                         </div>
                         <div class="four wide field">
                             <label>Tipo</label>
-                            <div class="ui selection dropdown">
-                                <input type="hidden" name="gender">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Tipo de Tractor</div>
-                                <div class="menu">
-                                    {% for t in tipos_tractor %}
-                                        <div class="item" data-value="{{ t.id }}">{{ t.descripcion }}</div>
-                                    {% endfor %}
-                                </div>
-                            </div>
+                            <select class="ui fluid dropdown" name="tipo_tractor" id="tipo_tractor">
+                                <!-- <option value="">Seleccione el tipo</option> -->
+                                {% for t in tipos_tractor %}
+                                    <option value="{{ t.id }}">{{ t.descripcion }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                     <button class="ui basic submit button" tabindex="0" type="submit">Submit</button>
