@@ -1,0 +1,54 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}
+<h1 class="ui dividing blue header">Formulario de Alta de Choferes</h1>
+<table class="ui celled striped table">
+    <tbody>
+        <tr>
+            <td>
+                <form class="ui form" id="formalta" method="post" action="/choferes/alta">
+                    <div class="fields">
+                        <div class="sixteen wide field">
+                            <label>Nombre y Apellido</label> 
+                            <div class="field">
+                                <input type="text" name="nombre_completo" id="nombre_completo" placeholder="Nombre y Apellido">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="two wide field">
+                            <label>DNI</label>
+                            <div class="field">
+                                <input type="text" name="dni" id="dni" placeholder="DNI">
+                            </div>
+                        </div>
+                        <div class="two wide field">
+                        	<label>Sexo</label>
+                        	<div class="field">
+                        		<input type="text" name="id_sexo_fk" id="id_sexo_fk" placeholder="Sexo">
+                        	</div>
+                        </div>
+                        <div class="six wide field">
+                        	<label>Tractor</label>
+                        	<div class="field">
+                        		<input type="text" name="id_tractor_default_fk" id="id_tractor_default_fk" placeholder="Tractor">
+                        	</div>
+                        </div>
+                        <div class="six wide field">
+                        	<label>Semi</label>
+                        	<div class="field">
+                        		<input type="text" name="id_semi_default_fk" id="id_semi_default_fk" placeholder="Semi">
+                        	</div>
+                        </div>
+                    </div>
+                    <button class="ui basic submit button" tabindex="0" type="submit">Submit</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

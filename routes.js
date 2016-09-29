@@ -14,6 +14,7 @@ const cProductos = require('./controllers/cProductos');
 const cTipoProductos = require('./controllers/cTipoProductos');
 const cViajes = require('./controllers/cViajes');
 const cLocalidades = require('./controllers/cLocalidades');
+const cChoferes = require('./controllers/cChoferes');
 
 function logout (req, res) {
 	fecha = new Date();
@@ -40,11 +41,11 @@ function auth (req, res, next) {
 }
 
 module.exports = function(app) {
-	app.get('/', cIndex.getInicio);
-	app.get('/login', cAdmin.getLogin)
+	app.get('/', cAdmin.getLogin);
+	app.get('/login', cAdmin.getLogin);
 	app.post('/login', cAdmin.postLogin);
 	app.get('/logout', logout);
-	app.get('/inicio', auth, cIndex.getInicio);
+	app.get('/inicio', cIndex.getInicio);
 	app.get('/error', cIndex.getError);
 	//ayuda
 		app.get('/ayuda', cIndex.getAyuda);
@@ -65,15 +66,22 @@ module.exports = function(app) {
 		app.get('/empresas/alta', cEmpresas.getAlta);
 		app.post('/empresas/alta', cEmpresas.postAlta);
 		app.get('/empresas/modificar/:id', cEmpresas.getModificar);
-		app.post('/empresas/modificar', cEmpresas.postModificar)
+		app.post('/empresas/modificar', cEmpresas.postModificar);
 		app.get('/empresas/eliminar/:id', cEmpresas.getEliminar);
 	// TRACTORES
 		app.get('/tractores/lista', cTractores.getLista);
 		app.get('/tractores/alta', cTractores.getAlta);
 		app.post('/tractores/alta', cTractores.postAlta);
 		app.get('/tractores/modificar/:id', cTractores.getModificar);
-		app.post('/tractores/modificar', cTractores.postModificar)
+		app.post('/tractores/modificar', cTractores.postModificar);
 		app.get('/tractores/eliminar/:id', cTractores.getEliminar);
+	// CHOFERES
+		app.get('/choferes/lista', cChoferes.getLista);
+		app.get('/choferes/alta', cChoferes.getAlta);
+		app.post('/choferes/alta', cChoferes.postAlta);
+		app.get('/choferes/modificar/:id', cChoferes.getModificar);
+		app.post('/choferes/modificar', cChoferes.postModificar);
+		app.get('/choferes/eliminar/:id', cChoferes.getEliminar);
 	// SEMIS
 		app.get('/semis/lista', cSemis.getLista);
 		app.get('/semis/alta', cSemis.getAlta);

@@ -38,3 +38,6 @@ function update(id, patente, marca, modelo, tipo_tractor, anio, activo, cb){
 function del(id, cb){
 	conn("DELETE FROM tractores WHERE id = "+id, cb);
 }
+
+// id, patente, marca, modelo, tipo_tractor_fk, anio, activo
+

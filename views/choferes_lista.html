@@ -1,0 +1,56 @@
+{% extends 'template.html' %}
+
+{% block title %}
+	{{ pagename }}
+{% endblock %}
+
+{% block content %}	
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<!-- <div class="jumbotron"> -->
+<div class="ui container grid stackable" style="margin-top:50px;">
+    <div class="sixteen wide column">
+        <h1 class="ui dividing blue header">Lista de Choferes</h1>
+        <div class="ui basic buttons">
+            <a href="/choferes/alta"><div class="ui button">Agregar Chofer</div></a>
+            <div class="ui button">Ayuda</div>
+        </div>
+        <table class="ui table celled">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Completo</th>
+                    <th>DNI</th>
+                    <th>Sexo</th>
+                    <th>Tractor</th>
+                    <th>Semi</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ch in choferes %}
+                <tr>
+                    <td> {{ ch.id }} </td>
+                    <td> {{ ch.nombre_completo }} </td>
+                    <td> {{ ch.dni }} </td>
+                    <td> {{ ch.id_sexo_fk }} </td>
+                    <td> {{ ch.id_tractor_default_fk }} </td>
+                    <td> {{ ch.id_semi_default_fk }} </td>
+                    <td>
+                        <div class="ui icon buttons">
+                            <a href="/choferes/eliminar/{{ ch.id }}" title="Eliminar"><div class="ui inverted red icon button" data-inverted="" data-tooltip="Eliminar" data-position="top center"><i class="large trash circle icon"></i></div></a>
+                            <a href="/choferes/modificar/{{ ch.id }}" title="Modificar"><div class="ui inverted green icon button" data-inverted="" data-tooltip="Modificar" data-positon="top center"><i class="large edit icon"></i></div></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}    
+            </tbody>
+        </table>
+    </div>    
+</div>
+<!-- </div> -->
+<div class="ui container">
+    <main>  
+    <!-- Example row of columns -->
+    </main> 
+</div>    
+{% endblock %}

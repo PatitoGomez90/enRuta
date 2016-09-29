@@ -5,133 +5,123 @@
 {% endblock %}
 
 {% block content %}
-<div class="ui basic segment">
-    <h1 class="ui dividing blue header">Landing Page</h1>
-</div>	
-<div class="ui grid">
-    <!-- Truck List -->
-    <div class="three wide column">
-        <div class="ui segment" style="height: 70%;">
-            <b>Truck List</b>
-            <div class="ui divider"></div>
-            <!-- <div class="ui divided list">
-                <div class="item viaje" style="position: relative;">
-                    <i class="shipping icon"></i>
-                    <div class="content">                        
-                        <a class="left floated header">Krowlewskie</a>
-                    </div>
-                </div>
-                <div class="item viaje" style="position: relative;">
-                    <i class="shipping icon"></i>
-                    <div class="content">
-                        <a class="left floated header">XianFamous</a>
-                    </div>
-                </div>
-                <div class="item viaje" style="position: relative;">
-                    <i class="shipping icon"></i>
-                    <div class="content">
-                        <a class="left floated header">Sapporo</a>
-                    </div>
-                </div>
-                <div class="item viaje" style="position: relative;">
-                    <i class="shipping icon"></i>
-                    <div class="content">
-                        <a class="left floated header">Enids</a>
-                    </div>
-                </div>
-            </div> -->
-            <div class="ui styled accordion">
-                {% for v in viajes %}
-                    <div class="title" style="position: relative;">
-                        <i class="left floated shipping icon"></i>                      
-                        <span class="left floated header">{{ v.apodo }}</span>             
-                    </div>
-                    <div class="content">
-                        <div class="field">
-                            <div class=" sixteen wide field">
-                                <span class="left floated">Chofer:</span> <!-- {{ v.chofertxt }} -->
-                                <span class="right floated">Juan Perez</span>
-                            </div>
+
+<div class="ui main container">
+    <div class="ui basic segment">
+        <h1 class="ui dividing blue header">Landing Page</h1>
+    </div>
+
+    <div class="ui grid stackable">
+        <!-- Truck List -->
+        <div class="three wide column">
+            <div class="ui segment">
+                <h3>Truck List</h3>
+                <div class="ui divider"></div>
+            
+                <div class="ui styled accordion">
+                    {% for v in viajes %}
+                        <div class="title" style="position: relative;">
+                            <i class="left floated shipping icon"></i>                      
+                            <span class="left floated header">{{ v.apodo }}</span>             
                         </div>
-                        <div class="field">
-                            <div class=" sixteen wide field">
-                                <span class="left floated">Tractor:</span>
-                                <span class="right floated">{{ v.tractortxt }}</span>
+                        <div class="content">
+                            <div class="field">
+                                <div class=" sixteen wide field">
+                                    <span class="left floated">Chofer:</span> <!-- {{ v.chofertxt }} -->
+                                    <span class="right floated">Juan Perez</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="field">
-                            <div class=" sixteen wide field">
-                                <span class="left floated">Semi:</span>
-                                <span class="right floated">{{ v.semitxt }}</span>
+                            <div class="field">
+                                <div class=" sixteen wide field">
+                                    <span class="left floated">Tractor:</span>
+                                    <span class="right floated">{{ v.tractortxt }}</span>
+                                </div>
                             </div>
+                            <div class="field">
+                                <div class=" sixteen wide field">
+                                    <span class="left floated">Semi:</span>
+                                    <span class="right floated">{{ v.semitxt }}</span>
+                                </div>
+                            </div>
+                            <!-- <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness.</p> -->
                         </div>
-                        <!-- <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness.</p> -->
-                    </div>
-                {% endfor %}
-                
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Map -->
-    <div class="nine wide column">
-        <div class="ui segment" style="height: 70%;">
-            <b>Google Map</b>
-            <div class="ui divider"></div>
-            <!-- <iframe src=""> -->
-                <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d13331.476590983788!2d-60.20528625!3d-33.348368199999996!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1473897549032" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-            <!-- </iframe> -->
+
+        <!-- MAP -->
+        <div class="nine wide column">
+            <div class="nine wide column">
+                <div class="ui segment">
+                    <h3>Google Map</h3>
+                    <div class="ui divider"></div>
+                    <!-- <iframe src=""> -->
+                    <div class="google-maps">   
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d13331.476590983788!2d-60.20528625!3d-33.348368199999996!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1473897549032" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>    
+                    <!-- </iframe> -->
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- Notification Feed -->
-    <div class="four wide column">
-        <div class="ui segment" style="height: 70%;">
-            <b>Notification Feed</b>
-            <div class="ui divider"></div>
-            <div class="ui feed">
-                <div class="event">
-                    <div class="label">
-                        <i class="pencil icon"></i>
+
+        <!-- Notification Feed -->
+        <div class="four wide column">
+            <div class="ui segments">
+                <div class="ui segment">
+                    <h3>Notification Feed</h3>
+                    <div class="ui divider"></div>
+                </div>
+                <div class="ui segments">
+                    <div class="ui segment feed">
+                        <div class="event">
+                            <div class="label">
+                                <i class="pencil icon"></i>
+                            </div>
+                            <div class="content">
+                                <div class="summary">
+                                    You posted on your friend <a>Stevie Feliciano's</a> wall.
+                                    <div class="date">Today</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="content">
-                        <div class="summary">
+                    <!-- <div class="ui divider"></div> -->
+                    <div class="ui segment feed">
+                      <div class="event">
+                        <div class="label">
+                          <i class="warning icon"></i>
+                        </div>
+                        <div class="content">
+                          <div class="summary">
+                            You added <a>Jenny Hess</a> to your <a>coworker</a> group.
+                            <div class="date">
+                              3 days ago
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui feed segment">
+                      <div class="event">
+                        <div class="label">
+                          <i class="info circle icon"></i>
+                        </div>
+                        <div class="content">
+                          <div class="summary">
                             You posted on your friend <a>Stevie Feliciano's</a> wall.
                             <div class="date">Today</div>
+                          </div>
                         </div>
+                      </div>
                     </div>
                 </div>
-            </div>
-            <!-- <div class="ui divider"></div> -->
-            <div class="ui feed">
-              <div class="event">
-                <div class="label">
-                  <i class="warning icon"></i>
-                </div>
-                <div class="content">
-                  <div class="summary">
-                    You added <a>Jenny Hess</a> to your <a>coworker</a> group.
-                    <div class="date">
-                      3 days ago
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="ui feed">
-              <div class="event">
-                <div class="label">
-                  <i class="info circle icon"></i>
-                </div>
-                <div class="content">
-                  <div class="summary">
-                    You posted on your friend <a>Stevie Feliciano's</a> wall.
-                    <div class="date">Today</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </div>    
         </div>
+
     </div>
 </div>
+
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
     // $(".title").hover(function (){

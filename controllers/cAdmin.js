@@ -43,9 +43,8 @@ function postLogin(req, res){
 			console.log(user)
 			if (user) {
 				if (user.clave === form.password) {
-					if ( entreFechas(user.alta, user.baja) ) {
+					if ( entreFechas(user.fecha_alta, user.fecha_baja) ) {
 						if (user.activa == 1){
-
 							req.session.user = user;
 							req.session.auth = true;
 
@@ -59,9 +58,9 @@ function postLogin(req, res){
 							date = date.getFullYear() + '/' + month + '/' +  day;
 							req.session.user.horaLogin = date;
 
-							mEventos.add(req.session.user.unica, date, "Login", "", function(){
+							// mEventos.add(req.session.user.unica, date, "Login", "", function(){
 						      	res.redirect('inicio');
-							});
+							// });
 						}else{
 							res.redirect('/')
 						}
