@@ -41,11 +41,11 @@ function auth (req, res, next) {
 }
 
 module.exports = function(app) {
-	app.get('/', cIndex.getInicio);
-	app.get('/login', cAdmin.getLogin)
+	app.get('/', cAdmin.getLogin);
+	app.get('/login', cAdmin.getLogin);
 	app.post('/login', cAdmin.postLogin);
 	app.get('/logout', logout);
-	app.get('/inicio', auth, cIndex.getInicio);
+	app.get('/inicio', cIndex.getInicio);
 	app.get('/error', cIndex.getError);
 	//ayuda
 		app.get('/ayuda', cIndex.getAyuda);
