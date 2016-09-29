@@ -14,6 +14,8 @@ const cProductos = require('./controllers/cProductos');
 const cTipoProductos = require('./controllers/cTipoProductos');
 const cViajes = require('./controllers/cViajes');
 const cLocalidades = require('./controllers/cLocalidades');
+const cChoferes = require('./controllers/cChoferes');
+
 function logout (req, res) {
 	fecha = new Date();
 	day = fecha.getDate();
