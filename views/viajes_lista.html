@@ -1,0 +1,71 @@
+{% extends 'template.html' %}
+
+{% block title %}
+    {{ pagename }}
+{% endblock %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="left floated left aligned ten wide column">
+        <h1 class="ui dividing blue header">{{ pagename }}</h1>
+    </div>
+    <div class="right floated right aligned six wide column">
+        <div class="ui buttons">
+            <a href="/viajes/alta" class="ui green button inverted" data-tooltip="Nuevo" data-position="bottom center"><i class="large plus icon"></i></a>
+            <div class="ui blue button inverted" data-tooltip="Ayuda" data-position="bottom center"><i class="large idea icon"></i></div>
+        </div>
+    </div>
+</div>
+<!-- <div class="ui blue divider"></div> -->
+<table class="ui sortable celled striped table" id="tabla_viajes">
+    <thead>
+        <tr>            
+            <th>#</th>
+            <th>Nro. Comp.</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Empresa</th>
+            <th>Producto</th>
+            <th>Tractor</th>
+            <th>Semi</th>
+            <th>Chofer</th>
+            <th>Apodo</th>
+            <th>Ton.</th>
+            <th>Creado</th>
+            <th>Salida</th>
+            <th>Llegada Aprox.</th>
+            <th>Llegada Real</th>
+            <th>Obs.</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for v in viajes %}
+            <tr>                
+                <td>{{ v.id }}</td>
+                <td>{{ v.nro_comprobante }}</td>
+                <td>{{ v.id_origen_fk }}</td>
+                <td>{{ v.id_destino_fk }}</td>
+                <td>{{ v.id_empresa_fk }}</td>
+                <td>{{ v.id_producto_fk }}</td>
+                <td>{{ v.id_tractor_fk }}</td>
+                <td>{{ v.id_semi_fk }}</td>
+                <td>{{ v.id_chofer_fk }}</td>
+                <td>{{ v.apodo }}</td>
+                <td>{{ v.toneladas }}</td>
+                <td>{{ v.fecha_generacion_f }}</td>
+                <td>{{ v.fecha_salida_f }}</td>
+                <td>{{ v.fecha_llegada_estimada_f }}</td>
+                <td>{{ v.fecha_llegada_f }}</td>
+                <td>{% if v.observaciones != '' %}<i class="info circle icon" data-content="{{ v.observaciones }}">{% else %}{% endif %}</i></td>
+                <td>
+                    <div class="ui icon buttons">
+                        <a href="/viajes/eliminar/{{ v.id }}" class="ui red icon button inverted" data-tooltip="Eliminar"><i class="large trash icon"></i></a>
+                        <a href="/viajes/modificar/{{ v.id }}" class="ui orange icon button inverted" data-tooltip="Modificar"><i class="large edit icon"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
