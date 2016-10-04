@@ -3,6 +3,7 @@ var mUsuarios = require('../models/mUsuarios');
 var mAyuda = require('../models/mAyuda');
 //requiriendo la conection string
 var mViajes = require('../models/mViajes');
+var mPosiciones = require('../models/mPosiciones');
 
 module.exports = {
 	getInicio: getInicio,
@@ -13,11 +14,15 @@ module.exports = {
 
 function getInicio(req, res){
     mViajes.getAll(function(viajes){
-        // console.log(viajes)
-        res.render('inicio', {
-            pagename: 'enRuta',
-            viajes: viajes
-        });
+        mPosiciones.getPosicion(function(posiciones){
+            // console.log(viajes)
+            // console.log(posiciones)
+            res.render('inicio', {
+                pagename: 'enRuta',
+                viajes: viajes,
+                posiciones: posiciones
+            });
+        });    
     });
 }
 
