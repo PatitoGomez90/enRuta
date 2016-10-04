@@ -31,7 +31,7 @@ function logout (req, res) {
 	return res.redirect('/');
 }
 
-// Verifica que este logueado
+// Verifica que este logueado franco prueba
 function auth (req, res, next) {
 	if (req.session.auth) {
 		return next();
